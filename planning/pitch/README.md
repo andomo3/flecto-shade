@@ -1,21 +1,27 @@
 # Pitch
 
-Owner: the pitch role.
-The submission form copy belongs to the team lead.
+Owner: abba, who also holds the submission.
 
-Drafted before the event, because writing the pitch is planning and is allowed.
-Anything in square brackets waits for what is actually built and measured.
+Rewritten for Plan D, the simulated smart louvre roof, on the evening of Saturday 2026-09-19, following `../plans/pitch-plan-d.md`.
+The bus shelter versions of these files are in the git history.
+There is no hardware: nothing physical was built, and the project is the simulation, the page, the pitch, and the story.
+Anything in square brackets waits for what is actually built.
+Every simulation figure is provisional, from the planner's run in `../plans/packages/H1-zones-light-rain-soil.md`, and is confirmed against `data/processed/headline.json`, which package H3 writes, before it is said or printed.
 
 | File | What | Owner | State |
 |---|---|---|---|
-| `story.md` | The story every script is cut from: the rider, the villain, the story spine, the arc, the sourced specifics, the close | pitch | drafted 2026-09-18 |
-| `script.md` | The 30 second, 60 second, and 3 minute scripts, inside the playbook's word targets, and the recovery lines | pitch | drafted 2026-09-18, read aloud and timed before Saturday |
-| `storyboard.md` | The demo beat by beat: what is said, what the table does, what the screen shows | pitch | drafted 2026-09-18 |
-| `questions.md` | The judge Q&A bank, the playbook's fifteen and the ones only this project gets | pitch | drafted 2026-09-18, brackets filled at the event |
-| `video.md` | The demo video plan: two videos from one shoot, the clock, the shot list, the honesty rules | pitch | planned 2026-09-18, filmed Saturday night and Sunday morning |
-| `placards.md` | "Measured today", "Not yet claimed", "Same leaf, other roofs", "Houston, summer 2023", and the QR | pitch | worded 2026-09-18, made at the event |
-| `checklist.md` | Rehearsal, one hour before, during each visit, between visits, after judging | pitch | drafted 2026-09-18 |
-| `submission.md` | Every field of the form, with the citations and the prior work statement | team lead | drafted 2026-09-18, checked against the real form |
-| `name.md` | The project name and the one sentence | pitch | the name is not decided |
+| `story.md` | The story every script is cut from: the grower, the single curtain, the story spine, the arc, the sourced specifics, the close | abba | rewritten 2026-09-19, the closing line is abba's to write |
+| `script.md` | The 30 second, 60 second, and 3 minute scripts, inside the playbook's word targets with the counts stated, and the recovery lines | abba | rewritten 2026-09-19, figures provisional, read aloud and timed on Sunday |
+| `storyboard.md` | The ninety second demo beat by beat: what is said, what the table does, what the screen shows | abba | rewritten 2026-09-19, matches the plan's table |
+| `questions.md` | The judge Q&A bank, the playbook's fifteen and the ones only this project gets | abba | rewritten 2026-09-19, brackets filled at the event |
+| `video.md` | The demo video plan: two videos from one screen recording, the clock, the shot list, the honesty rules | abba | rewritten 2026-09-19, recorded once H2 plays the day |
+| `placards.md` | "Simulated today", "Not claimed", "Not ours", "Ours", and the QR | abba | worded 2026-09-19, card 1 waits for `headline.json` |
+| `checklist.md` | Rehearsal, one hour before, during each visit, between visits, after judging | abba | rewritten 2026-09-19 |
+| `submission.md` | Every field of the form, with the citations and the prior work statement | abba | rewritten 2026-09-19, checked against the real form |
+| `CLAUDE.md` | Local memory for an agent working in this folder | abba | rewritten 2026-09-19 |
+
+The project name is not decided, and every file carries it as [project name].
+The final scripts, cards, and submission text are copied to `pitch/` at the event repo's root once `headline.json` exists, beside the generated `pitch/figures.md`.
 
 Rules from the playbook's booth advice: one speaker drives, the judge touches it within thirty seconds, no slides at the booth.
+Here the judge touches one thing, the Play button.

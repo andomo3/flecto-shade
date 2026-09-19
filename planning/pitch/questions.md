@@ -2,123 +2,205 @@
 
 The playbook's fifteen questions, turned toward this project, then the ones only this project will get.
 Every answer follows the playbook's formula: the direct answer in ten seconds, the evidence in twenty, the honest scope in ten.
-Never bluff a live capability: offer the recording instead.
+Never bluff a capability: nothing here is physical, nothing here is measured, and the answer to an expert's objection opens by conceding it.
 
-Who answers: the engineers take the leaf, the mechanism, and the electronics, and abba takes the data, the app, and the numbers.
-Anything in square brackets is filled in at the event, from what was actually built and measured.
+Who answers: Ameya takes the data and the simulation, Shannon takes the roof layout and what the fin's publications say, and abba takes the page, the rules, and the figures.
+Anything in square brackets is filled in at the event, from what was actually built.
+Every simulation figure is provisional, from the planner's run in `../plans/packages/H1-zones-light-rain-soil.md`, and is confirmed against `data/processed/headline.json` before it is said.
 
 ## The fifteen
 
 **1. Who is this for, specifically?**
-"A rider waiting at an unshaded bus stop in a hot city. We picked Houston because researchers measured seventeen stops there in the summer of 2023, and because only about one in six Houston stops has a shelter at all. The buyer would be a transit agency, and we have not spoken to one yet."
+"A grower with several crops under one shade house roof.
+We set it near Apopka, in Central Florida, because the University of Florida's centre there calls it the heart of Florida's greenhouse and nursery industry, and shade houses are the practice there.
+Elena, in our pitch, is an illustration.
+We have not spoken to a grower."
 
-**2. What problem does it solve that existing shelters do not?**
-"Two things. In that Houston study the worst shelter was five degrees hotter than standing in the open, because its closed walls trapped the heat. And a fixed roof is built for one sun angle, which the sun holds for about an hour. Ours opens to the air and changes shape with the light. What we have shown is the light on the bench, on a model, and nothing about a full size shelter."
+**2. What problem does it solve that existing roofs do not?**
+"Resolution, and only that.
+A UMass fact sheet says one gear motor handles up to fifty thousand square feet of retractable roof, and one screen motor up to forty thousand.
+So every plant under it gets one decision.
+A roof of many small fins can treat one bed differently from the next.
+Everything else, the light targets and the watering logic, already exists, and we say so."
 
 **3. How did you validate that anyone wants this?**
-"We did not interview riders, and I will not pretend we did. Our evidence that the problem is real is the published study and the city's own shelter count. Rosa, in our pitch, is an illustration and we say so."
+"We did not, and I will not pretend we did.
+Our evidence that the problem is real is published: Purdue's light table puts Boston fern at its best from eight mol a day and hydrangea from twelve, under roofs that make one decision.
+Whether a grower would pay for the difference is unknown."
 
 **4. What did you build, and what is mocked?**
-"Built this weekend: the leaves, the rig, the firmware, the app, and the data pipeline. Real: the sensor readings and the leaf motion you just watched. Simulated: the sun is an LED following a real day's solar data, and [the sun's position is fixed / the sun moves on a servo]. Nothing on that screen is a recorded number unless the banner says recorded run."
+"Built this weekend: the simulation, the page, the result card, and the gate runner that checks them.
+Nothing physical was built.
+Real inputs: one year of hourly rain from the Orlando Executive Airport gauge, and the sun for the same place and year from NASA POWER, which is a satellite product and so is modelled.
+Everything the page shows is simulated, and the page says so on every figure."
 
 **5. What breaks if this were scaled up?**
-"Everything we did not test: wind, rain, fatigue over thousands of cycles, vandalism, and cost. The card on the table lists them. The one thing in our favour is that a hingeless leaf has no joint to seize, which is why the researchers who developed the principle proposed it for shading building facades."
-
-If the judge presses on rain: "Sensing rain and reacting to it is solved: louvred pergolas already close on a rain sensor, and our leaves already move on one sensor. What is not proven is whether the closed leaves shed water, and that is the first full size test. If they do not, a clear sheet under the leaves handles the rain and the leaves handle the sun. And where the summer is nearly rainless, like the fields of California's Central Valley, the same leaf shades a farmworker's break with nothing else needed."
+"Everything we did not model: wind, hail, the fatigue of a fin over years, the count of actuators, and disease from wet leaves.
+The card on the table lists them.
+We make no claim about any of them."
 
 **6. How does the smart part work? Is there AI in it?**
-"No AI, on purpose. It is a light sensor and a threshold with a little hysteresis so it does not flutter. A bus shelter should be as dumb and reliable as a thermostat. The intelligence is in the shape of the leaf."
+"No AI and no learned model, on purpose.
+Nine written rules, in the priority night, then rain, then light, and two runs give identical bytes.
+The fins never follow the sun's position: they react to how much light has arrived, to rain, and to the soil.
+The logic itself is standard practice in greenhouse computers.
+AI tools wrote code from our specifications, and they are cited in the submission."
 
-**7. What happens when the laptop or the data is unavailable?**
-"The canopy does not need either. Unplug the laptop and the leaves still follow the light, because the control runs on the board. The laptop only plays the sun and draws the screen, and the dataset is a file on the disk, downloaded before the event."
+**7. What happens when the network or the data is unavailable?**
+"Nothing changes.
+It builds and runs with no network, the two data files are on the disk, and the page fetches nothing from the internet.
+If the page fails, there is a recorded run of the same day, and behind that a screen recording."
 
 **8. Where does the data come from, and who can see it?**
-"The solar data is the European Commission's PVGIS typical year for Houston, open and free, and the sun's position is computed with the open source pvlib library. There is no personal data anywhere: the only things we record are light readings from our own table."
+"The rain is NOAA's global hourly record for the Orlando Executive Airport gauge, 2023.
+The sun and the temperature are NASA POWER for the same point and year.
+The crop figures are from Purdue, Washington State, and the FAO's irrigation paper 56, each cited with its address.
+There is no personal data anywhere."
 
 **9. Why this stack?**
-"An Arduino, because a threshold does not need more. Python and one static page, because it had to run with no network at a crowded venue. No framework, no build step, so nothing could break at 3 am."
+"Python with pandas for the simulation, and one plain page of HTML, CSS, and JavaScript.
+No framework, no build step, and no network, so nothing could break at 3 am at a crowded venue, and every spoken figure comes from one file the build writes."
 
 **10. What would you cut with four fewer hours?**
-"[The servo mounted sun and the temperature sensors], in that order. We wrote the pivots down before the event with the hour each one fires, so the core loop was always safe: light, leaves, number."
+"[Filled in at the event.
+The plan's order: the second view that draws the fins one by one, then the year view, and the one day playing end to end was always safe.]"
 
 **11. What would you build with four more weeks?**
-"Three things. A full size leaf in a weatherproof material. A week of outdoor measurement with a real heat stress instrument rather than a light sensor. And a conversation with one transit agency about one real stop."
+"Three things.
+A conversation with a grower near Apopka about where this is wrong.
+A soil bucket sized for containers, because nursery stock is often grown in them and ours is an assumed sixty millimetres.
+And wind, which the simulation does not model."
 
-**12. How would this reach its first real stop?**
-"Through a pilot, not a sale: one agency, one stop, one summer, with the measurement published either way. Houston already maps which stops have shelters, so the first candidates are easy to find."
+**12. How would this reach a real grower?**
+"Through a conversation, not a sale: one grower, or the University of Florida's research centre in Apopka, shown the rules and asked what is wrong with them.
+After that, a small row of fins on one actuator.
+We have done neither."
 
 **13. What did each of you own?**
-"[Engineer one] the leaves and the mechanism, [engineer two] the rig and the electronics, and I did the firmware, the app, the data, and this pitch. We are three people, so the seams between us were written down before we started."
+"Ameya the data and the simulation, Shannon the roof layout, and abba the page, the result card, the integration, and this pitch.
+Each of us drove a build agent in the same repo, so the seams between us were files with written schemas."
 
 **14. What was the hardest problem, and how did you solve it?**
-"[Filled in at the event, by whoever fought it. Most likely getting three leaves to buckle the same way from one motor.]"
+"[Filled in at the event, by whoever fought it.
+One candidate, from the planning: a typical solar year joined to a real year of rain made rainy hours brighter than dry ones, so we took the sun from the same place and year as the rain, and now rainy daylight hours carry about 0.63 of the light of dry ones, modelled.]"
 
 **15. Can I try it myself right now?**
-"Please. Press play, and then put your hand over that sensor."
+"Please.
+Press Play."
 
 ## The ones only this project gets
 
-**How does it know where the sun is?**
-"It does not, and it does not need to. It reacts to the light that actually arrives, so a cloud, a tree, or a parked truck are all handled the same way."
+**Growers keep rain off crops, so why let it in?**
+"You are right, and we concede it for a glasshouse, for ferns, and for fruit near harvest.
+Cravo, who make roofs that open, close them before the rain.
+That is why this is a shade house, why each crop opts in, only in daylight, only with time to dry, and why the fern opts out.
+We claim the water arithmetic and never safety from disease."
 
-**Is the app just playing a script?**
-"The app plays the sun. Nothing plays the leaves. Cover the sensor and they relax, uncover it and they bend, whatever the app is doing."
-If replay mode is on: "Right now, yes: this room's lighting fools our sensor, so the app is driving the leaves from the data and the banner says so. Here is this morning's recording of the sensor doing it."
+**Your logic is already in Priva.**
+"Yes.
+Ridder and Hoogendoorn water by the radiation sum, Argus sells a daily light integral program, and Priva steers screens from a light sensor.
+The contribution is the resolution of the actuator, a bed and not a bay, and not the algorithm."
 
-**Why not just build a bigger fixed roof?**
-"A bigger roof is more material, more wind load, and it blocks the winter sun riders want. This one shades at midday and opens when the light is gentle. [If the backup fixed roof was built: and here is the fixed roof beside it, reading Z percent.]"
+**Is this real?**
+"No.
+The rain is a real gauge, the sun is a satellite product for the same hours, the soil and crop numbers are textbook coefficients with assumed bucket sizes, and nothing physical was built."
 
-**If bent is the shading state, why not leave it bent all summer? What does moving buy?**
-"At noon in July, nothing: a closed fixed roof shades just as well, and we will not pretend otherwise. Moving buys the other hours. Open, the roof lets air through, and the shelter that was hotter than the open in the Houston study failed because it was closed in and trapped heat. Open, it lets the low winter sun in, keeps the stop visible at night, and turns its blades edge on to a storm. [If the backup fixed roof was built: and here is the fixed roof beside it.] What we measured is only the two states, bent and resting."
+**Why is there no physical prototype?**
+"Because the fin is not where our work is.
+It is an existing mechanism, published and patented by its inventors, so printing one would have shown their idea and not ours.
+Our contribution is the zone by zone control and the simulation over a real year of weather, and the hours went there.
+We claim nothing about the fin's mechanics."
 
-**The study says that shelter was hot because it trapped heat, not because the sun moved. Does your roof fix that?**
-"You are right about the study, and we say it that way. Its cause was closed acrylic and metal walls. Our answer to that is the resting state: open blades with sky between them, nothing closed in. The moving sun is our second argument, not the study's. We have not measured temperature under either state."
+**Is the fin your idea?**
+"No.
+It is the Flectofin, by ITKE at the University of Stuttgart with the University of Freiburg, patented as EP2320015, and the page credits it.
+We found no prior proposal to put a Flectofin over crops, and that is an absence in our searches, not proof."
 
-**The same study found trees were the best shade. Why not plant a tree?**
-"Plant the tree. It was the best thing they measured, almost six degrees. But a tree takes years to cast a bench's worth of shade, needs soil and water, and many stops are a pole in a strip of concrete. This is for the stop where a tree cannot go, and for the years before the tree grows."
+**What about wind and hail on thin fins?**
+"Unproven.
+The simulation does not model wind, and closing and stowing in a storm is future work."
 
-**Houston METRO is already putting in ventilated shelters with perforated walls. Why is this needed?**
-"That is the same lesson we took from the study, and it fixes the trapped heat. It does not fix the shade drifting off the bench as the sun moves, because the roof is still fixed. [Verify the METRO programme at a METRO source before saying any number about it.]"
+**What does it cost against a screen at two dollars a square foot?**
+"We make no cost claim.
+One actuator a row would keep the actuator count near that of screens, and that is a hypothesis, not a finding."
 
-**Only one in six stops has any shelter, because shelters cost money. Why would an agency buy a dearer one?**
-"They would not, for every stop. It belongs at the few stops where the most riders wait the longest in the harshest sun, [and our data analysis ranks exactly those stops, if it ships]. We have no cost number for a full size leaf."
+**Why would a hingeless fin matter here?**
+"The sources document the chores it removes: an insurer's guide tells growers to lubricate bearings, racks, and vent hinge points, and a university fact sheet asks for cable tension kept and gear motors lubricated once or twice a year.
+A fin with no hinge removes documented maintenance tasks.
+No saving is quantified, by them or by us."
 
-**Where does the power come from at a stop with no mains?**
-"[Engineers to confirm.] The leaves move about twice a day and hold their shape in between, so the energy is small: the intended answer is a small panel and a battery, the way lit shelters already work. We ran ours from [the bench supply], and we did not measure the energy per cycle."
+**Why Apopka, and why is your gauge in Orlando?**
+"Apopka because of the industry there, in the University of Florida's own words.
+Orlando Executive Airport because, of four gauges near Apopka, it was the most complete: 8,760 hourly reports with two lacking the rain field.
+The page names the gauge and says near Apopka."
 
-**What happens when the motor or the sensor fails?**
-"[Engineers to confirm which state the leaf returns to with no power.] It should fail to whichever state is safer in a storm, which is resting and edge on. A failed leaf is then an open pergola, not a hazard."
+**Was 2023 a special year?**
+"No.
+At that gauge it was 2.4 percent above the 1991 to 2020 normal for rain, an ordinary year.
+It is still one year."
 
-**Your sun is an LED a few centimetres away. Does the [X] against [Y] carry over to the real sun?**
-"The direction does, and the size does not. An LED that close is a point of light, the real sun's rays are parallel, and the sky adds diffuse light from every side. That is why the card says under an LED sun. The real number needs a real afternoon outdoors."
+**The rain supplied 54 percent of the hydrangea's water. Is that water saved?**
+"No, and we never say so.
+It is the rain the zone's soil stored, over that rain plus the grower's irrigation, in a simulated year with an assumed soil bucket.
+For the blueberry zone it is about 17 percent, and for the fern it is zero, because the fern opted out."
 
-**How sure are you of those two numbers?**
-"[N] readings in each state across [N] cycles, mean [X] with a spread of [S], mean [Y] with a spread of [S]. The two ranges [do / do not] overlap. One table, one room, one day."
+**Opening for the rain gave the hydrangea light it did not want. Why not fix that?**
+"Because it is the honest price of the rule, and it is on the card: about six mol on the demo day.
+The priority is night, then rain, then light, and a fin that lets rain through lets light through."
 
-**What about the late afternoon, when the sun is low and comes in under any roof?**
-"An overhead leaf does nothing for a low sun, and that is true of every roof. In our geometric model a leaf on the sunward eave added far more shade hours than a roof tilting about its centre. That is modelled with placeholder dimensions, not measured."
+**How sure are you of the demo day?**
+"We scaled the evaporation from 0.95 to 1.05 in seven runs.
+The blueberry's answer held in all seven, and the hydrangea's in six, and the fern opts out whatever its soil does.
+The blueberry stays shut on a margin of 1.2 millimetres of soil water, and the rain hour at three sits 1.1 millimetres under the hard rain cap.
+Those are the gauge's readings and nothing was tuned, and we say how thin they are."
 
-**You measured light. Is that the same as heat?**
-"No, and we do not claim it is. Direct sun is a large part of what a rider feels at a bus stop, and light is what we could measure honestly in a day on a table under an LED. Temperature needs a real sun and a real afternoon. [If the temperature sensors read: we logged temperature as well, and it showed D degrees, which we treat as a footnote.]"
+**Your sun is a satellite cell. Does it see the storm?**
+"Not always.
+The cell is about 100 kilometres across, so a local storm can rain under a bright cell, as on 29 July 2023.
+On the demo day the sun dims as the rain arrives and does not collapse.
+The page says the sun is modelled."
 
-**What is the leaf made of, and how long does it last?**
-"[Material and thickness, from the engineers.] It survived [N] cycles this weekend. Fatigue life is a real question and we have not answered it."
+**Are your light sums right?**
+"They may read 5 to 18 percent high.
+We convert global solar to plant light with 0.45, a choice inside the published range, and field values sit lower.
+It is a named constant and a row in the README's table of assumptions."
 
-**What does it cost?**
-"The model is [one hobby servo, a few sensors, and printed parts]. We have no honest number for a full size one."
+**Why shade blueberries in Florida?**
+"It is not Florida practice, and the page says so.
+The 30 to 50 percent figure is a heat recommendation from Washington State University.
+The blueberry zone is the weakest of the three."
 
-**Is this your idea?**
-"The bending principle is called Flectofin, developed by researchers at the University of Stuttgart from the bird of paradise flower, as a shading system for building facades. Putting it on a bus stop, driving it from a light threshold, and measuring the bench is ours. [Confirm with the engineers that Flectofin is the mechanism before saying this.]"
+**How many fins, and how many motors?**
+"[From Shannon's roof layout, as a modelled design.]
+The simulation treats a zone's roof as one open fraction, so the layout changes what you see and never a figure on the card.
+We claim nothing about actuators."
 
-**What did you do before the event?**
-"Research, planning, and one throwaway prototype of the serial format to check our spec, all public: the planning repo is linked from our README and the prototype is labelled there. None of it was copied. Every line of code and every part in front of you was made after eleven on Saturday."
+**An open roof loses heat, and carbon dioxide where it is dosed.**
+"Agreed, which is another reason this is an unheated shade house and not a glasshouse."
 
-**Why does it matter beyond Houston?**
-"Every hot city has riders and stops. The same leaf works over a farmworker's rest shade or a grower's crop, and that card shows three. [If the city picker shipped: and here is the same day in another city.]"
+**What did you build this weekend, and what did you plan before?**
+"Everything in the repo was written during the event.
+The planning repo is public and linked, and it shows the project changed direction four times on Saturday: a bus shelter roof, a simulated one, a leaf design tool, and this.
+That is true, and the commit history shows it."
+
+**How did three of you use the build agents?**
+"One package, one branch, one owner.
+Every expected value was computed from the real data before any code existed, so an agent could not pass by agreeing with its own mistake, and gates ran after every package.
+It is all in `CHECKLIST.md`."
 
 ## Rules for the table
 
 - Thirty seconds an answer, then stop.
 - Answer the question asked, and let the person who built the thing answer it.
+- To an expert, concede before explaining.
 - "We did not get to that, and here is how I would find out" is always allowed, and bluffing never is.
 - End with "thank you", never with "that's all".
+
+## Where each figure came from
+
+| Figure | File |
+|---|---|
+| 50,000 and 40,000 square feet a motor, the makers and what each sells, the maintenance chores, the two dollars in the judge's question | `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md` |
+| 8 and 12 mol, 30 to 50 percent, the four gauges and 8,760 reports, 2.4 percent, 0.63, 54 and 17 percent, 6 mol, the seven runs, 1.2 and 1.1 mm, 5 to 18 percent, the 60 mm bucket | `../plans/packages/H1-zones-light-rain-soil.md`, the simulation figures provisional until `headline.json` exists |
+| The 100 km cell and 29 July 2023 | `../plans/plan-d-louvre-roof.md` and `../plans/packages/S1-solar-2023.md` |
+| The patent and the two universities | `../docs/research/flectofin-design-tool/sector-choice.md` |

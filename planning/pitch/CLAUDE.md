@@ -1,91 +1,87 @@
 # pitch - local memory
 
-> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
-> The current plan is the simulated louvre roof over three crops.
-> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
-> If you are a build agent and you arrived here, stop, and go back to those files.
-
-Owner: the pitch role, not assigned yet.
-With three people it most likely falls to abba, alongside the submission.
-Writing the pitch before the event is planning and is allowed.
-Use the `hackathon-pitch`, `hackathon-readme`, and `hackathon-testing` skills, which are built from the playbook.
+Owner: abba, alongside the submission.
+The current plan is `../plans/plan-d-louvre-roof.md`, the simulated smart louvre roof, and the guide for these files is `../plans/pitch-plan-d.md`.
+Use the `hackathon-pitch`, `hackathon-readme`, and `hackathon-testing` skills, which are built from `../playbook.md`.
+This folder is Markdown only, and a build agent never changes it.
 
 ## Where the pitch lives
 
-`story.md` is written first and every script is a cut of it.
-`script.md` holds the 30 second, 60 second, and 3 minute versions, each inside the playbook's word target, checked with the skill's `pitch_timer.py`.
-`storyboard.md` is the demo beat by beat, and its screen column is the source for `../software/ui-brief.md`.
-The hero is an illustrative rider, the villain is the roof that does not move, and the closing line is "We cannot move the sun. So we built the roof that moves instead."
-Every study figure is read once more at its source before it is said out loud.
+`story.md` is written before anything else and every script is a cut of it.
+`script.md` holds the 30 second, 60 second, and 3 minute versions, each inside the playbook's word target, with the count stated in the file.
+The skill's `pitch_timer.py` was left in the planning repo on purpose, so the count is taken in an editor or with a new one line counter.
+`storyboard.md` is the ninety second demo beat by beat, and it matches the table in the plan.
 `questions.md` is the Q&A bank, `video.md` is the two video plan with its clock and shot list, `placards.md` is the four cards, `checklist.md` is rehearsal and the table routine, and `submission.md` is the form draft with the citations and the prior work statement.
-The safety take of the video is filmed Saturday between 23:00 and 00:45, and cut while the venue is closed.
 
-## The story, locked on 2026-09-18
+## The story, as of the evening of 2026-09-19
 
-- One sentence: a tabletop bus stop roof made of hingeless leaves that buckle open on their own when the sun comes out, so the bench underneath stays shaded.
-- The user is a person on a bench in the Houston sun, introduced as an illustrative rider, and the opening line is "Picture Rosa. It is three in the afternoon in July, in Houston, and her bus is twelve minutes away."
-- The watched moment: the judge presses play, one real Houston day runs in about a minute, the sun climbs, and three leaves buckle together from one servo with no hinge.
-- The number, said out loud: "X percent of the light reaches the bench with the leaves flared, against Y percent resting."
-  If the backup fixed roof is built, the same number is also said adaptive against fixed.
-- The proof it is not a script: cover the light sensor with a hand and the leaves respond.
+- One sentence: a Central Florida grower with three crops under one shade house roof gives each its own light, and lets the rain through only where the soil is dry, with a roof made of many small hingeless fins in place of one big curtain.
+- The hero is a grower near Apopka, introduced as illustrative, and the opening line is "Picture Elena, a grower near Apopka, Florida."
+  The name is the team's to change.
+- The villain is the single curtain: one motor, one decision, for every plant under it.
+- The three specifics: 50,000 square feet a motor, from the UMass fact sheet; the fern's 8 mol a day against the hydrangea's 12, from Purdue; and the rain's share of the hydrangea zone's water, about 54 percent, from our own simulated run.
+- The watched moment: the judge presses Play, 3 June 2023 runs in about a minute, the fern's zone shuts by eleven, the hydrangea's by noon, the blueberries stay open, and then the afternoon storm gets three answers, each with its reason in words.
+- The closing line is abba's to write, and the scripts carry a working draft until then.
 
-## Changes on 2026-09-19, at the event
+## No hardware, decided by the team lead on the evening of 2026-09-19
 
-- The lens is impact on human life, from the keynote and a challenge, and `story.md` has the rules for it: Rosa stays the one hero, and the farmworker on a rest break and the grower appear once, in the vision beat and on card 3.
-- The study's own cause for the hot shelter is trapped heat in closed acrylic and metal walls, not the moving sun.
-  Every script and the storyboard now say the trapped heat first and the moving sun second, as our argument and not the study's.
-- The rain answer is in `questions.md` under question 5: sensing is solved, water shedding is untested, a clear sheet under the leaves is the fallback, and the farmworker's summer is nearly rainless.
-- Ten more questions judges can pry on are in `questions.md`, the sharpest being "why not leave it bent all summer".
-- California's Title 8 section 3395 requires shade above 80 F, enough to "sit in a normal posture fully in the shade", read at the source on 2026-09-19.
-- Still to verify at a source before it is said: the Central Valley's nearly rainless summer, and any number about Houston METRO's ventilated shelters.
-- The data finding for the Voloridge challenge, if it ships, comes from `../docs/research/adaptive-bus-stop-canopy/voloridge-datasets.md` and is said as modelled.
-
-## Plan B, chosen 2026-09-19
-
-The team can demo the flapping leaf and nothing else, so the stop is simulated and the simulation drives the real leaf.
-`script-plan-b.md` is the script that is rehearsed, all three lengths inside their word targets, and `script.md` is kept as the record of the live version.
-Nothing is called measured, the closing line says "designed" where it said "built", and "nothing tells the leaves what to do" is gone because the simulation now does.
-The number is two numbers: [X] against [Y] for the harsh hours, which a fixed roof could match, and [W], the winter sun the open leaves give back, which it cannot.
-Still to rewrite for Plan B, from the list in `../plans/plan-b-simulated.md`: the storyboard's table and screen columns, cards 1 and 2, the video plan, and the submission's first paragraph.
+- Nothing physical was built, and nothing is on the table to hold.
+- The judge touches one thing, the Play button.
+- The plan's beat at 0:20 is used to say what a fin is: a hingeless fin, ITKE's Flectofin, patent EP2320015, credited, not ours.
+- The question bank answers "Why is there no physical prototype?": the fin is an existing, published, patented mechanism, the team's contribution is the zone by zone control and the simulation, and nothing is claimed about the fin's mechanics.
+- The plan, the demo gate, the rules, and the board were all updated the same evening and say the same.
 
 ## Honesty rules
 
-- Only what was measured on the table today is claimed as measured.
-- Shade hours per year and anything from the dataset are said as modelled.
-- Temperature is secondary and is mentioned only if it reads.
-- If replay mode is in use, the pitch says so: "the app is driving the leaves from the data right now."
-- Open source libraries and the dataset are cited in the submission, because the rules require it.
+- What is not ours is said unasked, before a judge can ask: the fin is ITKE's, the control logic is standard practice in greenhouse computers sold by Ridder, Hoogendoorn, Argus, and Priva, moving roofs over crops are sold by Cravo and Sun'Agri, growers keep rain off glasshouse crops on purpose, and nothing here is measured.
+- What is ours is the resolution, zone by zone.
+  The words are "we found no prior proposal to put a Flectofin over crops".
+- Every figure is said as simulated or modelled.
+  The rain is one real gauge's record, and the sun is a satellite product.
+- The roof follows nine written rules, in the priority night, then rain, then light.
+  No AI and no learned model is in the loop, and the fins never follow the sun's position.
+- The structure is a shade house.
+  The team may say greenhouse in plain speech, and anything written for the page says shade house.
+- Shading blueberries is not Florida practice, and that figure is from Washington State.
+- Every library, dataset, crop figure source, and AI tool is cited in the submission, because the rules require it.
+- To a horticulture expert, concede before explaining.
 
-## Questions judges will ask, to answer in `questions.md`
+## The words the team never says
 
-- How does it know where the sun is?
-  It does not, it reacts to the light it sees, and that is the point.
-- Is the app just playing a script?
-  The data moves the sun, the sensor moves the leaves, cover the sensor and watch.
-- Why not a bigger fixed roof?
-- Why no hinges, and what is the leaf made of?
-- What did you measure and what did you model?
-- What did you build in the 24 hours?
-  Everything in the submitted repo, and the planning repo is linked and public.
-- What would a full size one cost, and what about wind and rain?
-  Not tested, and the placard says so.
-- Why Houston, and does it work elsewhere?
-  The city picker, if it ships.
+These appear in this folder only inside lists like this one.
 
-## Files to write, and when
+"First".
+"Measured", as a claim about anything here.
+"Maintenance free".
+"Weatherproof".
+"It works", of a simulation.
+Any figure for cost, yield, energy, or water saved.
+"No one does light or radiation based control".
+"Greenhouses waste rain".
+"We invented the fin".
+In their place: "we found no prior proposal in our searches", "simulated", and "removes documented maintenance tasks".
+The sources are in `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md`.
 
-| File | When |
+## Figures
+
+- Every simulation figure in this folder is provisional, from the planner's run in `../plans/packages/H1-zones-light-rain-soil.md`.
+- The final figures come from `data/processed/headline.json`, which package H3 writes, and the sentences the speaker says come from the generated `pitch/figures.md` at the event repo's root.
+- Nobody types a figure from memory, and if a figure is missing the file says "FIGURE NEEDED" and what.
+- Each file ends with a short table saying which file each figure came from.
+
+## When each thing is finished
+
+| What | When |
 |---|---|
-| `name.md`, the project name and the one sentence | the name is not decided yet |
-| `script.md`, the ninety second script | a draft before Saturday is allowed, the number stays X and Y until the measurement run |
-| `questions.md` | before Saturday |
-| `placards.md`: "Measured today", "Not yet claimed", "Same leaf, other roofs" | Saturday |
-| `video.md`, where the backup video lives | recorded after the first clean run, Sunday 08:00 at the latest |
-| `submission.md`, every field of the form | drafted Saturday, checked at the freeze |
+| The story and the one sentence | now, because they need no figures |
+| The three scripts, with the figures confirmed | after H3 is merged |
+| The cards, the question bank, the screen recording | Sunday 07:00 to 09:00 |
+| The README and the submission | Sunday 09:00 to 10:30 |
+| The table routine in `checklist.md` | before every judge |
 
-## Pivots that change the words
+## Cuts that change the words
 
-- No servo mounted sun: "the sun gets brighter and dimmer through the day" replaces "the sun moves".
-- Replay mode: say it.
-- The bench sensor shows no difference: the number becomes "N of N light triggered cycles".
-- The rig breaks: the backup video, then the fixture replay on the laptop.
+- H3 not merged: the fifty four percent is not said, the day ends on H2's plain table, and card 1 is left off the table.
+- The year view cut: beat 7 of the storyboard closes on the result card.
+- The roof layout file absent: the page says "default layout", and nothing spoken changes.
+- The page fails: the recorded run, then the screen recording, with the same words.

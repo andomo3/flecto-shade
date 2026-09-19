@@ -1,107 +1,137 @@
 # The story
 
-Written first, because every script is a cut of it.
-Built from the playbook's storytelling section, through the `hackathon-pitch` skill.
-Every figure below carries its source, and anything in square brackets is the team's to decide or to measure.
+Written before the scripts, because every script is a cut of it.
+Built from the playbook's storytelling section, through the `hackathon-pitch` skill, following `../plans/pitch-plan-d.md`.
+Every figure below carries its source, and anything in square brackets is the team's to decide or to confirm.
 
-Two honesty notes, settled before a word is spoken.
-Rosa is an illustrative rider, introduced with "picture", because we interviewed nobody.
-The "ever since then" beat is a vision, said as a vision, because nothing has been deployed.
+Four honesty notes, settled before a word is spoken.
+There is no hardware at all: nothing physical was built, nothing is on the table to hold, and the project is the simulation.
+Elena is an illustrative grower, introduced with "picture", because we interviewed nobody.
+The "ever since then" beat is a vision, said as a vision, because nothing has been built or deployed.
+Every figure from our own run is provisional, from the planner's run, and is confirmed against `data/processed/headline.json` before it is said.
 
-## The hero: the rider
+## The hero: the grower
 
-[Rosa], waiting for a bus in Houston at three in the afternoon in July.
-She is not an engineer, a planner, or a user persona: she is someone standing in the sun with nowhere to go for twelve minutes.
-The judge has been her.
+[Elena], a grower near Apopka, in Central Florida, with three crops under one shade house roof: Boston fern, hydrangea, and blueberry.
+She is not an engineer or a persona on a slide: she is someone with three kinds of plant and one sky to give them.
+The name is illustrative and the team may change it.
+The structure is a shade house, and the team may say greenhouse in plain speech.
 
-## The villain: the roof that does not move
+Why Apopka: the University of Florida's research centre there describes itself as "Located in the heart of Florida's greenhouse and nursery industry", and shade houses are the practice there.
+Any grander title for the town was seen only in search snippets, and is never said.
 
-Not "heat", which is too large to fight, and not "climate", which is too abstract to picture.
-The villain is the fixed roof: a slab bolted in place, built for one angle of a sun that never holds still.
-It has an accomplice in the numbers, and that is what makes it strong.
+## The villain: the single curtain
+
+Not "the weather", which is too large to fight, and not "inefficiency", which nobody can picture.
+The villain is the single curtain: one motor, one decision, for every plant under it.
+It is strong because it is the honest state of the art, and the numbers say so.
 
 | Specific | Source | Status |
 |---|---|---|
-| Houston researchers measured 17 bus stops across 13 days in July and August 2023 | UTHealth Houston release on Lanza et al. 2025, doi 10.1016/j.trd.2025.104653 | read the release once more before saying it |
-| Open ground averaged 92.5 F wet bulb globe temperature | the same release | same |
-| The best shelter was 5.9 F cooler, and the worst enclosed shelter was 5.2 F hotter than standing in the open | the same release | same, and this is the line that turns a judge's head |
-| The study's own reason for the hot shelter: "the enclosed acrylic walls with metal trapped radiation inside the shelter, it was like an oven", Kevin Lanza | the same release, https://sph.uth.edu/news/story/shelters-at-bus-stops-intended-to-provide-relief-from-heat-can-actually-result-in-higher-temperatures-uthealth-houston-researchers-discover, found by search 2026-09-19 | the cause is trapped heat, not the moving sun, so the scripts say both and never offer the moving sun as the study's finding |
-| Trees were the best shade in the study, 5.9 F on average | the same release | a judge will ask "why not a tree", and `questions.md` answers it |
-| 2,187 of Houston's 13,162 bus stops have a shelter at all | City of Houston bus stop layer, last edited June 2022 | say "about one in six" and name the year |
-| The leaf borrows from the bird of paradise flower, which bends open under a bird's weight with no hinge | the Flectofin principle in `../docs/research/adaptive-bus-stop-canopy/feasible-build-plan.md` | confirm with the engineers that this is their mechanism |
-| [X] percent of the light reaches the bench with the leaves flared, against [Y] percent resting | our own sensors, on the table, today | measured at the event |
-| California requires shade for outdoor workers above 80 F, enough that they can "sit in a normal posture fully in the shade" | California Code of Regulations, Title 8, section 3395, https://www.dir.ca.gov/title8/3395.html, read 2026-09-19 | for the widening beat and the rain answer only, never one of the three spoken specifics |
+| "One gear motor will handle up to 50,000 sq ft of roof" | UMass fact sheet on retractable roof greenhouses and shadehouses, quoted in `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md` | spoken specific 1, read once more at the source before it is said |
+| For screens, "one drive motor can handle up to 40,000 sq ft" | UMass fact sheet on selecting a screen system, the same research file | for the question bank only |
+| Boston fern is "high quality" from 8 mol per m2 per day, and hydrangea from 12 | Purdue HO-238-W, Table 2, quoted in `../plans/packages/H1-zones-light-rain-soil.md` | spoken specific 2 |
+| Blueberry: "A 30-50% shade net is recommended", so the zone uses a shade share of 0.40 | Washington State University fact sheet, in H1 | not Florida practice, said so whenever the blueberry's number is said |
+| The rain supplied about 54 percent of the hydrangea zone's water over 2023, simulated | our own run, 0.545 in H1's year table | spoken specific 3, provisional, from the planner's run, confirm against `headline.json` before it is said |
+| About 17 percent for the blueberry zone, and the fern held to its 8 mol on about 354 of 365 days, simulated | H1's year table, 0.171 and 354 | provisional, the same rule, for the card and the questions |
+| 3 June 2023: 42 mm of rain in two hours, the fern shut at eleven, the hydrangea at noon | H1's demo day table, 42.4 mm, local hours 11 and 12 | provisional, the same rule |
+| Opening for that rain gave the hydrangea about 6 mol of light it did not want | H1's demo day, 5.96 mol, 12.72 to 18.68 | provisional, the same rule |
+| 2023 was an ordinary year for rain at that gauge, 2.4 percent above the 1991 to 2020 normal | H1, from the NOAA normals for station USW00012841 | for the questions |
+| The fin is the Flectofin, by ITKE at the University of Stuttgart, patented as EP2320015 | `../docs/research/flectofin-design-tool/sector-choice.md` | said unasked, every time |
 
 Three specifics per sixty seconds is the playbook's rule.
-Ours are 5.2 degrees hotter, one in six, and [X] against [Y].
+Ours are 50,000 square feet a motor, 8 mol against 12, and about 54 percent.
+
+## The turn
+
+A roof made of many small fins can give each bed its own answer.
+That is the whole idea, and it is the only part that is ours.
 
 ## The story spine
 
-- **Once upon a time** there was a rider named [Rosa], who took the bus home across Houston.
-- **Every day** she waited at a stop in the afternoon sun, and like five out of six stops in her city, hers had no roof at all.
-- **Until one day** researchers carried instruments to 17 Houston stops in the worst of the summer, and found something nobody expected: some shelters were hotter than standing in the open.
-- **Because of that** we stopped asking how to build more roofs, and asked why a roof fails: that one was closed in and trapped the heat, and every one stands still while the sun moves all day.
-- **Because of that** we went looking for a roof that moves, and found one in a flower: the bird of paradise bends open with no hinge, no joint, and nothing to wear out.
-- **Until finally** we built a bus stop roof of three hingeless leaves that feel the sun and bend into shade on their own, and we measured the light on the bench beneath them.
-- **And ever since then**, in the city we want, a shelter is not a slab: it shades Rosa in July, opens to the sun in January, and does both with one motor and no hinges.
-  And the same leaf follows the sun for anyone who cannot leave it: a farmworker on her break, a grower's crop at midday.
+- **Once upon a time** there was a grower named [Elena], near Apopka, with three crops under one shade house roof.
+- **Every day** one curtain made one decision for all of them, because one motor moves up to 50,000 square feet of roof.
+- **Until one day** we read the growers' own light tables, and the fern wanted 8 mol a day where the hydrangea wanted 12, and the blueberries wanted nearly all of it.
+- **Because of that** whatever the curtain did was wrong for somebody, and we asked what a roof would do if it could decide bed by bed.
+- **Because of that** we went looking for a roof element small enough, and found one that already exists: ITKE's Flectofin, a fin that bends open with no hinge.
+- **Until finally** we simulated a roof of those fins over her three zones, on a real year of Central Florida weather, by nine written rules: night, then rain, then light.
+- **And ever since then**, in the shade house we want, the fern is shut by eleven, the blueberries have the whole sky, and the afternoon storm falls only on the bed that is dry.
+  That is a vision, and it is said as one.
 
-## The lens: one human life at a time
+## The lens: the honesty is the pitch
 
-The event's keynote and one of its challenges ask for impact on human life, so the story is told through that lens, and it already is one: a person, a bench, and twelve minutes.
-The lens changes the emphasis, not the claims.
+A judge who knows horticulture will know within a minute that most of this exists.
+So the story says it before they can, and that is what earns the one claim that is left.
+The lens changes the order, not the claims.
 
 - **One hero, still.**
-  Rosa carries the pitch from the first line to the last.
-  Three heroes is no hero, so the others appear once, in the vision beat, and on card 3.
-- **The widening, in order of human weight.**
-  The farmworker on a rest break, where the law already demands she sit "fully in the shade" and the shade drifts off the bench by afternoon.
-  The grower, whose crop wants the morning light and scorches at noon, and whose livelihood is the human stake.
-  The plant is never the hero: a judge scoring human impact scores the grower.
-- **The farmworker also answers the rain question.**
-  Her summer is nearly rainless, field work stops when it rains, and her shade is for the sun only.
-- **The lens does not loosen the honesty rules.**
-  We measured light on a bench.
-  We never say the leaf saves lives, lowers heat illness, or cools anyone, and the closer the story gets to a human life the more that line matters.
-  The human stake is carried by the cited study and the cited law, and our number stays a light number.
+  Elena carries the pitch from the opening line to the last.
+  The plants are never the hero: the stake is a grower's living.
+- **What is not ours is said unasked, in this order.**
+  The fin is ITKE's.
+  The control logic, watering by the sun's energy and holding a daily light target, is standard practice in greenhouse computers sold by Ridder, Hoogendoorn, Argus, and Priva.
+  Moving roofs over crops are sold by Cravo and Sun'Agri.
+  Growers keep rain off glasshouse crops on purpose, which is why this is a shade house, why each crop opts in, and why the fern opts out.
+  Nothing here is measured.
+- **What is ours is one thing.**
+  The resolution, zone by zone.
+  The words are "we found no prior proposal to put a Flectofin over crops", and never anything stronger.
+- **The roof is dumb on purpose.**
+  Nine written rules, no AI and no learned model in the loop, and the fins never follow the sun's position.
+  They react to how much light has arrived, to rain, and to the soil.
 
 ## The emotional arc, at the table
 
 | Beat | Feeling | What carries it |
 |---|---|---|
-| Setup | recognition | "Picture Rosa", three in the afternoon, July, twelve minutes |
-| Tension | surprise, then unease | the shelter that was 5.2 degrees hotter than no shelter |
-| Rising action | curiosity | the sun moves, the roof does not, and a flower that bends without a hinge |
-| Climax | delight | the judge presses play, a Houston day runs in a minute, and the leaves bend on their own |
-| Proof | trust | the judge covers the sensor with a hand and the leaves respond: it is not a script |
-| Resolution | relief | the number on the bench, [X] against [Y] |
-| Close | warmth | back to Rosa, then the offer |
+| Setup | recognition | "Picture Elena", three crops, one sky |
+| Tension | unease | one motor, 50,000 square feet, one decision for every plant under it |
+| Disarming | trust | what is not ours, said before anyone asks |
+| Rising action | curiosity | what a fin is, over the shut roof: a blade that bends open with no hinge, ITKE's and credited |
+| Climax | delight | the judge presses Play, and by noon the three zones stop behaving as one roof |
+| Proof | surprise | the same storm, three answers, each with its reason in words |
+| Resolution | respect | the trade on the card: the rain came with six mol of light the hydrangea did not want |
+| Close | warmth | back to Elena, then the offer |
 
-Without the low the high does not land, so the shelter statistic gets its full breath before the product appears.
+Without the low the high does not land, so the single curtain gets its full breath before the fins appear.
 
 ## The closing story
 
 The callback close, because the story opened on a person and should end on her.
+The closing line is abba's to write, in abba's own voice.
+Until then the scripts carry this working draft, and it is replaced, not polished.
 
-"Rosa still has twelve minutes to wait. We cannot move the sun. So we built the roof that moves instead."
+"Elena still has three crops and one sky.
+Now the roof can tell them apart."
 
 Then the offer, which at a booth is an invitation and not a funding ask.
 
-"Put your hand over that sensor, and watch what it does."
+"Press Play again, and this time watch only the hydrangea."
 
-If a judge asks what we want next: one transit agency willing to let us bolt a full size leaf to one real stop for one summer.
+If a judge asks what we want next: one grower near Apopka willing to tell us where this is wrong.
 
 ## The demo as a scene
 
 The playbook's five rules, applied.
 
-1. Never without a backup: the recorded fixture on the laptop, then the video.
-2. A story during the demo: the judge is not shown a dashboard, the judge is handed Rosa's afternoon.
-3. The transformation, not the process: no wiring tour, no code, the leaves bending is the whole show.
-4. End on an emotional beat: the hand over the sensor, and the number.
-5. Under sixty seconds: the fast forward day is sixty seconds, so the narration runs over it and never before it.
+1. Never without a backup: the recorded run of the same day, then the screen recording.
+2. A story during the demo: the judge is not shown a dashboard, the judge is handed Elena's third of June.
+3. The transformation, not the process: no code, no data pipeline, three zones parting ways is the whole show.
+4. End on an emotional beat: the same rain, three answers, and the trade said plainly.
+5. Under sixty seconds: the day plays in about a minute, so the narration runs over it and never before it.
+
+The scene, from `../plans/plan-d-louvre-roof.md`: the fern has its light by eleven, the hydrangea by noon, the blueberries want all of it, then the afternoon storm, and three zones give three answers to the same rain, each for its own reason.
 
 ## What this story asks of the screen
 
-The screen is the second storyteller at the table, and the brief for it is in `../software/ui-brief.md`.
-In one line: the screen shows Rosa's day and Rosa's bench, never a dashboard.
+The screen is the second storyteller at the table, and its specification is `../plans/packages/H2-page.md` and `H3-result-card.md`.
+In one line: the screen shows Elena's roof and Elena's day, never a dashboard, and every zone says its reason in words.
+
+## Where each figure came from
+
+| Figure | File |
+|---|---|
+| 50,000 and 40,000 square feet a motor | `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md` |
+| 8 and 12 mol, the 0.40 shade share, the Apopka quote | `../plans/packages/H1-zones-light-rain-soil.md` |
+| 54 and 17 percent, 354 days, 42 mm, eleven and noon, 6 mol, 2.4 percent | the same file, from the planner's run, all provisional until `headline.json` exists |
+| The patent number and the inventors | `../docs/research/flectofin-design-tool/sector-choice.md` |
