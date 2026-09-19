@@ -78,7 +78,7 @@ The fallback is the recorded run, then the screen recording.
 
 ## The live link
 
-Decided at about 19:40 on Saturday: the page stays plain HTML, CSS, and vanilla JavaScript, exactly as H2 specifies, and a static copy of `software/page/` is put on Vercel.
+Decided at about 19:20 on Saturday: the page stays plain HTML, CSS, and vanilla JavaScript, exactly as H2 specifies, and a static copy of `software/page/` is put on Vercel.
 Next.js and Supabase were considered and set aside, because nothing in this project is stored, nobody logs in, and a database would put a network call into a demo that must run with no network.
 
 - The laptop copy, served by `python -m http.server`, is the demo. The Vercel address is the link in the README and the submission, and the backup at the table.
