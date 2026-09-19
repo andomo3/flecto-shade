@@ -26,9 +26,9 @@ It is never reported as PASS, and it is never left out.
 | F1 | Every test passes | `pytest` exits 0 | the first package with a test |
 | F2 | It runs with no network | With `socket.socket` patched to raise, every build command in the packages exits 0, and once the page exists, it is served locally and answers | S1, then H2 |
 | F3 | The page fetches nothing from the internet | No `http://`, `https://`, or `//` address in any `src`, `href`, `url(`, or `import` in any `.html`, `.css`, or `.js` file under `software/` | H2 |
-| F4 | Every output file has the schema its package gives | A test reads each processed CSV and asserts its columns, their order, and its row count: 8,760 for the year and the weather, 26,280 for the simulation | S1, then H1 |
-| F5 | Nothing simulated is called measured | A test reads every label the page and the result card can show and asserts the word "simulated" or "modelled" is present on every figure, and the word "measured" is absent | H2, then H3 |
-| F6 | Every assumed constant is declared | Every named constant the packages mark ASSUMED appears in the README's table of assumptions with its value, in a test that compares the two | H1 |
+| F4 | Every output file has the schema its package gives | A test reads each processed CSV and asserts its columns, their order, and its row count: 8,760 for the year and the weather, 26,280 for the simulation | H1 |
+| F5 | Nothing simulated is called measured | A test reads every label the page and the result card can show and asserts the word "simulated" or "modelled" is present on every figure, and the word "measured" appears nowhere except once, inside the rain source line, where it is true of the gauge | H2, then H3 |
+| F6 | Every assumed constant is declared | Every named constant the packages mark ASSUMED appears in the section "Assumptions" of `data/README.md` with its value, in a test that compares the two | H1 |
 | F7 | The rules are deterministic, and only the rules act | Two runs of the simulation give identical bytes, every `state` is one of the names in H1's nine rules, no RAIN_OPEN occurs where `ghi` is 0, and no zone that opted out takes in rain | H1 |
 | F8 | The spoken numbers come from the code | The figures the script says are read from `data/processed/headline.json`, which the build writes, and the result card shows the same values, in a test | H3 |
 | F9 | The planning record is untouched | `git diff --name-only` against the last merge shows nothing under `planning/` | always |
@@ -38,6 +38,25 @@ It is never reported as PASS, and it is never left out.
 | F13 | The writing rules hold | No em dash in any Markdown file outside `planning/` and `.claude/` | always |
 | F14 | Every sourced number has its source | Every row of `data/crops.csv` has a source address in both source columns, in a test | H1 |
 
+
+### The gates that are tests, and who writes each one
+
+Six fast gates are tests, and the gate runner finds each by its file name under `software/tests/`.
+A gate whose file does not exist yet reports NOT YET, so every file has one package that creates it, and that package lists it under "may create".
+
+| Gate | File | Created by | May be changed by |
+|---|---|---|---|
+| F4 | `test_gate_f4_schema.py` | H1, covering the year file from S1 as well as H1's own files | nobody |
+| F5 | `test_gate_f5_labels.py` | H2, for the page's labels | H3, to add the result card's and the year view's labels |
+| F6 | `test_gate_f6_assumptions.py` | H1 | nobody |
+| F7 | `test_gate_f7_rules.py` | H1 | nobody |
+| F8 | `test_gate_f8_headline.py` | H3 | nobody |
+| F14 | `test_gate_f14_sources.py` | H1 | nobody |
+
+- Until H1 is merged, F4 reports NOT YET, and S1's own test is what checks the year file's schema.
+- The table of assumptions that F6 checks is the section "Assumptions" of `data/README.md`, because that is a file a package may write: S1 creates the file, and H1 adds the section, with every constant S1 and H1 mark ASSUMED or RECALLED, its value, and its label.
+  The root README copies that table when it is written for the submission, by a person.
+- A gate test asserts only what its gate says. The package's own expected values stay in the package's own test file.
 ## Milestone gates, by a person with the agent
 
 | Milestone | When | What must be true |

@@ -85,8 +85,9 @@ Test cases, from H1's asserted values, with H1's tolerances:
 
 ## Files
 
-May create: `software/h3/build_headline.py`, `data/processed/headline.json`, `software/tests/test_headline.py`, `pitch/figures.md`, and it may change `software/page/index.html`, `style.css`, and `app.js` for the card and the year view only.
-Must not touch: `planning/`, `software/h1/`, `hardware/`, the rest of `data/`, and anything in `hack-mit`.
+May create: `software/h3/build_headline.py`, `data/processed/headline.json`, `software/tests/test_headline.py`, `pitch/figures.md`, and the gate test `software/tests/test_gate_f8_headline.py`.
+May change: `software/page/index.html`, `style.css`, and `app.js` for the card and the year view only, and `software/tests/test_gate_f5_labels.py`, only to add the labels of the card and the year view.
+Must not touch: `planning/`, `software/h1/`, the rest of `data/`, and anything in `hack-mit`.
 
 ## Gates it switches on
 

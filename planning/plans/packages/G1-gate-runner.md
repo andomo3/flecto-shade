@@ -28,7 +28,9 @@ G1 is handed over first, before any feature.
 - The exit code is 0 only when no gate is FAIL.
   NOT YET does not fail the run.
 - It runs with the network off, uses the standard library and `pytest` only, and takes under 60 seconds.
-- The gates that are tests, F4 to F8 and F14, are found by file name, `software/tests/test_gate_f4_schema.py` and so on, and a gate whose test file does not exist yet is NOT YET.
+- The gates that are tests, F4 to F8 and F14, are found by file name under `software/tests/`: `test_gate_f4_schema.py`, `test_gate_f5_labels.py`, `test_gate_f6_assumptions.py`, `test_gate_f7_rules.py`, `test_gate_f8_headline.py`, and `test_gate_f14_sources.py`.
+  A gate whose test file does not exist yet is NOT YET, and names the package that creates it, from the table "The gates that are tests, and who writes each one" in `../gates.md`.
+  G1 creates none of these six files.
 
 ## Steps
 

@@ -61,6 +61,7 @@ These packages belong to plans that were set aside, sit under `planning/archive/
 - The fin is not ours. It is ITKE's Flectofin, patented as EP2320015, and the page credits it.
 - The control logic, watering by the sun's energy and holding a daily light target, is standard practice in greenhouse computers, and nothing here claims otherwise.
 - Never write or display: "first", "measured", "maintenance free", "weatherproof", or any figure for cost, yield, energy, or water saved.
+  The one exception is "measured" in the page's rain source line, because the rain is a real gauge's record, and gate F5 allows that one use and no other.
 
 ## How work is handed over
 

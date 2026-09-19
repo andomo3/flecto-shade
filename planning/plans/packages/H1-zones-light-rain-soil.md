@@ -204,8 +204,10 @@ How far to trust it, tested by scaling the evaporation by 0.95, 0.97, 0.99, 1.01
 
 ## Files
 
-May create: `data/crops.csv`, `data/processed/weather-apopka.csv`, `data/processed/sim-apopka.csv`, `data/processed/sim-summary-apopka.csv`, `software/h1/*.py`, `software/tests/test_h1.py`.
-Must not touch: `planning/`, anything in `hack-mit`, and S1's files.
+May create: `data/crops.csv`, `data/processed/weather-apopka.csv`, `data/processed/sim-apopka.csv`, `data/processed/sim-summary-apopka.csv`, `software/h1/*.py`, `software/tests/test_h1.py`, and the four gate tests `software/tests/test_gate_f4_schema.py`, `test_gate_f6_assumptions.py`, `test_gate_f7_rules.py`, and `test_gate_f14_sources.py`.
+May change: `data/README.md`, only to add the section "Assumptions", a table of every constant S1 and H1 mark ASSUMED or RECALLED, with its value and its label, which is what gate F6 checks.
+The four gate tests assert what `../gates.md` says for F4, F6, F7, and F14 and nothing more, and the expected values above stay in `test_h1.py`.
+Must not touch: `planning/`, anything in `hack-mit`, and S1's files, except that one section of `data/README.md`.
 
 ## Honesty labels
 
@@ -213,7 +215,7 @@ Must not touch: `planning/`, anything in `hack-mit`, and S1's files.
 - "Sun and temperature are NASA POWER for 2023, modelled from satellite and reanalysis. Rain is the Orlando Executive Airport gauge for 2023, measured. Same place, same year."
 - "2023 was an ordinary year for rain there, 2.4 percent above the 1991 to 2020 normal."
 - "The blueberry's shade figure comes from Washington State and is not Florida practice."
-- Every ASSUMED and RECALLED constant is listed in the README with its value.
+- Every ASSUMED and RECALLED constant is listed in the section "Assumptions" of `data/README.md` with its value.
 - Never claimed: climate control, safety from disease, yield, measured water savings.
 
 ## Citations

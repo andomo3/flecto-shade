@@ -136,8 +136,9 @@ Test cases, from H1's asserted demo day:
 
 ## Files
 
-May create: `software/page/build_day.py`, `software/page/index.html`, `software/page/style.css`, `software/page/app.js`, `software/page/day.json`, `software/tests/test_page.py`.
-Must not touch: `planning/`, `data/`, `software/h1/`, `hardware/`, and anything in `hack-mit`.
+May create: `software/page/build_day.py`, `software/page/index.html`, `software/page/style.css`, `software/page/app.js`, `software/page/day.json`, `software/tests/test_page.py`, and the gate test `software/tests/test_gate_f5_labels.py`.
+The gate test asserts what `../gates.md` says for F5 and nothing more: every label the page can show carries "simulated" or "modelled", and "measured" appears only in the rain source line.
+Must not touch: `planning/`, `data/`, `software/h1/`, and anything in `hack-mit`.
 
 ## Gates it switches on
 
