@@ -1,0 +1,11 @@
+# downloaded public datasets, copied in by a person, never committed
+data/raw/
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# secrets
+.env
