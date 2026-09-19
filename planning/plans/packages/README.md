@@ -6,6 +6,11 @@ The rules for the agent are in `../README.md`, and the rules for the event repo 
 
 ## The packages
 
+**Location change, about 17:45 on 2026-09-19: the team dropped Houston, and the place is now Central Florida, the Apopka area, in a shade house, which the team loosely calls a greenhouse.**
+Packages S1 and H1 below still carry Houston's files and Houston's expected values, and a planner is recomputing every one of them for Florida.
+Do not hand S1 or H1 to the build agent until this notice is gone.
+G1, the gate runner, does not depend on the place and can start now.
+
 The current plan is `../plan-d-louvre-roof.md`, the simulated smart louvre roof, chosen on 2026-09-19 at about 16:45.
 
 | ID | File | What | Status |

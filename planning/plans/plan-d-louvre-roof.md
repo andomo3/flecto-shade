@@ -6,6 +6,11 @@ After the freeze a change is a cut, never a pivot.
 
 The idea is in `../docs/ideas/flectofin-greenhouse-roof.md`, and the market research that shaped it is in `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md`.
 
+**Location change, about 17:45 on 2026-09-19: the team dropped Houston, and the place is now Central Florida, the Apopka area, in a shade house, which the team loosely calls a greenhouse.**
+Packages S1 and H1 below still carry Houston's files and Houston's expected values, and a planner is recomputing every one of them for Florida.
+Do not hand S1 or H1 to the build agent until this notice is gone.
+G1, the gate runner, does not depend on the place and can start now.
+
 ## The one sentence
 
 A grower with three crops under one shade roof gives each its own light, and lets the rain through only where the soil is dry, with a roof made of many small hingeless fins in place of one big curtain.
