@@ -67,6 +67,40 @@ Plan A needs all five in hand at the gate:
 Until the gate, the engineers chase parts and leaf variants, and the software builds the shared core, so no hour is spent on a plan that loses.
 If Plan A is chosen and the simulator is wanted anyway, it is a stretch after Plan A's core loop is green, because it gives the adaptive against fixed number for free.
 
+## Decided on 2026-09-19: Plan B, with the real leaf driven by the simulation
+
+Abba decided, ahead of the 17:00 gate: the team can demo the flapping leaf and nothing else, so the whole setup is simulated, reaction included.
+Plan B applies, with packages B13 and B14 added so that the leaf on the table bends at the same moment as the leaves on the screen.
+Plan A and the third option below are kept as the record of what was considered, and neither is built.
+The build agent's order is R1, then C6, then the shared core, then B1 to B9 with B13 and B14, then the stretch, with V1 to V3 beside them if a second session exists.
+
+## The inventory reported on 2026-09-19, and a third option, not taken
+
+Abba reported what the team can lay hands on: a microcontroller, a servo or small motor, a photoresistor, an RGB LED, possibly a phone camera, sheet plastic or card, and access to a printer or a laser cutter.
+Against the five gate items that is four and a half: a board, a leaf that can be cut from sheet, a light, something to hold them, and one light sensor where the number needs two.
+
+So a third option sits between the plans, proposed by the planner and not yet decided by the team.
+
+**Plan A-lite: the roof is real, the number is simulated.**
+
+- Physical, on the table: the board, the one photoresistor as the incident sensor, the servo, and leaves laser cut from sheet plastic, which is already the hour 4 pivot in `../project-brief.md`.
+  The threshold runs on the board, so the hand over the sensor still works, and it is still the proof that nothing is scripted.
+- Simulated, on the screen: the light reaching the bench, from the shade table in `plan-b-simulated.md`, because there is no second sensor to measure it.
+  The `bench` field stays empty on the wire, exactly as the contract allows, and the page shows the simulated figure beside the words "simulated from our CAD", never in the measured bar.
+- The number said out loud is two numbers, kept apart: "N of N light triggered cycles, measured on this table", which the brief already names as the backup number, and the simulated day and year figures, said as simulated.
+- The Arduino challenge stays in reach, because the board reads the physical world.
+
+What it needs settled first:
+
+- How many photoresistors there are. With two, this is simply Plan A.
+- Whether the RGB LED is bright enough to be the sun.
+  A single small LED is weak against room light, so the rig is a shrouded card box with the LED a few centimetres from the sensor, or the sun is a phone torch held by the speaker, which the cut list rejected as a hand swung lamp and which returns only as a fallback.
+- Which board it is, because the UNO Q decides the Arduino challenge and the firmware's step 0.
+- Whether the sheet plastic buckles cleanly as a lamina, which is the engineers' hour 0 to 2 test and nobody else's call.
+
+The build order does not change: the shared core first, then the firmware packages A1 to A5 from `plan-a-live.md`, then B1 to B4 and B6 from `plan-b-simulated.md` for the number.
+The 3D render in `packages/R1-simulation-research.md` becomes optional, because the physical roof is the thing the judge watches.
+
 ## What differs, on one page
 
 | | Plan A, live | Plan B, simulated |

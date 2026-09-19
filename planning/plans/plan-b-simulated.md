@@ -71,6 +71,29 @@ Stretch, only when B1 to B9 are green.
 B11 matters more than its place in the list suggests, because it puts one real sensor and one real hand back into the demo.
 It is a stretch only because it is untested.
 
+## The real leaf flaps with the simulation
+
+Decided 2026-09-19: the team can demo the flapping leaf and nothing else, so the whole stop, the sun, the sensing, and the reaction are simulated, and the real leaf is driven by the simulation.
+The contract already has the command for it: `S 0` to `S 180` sets the leaf servo's angle and turns the override on.
+So the simulated stop decides when to bend, and the leaf on the table bends at the same moment as the leaves on the screen.
+It is a digital twin run backwards: the model drives the object.
+
+| ID | Build | Done when |
+|---|---|---|
+| B13 | A minimal sketch, Plan B's only firmware: read `S n` and `P` over serial, step the servo toward `n` a few degrees per tick so the bend takes about four seconds, and print a v2 line ten times a second with `angle` set, `override` 1, and every sensor field empty | Typing `S 120` then `S 0` in a serial monitor bends and rests the leaf, garbage input does nothing, and C1's parser accepts every line. The build agent writes it, and a person flashes it |
+| B14 | The twin link in the app: when `--source sim` is given a `--port`, forward the simulator's `angle` to the board as `S` commands ten times a second, and carry on without complaint if the port is absent or the cable is pulled | The leaf on the table follows the leaf on the screen within about a third of a second, pulling the cable leaves the simulation running, and plugging it back in recovers |
+| B15 | Stretch, and recommended: the team's one photoresistor on the same board, printed in the `light` field, and used by the simulator as the cloud over its virtual sun | The judge covers the real sensor with a hand, the simulated light drops, the simulated leaves relax, and the real leaf relaxes with them |
+
+B15 is what would put "cover the sensor" back into the demo with real hardware, and it is the only route left to the Arduino challenge, which asks for raw data from the physical world.
+Without B15 the Arduino challenge is dropped.
+
+What is said, and never said, about the leaf on the table:
+
+- Said: "This leaf is real. The stop around it is simulated, and the simulation is driving the leaf."
+- Never said or implied: that the leaf senses anything, that it was tested under light, or that its motion was measured.
+- With B15: "That sensor is real too. Your hand is the cloud."
+- The page carries a banner in words whenever the twin link is on: "The simulation is driving the leaf on the table".
+
 ## Why the simulation is worth showing
 
 It answers questions the physical model cannot.
@@ -93,9 +116,9 @@ The table column changes, and beat 6 is replaced.
 |---|---|---|---|
 | 0:00 | "Picture Rosa." The opening, unchanged | The laptop, and whatever is physical: a leaf the judge can bend, or a printed render | The night scene, one Play button, no numbers, the simulation banner |
 | 0:10 | The study, trapped heat, the moving sun | Hands off | Unchanged |
-| 0:20 | "We could not get the parts to build it this weekend. So we built it twice: once in CAD, and once in code. Bend this." | The judge bends the spare leaf by hand, if there is one | Unchanged |
+| 0:20 | "We could not build the whole stop this weekend. This leaf is real. The stop around it is simulated, and the simulation drives the leaf." | The real leaf, resting, on its servo | Unchanged |
 | 0:30 | "Would you press play?" | The judge presses Play | The sun rises along its real path, the sky warms, three bars climb |
-| 0:40 | "Nothing tells the leaves what to do. Watch them go." | Still | The leaves on screen bend over four seconds, the Bench bar drops away from the Sun bar, and the Fixed roof bar sits between them |
+| 0:40 | "The light crosses the threshold. Watch the screen, and watch the leaf." | The real leaf bends, at the same moment | The leaves on screen bend over four seconds, the Bench bar drops away from the Sun bar, and the Fixed roof bar sits between them |
 | 0:50 | "Drag that cloud over the sun." Or, with B11: "Put your hand over the camera." | The judge drags, or covers the camera | The Sun bar collapses, the leaves relax, the cloud leaves, they bend again. Caption: "The light moves the leaves, not the clock" |
 | 1:05 | "And when the sun goes, the roof opens again." | | The sun sets, the leaves rest |
 | 1:15 | "Over that whole day, the bench under our leaves got X percent of the sun, against Y under a fixed roof. Across a typical Houston year, [the B6 line]. That is a simulation, and the card says what it leaves out." | | The result card |
