@@ -39,6 +39,8 @@ The decisions up to 17:00 Saturday, including all four plans of the day, are in 
 
 - 19:15 Saturday: there is no hardware at all, and the printed display fin, package K1, is cut, because every hour goes to the simulation, the pitch, and the story. The hardware folder and the fin research move to the archive.
 
+- About 19:40 Saturday: the page stays plain HTML, CSS, and vanilla JavaScript, and a static copy goes on Vercel for the live link. Next.js and Supabase were considered and set aside, because nothing is stored, nobody logs in, and the demo must run with no network.
+
 Open, for the team to settle out loud:
 
 - Which track and which challenges the project enters.

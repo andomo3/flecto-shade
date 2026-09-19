@@ -70,6 +70,13 @@ software/page/index.html, style.css, app.js     pitch/figures.md, generated
 NEEDED: how the page reaches `data/processed/headline.json`.
 H2 serves `software/page/` only, and H3's file list holds no copy of `headline.json` under `software/page/`, so the path is abba's to settle in H3 before step 2.
 
+## The live link
+
+A static copy of `software/page/` is put on Vercel by abba, by hand, once H2 plays the day, and again after H3.
+The laptop copy is the demo, and the Vercel address is the README's link and the backup.
+Vercel serves the folder as it is, so there is no build step, no framework, and no change to H2, H3, or gate F3.
+Nothing about Vercel is committed: no token, no setting, no `.vercel/` folder.
+
 ## The commands
 
 Set up, once per laptop, on Windows:

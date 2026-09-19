@@ -76,6 +76,17 @@ The fallback is the recorded run, then the screen recording.
 - The list of words the team never says is in the market research file.
 - The scripts, the question bank, the cards, and the submission under `../pitch/` were rewritten from these points on Saturday evening, following `pitch-plan-d.md`, and their simulation figures are checked against `headline.json` once H3 has produced it.
 
+## The live link
+
+Decided at about 19:40 on Saturday: the page stays plain HTML, CSS, and vanilla JavaScript, exactly as H2 specifies, and a static copy of `software/page/` is put on Vercel.
+Next.js and Supabase were considered and set aside, because nothing in this project is stored, nobody logs in, and a database would put a network call into a demo that must run with no network.
+
+- The laptop copy, served by `python -m http.server`, is the demo. The Vercel address is the link in the README and the submission, and the backup at the table.
+- Vercel serves the folder as it is, with no build step and no framework, so H2, H3, and gate F3 do not change.
+- Abba puts it up by hand, once H2 plays the day, before the 01:00 freeze, and again after H3.
+- No token, no project setting, and no `.vercel/` folder is committed.
+- It depends on one open question in H3: the page has to reach `headline.json` from inside `software/page/`, because that folder is all that is served, on Vercel and on the laptop alike.
+
 ## The gates
 
 `gates.md` is written for this plan: fourteen fast gates after every package, four milestones walked by a person, and the demo gate beat by beat from the table above.

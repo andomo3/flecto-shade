@@ -24,6 +24,8 @@ This file holds what is already decided, why, and the traps.
   Nine values, and a test asserts every `words` value is one of them.
 - **Plain HTML, CSS, and vanilla JavaScript, served by `python -m http.server`.**
   No web framework, no library, no CDN, no web font, because the demo laptop must work with the network off and gate F3 fails on any external address.
+  A static copy of the same folder goes on Vercel for the live link, and that changes nothing in the code.
+  Next.js and Supabase were considered on Saturday evening and set aside, because nothing is stored and nobody logs in.
 - **The year view is inline SVG drawn by hand.**
   No chart library.
 - **`headline.json` is the one source of every spoken and printed figure.**

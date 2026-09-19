@@ -112,6 +112,7 @@ Code that passes its own tests and breaks the demo is not done.
 - Add no other dependency unless the package names it. Check that it exists and is needed first.
 - The page is plain HTML, CSS, and vanilla JavaScript: no React, no Node, no build step, no CDN, no web fonts fetched at run time, and no web framework unless a package asks for one.
 - Everything builds and runs with no network.
+  A static copy of the page is also put on Vercel by a person, as the live link for the README and the backup at the table. That changes no rule here: the page makes no outside request, the laptop copy is the demo, and no token or Vercel setting is committed.
 - Every constant a package marks ASSUMED is a named constant in the code and a row in the README's table of assumptions.
 - No secrets, tokens, keys, or personal data in any file, commit, prompt, or log.
 

@@ -146,4 +146,6 @@ Verified again at the freeze.
 Python 3.13, with `pandas==2.2.3`, `numpy==2.2.3`, and `pytest==9.0.2`, in one virtual environment with a pinned `requirements.txt`.
 The page is plain HTML, CSS, and vanilla JavaScript, with no build step, no CDN, and no web fonts fetched at run time.
 Everything builds and runs with no network.
+A static copy of `software/page/` goes on Vercel for the live link, with no build step, see "The live link" in the plan.
+Next.js and Supabase were considered on Saturday evening and set aside.
 Not reopened during the event.
