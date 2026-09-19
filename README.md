@@ -1,2 +1,27 @@
 # flecto-stop
+
 hack-mit project w/ Shanon, Abba, &amp; Ameya ;p
+
+A bus stop roof that bends into shade on its own.
+Three hingeless leaves, borrowed from the bird of paradise flower, feel the sun and bend over the bench, and open again when the light is gentle.
+
+## Status
+
+HackMIT 2026, hacking from 11:00 Saturday 2026-09-19 to 11:00 Sunday.
+The planning record has been imported and nothing is built yet.
+This README is a placeholder and is rewritten before submission.
+
+## What is in here
+
+| Path | What |
+|---|---|
+| `planning/` | The planning record, Markdown only, copied from the team's public planning repo. Start at `planning/README.md` |
+| `AGENTS.md` | The rules for everyone, human or agent, who works in this repo |
+| `.claude/skills/` | The team's hackathon playbook, as skills |
+
+## Prior work, stated plainly
+
+The team planned this project before the event, in public, at https://github.com/andomo3/hack-mit.
+That repo holds research, specifications, the pitch, and one labelled throwaway prototype of the serial format.
+No code was copied from it.
+Every line of code in this repo is written during the hacking period.
