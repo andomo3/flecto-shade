@@ -43,8 +43,8 @@ Out: any physical rig, any sensor, water, AI in the loop, wind and hail, a close
 | 1 | G1 | The gate runner | `packages/G1-gate-runner.md` | 60 |
 | 2 | S1 | The sun for the Apopka area in 2023, from NASA POWER, one row an hour | `packages/S1-solar-2023.md` | 30 |
 | 3 | H1 | The crops, the rain, the light, the soil, the rules, and the year's summary | `packages/H1-zones-light-rain-soil.md` | 85 |
-| 4 | H2 | The page: the roof from above, three zones, the fins, a light gauge and a soil gauge per zone, Play, and one day in a minute, read from H1's output with no new physics | To be written once H1's columns are fixed by a first run | about 90 |
-| 5 | H3 | The result card and `headline.json`: each crop's light against its target, the rain's share of each zone's water, the year by month | To be written with H2 | about 45 |
+| 4 | H2 | The page: the roof from above, three zones, the fins, a light gauge and a soil gauge per zone, Play, and one day in a minute, read from H1's output with no new physics | `packages/H2-page.md` | 120 |
+| 5 | H3 | The result card and `headline.json`: each crop's light against its target, the rain's share of each zone's water, the year by month | `packages/H3-result-card.md` | 75 |
 
 G1 and S1 can start now.
 Package C6, the PVGIS typical year, is set aside: joined to a real year's rain it made rainy hours brighter than dry ones, which S1's file explains and fixes.
@@ -73,7 +73,7 @@ The fallback is the recorded run, then the screen recording.
 - The three specifics: 50,000 square feet a motor, from the UMass fact sheet; the fern's 8 mol a day against the hydrangea's 12, from Purdue; and the rain's share of the hydrangea zone's water, about 54 percent, from our own run.
 - The honesty comes first and unasked: the fin is ITKE's, the control logic is standard, growers keep rain off glasshouse crops on purpose, and nothing here is measured.
 - The list of words the team never says is in the market research file.
-- The scripts, the question bank, the cards, and the submission are rewritten from these points once H1 has produced real numbers, and the old ones under `../pitch/` are the record of the bus stop.
+- The scripts, the question bank, the cards, and the submission are rewritten from these points once H3 has produced `headline.json`, following `pitch-plan-d.md`, and the old ones under `../pitch/` are the record of the bus stop, kept for their method.
 
 ## The gates
 

@@ -89,7 +89,9 @@ What is solid and what is not, said plainly:
   Rows: A boston fern `dli` 8, `kc` 1.00, `rain_ok` 0; B hydrangea `dli` 12, `kc` 1.00, `rain_ok` 1; C blueberry `shade_pct` 0.40, `kc` 1.05, `rain_ok` 1.
   Where `kc` is ASSUMED, `kc_source_url` holds the FAO-56 table's address and `note` says "no row in the table, 1.00 assumed".
 - `data/processed/weather-apopka.csv`: every column of the solar file plus `rain_mm`, joined on `time_utc`. 8,760 rows.
-- `data/processed/sim-apopka.csv`: `hour`, `time_utc`, `zone`, `crop`, `open_fraction`, `light_mol_so_far`, `soil_mm`, `rain_in_mm`, `irrigation_mm`, `state`. 26,280 rows.
+- `data/processed/sim-apopka.csv`: `hour`, `time_utc`, `zone`, `crop`, `open_fraction`, `light_mol_so_far`, `soil_mm`, `rain_in_mm`, `irrigation_mm`, `state`, `reason`. 26,280 rows.
+  `reason` is empty except when `state` is RAIN_SHUT, where it is the first of these that applies, in this order: `opted_out`, `wet_enough` when `want_rain` is off, `no_drying_time` when there is no daylight three rows later, and `hard_rain` when the hour's rain is 25 mm or more.
+  The page in package H2 turns it into words, so the screen can say why a zone stayed shut.
 - `data/processed/sim-summary-apopka.csv`: by zone and month, `rain_in_mm`, `irrigation_mm`, and the days the light target was met, and by zone for the year, the rain's share.
 
 ## The rules, each hour, decided from the state at the end of the hour before
@@ -193,6 +195,7 @@ What the day shows, and it is the whole product in one afternoon:
 
 How far to trust it, tested by scaling the evaporation by 0.95, 0.97, 0.99, 1.01, 1.03, and 1.05:
 
+- On the demo day at local 15:00 and 16:00, `reason` is `opted_out` for the fern and `wet_enough` for the blueberry, and both are asserted.
 - Assert the fern's and the hydrangea's traces hour by hour. The hydrangea held in six runs of seven, and at 0.95 its second rain hour flipped to shut.
 - Assert the blueberry's RAIN_SHUT, and label it in the test as resting on a margin of 1.2 mm. It held in all seven runs.
 - The sun dims as the rain arrives, 726 to 517 to 377, and does not collapse.

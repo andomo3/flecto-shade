@@ -1,9 +1,9 @@
 ---
 title: Adaptive bus stop canopy
 type: idea
-status: chosen   # proposed | researching | shortlisted | rejected | chosen
+status: shortlisted   # proposed | researching | shortlisted | rejected | chosen
 owner: team   # team, or one word handle if a single person is driving it
-updated: 2026-09-11
+updated: 2026-09-19
 ---
 
 # Adaptive bus stop canopy
