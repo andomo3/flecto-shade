@@ -89,7 +89,7 @@ Integration duties, each time a package is offered for merge:
 
 | Package | Spec | Status | Branch | Done when |
 |---|---|---|---|---|
-| S1, the 2023 sun for the Apopka area | `planning/plans/packages/S1-solar-2023.md` | not started | | `python data/build_solar_2023.py` and `pytest software/tests/test_solar_2023.py` exit 0 with the network off |
+| S1, the 2023 sun for the Apopka area | `planning/plans/packages/S1-solar-2023.md` | in progress | `pkg/S1` | `python data/build_solar_2023.py` and `pytest software/tests/test_solar_2023.py` exit 0 with the network off |
 | H1, the crops, the rain, the light, the soil, the nine rules, the year | `planning/plans/packages/H1-zones-light-rain-soil.md` | blocked by S1 | | `python software/h1/build.py --city apopka` and `pytest software/tests/test_h1.py` exit 0 with the network off |
 
 Notes for this section:
