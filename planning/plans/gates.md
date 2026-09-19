@@ -11,10 +11,10 @@ The version written for the bus stop is in the git history.
 
 1. The build agent finishes a work package.
 2. It runs the fast gates, all of them, with one command, `python tools/gates.py`, which package G1 builds.
-3. It fills in the gate report below and puts it in its reply and in `GATES.md` at the root of the event repo, with the commit hash.
+3. It fills in the gate report below and puts it in its reply and in `gates-log/ID.md` in the event repo, one file per package, with the commit hash.
 4. A gate that passed before and fails now is a regression, and it is fixed before anything else is touched.
 5. If the same gate fails twice in a row, the agent stops and reports, and the package is reframed in the planning repo.
-6. At each milestone, a person and the agent walk the milestone gates together, and the result goes in `GATES.md`.
+6. At each milestone, a person and the agent walk the milestone gates together, and the result goes in `gates-log/milestones.md`, which only the integrator writes.
 
 A gate that does not apply yet, because the thing it checks is not built, is reported as NOT YET with the package that will switch it on.
 It is never reported as PASS, and it is never left out.
@@ -95,7 +95,7 @@ The day that plays is 3 June 2023, sun until mid afternoon and then 42 mm of rai
 
 ## The gate report
 
-The build agent ends every reply with this table, filled in, and appends it to `GATES.md` with the commit hash.
+The build agent ends every reply with this table, filled in, and appends it to its own package's file under `gates-log/` with the commit hash.
 
 ```text
 Package: [ID]   Commit: [hash]   Command: python tools/gates.py --package [ID]   Exit: [code]

@@ -72,6 +72,9 @@ CONSTRAINTS
   it are the definition of done. Before you write code, state in three lines which storyboard
   beat, which script sentence, and which gate this package serves. If it serves none, stop
   and say so.
+- You are one of three agents in this repo, one per teammate. Read CHECKLIST.md first. Work
+  only on your person's packages, in your person's directories, on the branch pkg/[ID]. Edit
+  only your person's section of CHECKLIST.md. Never merge: the integrator does.
 - When the package's own check passes, run python tools/gates.py --package [ID] --allowed
   "[FILES]" --append. A gate that passed before and fails now is fixed before anything else.
   If the same gate fails twice, stop and report.

@@ -20,7 +20,8 @@ G1 is handed over first, before any feature.
 
 - `python tools/gates.py` runs every gate and prints the report table from `gates.md`.
 - `--package ID --allowed "path1,path2,..."` names the package and the files it may change, for gate F10.
-- `--append` adds the report to `GATES.md` at the root, under a heading with the package ID, the short commit hash, and the local time.
+- `--append` adds the report to `gates-log/ID.md`, one file per package, under a heading with the short commit hash and the local time.
+  Three people's agents work in this repo at once, and one shared ledger would collide on every merge, so no package ever writes another package's file.
 - Each gate is one function that returns PASS, FAIL, or NOT YET, and one line of evidence.
 - A gate reports NOT YET when the thing it checks does not exist, for example no page under `software/` for F3, and names the package that switches it on.
   It never reports PASS for something that is not there.
@@ -35,11 +36,11 @@ G1 is handed over first, before any feature.
 2. The always on gates, F9, F10, F11, F13. Check: the four tests below.
 3. F1, by running `pytest` and reading its exit code, with "no tests collected" reported as NOT YET. Check: the test below.
 4. F2, F3, and F12, each NOT YET until its directory or file exists. Check: creating a stub file flips the gate from NOT YET to a real result.
-5. `--append`. Check: two runs add two dated sections to `GATES.md` and change nothing else in it.
+5. `--append`. Check: two runs with `--package G1` add two dated sections to `gates-log/G1.md`, change nothing else in it, and create no other file.
 
 ## Acceptance
 
-`pytest tools/tests/test_gates.py` exits 0, and `python tools/gates.py --package G1 --allowed "tools/,GATES.md"` exits 0 on a clean tree.
+`pytest tools/tests/test_gates.py` exits 0, and `python tools/gates.py --package G1 --allowed "tools/,gates-log/"` exits 0 on a clean tree.
 
 Test cases, each in a temporary git repo made by the test:
 
@@ -51,11 +52,11 @@ Test cases, each in a temporary git repo made by the test:
 - A `requirements.txt` line without `==` makes F12 FAIL.
 - A page under `software/` with `src="https://..."` makes F3 FAIL, and the same address inside an HTML comment does not.
 - A failing test makes F1 FAIL, and a repo with no tests makes F1 NOT YET.
-- `--append` twice gives two sections in `GATES.md`.
+- `--append` twice with `--package X1` gives two sections in `gates-log/X1.md`, and `--append` without `--package` is refused with a plain message.
 
 ## Files the agent may create
 
-`tools/gates.py`, `tools/tests/test_gates.py`, `GATES.md`.
+`tools/gates.py`, `tools/tests/test_gates.py`, `gates-log/G1.md`.
 
 ## Files it must not touch
 
