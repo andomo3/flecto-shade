@@ -16,12 +16,14 @@ Four decisions were put to abba as questions and answered the same hour, and the
 | Physical or simulated | Simulated, with one printed fin on the table for display |
 | How the roof waters | The fins over a zone open when it rains and that zone is dry, and stay shut over zones that are wet enough |
 | What makes it smart | Programmed targets per zone, one crop per zone, each with a published daily light target and a water need. Deterministic rules, and no AI in the loop |
-| The end user | A commercial greenhouse grower with several crops under one roof |
+| The end user | A commercial grower with several crops under one roof |
+| The setting, confirmed later the same day | A shade house, which the team calls a greenhouse in plain speech, because closed greenhouses keep rain off the crop on purpose |
+| The place, chosen later the same day | The Apopka area of Central Florida, after the team dropped Houston, and checked against University of Florida sources |
 
 ## Problem
 
 A grower with three crops under one roof gives all three the same sky.
-The lettuce gets too much light, the tomatoes not enough, and the roof is either open or shut for the whole house.
+The ferns get too much light, the blueberries not enough, and the roof is either open or shut for the whole house.
 A roof made of many small fins can treat each zone differently: shade the crop that has had its light for the day, open over the one that still needs it, and let the rain through only where the soil is dry.
 
 ## The demo moment
@@ -46,7 +48,7 @@ The speaker hands over the printed fin: "this is one of those, and it has no hin
 
 ## Software needed
 
-- The solar data pipeline, package C6, which already exists as a checked specification, pointed at the chosen location.
+- The sun for the place and the year of the rain, package S1, from NASA POWER.
 - An hourly rain series from a real weather record.
 - A crops table, every row with its source.
 - The zone simulation: light to a daily light sum, a soil water bucket per zone, and the rules.
@@ -71,10 +73,8 @@ The ray cast shade table from Plan B is probably more than this needs, because a
 
 ## Open questions
 
-- Which location, and its rain record: the data agent, under way.
-- Three crops and their sourced targets: the data agent, under way.
-- What already exists, and what the fin adds: the market research agent, under way.
-- Whether the setting is a closed greenhouse, a shade house, or an open field: decided after the market research, by the team.
+- All four first questions are answered: the place is the Apopka area, the crops are Boston fern, hydrangea, and blueberry, the market research is done, and the setting is a shade house. See `../../plans/plan-d-louvre-roof.md`.
+- A soil bucket sized for containers or for soil, and whether the hydrangea stays or a second foliage crop replaces it: the team.
 
 ## Sources
 

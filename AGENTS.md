@@ -4,7 +4,8 @@ This is the repo the team submits to HackMIT 2026.
 
 The project, since about 16:45 on Saturday 2026-09-19: a simulated smart louvre roof for a grower with three crops under one shade roof.
 The roof is made of many small hingeless fins, grouped into zones, and each zone gets its own light and lets the rain through only when its soil is dry.
-Everything is simulated, from a real year of Houston weather, and the one physical thing is a printed fin on the table.
+Everything is simulated, from a real year of Central Florida weather near Apopka, and the one physical thing is a printed fin on the table.
+The structure is a shade house, which the team calls a greenhouse in plain speech, and the page says shade house.
 
 The plan is `planning/plans/plan-d-louvre-roof.md`.
 Earlier the same day the team planned a bus stop canopy and then a leaf design tool, and those files are still under `planning/` as the record.
@@ -33,7 +34,7 @@ All project code is written between 11:00 Saturday 2026-09-19 and 11:00 Sunday 2
 
 ## Order of work
 
-G1 the gate runner, then S1 the 2023 sun, then H1 the zones and the rules, then H2 the page, then H3 the result card.
+G1 the gate runner, then S1 the 2023 sun for the Apopka area, then H1 the zones and the rules, then H2 the page, then H3 the result card.
 Each has a file under `planning/plans/packages/`, or will before it is handed over.
 These packages under the same folder belong to plans that were set aside, and are never built: R1, C6, V1 to V4, and F1.
 

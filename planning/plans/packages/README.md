@@ -6,18 +6,13 @@ The rules for the agent are in `../README.md`, and the rules for the event repo 
 
 ## The packages
 
-**Location change, about 17:45 on 2026-09-19: the team dropped Houston, and the place is now Central Florida, the Apopka area, in a shade house, which the team loosely calls a greenhouse.**
-Packages S1 and H1 below still carry Houston's files and Houston's expected values, and a planner is recomputing every one of them for Florida.
-Do not hand S1 or H1 to the build agent until this notice is gone.
-G1, the gate runner, does not depend on the place and can start now.
-
 The current plan is `../plan-d-louvre-roof.md`, the simulated smart louvre roof, chosen on 2026-09-19 at about 16:45.
 
 | ID | File | What | Status |
 |---|---|---|---|
 | G1 | `G1-gate-runner.md` | One command that runs every fast gate in `../gates.md` and prints the gate report | ready, first |
-| S1 | `S1-solar-2023.md` | The sun for Houston in 2023 from NASA POWER, the same year as the rain, one row an hour, no new dependency | ready, second |
-| H1 | `H1-zones-light-rain-soil.md` | The crops, the rain, the light, the soil bucket, the nine rules, and the year's summary | ready, third, and it needs S1's file |
+| S1 | `S1-solar-2023.md` | The sun for the Apopka area of Central Florida in 2023 from NASA POWER, the same year as the rain, one row an hour, no new dependency | ready, second |
+| H1 | `H1-zones-light-rain-soil.md` | The crops, the rain, the light, the soil bucket, the nine rules, and the year's summary | ready, third, and it needs S1's file. Central Florida, three crops, the demo day of 3 June 2023 |
 | H2 | not written yet | The page that plays one day in a minute from H1's output | after H1's first run |
 | H3 | not written yet | The result card and `headline.json` | with H2 |
 
@@ -27,6 +22,7 @@ None of them is handed to the build agent.
 ## Where the raw data is
 
 Downloaded on 2026-09-19 into `hack-mit/data/raw/`, which is gitignored.
+For the current plan the two files are `nasa-power/power-hourly-orlando-executive-2023.csv` and `isd-rain/72205312841-2023.csv`.
 A downloaded public dataset is not code, so it is copied into `flecto-stop/data/raw/`, also gitignored, as the first step of the package that uses it.
 Each package gives the byte size and the sha256 of its raw file, so the copy can be checked.
 

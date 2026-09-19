@@ -56,14 +56,14 @@ The demo is the table in `plan-d-louvre-roof.md`, and each beat has one thing a 
 | 1 | 0:00 | Before Play the roof is shut, three zones are named with their crops, there is one Play button, the word "simulated" is on the page, and there is not one digit on it |
 | 2 | 0:20 | Nothing on the screen moves while the judge holds the printed fin |
 | 3 | 0:30 | One press of Play starts the day, the sun rises, every fin opens, and three light gauges fill, with no second control needed |
-| 4 | 0:45 | The hydrangea zone's fins shut when its gauge reaches 12 mol, the lettuce zone's about an hour later at 17 mol, and the blueberry zone stays open: the three zones visibly stop behaving as one roof |
-| 5 | 0:55 | Rain appears over all three zones, the hydrangea's fins reopen and its soil gauge climbs, the lettuce stays shut with the words "opted out" and never "wet enough", and the last hour of rain is refused by every zone |
+| 4 | 0:45 | The fern zone's fins shut when its gauge reaches 8 mol, the hydrangea zone's about an hour later at 12 mol, and the blueberry zone stays open: the three zones visibly stop behaving as one roof |
+| 5 | 0:55 | Rain appears over all three zones, the hydrangea's fins reopen and its soil gauge climbs to full, the blueberry stays shut with the words "wet enough", and the fern stays shut with the words "opted out": three zones, three reasons, each in words |
 | 6 | 1:10 | The result card takes the screen: light against target per crop, and the rain's share of each zone's water, each with the word "simulated" |
-| 7 | 1:20 | The year by month shows, with August at zero, and nothing moves after it |
+| 7 | 1:20 | The year by month shows, the wet season and the dry season plain to see, and nothing moves after it |
 | Reset | between judges | One control returns everything to beat 1 in under five seconds |
 
 The whole run, from the press of Play to the result card, is between 55 and 75 seconds.
-The day that plays is 5 June 2023, sun until early afternoon and then 17 mm of rain, named on the screen with its date.
+The day that plays is 3 June 2023, sun until mid afternoon and then 42 mm of rain in two hours, named on the screen with its date.
 
 ### The UI gate
 
@@ -76,7 +76,7 @@ The day that plays is 5 June 2023, sun until early afternoon and then 17 mm of r
 
 - Every figure the speaker says is on the result card, with the same value and the same label.
 - Every sentence in the script that describes the screen is true of the screen.
-- The page says in words where the sun and the rain come from: the sun a modelled satellite product, the rain one measured gauge, both Houston Hobby in 2023.
+- The page says in words where the sun and the rain come from: the sun a modelled satellite product, the rain one measured gauge, both the Orlando Executive Airport gauge near Apopka in 2023.
 - The page credits the fin to ITKE, and never says or implies "first", "measured", "maintenance free", or any figure for cost, yield, energy, or water saved.
 - The full list of words the team never says is in `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md`, and the page is read against it.
 
