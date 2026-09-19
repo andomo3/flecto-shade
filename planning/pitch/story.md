@@ -174,7 +174,7 @@ The playbook's five rules, applied.
 5. Under sixty seconds: the day plays in about forty seconds, so the narration runs over it and never before it.
 
 The words are cut to the screen, not the screen to the words.
-H2 shuts the fern 15.0 seconds after Play, starts the storm at 24.6, and shows the card at 38.6, and `script.md` counts what is said in each of those three windows.
+H2 shuts the fern 15.0 seconds after Play, runs the storm from 24.6 to 34.6, and shows the card at 43.8, and `script.md` counts what is said in each of those three windows.
 Anything that needs explaining, the rules and the stack, waits for the result card, which is a still screen.
 
 The scene, from `../plans/plan-d-louvre-roof.md`: the fern has its light by eleven, the hydrangea by noon, the blueberries want all of it, then the afternoon storm, and three zones give three answers to the same rain, each for its own reason.
@@ -184,8 +184,9 @@ The scene, from `../plans/plan-d-louvre-roof.md`: the fern has its light by elev
 The screen is the second storyteller at the table, and its specification is `../plans/packages/H2-page.md` and `H3-result-card.md`.
 In one line: the screen shows Elena's roof and Elena's day, never a dashboard, and every zone says its reason in words.
 
-One thing to watch when H2 plays for the first time: the storm is on the screen for 4.8 seconds, which is two daylight hours, and the three reasons have to be read in that time.
-If a person a metre away cannot read them, the fix is in H2, a longer `play_seconds` for an hour with rain, and not in the script.
+The storm holds the screen for 10 seconds, because H2 plays an hour with rain in 5.0 seconds where an ordinary daylight hour takes 2.4.
+At 2.4 it was on the screen for 4.8 seconds, too short for three reasons in words to be read from a metre away.
+One thing to watch when H2 plays for the first time: a person a metre away reads all three reasons inside those 10 seconds. If not, the fix is `RAIN_HOUR_SECONDS` in H2, and not the script.
 
 ## Where each figure came from
 
@@ -195,5 +196,5 @@ If a person a metre away cannot read them, the fix is in H2, a longer `play_seco
 | 8 and 12 mol, the fern's band to 14, the 0.40 shade share and the 75 percent line, the Apopka quote | `../plans/packages/H1-zones-light-rain-soil.md` |
 | 54 and 17 percent, 354 days, 42 mm, eleven and noon, 6 mol, 2.4 percent | the same file, from the planner's run, all provisional until `headline.json` exists |
 | Six months of seven, April to October | `../plans/packages/H3-result-card.md`, from the planner's run, provisional the same way |
-| 15.0, 24.6, and 38.6 seconds after Play | `../plans/packages/H2-page.md`, computed from S1's file for 3 June 2023 |
+| 15.0, 24.6, 34.6, and 43.8 seconds after Play | `../plans/packages/H2-page.md`, computed from S1's file for 3 June 2023 |
 | The patent number and the inventors | `../docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md` |

@@ -60,8 +60,8 @@ The day the page plays is 3 June 2023, sun until mid afternoon and then 42 mm of
 | 0:30 | "Would you press play? This is 3 June 2023." | The sun rises, all fins open, three light gauges fill at the same rate |
 | 0:45 | "The fern has had its light by eleven. The hydrangea by noon. The blueberries want all of it." | Zone A's fins shut, then zone B's an hour later, and zone C stays open. This is the moment the three zones stop behaving as one roof |
 | 0:55 | "Then the afternoon storm. Forty two millimetres in two hours, from the real gauge." | Rain over all three. The hydrangea's fins reopen, because its soil is dry, and its soil gauge climbs to full. The blueberry's stay shut, because its soil is wet enough. The fern's stay shut, because it opted out. Each zone shows its reason in words |
-| 1:10 | "Same rain, three answers. And opening for it cost the hydrangea six mol of light it did not want. That is the trade, and it is on the card." | The result card: light against target per crop, and the rain's share of each zone's water |
-| 1:20 | The close, and what it is not | The year by month: the wet season carrying the hydrangea, the dry season on the grower's own water |
+| 1:15 | "Same rain, three answers. And opening for it cost the hydrangea six mol of light it did not want. That is the trade, and it is on the card." | The result card: light against target per crop, and the rain's share of each zone's water |
+| 1:25 | The close, and what it is not | The year by month: the wet season carrying the hydrangea, the dry season on the grower's own water |
 
 The judge touches it once, Play.
 The fallback is the recorded run, then the screen recording.

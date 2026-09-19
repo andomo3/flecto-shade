@@ -40,6 +40,7 @@ Logged during the event with the clock time, one line each, what was decided and
 - 19:15 Saturday: every file under `planning/` is rewritten for this plan, because a build agent reads whatever it finds.
 - 19:15 Saturday: nothing physical is built, and the printed display fin, package K1, is cut, because every hour goes to the simulation, the pitch, and the story.
 - About 19:20 Saturday: the page stays plain HTML, CSS, and vanilla JavaScript, and a static copy goes on Vercel for the live link. Next.js and Supabase were considered and set aside, because nothing is stored, nobody logs in, and the demo must run with no network.
+- Saturday night: an hour with rain plays in 5.0 seconds, so the storm holds the screen for 10 seconds and not 4.8, because three reasons in words have to be read from a metre away. The card moves from 38.6 to 43.8 seconds after Play, and nothing before the storm moves.
 - About 19:30 Saturday: every gate test file has an owning package, H3 writes a copy of `headline.json` into the served page folder, and the page plays a dark hour in half a second and a daylight hour in 2.4 seconds, so the screen keeps to the spoken script.
 
 Open, for the team to settle out loud:

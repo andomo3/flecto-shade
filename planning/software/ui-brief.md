@@ -48,8 +48,8 @@ That divergence is the product, and every design decision either sharpens it or 
 | 3 | 0:30 | "Would you press play? This is 3 June 2023." | One press starts the day, the sun rises, every fin opens, and three light gauges fill at the same rate | A second control |
 | 4 | 0:45 | "The fern has had its light by eleven. The hydrangea by noon. The blueberries want all of it." | Zone A's fins shut when its gauge reaches 8 mol, zone B's about an hour later at 12 mol, and zone C stays open | Anything that competes with the fins shutting |
 | 5 | 0:55 | "Then the afternoon storm. Forty two millimetres in two hours, from the real gauge." | Rain over all three zones. The hydrangea's fins reopen and its soil gauge climbs to full. The blueberry stays shut, "the soil is wet enough". The fern stays shut, "this crop opted out of rain" | A reason shown as an icon or a colour alone. Each reason is in words |
-| 6 | 1:10 | "Same rain, three answers. And opening for it cost the hydrangea six mol of light it did not want." | The result card takes the screen: light against target per crop, the rain each zone stored, and the line for the trade, under "3 June 2023, simulated" | The live gauges, which have done their job |
-| 7 | 1:20 | The close, and what it is not | The year by month: the wet season carrying the hydrangea, the dry season on the grower's own water, and nothing moves after it | Anything new |
+| 6 | 1:15 | "Same rain, three answers. And opening for it cost the hydrangea six mol of light it did not want." | The result card takes the screen: light against target per crop, the rain each zone stored, and the line for the trade, under "3 June 2023, simulated" | The live gauges, which have done their job |
+| 7 | 1:25 | The close, and what it is not | The year by month: the wet season carrying the hydrangea, the dry season on the grower's own water, and nothing moves after it | Anything new |
 | Reset | between judges | | One control returns everything to beat 1 in under five seconds | |
 
 The judge touches one thing, the Play button.
@@ -57,13 +57,13 @@ There is nothing physical at the table, so the screen carries the whole demo.
 
 ## How the day plays
 
-- A dark hour plays in half a second and a daylight hour in 2.4 seconds, from `play_seconds` in `day.json`, and the whole run from Play to the result card is between 36 and 42 seconds.
+- A dark hour plays in half a second and a daylight hour in 2.4 seconds, from `play_seconds` in `day.json`, an hour with rain plays in 5.0 seconds so the three reasons can be read, and the whole run from Play to the result card is between 41 and 47 seconds.
 - Gauges move linearly between an hour's value and the next.
 - A fin changes at the hour boundary, over 1.5 seconds, and never faster.
   The screen shows a slow roof.
 - On the demo day, from H1's table: night until local hour 5, every zone open from 6, the fern shut at 11 with 8.08 mol, the hydrangea shut at 12 with 12.72, rain at 15 and 16, 23.9 and then 18.5 mm, the hydrangea's soil from 25.48 to 59.75, and night from 20.
   All of it is simulated.
-- On the demo day the fern shuts 15 seconds after Play, the rain starts 24.6 seconds after Play, and the card arrives at 38.6, which is the demo table's 0:45, 0:55, and 1:10 with Play at 0:30.
+- On the demo day the fern shuts 15 seconds after Play, the rain starts 24.6 seconds after Play, the storm holds the screen until 34.6, and the card arrives at 43.8, which is the demo table's 0:45, 0:55, and 1:15 with Play at 0:30.
 
 ## Design consequences
 

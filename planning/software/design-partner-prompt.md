@@ -67,16 +67,16 @@ What the page does, which is fixed by the specification and is not yours to chan
   it did not want. Then the year by month, as inline SVG bars.
 
 The timing, which is fixed and computed from the real data. A dark hour plays in 0.5
-seconds and a daylight hour in 2.4 seconds:
+seconds, a daylight hour in 2.4 seconds, and an hour with rain in 5.0 seconds:
 - Play to 15.0 s: night, then sunrise, all fins open, three light gauges filling.
 - 15.0 s: the fern's fins shut. 17.4 s: the hydrangea's fins shut. The blueberry stays
   open. This is the moment the three zones stop behaving as one roof, and it is the
   moment the project wins or loses.
-- 24.6 s to 29.4 s: the storm, 42 mm in two hours. The hydrangea's fins REOPEN because
+- 24.6 s to 34.6 s: the storm, 42 mm in two hours. The hydrangea's fins REOPEN because
   its soil is dry, the blueberry stays shut because its soil is wet enough, the fern
   stays shut because it opted out. Same rain, three answers, each with its reason in
-  words. The storm is on screen for only 4.8 seconds.
-- 38.6 s: the result card.
+  words. The storm holds the screen for 10 seconds, slowed on purpose so they can be read.
+- 43.8 s: the result card.
 - A fin takes 1.5 seconds to change, and never less: the screen shows a slow roof.
 
 TASK
@@ -96,9 +96,9 @@ through these with me, in this order, and push back where I am wrong:
    panel or a bar chart? It has to stay cheap to draw in plain SVG or CSS.
 4. The moment at 15.0 to 17.4 seconds. How do I make "three zones stop behaving as one
    roof" impossible to miss without an animation that feels like a trick?
-5. The storm problem. Three reasons in words have to be read in 4.8 seconds from a metre
+5. The storm problem. Three reasons in words have to be read in 10 seconds from a metre
    away. What do I do with type size, position, colour, and what persists after the
-   rain stops? Tell me plainly if 4.8 seconds cannot work, and what the smallest change
+   rain stops? Tell me plainly if 10 seconds cannot work, and what the smallest change
    would be.
 6. The honesty on screen. "Simulated" has to be on every figure, and the credit to ITKE
    has to be on the page, without the page reading as a wall of disclaimers. Where do

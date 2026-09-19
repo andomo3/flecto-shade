@@ -52,8 +52,9 @@ Now the roof can tell them apart."
 
 ## 3 minutes, 450 to 540 words
 
-Count: 487 words, so the pace is about 2.7 words a second.
-Play is asked for at about 0:59, inside the playbook's rule that the demo starts by the sixty second mark.
+Count: 479 words.
+The page holds the screen for 43.8 seconds after Play, so the rest is spoken at about 2.8 words a second, 167 words a minute, to end on 3:00.
+Play is asked for at about 0:57, inside the playbook's rule that the demo starts by the sixty second mark.
 
 The ninety second demo in `storyboard.md` is the booth cut of the same story, with the same lines in the same order.
 
@@ -61,20 +62,20 @@ The ninety second demo in `storyboard.md` is the booth cut of the same story, wi
 |---|---|---|---|
 | 0:00 to 0:10 | Elena, three crops, one sky | The page before Play: the roof shut, three zones named, the word "simulated" | Team intros, the word "biomimetic" |
 | 0:10 to 0:35 | How a roof like hers works today: a fine brain and a blunt hand, eight against twelve, the morning choice | The same, hands off the laptop | A tour of greenhouse technology |
-| 0:35 to 0:59 | Why the fin: many small parts, no hinge to grease, ITKE's, the logic is standard, ours is a bed and not a building | The same, a hand toward the small shapes on the shut roof | Any claim about the fin's mechanics or its life, any figure for upkeep |
-| 0:59 to 1:38 | The judge presses Play, and the speaker follows the screen through three windows | The page, playing | Talking over a beat the screen has not reached |
-| 1:38 to 2:05 | The trade, one part did all of that, then the rules and the stack in one line | The result card, which is still | Narrating the gauges |
-| 2:05 to 2:40 | The year, what is not claimed, six months of seven, fifty four percent | The year by month | Any figure for cost, yield, energy, or water saved |
-| 2:40 to 3:00 | The ask, then back to Elena | The cards on the table | Ending on "questions?" |
+| 0:35 to 0:57 | Why the fin: many small parts, no hinge to grease, ITKE's, the logic is standard, ours is a bed and not a building | The same, a hand toward the small shapes on the shut roof | Any claim about the fin's mechanics or its life, any figure for upkeep |
+| 0:57 to 1:41 | The judge presses Play, and the speaker follows the screen through three windows | The page, playing | Talking over a beat the screen has not reached |
+| 1:41 to 2:12 | The trade, one part did all of that, then the rules and the stack in one line | The result card, which is still | Narrating the gauges |
+| 2:12 to 2:46 | The year, what is not claimed, six months of seven, fifty four percent | The year by month | Any figure for cost, yield, energy, or water saved |
+| 2:46 to 3:00 | The ask, then back to Elena | The cards on the table | Ending on "questions?" |
 
-The three windows after Play, from H2's playback, which shuts the fern 15.0 seconds after Play, starts the storm at 24.6, and shows the card at 38.6.
+The three windows after Play, from H2's playback, which shuts the fern 15.0 seconds after Play, runs the storm from 24.6 to 34.6, and shows the card at 43.8.
 The words in each window were counted against the screen at this script's own pace.
 
 | Window | The screen | The words | Spoken time |
 |---|---|---|---|
-| 1 | 15.0 seconds of night and morning, until the fern shuts | "Would you press play?" to "Watch the fern." | about 12 seconds |
+| 1 | 15.0 seconds of night and morning, until the fern shuts | "Would you press play?" to "Watch the fern." | about 11.5 seconds |
 | 2 | 9.6 seconds, the fern then the hydrangea shutting, until the storm | "It has had its light" to "one roof." | about 10 seconds |
-| 3 | 14.0 seconds, the storm and the rest of the day, until the card | "Then the afternoon storm" to "it opted out." | about 15 seconds |
+| 3 | 19.2 seconds: the storm holds the screen for 10.0, then the rest of the day, until the card | "Then the afternoon storm" to "it opted out." | about 14 seconds, then silence while the judge reads the three reasons |
 
 "Picture Elena, a grower near Apopka, Florida, with three crops under one shade house roof: Boston fern, hydrangea, and blueberry.
 Three crops, one sky.
@@ -118,13 +119,12 @@ No AI is in the loop, and the fins never follow the sun.
 They count the light that has arrived.
 
 Here is the whole year, and all of it is simulated.
-Apart from that one rain gauge, nothing here is measured, and nothing physical was built.
+Apart from one rain gauge, nothing here is measured, and nothing physical was built.
 Growers keep rain off glasshouse crops on purpose, which is why this is a shade house, and why each crop opts in.
 The blueberry's shade figure comes from Washington State, not Florida.
 We make no claim about yield, or cost, or disease, or wind.
-What the year shows is this.
 From April to October, the rain alone carried Elena's hydrangeas in six months of seven.
-Over the whole year it supplied about fifty four percent of that zone's water.
+Over the year it supplied about fifty four percent of that zone's water.
 
 No grower has seen this yet.
 That is what we want next: one grower near Apopka to tell us where it is wrong.

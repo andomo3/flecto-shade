@@ -36,7 +36,7 @@ Laptop:
 - [ ] Five screenshots are saved locally, the rain frame among them.
 - [ ] Notifications off, sleep and the screensaver off, the browser full screen at 100 percent zoom.
 - [ ] "Reset the day" works on the `R` key and takes under five seconds.
-- [ ] One full play, timed from Play to the result card, inside 36 to 42 seconds.
+- [ ] One full play, timed from Play to the result card, inside 41 to 47 seconds, with the storm on the screen for about 10 of them.
 - [ ] The playbook's demo day test, at 30, 15, and 5 minutes before.
 
 People:
@@ -58,8 +58,8 @@ The times are the plan's, and the speaker follows the screen, never the clock.
 | 0:30 | "Would you press play?" The judge touches it |
 | 0:45 | Eleven, then noon. Stop talking while each zone shuts |
 | 0:55 | The storm. Point at the words under each zone |
-| 1:10 | Same rain, three answers, and the trade on the card |
-| 1:20 | The year, what it is not, the closing line, then silence. Let the judge speak before anyone else does |
+| 1:15 | Same rain, three answers, and the trade on the card |
+| 1:25 | The year, what it is not, the closing line, then silence. Let the judge speak before anyone else does |
 | Questions | Thirty seconds each, the builder answers, concede to an expert, end with "thank you" |
 
 If something fails, switch once, apologise once, and keep telling the story.
