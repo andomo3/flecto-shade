@@ -8,17 +8,17 @@ updated: 2026-09-19
 
 # Flectofin smart greenhouse roof
 
-Chosen by the team at about 16:45 on Saturday 2026-09-19, the fourth plan of the day, replacing the [leaf design tool](../../archive/docs/ideas/flectofin-design-tool.md).
+Chosen by the team at about 16:45 on Saturday 2026-09-19, and frozen at the 17:00 standup.
 Four decisions were put to abba as questions and answered the same hour, and they are what makes this one small enough to finish.
 
 | Decision | Answer |
 |---|---|
-| Physical or simulated | Simulated, all of it. The one printed fin first planned for display was cut at about 19:15 on Saturday 2026-09-19 |
+| Physical or simulated | Simulated, all of it. Nothing physical is built |
 | How the roof waters | The fins over a zone open when it rains and that zone is dry, and stay shut over zones that are wet enough |
 | What makes it smart | Programmed targets per zone, one crop per zone, each with a published daily light target and a water need. Deterministic rules, and no AI in the loop |
 | The end user | A commercial grower with several crops under one roof |
 | The setting, confirmed later the same day | A shade house, which the team calls a greenhouse in plain speech, because closed greenhouses keep rain off the crop on purpose |
-| The place, chosen later the same day | The Apopka area of Central Florida, after the team dropped Houston, and checked against University of Florida sources |
+| The place, chosen later the same day | The Apopka area of Central Florida, checked against University of Florida sources |
 
 ## Problem
 
@@ -53,23 +53,18 @@ There is nothing to hand over: the fin is explained in words, and credited to IT
 - A crops table, every row with its source.
 - The zone simulation: light to a daily light sum, a soil water bucket per zone, and the rules.
 - One page: the greenhouse from above, the zones, the fins, the light and soil gauges, and the result card.
-- The gates and package G1, unchanged.
-
-## What carries over from the plans set aside today
-
-The solar pipeline and its downloaded file, the gates, the build agent's rules and the handoff prompt, the honesty rules, the stack, and the method of writing packages with expected values taken from real data.
-The ray cast shade table from Plan B is probably more than this needs, because a zone's light can be the sky's light times the share of its fins that are open, and the data agent is asked to say so or disagree.
+- The gates, and package G1, the gate runner.
 
 ## Risks, said plainly
 
-- Four plans in six hours.
-  The worst outcome is no finished project, so this one is frozen at the 17:00 standup and the next change is a cut, never a pivot.
+- The clock.
+  The worst outcome is no finished project, so this one was frozen at the 17:00 standup and any later change is a cut.
 - A real greenhouse keeps the rain out on purpose: wet leaves bring disease, and water is dosed with nutrients through the irrigation lines.
   Letting rain fall on a crop may be the idea's weakest point, and the market research is asked to find the source that says so and the setting where it is normal, a shade house or an open field.
 - Moving roofs, shade screens, and climate computers that water by the sun's energy already exist, so the claim has to be what the fin adds, and that waits for the market research.
 - The fin itself is patented by its inventors at Stuttgart and Freiburg, EP2320015, so the claim is never the flap.
 - Opening for rain also lets light in, and the rules need a stated priority for that case.
-- A roof is large and sits in the wind, which is the scale problem the team called over engineered for the bus stop. The simulation does not model wind, and says so.
+- A roof is large and sits in the wind. The simulation does not model wind, and says so.
 
 ## Open questions
 
@@ -78,6 +73,6 @@ The ray cast shade table from Plan B is probably more than this needs, because a
 
 ## Sources
 
-- The team's description of the pivot, pasted by abba on 2026-09-19.
-- [Sector choice for the design tool](../research/flectofin-design-tool/sector-choice.md), for the patent.
-- [Plan B](../../archive/plans/plan-b-simulated.md) and [package C6](../../archive/plans/packages/C6-data-pipeline.md), for what carries over.
+- The team's description of the idea, pasted by abba on 2026-09-19.
+- [Whose fin it is, and how the team credits it](../research/flectofin-greenhouse-roof/fin-patent-and-credit.md), for the patent.
+- [What already exists, and what a Flectofin roof would add](../research/flectofin-greenhouse-roof/market-and-differentiation.md).

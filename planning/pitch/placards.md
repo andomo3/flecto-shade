@@ -82,5 +82,5 @@ Cards 2, 3, and 4 can be worded now, and card 1 waits for `headline.json`.
 |---|---|
 | 54 and 17 percent, 354 days, the 8 mol target | `../plans/packages/H1-zones-light-rain-soil.md`, provisional until `headline.json` exists |
 | 50,000 sq ft a motor, and the makers on card 3 | `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md` |
-| The patent and the two universities | `../docs/research/flectofin-design-tool/sector-choice.md` |
+| The patent and the two universities | `../docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md` |
 | The wording of the four cards | `../plans/pitch-plan-d.md` |

@@ -68,7 +68,7 @@ Anything it saw only in a search snippet is marked unverified and is not said ou
 
 Searches across Flectofin, Flectofold, greenhouse, agrivoltaic, and crops returned no such proposal.
 That is an absence in these searches and not proof, so the words are "we found no prior proposal", never "first".
-The fin is ITKE's, patented as EP2320015, see [the sector research](../flectofin-design-tool/sector-choice.md).
+The fin is ITKE's, patented as EP2320015, see [the note on the patent and the credit](fin-patent-and-credit.md).
 
 ## What exists, against the idea
 

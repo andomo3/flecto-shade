@@ -1,7 +1,6 @@
 # Plan D: the smart louvre roof, simulated
 
 The current plan, chosen at about 16:45 on Saturday 2026-09-19 and frozen at the 17:00 standup.
-It replaces Plan A, Plan B, and the design tool, which are kept only as the record.
 After the freeze a change is a cut, never a pivot.
 
 The idea is in `../docs/ideas/flectofin-greenhouse-roof.md`, and the market research that shaped it is in `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md`.
@@ -21,7 +20,7 @@ A Central Florida grower with three crops under one shade house roof gives each 
 ## The MVP
 
 Simulated, all of it.
-Nothing physical is built, and there is no printed fin: the fin was cut at about 19:15 on Saturday, as a cut and not a pivot, so that every hour goes to the simulation, the pitch, and the story.
+Nothing physical is built, so that every hour goes to the simulation, the pitch, and the story.
 
 In:
 
@@ -35,7 +34,7 @@ In:
 
 In if time allows: a second view that draws the roof's fins one by one.
 
-Out: any physical rig, a printed fin, any sensor, water, AI in the loop, wind and hail, a closed glasshouse, a second city, the ray cast shade table, cost and yield figures, and everything in the plans set aside.
+Out: any physical rig, a printed fin, any sensor, water, AI in the loop, wind and hail, a closed glasshouse, a second city, the ray cast shade table, and cost and yield figures.
 
 ## The packages, in order
 
@@ -48,7 +47,7 @@ Out: any physical rig, a printed fin, any sensor, water, AI in the loop, wind an
 | 5 | H3 | The result card and `headline.json`: each crop's light against its target, the rain's share of each zone's water, the year by month | `packages/H3-result-card.md` | 75 |
 
 G1 and S1 can start now.
-Package C6, the PVGIS typical year, is set aside: joined to a real year's rain it made rainy hours brighter than dry ones, which S1's file explains and fixes.
+A typical year of sun was considered and rejected: joined to a real year's rain it made rainy hours brighter than dry ones, which S1's file explains and fixes.
 `pvlib` is no longer needed, because nothing in this plan uses the sun's position.
 The day the page plays is 3 June 2023, sun until mid afternoon and then 42 mm of rain in two hours, and H1's planner ran the rules on it: the story happens, with no constant tuned, and three zones give three different answers to the same rain.
 
@@ -93,7 +92,7 @@ Next.js and Supabase were considered and set aside, because nothing in this proj
 
 ## Risks
 
-- Four plans in six hours, and nothing built at 17:00. The order above gets a running simulation before a page, so there is always something to show.
+- Nothing was built at 17:00 on Saturday. The order above gets a running simulation before a page, so there is always something to show.
 - The sun is a satellite product for a cell about 100 km across, so a local storm can rain under a bright cell, as on 29 July 2023, and the page says the sun is modelled.
 - Shading blueberries is not Florida practice, and the figure is from Washington State, so the blueberry zone is the weakest of the three and the page says where its number comes from.
 - A horticulture expert at the table. The answers are written in the market research, and the first of them is to concede.

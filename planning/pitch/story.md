@@ -37,7 +37,7 @@ It is strong because it is the honest state of the art, and the numbers say so.
 | 3 June 2023: 42 mm of rain in two hours, the fern shut at eleven, the hydrangea at noon | H1's demo day table, 42.4 mm, local hours 11 and 12 | provisional, the same rule |
 | Opening for that rain gave the hydrangea about 6 mol of light it did not want | H1's demo day, 5.96 mol, 12.72 to 18.68 | provisional, the same rule |
 | 2023 was an ordinary year for rain at that gauge, 2.4 percent above the 1991 to 2020 normal | H1, from the NOAA normals for station USW00012841 | for the questions |
-| The fin is the Flectofin, by ITKE at the University of Stuttgart, patented as EP2320015 | `../docs/research/flectofin-design-tool/sector-choice.md` | said unasked, every time |
+| The fin is the Flectofin, by ITKE at the University of Stuttgart, patented as EP2320015 | `../docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md` | said unasked, every time |
 
 Three specifics per sixty seconds is the playbook's rule.
 Ours are 50,000 square feet a motor, 8 mol against 12, and about 54 percent.
@@ -134,4 +134,4 @@ In one line: the screen shows Elena's roof and Elena's day, never a dashboard, a
 | 50,000 and 40,000 square feet a motor | `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md` |
 | 8 and 12 mol, the 0.40 shade share, the Apopka quote | `../plans/packages/H1-zones-light-rain-soil.md` |
 | 54 and 17 percent, 354 days, 42 mm, eleven and noon, 6 mol, 2.4 percent | the same file, from the planner's run, all provisional until `headline.json` exists |
-| The patent number and the inventors | `../docs/research/flectofin-design-tool/sector-choice.md` |
+| The patent number and the inventors | `../docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md` |

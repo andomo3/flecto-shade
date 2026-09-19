@@ -70,7 +70,6 @@ Written down so it stays rejected at 3am.
 - A second city, and a typical year in place of a real one.
 - The ray cast shade table, and `pvlib`, because nothing in this plan uses the sun's position.
 - Any figure for cost, yield, energy, or water saved.
-- Everything in the plans that were set aside, which are under `archive/`: the bus stop canopy, live and simulated, and the leaf design tool.
 - Auth, settings, onboarding, a web framework, a build step, a CDN: always cut.
 
 ## The cuts, by the clock
@@ -119,7 +118,7 @@ The 2025 day-of site listed creativity, technical difficulty, design, and useful
 ## Tracks and challenges
 
 Not yet recorded for this plan.
-The bus stop was entered for the Sustainability track, and the 17:00 standup was to decide which challenges are still in reach.
+The 2026 tracks are Entertainment, Education, Sustainability, and Healthcare, and a project enters at most one.
 The team settles this out loud before the submission form is filled in, and writes it in `RUN.md`.
 
 ## Submission requirements

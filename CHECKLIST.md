@@ -105,7 +105,7 @@ Notes for this section:
 | K1, the display fin | CUT at about 19:15 on Saturday 2026-09-19. There is no hardware, and the project is the simulation alone | cut | `pkg/K1` is not merged | never |
 | K2, the roof layout | How the roof is laid out over the three zones, as data the page can draw: how many fins, how big, over what size of bed | blocked by nothing | | `data/roof-layout.json` validates against the schema below, in a test at `software/tests/test_roof_layout.py`, and `data/roof-layout.md` shows a plan view with the dimensions |
 
-K1 was cut so that every hour goes to the simulation, the pitch, and the story, and its planning files are under `planning/archive/hardware/`.
+K1 was cut so that every hour goes to the simulation, the pitch, and the story.
 The fin is ITKE's Flectofin, patented as EP2320015, and the page says so.
 
 The schema for `data/roof-layout.json`, which H2 reads and nothing else does:

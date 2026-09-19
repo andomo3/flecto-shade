@@ -16,12 +16,11 @@ This file holds the decisions about the data, their reasons, and what is still o
 
 ## Decisions, and their reasons
 
-- **The sun is NASA POWER for 2023, a real year, and not the PVGIS typical year.**
-  An earlier package, C6, joined a typical year of sun, stitched from several years, to one real year of rain.
+- **The sun is NASA POWER for 2023, a real year, and not a typical year.**
+  A typical year of sun, stitched from several years, was considered and joined to one real year of rain.
   A check on real files showed what that does: the rainy daylight hours came out brighter than the dry ones, by a ratio of 1.11, because the two had nothing to do with each other.
   With the sun from the same year as the rain, rainy hours are darker, as they are outside: the ratio is 0.627 for this file.
   A demo where rain falls under a clear sky is wrong in a way any judge can see.
-  C6 is set aside and is never built.
 - **`pvlib` is not needed.**
   Nothing in this plan uses the sun's position, because the roof reacts to how much light arrives and not to where the sun is.
   So it is not a dependency, and no package may add it.
@@ -93,6 +92,6 @@ Also to confirm: the licence of the NOAA ISD file, believed public domain, and t
 ## What not to build
 
 - A second place, a typical year, forecasts, the sun's position, or the ray cast shade table.
-- Anything from the packages set aside: C6, R1, V1 to V4, and F1.
+- Any package that is not G1, S1, H1, H2, H3, or K2.
 - Any download at build time.
   The raw files are copied in by a person, and the tests patch `socket.socket` to raise.

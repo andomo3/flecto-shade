@@ -65,7 +65,7 @@ This file holds what is already decided, why, and the traps.
 
 ## What not to build
 
-- Anything from the plans set aside, and their packages R1, C6, V1 to V4, and F1.
+- Any package that is not G1, S1, H1, H2, H3, or K2.
 - Any reader for a port or a board, any recorder, any live stream to the page.
 - A web framework, a chart library, a build step, a mobile layout.
 - A second city, a city picker, forecasts, wind, hail, leaf wetness, growth stages.

@@ -6,8 +6,6 @@ A simulated smart louvre roof for a Central Florida grower with three crops unde
 The roof is made of many small hingeless fins, grouped into zones, and each zone gets its own light and lets the rain through only when its soil is dry.
 Everything is simulated, from a real year of weather near Apopka, and the fin is ITKE's Flectofin, patented as EP2320015.
 
-The repo is still named after the bus stop canopy the team arrived with, which was set aside on Saturday afternoon and is kept under `planning/archive/` as the record.
-
 ## Status
 
 HackMIT 2026, hacking from 11:00 Saturday 2026-09-19 to 11:00 Sunday.
@@ -24,7 +22,8 @@ This README is a placeholder and is rewritten before submission.
 
 ## Prior work, stated plainly
 
-The team planned this project before the event, in public, at https://github.com/andomo3/hack-mit.
-That repo holds research, specifications, the pitch, and one labelled throwaway prototype of the serial format.
+Before the event the team did research and planning in public, at https://github.com/andomo3/hack-mit, for a different idea, which was set aside on Saturday.
+This project was chosen, planned, and built during the hacking period.
+That repo holds research, specifications, a pitch, and one labelled throwaway prototype.
 No code was copied from it.
 Every line of code in this repo is written during the hacking period.

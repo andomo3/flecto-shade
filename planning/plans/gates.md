@@ -5,7 +5,6 @@ This file turns them into gates.
 A gate is either something a command can check, or something a person must look at, and the two are never mixed, because "the agent says it checked" is not a check.
 
 This file is aimed at Plan D, `plan-d-louvre-roof.md`, the simulated smart louvre roof.
-The version written for the bus stop is in the git history.
 
 ## How the loop runs
 

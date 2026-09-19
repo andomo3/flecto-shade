@@ -53,4 +53,4 @@ It makes the judge the one who started the day, and the words under each zone ma
 | Fifty thousand square feet a motor | `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md`, from the UMass fact sheet |
 | 8 and 12 mol, eleven and noon, forty two millimetres, six mol, fifty four percent | `../plans/packages/H1-zones-light-rain-soil.md`, the simulation figures provisional until `headline.json` exists |
 | The words under each zone | `../plans/packages/H2-page.md`, the table of words for each state |
-| The patent number | `../docs/research/flectofin-design-tool/sector-choice.md` |
+| The patent number | `../docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md` |

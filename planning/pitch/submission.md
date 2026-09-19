@@ -10,7 +10,7 @@ Owner: abba.
 
 **Project name:** [undecided]
 
-**Track:** [The team confirms it.
+The 2026 tracks are Entertainment, Education, Sustainability, and Healthcare, a project enters at most one, and no file records the team's choice yet.]
 Sustainability was the track chosen for the bus shelter plan, and no file written since the change of plan restates it.]
 Sponsor challenges entered: [the ones the team adopts, each checked against its own text.
 The meeting note of 2026-09-19 leaves this open.
@@ -59,7 +59,7 @@ The code was written by Devin, a build agent, from work packages whose expected 
 
 [Written at the event, from what actually happened.
 One candidate: a typical solar year joined to a real year of rain made rainy hours brighter than dry ones, so the sun was taken again for the same place and year as the rain.
-Another: the project changed direction four times on Saturday.]
+Another: the idea planned before the event was set aside on Saturday, so this one was planned and built inside the hacking period.]
 
 **Accomplishments we are proud of**
 
@@ -113,9 +113,9 @@ Python 3.13, pandas, numpy, pytest, HTML, CSS, JavaScript, [the CAD tool, only i
 **Prior work statement**
 
 Before the event we did research and planning only, in a public repository linked here: https://github.com/andomo3/hack-mit.
-That repository holds a labelled throwaway prototype for an earlier idea, none of which was copied.
-The project changed direction during the event, four times on Saturday: a bus shelter roof, a simulated one, a leaf design tool, and at about 16:45 this one.
-The planning record is copied into the event repo under `planning/`, Markdown only, and the commit history shows every change.
+That planning was for a different idea, which we set aside on Saturday, and the repository holds a labelled throwaway prototype for it, none of which was copied.
+This project, the simulated louvre roof, was chosen at about 16:45 on Saturday and planned during the event.
+Its plan is in the event repo under `planning/`, Markdown only, and the commit history shows every change.
 All code in this submission was written during the hacking period.
 
 **Links**
@@ -146,5 +146,5 @@ All code in this submission was written during the hacking period.
 | 50,000 square feet a motor, and the makers | `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md` |
 | 8 and 12 mol, 54 and 17 percent, 354 days, eleven and noon, the citations | `../plans/packages/H1-zones-light-rain-soil.md`, the simulation figures provisional until `headline.json` exists |
 | The NASA POWER citation lines | `../plans/packages/S1-solar-2023.md` |
-| The patent, the universities, and the inventors | `../docs/research/flectofin-design-tool/sector-choice.md` |
+| The patent, the universities, and the inventors | `../docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md` |
 | What the submission must contain | the submission gate in `../plans/gates.md` |

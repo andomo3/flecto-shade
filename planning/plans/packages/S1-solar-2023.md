@@ -1,13 +1,13 @@
 # S1: the sun for the Apopka area in 2023, the same year as the rain
 
 Planned on 2026-09-19 by planning agents that downloaded and read the real file.
-First written for Houston, and moved to Central Florida the same day when the team dropped Houston: the method is unchanged, and every value below was recomputed from the Florida file.
+The method was first run on files for another Gulf Coast site, and every value below was recomputed from the Florida file.
 VERIFIED means fetched or computed from the real file that day, and ASSUMED means it was not.
 
 ## Why the sun is from a real year and not a typical one
 
 An earlier plan joined a typical year of sun, stitched from several years, to one real year of rain.
-A check on real files, done for Houston, showed what that does: the rainy daylight hours came out brighter than the dry ones, by a ratio of 1.11, because the two had nothing to do with each other.
+A check on real files, done for another Gulf Coast site, showed what that does: the rainy daylight hours came out brighter than the dry ones, by a ratio of 1.11, because the two had nothing to do with each other.
 With the sun from the same year as the rain, rainy hours are darker, as they are outside: the ratio is 0.627 for this file.
 A demo where rain falls under a clear sky is wrong in a way any judge can see.
 
@@ -35,7 +35,7 @@ Nothing in this plan needs the sun's position, because the roof reacts to how mu
 - The missing value code is -999. The header's text mentions it, and the data holds none. The index is unique and in order.
 - The grid is coarse: 1 degree for the irradiance and half a degree by five eighths for the rest, from NASA's own sources page.
 - The timestamp labels the start of the hour, and the value is the hour's mean.
-  NASA's pages do not say so in a sentence that was found, so this rests on a fit done on the Houston file: global against direct and diffuse closed best with the sun taken half an hour after the stamp.
+  NASA's pages do not say so in a sentence that was found, so this rests on a fit done on the file for another Gulf Coast site: global against direct and diffuse closed best with the sun taken half an hour after the stamp.
   It matters here only for joining to the rain, and both files are hour starts.
 - NASA's own precipitation column is not used, anywhere.
   It is reanalysis, and it has 4,395 wet hours where the gauge has 373.

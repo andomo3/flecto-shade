@@ -3,7 +3,6 @@
 Owner: abba, who also holds the submission.
 
 Rewritten for Plan D, the simulated smart louvre roof, on the evening of Saturday 2026-09-19, following `../plans/pitch-plan-d.md`.
-The bus shelter versions of these files are in the git history.
 There is no hardware: nothing physical was built, and the project is the simulation, the page, the pitch, and the story.
 Anything in square brackets waits for what is actually built.
 Every simulation figure is provisional, from the planner's run in `../plans/packages/H1-zones-light-rain-soil.md`, and is confirmed against `data/processed/headline.json`, which package H3 writes, before it is said or printed.

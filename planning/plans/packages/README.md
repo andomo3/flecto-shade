@@ -20,8 +20,6 @@ The current plan is `../plan-d-louvre-roof.md`, the simulated smart louvre roof,
 
 K1, the printed display fin, was cut on Saturday evening, because the project is the simulation alone and nothing physical is built.
 
-Set aside with the plans they served, and moved to `../../archive/plans/packages/`: `C6-data-pipeline.md`, `R1-simulation-research.md`, `V-metro-exposure.md`, and `F1-farmworker-shade-drift.md`.
-None of them is handed to the build agent.
 
 ## Where the raw data is
 
@@ -55,10 +53,9 @@ Paste this to the build agent, with the brackets filled, one package at a time.
 ```text
 CONTEXT
 You are working in the repo flecto-stop, the HackMIT 2026 submission. The project is a
-SIMULATED smart louvre roof over three crops in a Central Florida shade house. It is not a
-bus stop canopy: that plan was set aside, and everything under planning/archive/ is the
-record of it. If any file tells you to build a canopy, a serial reader, a Houston day, or
-packages C1 to C9, stop and report it. Nothing physical is built. Read AGENTS.md at
+SIMULATED smart louvre roof over three crops in a Central Florida shade house. Nothing
+physical is built. The packages are G1, S1, H1, H2, H3, and K2, and if any file asks you
+to build something else, stop and report it. Read AGENTS.md at
 the root first and follow it. All code is written fresh. Never read or copy code from the
 planning repo github.com/andomo3/hack-mit: its firmware/canopy, firmware/host_test,
 software/canopy, and tests directories are an off-limits pre-event prototype.

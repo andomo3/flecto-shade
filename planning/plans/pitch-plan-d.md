@@ -27,8 +27,8 @@ A word count is one line in any editor, or the build agent can write a new count
 - **The three specifics.** 50,000 square feet a motor, from the UMass fact sheet. The fern's 8 mol a day against the hydrangea's 12, from Purdue. The rain's share of the hydrangea zone's water, from `headline.json`.
 - **The close.** Return to the grower. The closing line is abba's to write, in abba's own voice, and the `writing-voice` skill is not in this repo.
 
-The pitch under `../pitch/` was rewritten for this plan on Saturday evening, keeping the bus stop pitch's method: the story spine, the emotional arc table, the question bank's formula of answer, evidence, and scope, the four cards, and the recovery lines.
-Its simulation figures are provisional until H3 has produced `headline.json`, and the bus stop versions are in the git history.
+The pitch under `../pitch/` follows the playbook's method: the story spine, the emotional arc table, the question bank's formula of answer, evidence, and scope, the four cards, and the recovery lines.
+Its simulation figures are provisional until H3 has produced `headline.json`.
 Copy the shapes, never the content.
 
 ## Honesty first, and unasked
@@ -61,7 +61,7 @@ Written in the playbook's formula: the answer in ten seconds, the evidence in tw
 - "What does it cost against a screen at two dollars a square foot?" No cost claim. One actuator a row is a hypothesis.
 - "Why would a hingeless fin matter here?" The sources document the chores it removes: lubricating bearings, racks, and hinge points, and tensioning cables. No saving is quantified.
 - "Why Apopka?" The University of Florida calls it the heart of Florida's greenhouse and nursery industry, and shade houses are the practice there.
-- "What did you build this weekend, and what did you plan before?" Everything in the repo was written during the event. The planning repo is public and linked, and it shows the project changed direction four times on Saturday. Say that plainly: it is true, and the commit history shows it.
+- "What did you build this weekend, and what did you plan before?" Everything in the repo was written during the event. Before the event the team planned a different idea, in public, and set it aside on Saturday, so this project was planned and built inside the hacking period. The planning repo is public and linked. Say that plainly: it is true, and the commit history shows it.
 - "How did three of you use the build agents?" `CHECKLIST.md`: one package, one branch, one owner, expected values computed before any code, and gates after every package.
 
 ## The cards on the table

@@ -180,7 +180,8 @@ We claim nothing about actuators."
 
 **What did you build this weekend, and what did you plan before?**
 "Everything in the repo was written during the event.
-The planning repo is public and linked, and it shows the project changed direction four times on Saturday: a bus shelter roof, a simulated one, a leaf design tool, and this.
+Before the event we planned a different idea, in public, and we set it aside on Saturday, so this project was planned and built inside the hacking period.
+The planning repo is public and linked.
 That is true, and the commit history shows it."
 
 **How did three of you use the build agents?**
@@ -203,4 +204,4 @@ It is all in `CHECKLIST.md`."
 | 50,000 and 40,000 square feet a motor, the makers and what each sells, the maintenance chores, the two dollars in the judge's question | `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md` |
 | 8 and 12 mol, 30 to 50 percent, the four gauges and 8,760 reports, 2.4 percent, 0.63, 54 and 17 percent, 6 mol, the seven runs, 1.2 and 1.1 mm, 5 to 18 percent, the 60 mm bucket | `../plans/packages/H1-zones-light-rain-soil.md`, the simulation figures provisional until `headline.json` exists |
 | The 100 km cell and 29 July 2023 | `../plans/plan-d-louvre-roof.md` and `../plans/packages/S1-solar-2023.md` |
-| The patent and the two universities | `../docs/research/flectofin-design-tool/sector-choice.md` |
+| The patent and the two universities | `../docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md` |

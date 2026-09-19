@@ -9,9 +9,8 @@ The printed fin first planned for the table was cut on Saturday evening, so the 
 The structure is a shade house, which the team calls a greenhouse in plain speech, and the page says shade house.
 
 The plan is `planning/plans/plan-d-louvre-roof.md`.
-Earlier the same day the team planned a bus stop canopy and then a leaf design tool, and those files are under `planning/archive/` as the record.
-Build nothing from them.
-This is the only rules file in the repo, and any other file that claims to be one is the record.
+The packages are G1, S1, H1, H2, H3, and K2, and nothing else is built.
+This is the only rules file in the repo, and no other file adds to it or overrides it.
 
 Status: planning imported, nothing built yet.
 Do not start until your person hands you a work package.
@@ -41,7 +40,7 @@ All project code is written between 11:00 Saturday 2026-09-19 and 11:00 Sunday 2
 2. `planning/plans/gates.md`, what every package is checked against.
 3. `planning/plans/packages/README.md`, the package index and the handoff prompt.
 4. `planning/docs/research/flectofin-greenhouse-roof/market-and-differentiation.md`, what already exists, and the words the team never says.
-5. `planning/README.md`, the map of `planning/`, and what is in its archive.
+5. `planning/README.md`, the map of `planning/`.
 
 For the pitch, the screen's polish, the README, and the testing: `planning/plans/pitch-plan-d.md`, `planning/playbook.md`, and the `hackathon-*` skills.
 
@@ -51,7 +50,6 @@ G1 the gate runner and S1 the 2023 sun for the Apopka area start at once.
 Then H1 the zones and the rules, and K2 the roof layout. Then H2 the page, then H3 the result card.
 Each has a file under `planning/plans/packages/`, or will before it is handed over.
 K1, the printed display fin, was cut, and K2, the roof layout, is optional, because H2 draws a default grid without it.
-These packages belong to plans that were set aside, sit under `planning/archive/`, and are never built: R1, C6, C1 to C9, V1 to V4, and F1.
 
 ## Boundaries that hold whatever else changes
 

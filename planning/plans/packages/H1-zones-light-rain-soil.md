@@ -2,7 +2,7 @@
 
 The heart of the louvre roof simulation.
 Planned on 2026-09-19 by planning agents that opened every source and read the real files.
-First written for Houston, and moved to Central Florida the same day: the planner's replica first reproduced every Houston value exactly, then ran the same method on the Florida files, so the method is unchanged and every value below is Florida's.
+The planner's replica first reproduced a full set of values on files for another Gulf Coast site, then ran the same method on the Florida files, so the method is checked and every value below is Florida's.
 VERIFIED means opened or computed that day, ASSUMED means a choice the team made, and RECALLED means from memory and not confirmed.
 
 ## Goal
@@ -43,7 +43,7 @@ H1 uses its `time_utc`, `month`, `local_hour`, `ghi`, and `t2m` columns, and joi
   - The `SOD` rows hold 24 hour totals.
   - A trace always has depth 0, in 307 rows.
 - The rule: FM-15 rows only, `AA1` with period 01, depth not 9999, floor the time to the UTC hour, keep the last row in each hour, divide by 10, and a missing hour becomes 0.
-  It is the rule written for Houston and it applies unchanged, and the parser keeps its guard for two FM-15 rows in one hour even though this file has none.
+  It is the rule first written for another site's file and it applies unchanged, and the parser keeps its guard for two FM-15 rows in one hour even though this file has none.
 - The 2 missing hours are `2023-07-30T22` and `T23`, and that day's own daily summary equals its hourly sum, so no rain was lost.
 - Cross check: the station's daily summaries sum to 1338.1 mm, a gap of 0.04 percent. One day disagrees by more than half a mm: 2023-04-28, 4.3 in the summary against 0.0 hourly.
 - The 1991 to 2020 normal for this station is 51.47 inches, 1,307 mm, so 2023 was 2.4 percent above normal, an ordinary year.
