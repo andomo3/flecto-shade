@@ -70,7 +70,7 @@ Until G1 is merged there is no gate command, so S1 finishes on its own acceptanc
 
 | Package | Spec | Status | Branch | Done when |
 |---|---|---|---|---|
-| G1, the gate runner | `planning/plans/packages/G1-gate-runner.md` | not started | | `pytest tools/tests/test_gates.py` exits 0, and `python tools/gates.py --package G1 --allowed "tools/,gates-log/"` exits 0 |
+| G1, the gate runner | `planning/plans/packages/G1-gate-runner.md` | in progress | `pkg/G1` | `pytest tools/tests/test_gates.py` exits 0, and `python tools/gates.py --package G1 --allowed "tools/,gates-log/"` exits 0 |
 | H2, the page | `planning/plans/packages/H2-page.md` | blocked by H1 | | `python software/page/build_day.py --date 2023-06-03` and `pytest software/tests/test_page.py` exit 0, and a person passes the demo gate's beats 1 to 5 |
 | H3, the result card and `headline.json` | `planning/plans/packages/H3-result-card.md` | blocked by H2 | | `python software/h3/build_headline.py` and `pytest software/tests/test_headline.py` exit 0, and a person passes beats 6 and 7 and the pitch gate |
 | The pitch, the polish, the README, the table | `planning/plans/pitch-plan-d.md`, with `planning/playbook.md` and the `hackathon-*` skills | the story can start now, the figures wait for H3 | | the scripts sit inside their word targets, and every figure in them is in `headline.json` |
