@@ -99,7 +99,7 @@ Notes for this section:
 
 | Package | What | Status | Branch | Done when |
 |---|---|---|---|---|
-| K1, the display fin | The fin's CAD, sent to the print queue tonight, before it closes. One fin, for display only, a rib with a thin sheet along it | not started | | The print is submitted, and `hardware/fin/README.md` records the fin's dimensions, its material, the print settings, the CAD tool, and a screenshot or render, with the STL or STEP file beside it if it is under 5 MB |
+| K1, the display fin | The fin's CAD, sent to the print queue tonight, before it closes. One fin, for display only, a rib with a thin sheet along it | in progress; assigned to this agent by Ameya for this request | `pkg/K1` | The print is submitted, and `hardware/fin/README.md` records the fin's dimensions, its material, the print settings, the CAD tool, and a screenshot or render, with the STL or STEP file beside it if it is under 5 MB |
 | K2, the roof layout | How the roof is laid out over the three zones, as data the page can draw: how many fins, how big, over what size of bed | blocked by nothing | | `data/roof-layout.json` validates against the schema below, in a test at `software/tests/test_roof_layout.py`, and `hardware/roof/README.md` shows a plan view with the dimensions |
 
 K1 comes first, because the print queue closes tonight and nothing else in the project has a deadline that early.
