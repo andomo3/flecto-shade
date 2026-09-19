@@ -10,10 +10,10 @@ Owner: abba.
 
 **Project name:** [undecided]
 
+**Track:** [The team confirms it.
 The 2026 tracks are Entertainment, Education, Sustainability, and Healthcare, a project enters at most one, and no file records the team's choice yet.]
-Sustainability was the track chosen for the bus shelter plan, and no file written since the change of plan restates it.]
 Sponsor challenges entered: [the ones the team adopts, each checked against its own text.
-The meeting note of 2026-09-19 leaves this open.
+`../RUN.md` lists this as open.
 The hardware challenge is out, because there is no hardware.
 A public data challenge is in reach only if its text fits a year of NASA and NOAA weather.
 Cognition's, if it has one, because Devin wrote the code.]
