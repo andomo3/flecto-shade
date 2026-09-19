@@ -12,7 +12,14 @@ Earlier the same day the team planned a bus stop canopy and then a leaf design t
 Build nothing from them.
 
 Status: planning imported, nothing built yet.
-Do not start until abba hands over a work package.
+Do not start until your person hands you a work package.
+
+## Three people, three agents, one repo
+
+Abba does the software engineering and is the integrator who merges, Ameya does the data engineering, and Shannon does the CAD modelling.
+Each drives a Devin agent on their own laptop, all in this repo at the same time.
+`CHECKLIST.md` is the live board: who owns which package and which directories, the order, what can run side by side, the files where packages meet, and the ten rules that keep three agents from colliding.
+Read it before anything else, work only on your own person's packages, and edit only your own person's section of it.
 
 ## The rule that outranks every other
 
@@ -27,6 +34,7 @@ All project code is written between 11:00 Saturday 2026-09-19 and 11:00 Sunday 2
 
 ## Read first
 
+0. `CHECKLIST.md`, the live board.
 1. `planning/plans/plan-d-louvre-roof.md`, the plan: what is ours and what is not, the MVP, the packages in order, the demo, and the risks.
 2. `planning/plans/gates.md`, what every package is checked against.
 3. `planning/plans/packages/README.md`, the package index and the handoff prompt.
@@ -34,7 +42,8 @@ All project code is written between 11:00 Saturday 2026-09-19 and 11:00 Sunday 2
 
 ## Order of work
 
-G1 the gate runner, then S1 the 2023 sun for the Apopka area, then H1 the zones and the rules, then H2 the page, then H3 the result card.
+G1 the gate runner, S1 the 2023 sun for the Apopka area, and K1 the display fin start at once, on three laptops.
+Then H1 the zones and the rules, and K2 the roof layout. Then H2 the page, then H3 the result card.
 Each has a file under `planning/plans/packages/`, or will before it is handed over.
 These packages under the same folder belong to plans that were set aside, and are never built: R1, C6, V1 to V4, and F1.
 
@@ -49,7 +58,7 @@ These packages under the same folder belong to plans that were set aside, and ar
 
 ## How work is handed over
 
-Abba plans the code and the build agent writes it.
+Abba plans the code, and each person's build agent writes that person's packages.
 Every task is one work package, handed over with four things:
 
 - the package ID, for example S1,
@@ -78,13 +87,15 @@ Code that passes its own tests and breaks the demo is not done.
   A green command never means "the demo works".
 - Always answer the report's last line: anything in the demo, the pitch, or a checklist that this package makes harder.
 
-`GATES.md` at the root is the ledger: one dated section per package, written by the command.
+`gates-log/` is the ledger: one file per package, written by the command, so that three agents never write the same file.
 
 ## Layout, once building starts
 
 | Directory | Becomes |
 |---|---|
 | `tools/` | The gate runner and its tests |
+| `gates-log/` | One gate report file per package |
+| `hardware/` | The display fin's CAD and record, and the roof's plan view |
 | `data/raw/` | Downloaded public datasets, gitignored, copied in by a person with the sha256 checked |
 | `data/` | The build scripts, `crops.csv`, and `processed/`, which is committed |
 | `software/` | The simulation, the page, `requirements.txt`, and `tests/` |
@@ -101,7 +112,7 @@ Code that passes its own tests and breaks the demo is not done.
 
 ## Commits
 
-- One commit per work package, with the package ID in the message.
+- One branch per work package, `pkg/ID`, and one commit on it, with the package ID in the message. Only the integrator merges into `main`.
 - Small and atomic, and commit whenever something works that did not before.
 - No co-author trailers.
 - Never commit `data/raw/`, a virtual environment, or a `.env` file.
