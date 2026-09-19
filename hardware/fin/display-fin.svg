@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<rect width="1200" height="800" fill="#f5f3ec"/>
+<g font-family="Helvetica,Arial,sans-serif" fill="#203832">
+<text x="60" y="52" font-size="15" letter-spacing="3">K1 / DISPLAY FIN / MODELLED GEOMETRY</text>
+<text x="60" y="105" font-size="42" font-weight="700">One rib. One thin sheet.</text>
+<text x="60" y="141" font-size="19">ITKE's Flectofin principle · EP2320015 · Display adaptation</text>
+<polygon points="247.15,211.30 163.15,299.30 913.15,426.80 997.15,338.80" fill="#76bca5" stroke="#294a43" stroke-width="1.2"/>
+<polygon points="160.00,275.00 160.00,305.00 910.00,432.50 910.00,402.50" fill="#263f3d" stroke="#294a43" stroke-width="1.2"/>
+<polygon points="163.15,271.70 160.00,275.00 910.00,402.50 913.15,399.20" fill="#dda86d" stroke="#294a43" stroke-width="1.2"/>
+<polygon points="910.00,432.50 997.15,341.20 997.15,338.80 913.15,426.80 913.15,399.20 910.00,402.50" fill="#263f3d" stroke="#294a43" stroke-width="1.2"/>
+<path d="M 275,318 L 235,198 L 95,198" fill="none" stroke="#52665d" stroke-width="1.5"/>
+<text x="60" y="187" font-size="18">Rib: 1.5 × 5 mm</text>
+<path d="M 742,332 L 908,238 L 1130,238" fill="none" stroke="#52665d" stroke-width="1.5"/>
+<text x="897" y="210" font-size="18">Sheet: 0.4 mm thick</text>
+<text x="897" y="231" font-size="16">40 mm clear width</text>
+<path d="M 157,352 L 907,479 M 154,341 L 160,363 M 904,468 L 910,490" fill="none" stroke="#52665d" stroke-width="1.4"/>
+<text x="470" y="461" font-size="19">150 mm modelled length</text>
+<line x1="60" y1="527" x2="1140" y2="527" stroke="#c6cfc4"/>
+<text x="60" y="563" font-size="15" letter-spacing="2">END SECTION</text>
+<path d="M 65,675 L 65,600 L 87.5,600 L 87.5,669 L 687.5,669 L 687.5,675 Z" fill="#76bca5" stroke="#294a43" stroke-width="1.5"/>
+<path d="M 65,695 L 687.5,695 M 65,688 L 65,702 M 687.5,688 L 687.5,702" fill="none" stroke="#52665d"/>
+<text x="264" y="724" font-size="18">41.5 mm total width</text>
+<text x="775" y="588" font-size="21" font-weight="700">Print flat, sheet down</text>
+<text x="775" y="622" font-size="18">PLA · 0.2 mm layers</text>
+<text x="775" y="650" font-size="18">Two layers through the sheet</text>
+<text x="775" y="687" font-size="16">Bending behaviour awaits a physical check.</text>
+<text x="60" y="772" font-size="15">All dimensions are modelled design assumptions. Geometry render only; no structural solver has run.</text>
+</g></svg>
