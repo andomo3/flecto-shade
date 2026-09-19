@@ -1,78 +1,98 @@
 # data - local memory
 
-> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
-> The current plan is the simulated louvre roof over three crops.
-> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
-> If you are a build agent and you arrived here, stop, and go back to those files.
+Owner: Ameya, with packages S1 and H1.
+This folder is planning, Markdown only, and the data and its build scripts live in the repo's own `data/` directory.
+The provenance table is `README.md` in this folder, and the specifications are `../plans/packages/S1-solar-2023.md` and `../plans/packages/H1-zones-light-rain-soil.md`.
+This file holds the decisions about the data, their reasons, and what is still open.
 
-Owner: the software and data role, abba.
-This is the planning repo, and no analysis script is written here before the event.
-Downloading a public dataset beforehand is allowed, and there is no network at the venue, so the download happens on Friday 2026-09-18.
-The full reasoning is in `../docs/research/adaptive-bus-stop-canopy/dataset-choice.md`.
+## What the repo's `data/` directory holds
 
-## What this directory becomes
+- `data/raw/` holds the two downloaded files and is ignored by git.
+  A person copies each file in and checks its sha256.
+- `data/build_solar_2023.py` is S1's build script.
+- `data/crops.csv` and `data/roof-layout.json` sit at the top of `data/`.
+- `data/processed/` holds the files the software reads, and it is committed.
+- Every build runs with the network off and gives identical bytes on two runs.
 
-`raw/` holds the downloaded files and is gitignored.
-`processed/` holds one small CSV per city, the fast forward day, committed.
-One script rebuilds `processed/` from `raw/` with the network off.
+## Decisions, and their reasons
 
-## Decisions that bind this directory
+- **The sun is NASA POWER for 2023, a real year, and not the PVGIS typical year.**
+  An earlier package, C6, joined a typical year of sun, stitched from several years, to one real year of rain.
+  A check on real files showed what that does: the rainy daylight hours came out brighter than the dry ones, by a ratio of 1.11, because the two had nothing to do with each other.
+  With the sun from the same year as the rain, rainy hours are darker, as they are outside: the ratio is 0.627 for this file.
+  A demo where rain falls under a clear sky is wrong in a way any judge can see.
+  C6 is set aside and is never built.
+- **`pvlib` is not needed.**
+  Nothing in this plan uses the sun's position, because the roof reacts to how much light arrives and not to where the sun is.
+  So it is not a dependency, and no package may add it.
+- **The rain is one real gauge, Orlando Executive Airport, NOAA ISD station 72205312841.**
+  It was chosen from four gauges near Apopka as the most complete: 8,760 hourly reports with 2 lacking the rain field, against 13 missing hours at Orlando International, 35 at Sanford, and 25 at Leesburg.
+- **The sun is requested at the gauge's own coordinates**, so the two files describe the same place and the same hours.
+- **NASA's own precipitation column is never used.**
+  It is reanalysis, and it has 4,395 wet hours where the gauge has 373.
+- **Apopka, because the University of Florida says so.**
+  Its research centre there describes itself as "Located in the heart of Florida's greenhouse and nursery industry", and shade houses are the practice there.
+  Phrases seen only in search snippets, such as any "capital of the world" title, are never said.
+- **Both files stamp the start of the hour**, so the join is on `time_utc` with nothing shifted.
+  Local days and local hours are America/New_York.
+- **The demo day is 3 June 2023**, chosen in H1, where the rules were run on it hour by hour.
+  31 days between April and October have at least 5 mm of daytime rain after at least four bright hours, so there were plenty to choose from.
+- **The expected values were computed from the real files before any code existed.**
+  If one does not match, stop and report it, and never edit the value.
 
-- Primary dataset: the PVGIS typical meteorological year hourly file, API version `v5_2`, no key, about 0.6 MB per city.
-  Houston is `https://re.jrc.ec.europa.eu/api/v5_2/tmy?lat=29.76&lon=-95.37&outputformat=csv`.
-- The sun's position is computed locally with `pvlib`, which must be pip installed on Friday.
-- Fallback: the NSRDB file from `developer.nlr.gov`, which needs a free key, because NREL is now NLR and the old hosts are dead.
-- The demo day is the sunniest day in the Houston file, the largest daily sum of `G(h)`, and its real date is shown on screen.
-- Houston is the story.
-  Other cities are a stretch, shown through a city picker, on the same calendar date so the comparison is honest.
-- What is modelled and what is measured are never mixed: the dataset sets the scene, and the only measured numbers are the sensors on the table.
+## Traps in the rain file
 
-## To do on Friday, no code
+- FM-16 special reports repeat the running hourly total, so summing every FM-15 and FM-16 value gives 3,728.5 mm, nearly three times the truth.
+- The `SOD` rows hold 24 hour totals, and `REPORT_TYPE` values carry trailing spaces.
+- A trace always has depth 0, in 307 rows, and a missing depth is 9999.
+- The rule: FM-15 rows only, `AA1` with period 01, depth not 9999, floor the time to the UTC hour, keep the last row in each hour, divide by 10, and a missing hour becomes 0.
+  The parser keeps its guard for two FM-15 rows in one hour even though this file has none.
+- The 2 missing hours are `2023-07-30T22` and `T23`, and that day's own daily summary equals its hourly sum, so no rain was lost.
+- One day disagrees with the station's daily summary by more than half a mm: 2023-04-28, 4.3 in the summary against 0.0 hourly.
 
-- Download the Houston `v5_2` file into `raw/`, and the `v5_3` file as a spare.
-- For each stretch city, one far north, one near the equator, one in the southern hemisphere, request the same URL with its latitude and longitude and see whether PVGIS answers.
-  Coverage at very high latitudes and in the far south is unverified.
-  If a city fails, `pvlib` clear sky irradiance works anywhere and is labelled "modelled clear sky".
-- `pip install pvlib` into the virtual environment.
-- Fill the provenance table in `README.md` with the URL, the date, and the file size.
+## Traps in the sun file
 
-## The skeleton, at the event
+- 13 header lines are skipped, and the column row is line 14.
+- The missing value code is -999.
+  The header's text mentions it and the data holds none, and the build fails loudly if one ever appears.
+- Wh/m^2 over one hour is the mean W/m^2 for that hour, so there is nothing to convert.
+- NASA may stamp a new date into the header when the file is fetched again, which changes the sha256 and nothing else.
+  If only that differs, check the 8,760 rows against the sums in S1's tests, and carry on.
+- That the stamp labels the start of the hour rests on a fit, not on a sentence found on NASA's pages.
+  It matters here only for joining to the rain.
 
-| Step | What | Check | Minutes |
-|---|---|---|---|
-| 1 | Load one raw file with pandas, skipping the header and footer blocks, and read the "Irradiance Time Offset" from the header | 8760 rows, the columns `time(UTC)`, `G(h)`, `Gb(n)`, `Gd(h)`, `T2m` | 15 |
-| 2 | Sum `G(h)` per day and pick the largest | One date, printed with its peak `G(h)` and peak `T2m` | 10 |
-| 3 | Convert UTC to local time, add the offset, and get elevation and azimuth from `pvlib.solarposition.get_solarposition` | The sun is highest near local noon and below the horizon at night | 20 |
-| 4 | Map `G(h)` from 0 to about 1000 W/m2 onto LED duty 0 to 255, and elevation onto a sun servo angle 0 to 180 | Duty is 0 at night and near 255 at the day's peak | 10 |
-| 5 | Interpolate to 600 rows, so 24 hours play in 60 seconds at ten rows a second, and write `processed/day-<city>.csv` | Columns `step, local_time, ghi, elevation, azimuth, t2m, led, sun_angle` | 15 |
-| 6 | Wrap steps 1 to 5 in a function of city name, latitude, and longitude | The same script produces every city | 10 |
+## Known caveats, said on the page and in the README
 
-About an hour and a half, none of it blocking the engineers.
+- The sun is a satellite product for a cell about 100 km across, 1 degree for the irradiance, so a local storm can rain under a bright cell.
+  The example: on 29 July 2023 the gauge caught 11.2 mm in an hour while the satellite cell read 681 W/m2.
+  The page says the sun is modelled.
+- The light constant, `K = 2.0565`, uses 0.45 inside a verified range, and the range seen in the field is lower, so light sums may read 5 to 18 percent high.
+- The blueberry's 40 percent shade is a heat figure from Washington State, and shading blueberries is not Florida practice.
+- The fern and the hydrangea have no row in FAO-56 Table 12, so their `kc` of 1.00 is ASSUMED.
+- The soil bucket, `T_STRUCT`, `T_CLOSED`, the three hour drying rule, the 25 mm hard rain cap, and the 32.2 C trigger are all ASSUMED.
+- The soil latch makes the year's results depend on the path, so the year's assertions carry tolerances: shares within 0.03, days within 3, state counts within 5 hours.
 
-## The second track, for the Voloridge challenge, added 2026-09-19
+## Still to confirm at a source
 
-The PVGIS replay sets the scene and is not an insight, so it does not compete for "Signal in the Noise" by itself.
-The analysis that does is in `../docs/research/adaptive-bus-stop-canopy/voloridge-datasets.md`, with its six steps and a check per step.
+The evaporation formula in H1 is marked RECALLED, which means nobody confirmed it at a source: `ET0 = 0.65 x D / (D + g) x (ghi x 3600 / 1e6) / 2.45`.
 
-- The pick is Houston METRO's "October Ridership by Stop" layer: 9,085 stops, boardings and a shelter flag in the same row, no key.
-- The output is a ranking of the unsheltered stops where the most riders wait in the harshest sun, and the concentration curve behind it.
-- The trap to handle and to show: transit centres and park and rides are flagged unsheltered and must be removed before any share is quoted.
-- The farmworker's dataset, if there is time, is NOAA SOLRAD at Hanford with NCEI hourly temperature for Fresno.
-- Before starting, ask Voloridge for the curated list and whether outside public data counts.
-- It comes after the app's core loop, steps 1 to 7 in `../software/CLAUDE.md`, and it takes its hours from the city picker and the stretch features, never from the core loop.
-- Every result is said as modelled, from October averages, a 2022 shelter flag, and an assumed wait.
+- Not confirmed: the Makkink form itself, its 0.65 coefficient, and the 2.45 MJ per kg divisor.
+- Confirmed, from FAO-56 chapter 3: equations 13, 8, and 7, for `D`, `g`, and `P`.
+- If there is a spare ten minutes, confirm the three at a source and record the address in the README.
+- Until then, every evaporation figure carries the RECALLED label, and the formula is never edited to make a value match.
 
-On 2026-09-19 `raw/` was empty on the demo laptop.
-The PVGIS Houston file is downloaded first, while the venue network works, because the demo needs it and this track does not.
+Also to confirm: the licence of the NOAA ISD file, believed public domain, and the exact addresses of the EDIS documents EP149, EP550, and HS742, which the build agent records when it opens them.
 
-## Pitch facts from the research, with their sources in the research file
+## Open questions for a person, which do not block the build
 
-- Houston's city bus stop layer marks 2,187 of 13,162 stops as sheltered, last edited June 2022.
-- The heat study is Lanza, Ernst, Watkins and Chen 2025, Transportation Research Part D, doi 10.1016/j.trd.2025.104653.
-- In a geometric model a leaf on the sunward eave adds far more shade hours than a roof tilting about its centre, modelled with placeholder dimensions and never measured.
+- A soil bucket sized for containers or for soil.
+  A container holds far less than 60 mm, so a smaller bucket would mean more frequent rain openings and more irrigation events.
+- Whether the hydrangea stays, or a second foliage crop from the same Purdue table replaces it.
+  The backups are Dracaena, Aglaonema, and Dieffenbachia at 8 to 14, Schefflera from 14, and Ficus benjamina and Croton from 18.
 
-## Licences to cite in the submission
+## What not to build
 
-PVGIS content is marked (c) European Union and EU content is CC BY 4.0.
-Houston METRO's feed needs its attribution line if it is used.
-`pvlib` is BSD 3 clause.
+- A second place, a typical year, forecasts, the sun's position, or the ray cast shade table.
+- Anything from the packages set aside: C6, R1, V1 to V4, and F1.
+- Any download at build time.
+  The raw files are copied in by a person, and the tests patch `socket.socket` to raise.

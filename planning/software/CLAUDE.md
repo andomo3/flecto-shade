@@ -1,77 +1,91 @@
 # software - local memory
 
-> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
-> The current plan is the simulated louvre roof over three crops.
-> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
-> If you are a build agent and you arrived here, stop, and go back to those files.
+Owners: abba for G1, H2, and H3, and Ameya for S1 and H1.
+This folder is planning, Markdown only, and the code lives in the repo's own `tools/`, `data/`, and `software/` directories.
+The plan is `../plans/plan-d-louvre-roof.md`, the specifications are under `../plans/packages/`, and `README.md` in this folder says how the parts connect.
+This file holds what is already decided, why, and the traps.
 
-Owner: the software and data role, abba.
-This is the planning repo.
-Nothing here is copied into the event repo, and the code under `canopy/` is a pre-event prototype that proved the contract, not a submission.
-At the event this plan is rebuilt from scratch, in this order.
+## Decisions that bind the software, and their reasons
 
-## What this directory becomes
+- **Everything is simulated.**
+  The team could not source hardware, so nothing reads a board, a port, or a sensor, and there is nothing physical at the table.
+  The project is purely the simulation and its page, and the judge touches one thing, the Play button.
+- **The fin is still credited.**
+  The simulated roof is made of ITKE's Flectofin, patented as EP2320015, so the page says so.
+- **Nine written rules, in the priority night, then rain, then light.**
+  The priority is the answer to "opening for rain also lets light in".
+  No language model and no learned model sits in the loop, and the fins never track the sun's position.
+- **The simulation runs before the page exists.**
+  The order G1, S1, H1, H2, H3 gets a running simulation first, so there is always something to show.
+- **The page adds no physics.**
+  Every number it shows was computed by H1.
+  `build_day.py` decides the words, the fin moves, and the gauge values in Python, where they can be tested, and the JavaScript only interpolates between hours and draws.
+- **The words for each state are fixed in H2's table**, so the screen and the speaker agree.
+  Nine values, and a test asserts every `words` value is one of them.
+- **Plain HTML, CSS, and vanilla JavaScript, served by `python -m http.server`.**
+  No web framework, no library, no CDN, no web font, because the demo laptop must work with the network off and gate F3 fails on any external address.
+- **The year view is inline SVG drawn by hand.**
+  No chart library.
+- **`headline.json` is the one source of every spoken and printed figure.**
+  `pitch/figures.md` is generated from it and never edited by hand, and gate F8 checks the card against it.
+- **The rain's share is given for the year only.**
+  A month with no irrigation event would read as 100 percent and mean nothing, so the months show the two amounts.
+- **The layout file changes the drawing and nothing else.**
+  The simulation treats a zone's roof as one open fraction and never reads `data/roof-layout.json`.
+- **The demo day is 3 June 2023.**
+  H1's planner ran the rules on it hour by hour: the story happens with no constant tuned, and three zones give three different answers to the same rain.
+- **Laptop layout only, 1440 by 900.**
+  The mobile layout item of the UI checklist is dropped on purpose, because the page lives on one laptop.
 
-One Python package, `canopy`, that runs on the demo laptop.
-It reads the board over USB serial, or replays a recorded run, and serves one page that shows the light reaching the bench.
-It also plays one real day from the dataset to the board as LED brightness and sun angle.
+## Traps
 
-## Decisions that bind this directory
+- H2 and H3 were written against H1's schema before H1 had run.
+  If H1's real output differs from its schema, settle that first, and do not bend the page around it.
+- The blueberry's RAIN_SHUT on the demo day rests on a margin of 1.2 mm of soil water, 31.17 against a threshold of 30.
+  The test asserts it and carries a comment that says so.
+- The hydrangea's second rain hour flipped to shut in one of seven runs when the evaporation was scaled by 0.95.
+  The expected values stand as written, and a mismatch is reported, never patched.
+- The first rain hour, 23.9 mm, is 1.1 mm under the 25 mm hard rain cap.
+  That is the gauge's reading, and nothing was tuned.
+- The backup days each flipped under a change of 1 to 3 percent, so they are never asserted and never promised to a judge.
+- Before Play there is not one digit on the page, which is beat 1 of the demo gate.
+  The date, the clock, and any footer line that holds a digit have to respect that.
+- A fin changes over 1.5 seconds at the hour boundary, and never faster.
+  The screen shows a slow roof.
+- The blueberry has no light target.
+  Its gauge shows the light received with no target mark, and says "shade rule".
+- HEAT_SHADE does not occur on the demo day, because the peak is 29.84 C, but it occurs in the year, so its words and its partly shut drawing still have to exist.
+- The word "measured" is allowed once, inside the rain source line, where it is true of the gauge.
+  Everywhere else the word is "simulated" or "modelled".
+- Leaving `T_STRUCT`, 0.90, out of the crop's water use changes every figure in the year table.
+  That is how it was caught in planning, and it is the first thing to check if the year does not match.
+- A gate that checks something that does not exist yet reports NOT YET, never PASS.
 
-- The stack is Python 3.13, FastAPI, uvicorn, and pyserial, in one virtual environment with a pinned `requirements.txt`.
-- The page is one HTML file with plain CSS and vanilla JavaScript, vendored under `canopy/static/`.
-  No React, no Node, no build step, no CDN, no web fonts fetched at runtime.
-- Live data goes to the page over Server-Sent Events, and commands come back as plain POST requests.
-- It must start with no serial port and no network.
-  `python -m canopy serve --source fixture` always works.
-- The data moves the sun and only the photoresistor moves the leaves.
-  The app sends `L` and `A` in the normal demo and never `S`.
-- The number is `bench / light * 100`, averaged separately while the leaves are flared and while they are resting.
-- A sensor that is not fitted shows "not fitted", never zero.
+## What not to build
 
-## The screen tells the story
+- Anything from the plans set aside, and their packages R1, C6, V1 to V4, and F1.
+- Any reader for a port or a board, any recorder, any live stream to the page.
+- A web framework, a chart library, a build step, a mobile layout.
+- A second city, a city picker, forecasts, wind, hail, leaf wetness, growth stages.
+- The ray cast shade table, or partial fin angles beyond rule 7.
+- Any figure for cost, yield, energy, or water saved, anywhere.
+- A stand in for a package that is not merged yet.
+  Say you are blocked, and take the next package that is not.
 
-`ui-brief.md` is derived from `../pitch/storyboard.md`: one scene, a sky, a sun, the stop, and a seated figure, with two bars that pull apart when the leaves bend.
-No numbers before Play, the big figures only on the result card, one button for the judge, and every other control in a hidden drawer.
-The stop is drawn from the front, the view the judge has of the rig, and each leaf is a rib and a translucent sheet: blades with sky between them when resting, petals that close the gaps when bent, every pose driven by `angle`.
-`mockup-prompt.md` holds the Claude Design prompts, the twelve states, and the 28 row scorecard the mockup must pass, and "every state in the mockup prompt" in step 6 means that file.
-Step 6 below builds that page, and step 4 must expose what it needs: leaf state, which sensors are fitted, the running averages for bent and resting, and whether the day has finished.
+- A display fin, a CAD package, or anything else physical.
+  Package K1 was cut, and the plan, the checklist, and H2 are being updated to say so.
 
-## The skeleton, in build order
+In if time allows, and only after H3: a second view that draws the roof's fins one by one.
 
-Each step ends with a check, and nothing starts before the previous check passes.
+## The clock, for the software
 
-| Step | Module | What it does | Check | Minutes |
-|---|---|---|---|---|
-| 1 | `contract.py` | Parses one line of `firmware/SERIAL_FORMAT.md` into a header, a reading, or nothing, and builds the `L`, `A`, `S`, `O`, and `P` commands. Standard library only | A test that reads the sample lines out of the contract file itself, plus a list of garbage lines that must return nothing | 20 |
-| 2 | `sources.py` | Three sources with one interface, readings out and commands in: `FixtureSource` replays a file paced by `t_ms`, `FakeSource` simulates the board, `SerialSource` wraps pyserial | The fixture source yields the same readings the file holds, in order, and loops | 25 |
-| 3 | `fixtures/synthetic-day.csv` | A hand made v2 stream of one fast forward day, so the page has something to show before any board exists | It parses with step 1 | 10 |
-| 4 | `state.py` | Turns readings into what the page shows: the two percentages, leaf state from `angle`, cycle count, the temperature difference, which sensors are fitted | Unit tests with five or six hand written readings | 30 |
-| 5 | `app.py` and `__main__.py` | FastAPI with `/`, `/events` as the SSE stream, `/health`, and POST `/play`, `/pause`, `/led`, `/sun`, `/replay-mode` | `curl /health` returns 200 and `/events` streams with the Wi-Fi off | 40 |
-| 6 | `static/index.html` | The page, ported from the mockup by hand | The 3 second test from a metre away, and every state in the mockup prompt | 60 |
-| 7 | `day.py` | Loads `data/processed/day-houston.csv` and sends `L` and `A` ten times a second so 24 hours play in about 60 seconds | Against the fake source, the leaves flare after sunrise and rest after sunset | 40 |
-| 8 | `SerialSource` for real, and `recorder.py` | Reads the board, writes every line unchanged to `fixtures/` | The first clean run is recorded and committed, and replays | 30 |
-| 9 | Replay mode | The hour twelve pivot: the app sends `S` from the day's data, and a banner says so in words | The banner shows whenever `override` is 1 and the app sent `S` | 20 |
-
-About four and a half hours.
-Steps 1 to 7 need no hardware, so they run in parallel with the engineers from 11:00.
-
-## Pivots that land here
-
-- Hour 8, no servo mounted sun: hide the sun angle control, stop sending `A`.
-- Hour 12, threshold unreliable: replay mode, step 9.
-- Hour 13, bench sensor shows no difference: the number becomes the cycle count, already derived in step 4.
-- Hour 14, no temperature: hide the tile.
-- Any time, serial dead at the table: `--source fixture` with the recorded run.
-
-## What the prototype taught
-
-- Reading the test samples out of the contract file catches a contract change the moment it happens.
-- Optional fields as empty strings parse cleanly and keep "not fitted" honest.
-- FastAPI 0.141, uvicorn 0.53, and pyserial 3.5 install cleanly on Python 3.13 on the demo laptop.
-- Windows serial ports are named `COM3` and so on, so the port is a command line argument and never a constant.
+- 21:00 Saturday: G1 and S1 merged.
+- 23:00 Saturday, the hard checkpoint: H1 merged and the year's summary exists, and if it is not, the page is cut to the demo day only.
+- 01:00 Sunday, the freeze: H2 plays the demo day end to end, or the fallback is a recorded run of H1's output drawn as simply as possible.
+- 07:00 to 09:00 Sunday: H3, the pitch figures read from `headline.json`, and the screen recording.
 
 ## Open questions
 
-- The mockup is being designed by abba, and the page is ported from it by hand, because generated React code is not used.
-- Whether the city picker ships is decided last, after the core demo is rehearsed.
+- How the page reaches `data/processed/headline.json`, given that H2 serves `software/page/` only.
+- Which committed file is the "recorded run" the fallback gate asks for.
+- Two questions in H1 are the team's to answer and do not block the build: a soil bucket sized for containers or for soil, and whether the hydrangea stays.
