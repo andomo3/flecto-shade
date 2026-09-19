@@ -1,5 +1,10 @@
 # Run
 
+> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
+> The current plan is the simulated louvre roof over three crops.
+> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
+> If you are a build agent and you arrived here, stop, and go back to those files.
+
 The build status the README dashboard renders from.
 Keep the lines below and the Features table in this exact shape, then run `/sync-state`.
 Statuses are real, stubbed, fixture, planned, or cut, and a feature only ever moves down that ladder during the event.

@@ -37,7 +37,7 @@ Build nothing from them.
 
 ## The record: kept, and never built from
 
-- `project-brief.md`, `AGENTS.md`, `RUN.md`, `plans/plan-a-live.md`, `plans/plan-b-simulated.md`, and `plans/README.md`: the bus stop canopy, live and simulated.
+- `project-brief.md`, `AGENTS-bus-stop-record.md`, which was `AGENTS.md` until it was renamed so that no agent loads it as rules, `RUN.md`, `plans/plan-a-live.md`, `plans/plan-b-simulated.md`, and `plans/README.md`: the bus stop canopy, live and simulated.
 - `software/`, `firmware/`, `data/`, and `hardware/` in this folder: the bus stop's build directories and their local memory files.
   They say "this is the planning repo", which was true where they were written.
 - `pitch/`: the bus stop's story, scripts, storyboard, question bank, cards, checklists, video plan, and submission draft, kept for their method.

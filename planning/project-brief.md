@@ -1,5 +1,10 @@
 # Project Brief - Adaptive bus stop canopy
 
+> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
+> The current plan is the simulated louvre roof over three crops.
+> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
+> If you are a build agent and you arrived here, stop, and go back to those files.
+
 **Event:** HackMIT 2026, Saturday 19 to Sunday 20 September, 24 hours of hacking, submissions expected to close around 11:15 on Sunday.
 **Tracks:** Sustainability, plus the Most Creative team challenge.
 **Team:** three people, two engineers build the hardware and abba builds the software.

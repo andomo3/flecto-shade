@@ -1,5 +1,10 @@
 # firmware - local memory
 
+> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
+> The current plan is the simulated louvre roof over three crops.
+> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
+> If you are a build agent and you arrived here, stop, and go back to those files.
+
 Owner: the firmware role.
 The proposal on the 2026-09-18 agenda is that abba takes it, so the engineers' hours nine to twelve shrink to wiring.
 This is the planning repo.

@@ -1,5 +1,10 @@
 # Plan A: the live demo
 
+> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
+> The current plan is the simulated louvre roof over three crops.
+> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
+> If you are a build agent and you arrived here, stop, and go back to those files.
+
 Applies when all five gate items in `README.md` are in hand at 17:00 Saturday.
 This is the plan the team already had, gathered into one place with the event day changes folded in.
 The detail stays in the files it points to, and this file is the order and the checks.

@@ -1,5 +1,10 @@
 # frame-rig - local memory
 
+> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
+> The current plan is the simulated louvre roof over three crops.
+> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
+> If you are a build agent and you arrived here, stop, and go back to those files.
+
 Owner: the structure and rig role, one of the two engineers.
 
 - The rig is foam board: the front view frame of one miniature bus stop with a bench, the servo box, the mount points for the leaf assembly, and the LED sun mount above.

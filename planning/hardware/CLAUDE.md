@@ -1,5 +1,10 @@
 # hardware - local memory
 
+> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
+> The current plan is the simulated louvre roof over three crops.
+> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
+> If you are a build agent and you arrived here, stop, and go back to those files.
+
 Owners: the two engineers, across the mechanism, structure and rig, and electronics roles.
 The engineers decide what the hardware is, and their hour by hour plan in `../docs/meetings/2026-09-18.md` is the MVP.
 Do not reopen their scope, only record it and keep the seams to firmware and software clear.

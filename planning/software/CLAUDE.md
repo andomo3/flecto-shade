@@ -1,5 +1,10 @@
 # software - local memory
 
+> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
+> The current plan is the simulated louvre roof over three crops.
+> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
+> If you are a build agent and you arrived here, stop, and go back to those files.
+
 Owner: the software and data role, abba.
 This is the planning repo.
 Nothing here is copied into the event repo, and the code under `canopy/` is a pre-event prototype that proved the contract, not a submission.
