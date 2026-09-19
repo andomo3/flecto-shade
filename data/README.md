@@ -34,11 +34,47 @@ With the sun from the same year as the rain the ratio is 0.627, so rainy hours a
 
 ## Assumptions
 
-Every constant a package marks ASSUMED is a named constant in the code and a row here.
+Gate F6 checks this section.
+Every named constant that S1 or H1 marks ASSUMED or RECALLED appears here with its value and its label.
+S1 creates this section, and H1 adds its own rows.
 
-| Assumption | Named constant | Where | Why it is not verified |
-|---|---|---|---|
-| The timestamp labels the start of the hour, and the value is that hour's mean | `LOCAL_TZ`, and the hour stamp it converts | `build_solar_2023.py` | No sentence saying so was found on NASA's pages. It rests on a fit done on the Houston file, where global closed best against direct and diffuse with the sun taken half an hour after the stamp. It matters only for joining to the rain, and both files stamp hour starts |
+| Constant | Value | Label | Package | Why it is not verified |
+|---|---|---|---|---|
+| `LOCAL_TZ`, and the hour stamp it converts | `America/New_York` | ASSUMED | S1 | No sentence saying the stamp is the start of the hour and the value its mean was found on NASA's pages. It rests on a fit done on the Houston file, where global closed best against direct and diffuse with the sun taken half an hour after the stamp. It matters only for joining to the rain, and both files stamp hour starts |
+
+H1's evaporation constants belong here too, and the sources for them were checked on 2026-09-19.
+They are written up in the next section so that H1 can copy them into rows.
+
+## The evaporation constants, checked at source on 2026-09-19
+
+Package H1 marks the Makkink form, its 0.65 coefficient, and the 2.45 divisor RECALLED, meaning from memory and not confirmed.
+All three are now confirmed, and one of them is misattributed.
+
+**The 2.45 divisor is right.**
+FAO-56 chapter 3 states that a single value of 2.45 MJ per kg is taken in the simplification of the Penman-Monteith equation, and that it is the latent heat for an air temperature of about 20 C.
+Source: `https://www.fao.org/4/x0490e/x0490e07.htm`.
+
+**The 0.65 coefficient is right, but it is not Makkink's.**
+The Copernicus Climate Change Service user manual for the KNMI reference evapotranspiration package prints the formula with C = 0.65, and footnotes it:
+"This formula differs slightly from the original Makkink (1957) formula, who used C=0.61 and an additive term of 0.12mm/day. De Bruin (1987) concludes that the current form describes reasonably well the evapotranspiration of grass."
+So the constant is the modified Makkink of de Bruin 1987, which KNMI has run operationally since 1987, and not Makkink 1957.
+The project should name it "modified Makkink, de Bruin 1987" wherever it names the method.
+Source: `https://surfobs.climate.copernicus.eu/documents/C3S_D311a_Lot4.3.1.5_user_manual_PET_v5_APPROVED_Ver2.pdf`.
+
+**The psychrometric constant agrees from two directions.**
+The same manual writes it as `0.00163 x P / lambda`.
+Dividing 0.00163 by 2.45 gives 0.0006653, which is FAO-56 equation 8's `0.665 x 10^-3 x P`.
+So `g = 0.067116` kPa per C at 31.7 m stands, reached two independent ways.
+
+Two limits that the packages did not record, and that belong on the label:
+
+- Makkink is defined on a daily timescale, and H1 applies it hour by hour.
+  The `D / (D + g)` weight moves with temperature through the day, so twenty four hourly values do not sum to what the daily formula would give.
+  H1's sensitivity sweep from 0.95 to 1.05 probably brackets the difference, but this is an assumption stacked on an assumption.
+- Makkink's reference surface is grass, and FAO-56's crop coefficients are calibrated against Penman-Monteith reference evaporation rather than Makkink's.
+  Multiplying a Makkink figure by an FAO-56 `kc` is common practice and is still a small mismatch.
+
+Every evaporation figure therefore stays labelled modelled, and none of it is called measured.
 
 ## What the sun file is, and is not
 
@@ -52,6 +88,15 @@ Every constant a package marks ASSUMED is a named constant in the code and a row
   That is the honest limit of joining a coarse satellite product to a point gauge, and it is why the sun is never called measured.
 - Temperature goes below zero exactly once in the year, -0.27 C, so only the three irradiance columns are checked as non-negative.
 
+## What downstream packages read from this file
+
+`processed/year-apopka-2023.csv` is the interface H1 and H2 read.
+
+H2's playback speeds were computed by a planner from this file before any page code existed, and they reproduce from it exactly.
+On local 2023-06-03 the file gives 14 lit hours, local 6 to 19, and 10 dark.
+At 2.4 seconds a lit hour and 0.5 a dark one that is 38.6 seconds for the day, 15.0 by the end of local hour 10 when the fern's fins shut, and 24.6 by the end of local hour 14 when the storm starts.
+Those are H2's three asserted values, confirmed on 2026-09-19.
+
 ## Honesty label for the screen
 
 "Orlando Executive Airport gauge, near Apopka, Florida, 2023, a real year.
@@ -64,6 +109,8 @@ Rain: one NOAA gauge, measured."
 - "The data was obtained from the POWER Project's Hourly 2.10.2 version on 2026/09/19."
 - No licence text was found on NASA's referencing page, and the submission says so.
 - NOAA National Centers for Environmental Information, Integrated Surface Database, global hourly access.
+- FAO-56, Allen, Pereira, Raes and Smith 1998, for the latent heat of vaporisation and the psychrometric constant.
+- Copernicus Climate Change Service and KNMI, user manual for the reference evapotranspiration package, for the modified Makkink coefficient and its attribution to de Bruin 1987.
 
 ## Layout
 

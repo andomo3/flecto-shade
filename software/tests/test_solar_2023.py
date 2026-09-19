@@ -151,6 +151,28 @@ def test_no_negative_irradiance_and_no_minus_zero(built):
     assert "-0.00" not in path.read_text(encoding="utf-8")
 
 
+def test_the_demo_day_still_feeds_h2s_playback(frame):
+    """H2's playback speeds were computed from this file before any page code existed.
+
+    They depend on one property of S1's output: how many hours of 2023-06-03 are lit.
+    Asserting it here means a change to S1 cannot break H2's timing silently.
+    """
+    stamps = pd.to_datetime(frame["time_utc"], utc=True, format="%Y-%m-%dT%H:%M:%SZ")
+    local = stamps.dt.tz_convert("America/New_York")
+    day = frame[local.dt.strftime("%Y-%m-%d") == "2023-06-03"]
+    local_hours = local.loc[day.index].dt.hour
+
+    assert len(day) == 24
+    lit = sorted(local_hours[day["ghi"] > 0])
+    assert lit == list(range(6, 20)), "the demo day must have 14 lit hours, local 6 to 19"
+
+    # H2 plays a lit hour in 2.4 seconds and a dark one in 0.5.
+    play_seconds = day["ghi"].apply(lambda ghi: 2.4 if ghi > 0 else 0.5)
+    assert play_seconds.sum() == pytest.approx(38.6, abs=0.1)
+    assert play_seconds[local_hours <= 10].sum() == pytest.approx(15.0, abs=0.1)
+    assert play_seconds[local_hours <= 14].sum() == pytest.approx(24.6, abs=0.1)
+
+
 def test_local_hour_and_month_are_in_range(frame):
     assert frame["local_hour"].between(0, 23).all()
     assert frame["month"].between(1, 12).all()
