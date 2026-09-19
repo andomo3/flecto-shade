@@ -35,6 +35,14 @@ The safety take of the video is filmed Saturday between 23:00 and 00:45, and cut
 - Still to verify at a source before it is said: the Central Valley's nearly rainless summer, and any number about Houston METRO's ventilated shelters.
 - The data finding for the Voloridge challenge, if it ships, comes from `../docs/research/adaptive-bus-stop-canopy/voloridge-datasets.md` and is said as modelled.
 
+## Plan B, chosen 2026-09-19
+
+The team can demo the flapping leaf and nothing else, so the stop is simulated and the simulation drives the real leaf.
+`script-plan-b.md` is the script that is rehearsed, all three lengths inside their word targets, and `script.md` is kept as the record of the live version.
+Nothing is called measured, the closing line says "designed" where it said "built", and "nothing tells the leaves what to do" is gone because the simulation now does.
+The number is two numbers: [X] against [Y] for the harsh hours, which a fixed roof could match, and [W], the winter sun the open leaves give back, which it cannot.
+Still to rewrite for Plan B, from the list in `../plans/plan-b-simulated.md`: the storyboard's table and screen columns, cards 1 and 2, the video plan, and the submission's first paragraph.
+
 ## Honesty rules
 
 - Only what was measured on the table today is claimed as measured.

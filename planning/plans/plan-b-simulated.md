@@ -121,8 +121,13 @@ The table column changes, and beat 6 is replaced.
 | 0:40 | "The light crosses the threshold. Watch the screen, and watch the leaf." | The real leaf bends, at the same moment | The leaves on screen bend over four seconds, the Bench bar drops away from the Sun bar, and the Fixed roof bar sits between them |
 | 0:50 | "Drag that cloud over the sun." Or, with B11: "Put your hand over the camera." | The judge drags, or covers the camera | The Sun bar collapses, the leaves relax, the cloud leaves, they bend again. Caption: "The light moves the leaves, not the clock" |
 | 1:05 | "And when the sun goes, the roof opens again." | | The sun sets, the leaves rest |
-| 1:15 | "Over that whole day, the bench under our leaves got X percent of the sun, against Y under a fixed roof. Across a typical Houston year, [the B6 line]. That is a simulation, and the card says what it leaves out." | | The result card |
+| 1:15 | "In the harsh hours, the bent leaves cut the sun on the bench to X percent, against Y if they never moved. A fixed roof could do that too. What it cannot do is open: across the cool months our leaves give back W percent of the sun a fixed roof blocks. Those are simulated, and the card says what it leaves out." | | The result card |
 | 1:25 | The closing line, unchanged | | Stillness |
+
+Why the number is said that way: a fixed slab with the same footprint shades the bench as well as the bent leaves do at noon, and it shades all day, so "our leaves against a fixed roof" over a whole day would make the adaptive roof look worse.
+The honest claim is the same shade in the harsh hours, and the light, the air, and the winter sun given back in the others.
+The result card, package B7, shows X against Y for the harsh hours of the day and W for the cool months, and package B6 must produce all three.
+The full scripts are in `../pitch/script-plan-b.md`, each inside its word target.
 
 The judge still touches the project twice: Play at 0:30 and the cloud or the camera at 0:50.
 Saying the missing hardware out loud at 0:20, once and without apology, is what keeps the rest believable.

@@ -8,7 +8,7 @@ The rules for the agent are in `../README.md`, and the rules for the event repo 
 
 | ID | File | What | Needs | Status |
 |---|---|---|---|---|
-| R1 | `R1-simulation-research.md` | Research, time boxed to 90 minutes: how to simulate and render the stop in 3D, which of three routes gives the leaf its shape, and what not to build | The name of the engineers' CAD tool | spec ready, and it is the build agent's first task |
+| R1 | `R1-simulation-research.md` | Research, time boxed to 120 minutes: how to simulate and render the stop, 2D or 3D, where the geometry comes from, which of three routes gives the leaf its shape, and what not to build | The name of the engineers' CAD tool | spec ready, and it is the build agent's first task |
 | C6 | `C6-data-pipeline.md` | PVGIS Houston typical year to the 600 row demo day and the 8,760 hour year, sun position from `pvlib` | The raw file, already downloaded | spec ready |
 | V1 to V4 | `V-metro-exposure.md` | The Voloridge analysis: rank Houston's unsheltered stops by modelled rider sun exposure | The raw METRO files, already downloaded, and C6's year file for V2 | spec ready, and outside public data is confirmed to count |
 | F1 | `F1-farmworker-shade-drift.md` | How far a fixed rest canopy's shadow drifts during the hours California law requires shade | The raw NOAA files, already downloaded | spec ready and parked: its headline swings with the canopy size the team assumes, so it waits until V1 to V3 are green |
