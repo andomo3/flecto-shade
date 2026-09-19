@@ -8,11 +8,13 @@ The rules for the agent are in `../README.md`, and the rules for the event repo 
 
 | ID | File | What | Needs | Status |
 |---|---|---|---|---|
+| R1 | `R1-simulation-research.md` | Research, time boxed to 90 minutes: how to simulate and render the stop in 3D, which of three routes gives the leaf its shape, and what not to build | The name of the engineers' CAD tool | spec ready, and it is the build agent's first task |
 | C6 | `C6-data-pipeline.md` | PVGIS Houston typical year to the 600 row demo day and the 8,760 hour year, sun position from `pvlib` | The raw file, already downloaded | spec ready |
 | V1 to V4 | `V-metro-exposure.md` | The Voloridge analysis: rank Houston's unsheltered stops by modelled rider sun exposure | The raw METRO files, already downloaded, and C6's year file for V2 | spec ready, and outside public data is confirmed to count |
 | F1 | `F1-farmworker-shade-drift.md` | How far a fixed rest canopy's shadow drifts during the hours California law requires shade | The raw NOAA files, already downloaded | spec ready and parked: its headline swings with the canopy size the team assumes, so it waits until V1 to V3 are green |
 
-Order of handover: C6 first, because V2 and Plan B both read its year file.
+Order of handover: R1 first, because it decides what Plan B's scene is, and it is research, so it blocks nothing else.
+Then C6, because V2 and Plan B both read its year file.
 V1 needs nothing from C6, so it can run beside it.
 If the build agent can run two sessions at once, the app's shared core and V1 to V3 run side by side, in separate branches that touch separate directories.
 If it can run only one, the shared core comes first, because every judge scores the demo and only one sponsor scores the analysis.
