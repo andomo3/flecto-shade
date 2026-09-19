@@ -6,6 +6,12 @@ It is a tabletop bus stop roof made of three hingeless leaves that bend into sha
 Status on 2026-09-19: planning context imported, nothing built yet.
 Do not start building until abba hands over a work package.
 
+**PAUSED at 16:00 Saturday: the team is pivoting from the bus stop canopy to a Flectofin leaf design tool.**
+Everything below about Plan B, and the packages R1, C6, V1 to V4, and F1 under `planning/plans/packages/`, describes the plan that is being set aside.
+Start none of them.
+The gates in `planning/plans/gates.md`, package G1, and the rules in this file still hold.
+New packages follow the 17:00 standup, and this notice is replaced when they arrive.
+
 ## The rule that outranks every other
 
 All project code is written between 11:00 Saturday 2026-09-19 and 11:00 Sunday 2026-09-20.
