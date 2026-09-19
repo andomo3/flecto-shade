@@ -39,7 +39,7 @@ Two boundaries that hold whatever is simulated:
 - The leaf's buckling is never simulated live.
   The simulation is light, geometry, and the control law, and the leaf's shape comes from one of the three routes in `planning/plans/packages/R1-simulation-research.md`.
 
-Order of work: R1, then C6, then the shared core C1 to C9, then B1 to B9 with B13 and B14, then the stretch, with V1 to V3 beside them if a second session exists.
+Order of work: R1, then G1 the gate runner, then C6, then the shared core C1 to C9, then B1 to B9 with B13 and B14, then the stretch, with V1 to V3 beside them if a second session exists.
 
 ## How work is handed over
 
@@ -54,6 +54,23 @@ Every task is one work package from `planning/plans/`, handed over with four thi
 A package is done only when its command exits 0 and a person has run the behaviour once.
 Generated code is untrusted until it has been run and read.
 If a package fails its check twice, stop and say so rather than patching further.
+
+## The demo, the pitch, and the checklists are the definition of done
+
+Code that passes its own tests and breaks the demo is not done.
+`planning/plans/gates.md` turns the storyboard, the scripts, the honesty rules, and the playbook's checklists into gates, and every package is checked against them, every time.
+
+- Before writing code, say in three lines which storyboard beat, which sentence of `planning/pitch/script-plan-b.md`, and which gate the package serves.
+  If it serves none, stop and say so, because it is probably scope creep.
+- After the package's own check passes, run `python tools/gates.py --package ID --allowed "files" --append`, and end the reply with the gate report.
+- A gate that passed before and fails now is a regression, and it is fixed before anything else is touched.
+- If the same gate fails twice in a row, stop and report.
+- A gate that does not apply yet is reported as NOT YET, never as PASS, and never left out.
+- The fast gates are checked by the command, and the milestone gates, M1 to M4, by a person with the agent.
+  A green command never means "the demo works".
+- Always answer the report's last line: anything in the demo, the pitch, or a checklist that this package makes harder.
+
+`GATES.md` at the root is the ledger: one dated section per package, written by the command.
 
 ## Layout, once building starts
 
