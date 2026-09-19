@@ -18,6 +18,7 @@ from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel, Field
 
 from canopy import config, contract
+from canopy.day import DEFAULT_DAY, DayPlayer, load_day
 from canopy.sources import Source, open_source
 from canopy.state import State
 
@@ -29,26 +30,37 @@ DEFAULT_FIXTURE = FIXTURES / "synthetic-day.csv"
 class Runner:
     """Pumps one source into one state, and lets the page drive it."""
 
-    def __init__(self, source: Source, *, autoplay: bool = False) -> None:
+    def __init__(
+        self,
+        source: Source,
+        *,
+        autoplay: bool = False,
+        player: DayPlayer | None = None,
+    ) -> None:
         self.source = source
+        self.player = player
         self.state = State()
         self.playing = autoplay
         self._resumed = asyncio.Event()
         self._tick = asyncio.Event()
-        self._task: asyncio.Task | None = None
+        self._tasks: list[asyncio.Task] = []
         if autoplay:
             self._resumed.set()
 
     def start(self) -> None:
-        if self._task is None:
-            self._task = asyncio.create_task(self._pump())
+        if self._tasks:
+            return
+        self._tasks.append(asyncio.create_task(self._pump()))
+        if self.player is not None:
+            self._tasks.append(asyncio.create_task(self._play_day()))
 
     async def stop(self) -> None:
-        if self._task is not None:
-            self._task.cancel()
+        for task in self._tasks:
+            task.cancel()
+        for task in self._tasks:
             with contextlib.suppress(asyncio.CancelledError):
-                await self._task
-            self._task = None
+                await task
+        self._tasks = []
         await self.source.close()
 
     async def _pump(self) -> None:
@@ -60,6 +72,15 @@ class Runner:
         self.state.day_finished = True
         self._tick.set()
         self._tick.clear()
+
+    async def _play_day(self) -> None:
+        """The day drives the light; the source decides what the leaves do."""
+        assert self.player is not None
+        while True:
+            await self._resumed.wait()
+            self.player.send_step(self.player.now)
+            self.player.index += 1
+            await asyncio.sleep(config.TICK_MS / 1000)
 
     def play(self) -> None:
         self.playing = True
@@ -73,6 +94,9 @@ class Runner:
         self.pause()
         self.state.reset()
         self.state.replay_mode = False
+        if self.player is not None:
+            self.player.index = 0
+            self.player.replay_mode = False
         self.source.send(contract.override(False))
         self.source.send(contract.led(0))
 
@@ -90,6 +114,19 @@ class Runner:
         data = self.state.snapshot()
         data["source"] = self.source.name
         data["playing"] = self.playing
+        data["day"] = None
+        if self.player is not None:
+            step = self.player.now
+            data["day"] = {
+                "city": self.player.day.city,
+                "date": self.player.day.date,
+                "local_time": step.local_time[11:16],
+                "ghi": step.ghi,
+                "t2m": step.t2m,
+                "elevation": step.elevation,
+                "step": step.step,
+                "steps": len(self.player.day.steps),
+            }
         return data
 
 
@@ -110,13 +147,20 @@ def create_app(
     source_name: str = "fixture",
     *,
     fixture: str | Path | None = None,
+    day: str | Path | None = None,
     autoplay: bool = False,
     **source_kwargs,
 ) -> FastAPI:
     source = open_source(
         source_name, fixture=fixture or DEFAULT_FIXTURE, **source_kwargs
     )
-    runner = Runner(source, autoplay=autoplay)
+    # A fixture already holds a whole day; anything live needs one played to it.
+    player = (
+        None
+        if source_name == "fixture"
+        else DayPlayer(source, load_day(day or DEFAULT_DAY))
+    )
+    runner = Runner(source, autoplay=autoplay, player=player)
 
     @contextlib.asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -181,6 +225,8 @@ def create_app(
 
     @app.post("/replay-mode")
     async def replay_mode(body: ReplayMode) -> dict:
+        if runner.player is not None:
+            runner.player.replay_mode = body.on
         if body.on:
             runner.send(contract.leaf_angle(body.angle or config.ANGLE_BENT))
         else:
