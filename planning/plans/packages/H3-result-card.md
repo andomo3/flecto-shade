@@ -6,6 +6,7 @@ Owner: abba. It needs H2 merged.
 ## Goal
 
 Write `data/processed/headline.json`, the one file every spoken and printed figure comes from, and show it as the result card at the end of the day and as the year by month.
+The same run writes an identical copy to `software/page/headline.json`, because `software/page/` is the only folder that is served, on the laptop and on Vercel alike, and the page reads the copy beside `day.json`.
 After this package, nobody types a number into a script, a card, or the README by hand.
 
 ## Inputs
@@ -62,8 +63,9 @@ After this package, nobody types a number into a script, a card, or the README b
 
 ## Steps
 
-1. `software/h3/build_headline.py`. Check: the tests below.
-2. The result card replaces H2's end of day table. Check: every figure on it equals the one in `headline.json`, in a test that reads both.
+1. `software/h3/build_headline.py`, which writes `data/processed/headline.json` and then the identical copy `software/page/headline.json`, in that order, in one run. Check: the tests below, and the two files are the same bytes.
+2. The result card replaces H2's end of day table, and `app.js` reads `headline.json` from beside `day.json`, by a relative address. Check: every figure on it equals the one in `data/processed/headline.json`, in a test that reads both.
+   If the copy is missing or unreadable the page says "The result file is missing. Run python software/h3/build_headline.py, then reload.", and the day still plays. Check: renaming the copy shows those words.
 3. The year view. Check: a person reads three bars against H1's month table.
 4. `pitch/figures.md`, generated: the sentences the speaker says, with the figures filled in from `spoken`, under a line that says the file is generated and is never edited by hand.
 
@@ -80,12 +82,13 @@ Test cases, from H1's asserted values, with H1's tolerances:
 - The demo day: `rain_mm` 42.4, B's `rain_stored_mm` 34.9 within 0.3, B's `unwanted_light_mol` 5.96 within 0.2, A's `shut_for_light_at_local_hour` 11, and B's 12.
 - `spoken.share_b_percent` is `rain_share` for B times 100, rounded to a whole number, and the same for the others.
 - The months for B from April to October hold no irrigation in six months of seven.
+- `software/page/headline.json` is byte for byte the same as `data/processed/headline.json`, and the page files name no path outside `software/page/`.
 - Every figure in the page's result card and in `pitch/figures.md` appears in `headline.json`, which is gate F8.
 - The word "simulated" is on every figure, and the forbidden words are absent, which is gate F5.
 
 ## Files
 
-May create: `software/h3/build_headline.py`, `data/processed/headline.json`, `software/tests/test_headline.py`, `pitch/figures.md`, and the gate test `software/tests/test_gate_f8_headline.py`.
+May create: `software/h3/build_headline.py`, `data/processed/headline.json`, its copy `software/page/headline.json`, `software/tests/test_headline.py`, `pitch/figures.md`, and the gate test `software/tests/test_gate_f8_headline.py`.
 May change: `software/page/index.html`, `style.css`, and `app.js` for the card and the year view only, and `software/tests/test_gate_f5_labels.py`, only to add the labels of the card and the year view.
 Must not touch: `planning/`, `software/h1/`, the rest of `data/`, and anything in `hack-mit`.
 

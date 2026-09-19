@@ -50,7 +50,8 @@ If a package seems to need a file someone else owns, stop and tell your person, 
 | `data/processed/sim-apopka.csv` and `sim-summary-apopka.csv` | H1 | H2, H3 | `planning/plans/packages/H1-zones-light-rain-soil.md` |
 | `data/crops.csv` | H1 | H2, H3 | the same |
 | `data/roof-layout.json` | K2 | H2 | this file, under K2 |
-| `data/processed/headline.json` | H3 | the pitch | `planning/plans/packages/H3-result-card.md` |
+| `data/processed/headline.json` | H3 | the pitch, and every test that checks a figure | `planning/plans/packages/H3-result-card.md` |
+| `software/page/headline.json`, an identical copy written in the same run | H3 | the page, because `software/page/` is the only folder served | the same |
 
 ## Order, and what can run side by side
 

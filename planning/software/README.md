@@ -67,8 +67,7 @@ software/page/index.html, style.css, app.js     pitch/figures.md, generated
 - After H3, nobody types a number into a script, a card, or the README by hand.
 - If a schema has to change, stop, and the two owners agree the change before either side writes code.
 
-NEEDED: how the page reaches `data/processed/headline.json`.
-H2 serves `software/page/` only, and H3's file list holds no copy of `headline.json` under `software/page/`, so the path is abba's to settle in H3 before step 2.
+- The page reaches the result card's figures through `software/page/headline.json`, an identical copy that H3's build writes beside `day.json` in the same run as `data/processed/headline.json`, because `software/page/` is the only folder served, on the laptop and on Vercel alike.
 
 ## The live link
 

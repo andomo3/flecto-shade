@@ -85,7 +85,7 @@ Next.js and Supabase were considered and set aside, because nothing in this proj
 - Vercel serves the folder as it is, with no build step and no framework, so H2, H3, and gate F3 do not change.
 - Abba puts it up by hand, once H2 plays the day, before the 01:00 freeze, and again after H3.
 - No token, no project setting, and no `.vercel/` folder is committed.
-- It depends on one open question in H3: the page has to reach `headline.json` from inside `software/page/`, because that folder is all that is served, on Vercel and on the laptop alike.
+- H3 writes an identical copy of `headline.json` into `software/page/`, because that folder is all that is served, on Vercel and on the laptop alike, so the live link shows the result card too.
 
 ## The gates
 

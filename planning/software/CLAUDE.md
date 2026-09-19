@@ -88,6 +88,5 @@ In if time allows, and only after H3: a second view that draws the roof's fins o
 
 ## Open questions
 
-- How the page reaches `data/processed/headline.json`, given that H2 serves `software/page/` only.
 - Which committed file is the "recorded run" the fallback gate asks for.
 - Two questions in H1 are the team's to answer and do not block the build: a soil bucket sized for containers or for soil, and whether the hydrangea stays.
