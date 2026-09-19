@@ -23,10 +23,10 @@ A Central Florida grower with three crops under one shade house roof gives each 
 
 The full table, with what is said at each beat, is in `plans/plan-d-louvre-roof.md`, and the scripts are in `pitch/`.
 
-1. The judge sees the roof from above, shut, three zones named, one Play button, and the word "simulated".
+1. The judge sees the roof from above, shut, three zones named, one Play button, and the word "simulated", and hears how a roof like this works today: a fine brain, and a blunt hand.
    The grower near Apopka, three crops, one sky.
-2. The fin is explained while the roof sits shut, with the credit to ITKE on the page.
-   "Each of those is a fin with no hinge, which bends to open and shut. The fin is not ours. It is ITKE's Flectofin, and it is patented."
+2. Why the fin, said while the roof sits shut, with the credit to ITKE on the page.
+   "Bed by bed takes many small parts, and every hinge is a bearing to grease. So we borrowed a part with no hinge: ITKE's Flectofin, patented, and not ours."
 3. The judge presses Play, and the page plays 3 June 2023 in about forty seconds.
    The sun rises, all fins open, and three light gauges fill at the same rate.
 4. The fern's fins shut at eleven, the hydrangea's at noon, and the blueberry's stay open.

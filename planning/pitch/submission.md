@@ -23,9 +23,14 @@ Cognition's, if it has one, because Devin wrote the code.]
 **Inspiration**
 
 A grower with three crops under one shade house roof gives all three the same sky.
-Today one motor moves up to 50,000 square feet of roof, so every plant under it gets one decision.
-But a Boston fern is at its best from 8 mol of light a day, and a hydrangea from 12.
+The way such a roof works today is a fine brain and a blunt hand.
+The climate computer is already fine grained: it holds a daily light target, and it waters one valve at a time.
+The roof is not: one motor pulls up to 50,000 square feet of curtain, so every plant under it gets one decision.
+But a Boston fern is at its best from 8 mol of light a day, and a hydrangea from 12, so whatever the roof does is wrong for one of them.
 We asked what a roof would do if it could decide bed by bed.
+That takes a roof of many small parts, and with hinges every one of them is a bearing to grease, which the growers' own guides already list as a chore.
+So we borrowed a part with no hinge: the Flectofin, a blade that bends open, which also shades, opens for air, and lets the rain through as one element.
+No saving in upkeep is quantified, by our sources or by us.
 
 **What it does**
 
@@ -42,7 +47,7 @@ Over the simulated year, the rain supplied about [54] percent of the hydrangea z
 Not ours: the fin, which is the Flectofin, by ITKE at the University of Stuttgart, patented as EP2320015.
 Not ours: watering by the sun's energy and holding a daily light target, which greenhouse computers from Ridder, Hoogendoorn, Argus, and Priva already do.
 Not ours: a moving roof over crops, which Cravo and Sun'Agri already sell.
-Ours: the resolution, zone by zone, and the simulation over a real year of weather.
+Ours: the size of the decision, a bed and not a building, and the simulation over a real year of weather.
 We found no prior proposal to put a Flectofin over crops, which is an absence in our searches and not proof.
 
 **How we built it**

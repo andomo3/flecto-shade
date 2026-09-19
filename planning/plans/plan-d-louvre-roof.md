@@ -55,8 +55,8 @@ The day the page plays is 3 June 2023, sun until mid afternoon and then 42 mm of
 
 | Time | Say | The screen |
 |---|---|---|
-| 0:00 | The grower near Apopka, three crops, one sky | The roof from above, shut, three zones named, one Play button, the word "simulated" |
-| 0:20 | "Each of those is a fin with no hinge, which bends to open and shut. The fin is not ours. It is ITKE's Flectofin, and it is patented." | Unchanged, the roof shut, with the credit to ITKE on the page |
+| 0:00 | The grower near Apopka, three crops, one sky. How her roof works today: the computer waters one valve at a time, and one motor pulls up to 50,000 square feet of curtain, "a fine brain, and a blunt hand". So every morning she picks which crop the roof is wrong for | The roof from above, shut, three zones named, one Play button, the word "simulated" |
+| 0:20 | "Bed by bed takes many small parts, and every hinge is a bearing to grease. So we borrowed a part with no hinge: ITKE's Flectofin, patented, and not ours." | Unchanged, the roof shut, with the credit to ITKE on the page |
 | 0:30 | "Would you press play? This is 3 June 2023." | The sun rises, all fins open, three light gauges fill at the same rate |
 | 0:45 | "The fern has had its light by eleven. The hydrangea by noon. The blueberries want all of it." | Zone A's fins shut, then zone B's an hour later, and zone C stays open. This is the moment the three zones stop behaving as one roof |
 | 0:55 | "Then the afternoon storm. Forty two millimetres in two hours, from the real gauge." | Rain over all three. The hydrangea's fins reopen, because its soil is dry, and its soil gauge climbs to full. The blueberry's stay shut, because its soil is wet enough. The fern's stay shut, because it opted out. Each zone shows its reason in words |
@@ -69,7 +69,9 @@ The fallback is the recorded run, then the screen recording.
 ## The presentation
 
 - The hero is a grower, named as illustrative, with three crops and one roof.
+- The ground, said before the fin means anything: how a roof works today. The climate computer holds a daily light target and waters one valve at a time, and one motor pulls up to 50,000 square feet of curtain: a fine brain, and a blunt hand.
 - The villain is the single curtain: one motor, one decision, for every plant under it.
+- Why the fin: deciding bed by bed takes many small parts, every hinge is a bearing to grease, which the growers' own guides list as a chore, and the Flectofin has no hinge and does three jobs as one element. It is the team's argument, with no saving quantified.
 - The three specifics: 50,000 square feet a motor, from the UMass fact sheet; the fern's 8 mol a day against the hydrangea's 12, from Purdue; and the rain's share of the hydrangea zone's water, about 54 percent, from our own run.
 - The honesty comes first and unasked: the fin is ITKE's, the control logic is standard, growers keep rain off glasshouse crops on purpose, and nothing here is measured.
 - The list of words the team never says is in the market research file.

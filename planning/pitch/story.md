@@ -14,25 +14,51 @@ Every figure from our own run is provisional, from the planner's run, and is con
 
 [Elena], a grower near Apopka, in Central Florida, with three crops under one shade house roof: Boston fern, hydrangea, and blueberry.
 She is not an engineer or a persona on a slide: she is someone with three kinds of plant and one sky to give them.
+Her one specific struggle: every morning she picks which crop the roof is wrong for.
 The name is illustrative and the team may change it.
 The structure is a shade house, and the team may say greenhouse in plain speech.
 
 Why Apopka: the University of Florida's research centre there describes itself as "Located in the heart of Florida's greenhouse and nursery industry", and shade houses are the practice there.
 Any grander title for the town was seen only in search snippets, and is never said.
 
+## How a roof like hers works today
+
+This is the ground the whole pitch stands on, and a judge has to have it before the fin means anything.
+All of it is from `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md`, which opened every source.
+
+- **The brain is already fine.**
+  A climate computer holds a daily light target: Argus sells a control program that "begins with a target DLI".
+  It waters by the sun's energy, and it waters one valve at a time: Hoogendoorn, "You can initiate irrigation cycles per valve based on time, radiation, slab weight, water content and drainage."
+  Ridder, Hoogendoorn, Argus, and Priva all sell this, and none of it is ours.
+- **The hand is blunt.**
+  The roof is a curtain pulled by a motor: "One gear motor will handle up to 50,000 sq ft of roof."
+  A shade screen is a cable and a drum: "one drive motor can handle up to 40,000 sq ft."
+  Cravo and Sun'Agri sell roofs that move over crops, and those are not ours either.
+- **So the decision is as big as the motor.**
+  The computer can tell one valve from the next, and the roof cannot tell one bed from the next.
+  The spoken form is "a fine brain, and a blunt hand".
+- **And rain is kept out on purpose.**
+  Growers keep rain off glasshouse crops, because wet leaves bring disease, and the maker of rain admitting roofs closes them before it rains.
+  That is why this is a shade house, why each crop opts in, only in daylight and only with time to dry, and why the fern opts out.
+
 ## The villain: the single curtain
 
 Not "the weather", which is too large to fight, and not "inefficiency", which nobody can picture.
 The villain is the single curtain: one motor, one decision, for every plant under it.
 It is strong because it is the honest state of the art, and the numbers say so.
+What it costs Elena is sourced too: Purdue puts the fern's best quality from 8 mol a day and the hydrangea's from 12, so a roof held at the fern's light keeps the hydrangea out of its top grade, and Washington State's sheet says heavy shade "can lessen fruit quality" for blueberry.
 
 | Specific | Source | Status |
 |---|---|---|
 | "One gear motor will handle up to 50,000 sq ft of roof" | UMass fact sheet on retractable roof greenhouses and shadehouses, quoted in `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md` | spoken specific 1, read once more at the source before it is said |
 | For screens, "one drive motor can handle up to 40,000 sq ft" | UMass fact sheet on selecting a screen system, the same research file | for the question bank only |
-| Boston fern is "high quality" from 8 mol per m2 per day, and hydrangea from 12 | Purdue HO-238-W, Table 2, quoted in `../plans/packages/H1-zones-light-rain-soil.md` | spoken specific 2 |
-| Blueberry: "A 30-50% shade net is recommended", so the zone uses a shade share of 0.40 | Washington State University fact sheet, in H1 | not Florida practice, said so whenever the blueberry's number is said |
+| "You can initiate irrigation cycles per valve" | Hoogendoorn, the same research file | spoken, as "waters one valve at a time" |
+| A control program that "begins with a target DLI" | Argus, the same research file | spoken, of the computer only. A daily light target driving a shade screen was not found in a maker's own words, and is never said |
+| "Lubricate bearings, rack and pinions, and vent arm hinge points" | An insurer's guide, the same research file | spoken, as "a bearing to grease, a documented chore", with no figure |
+| Boston fern is "high quality" from 8 mol per m2 per day, up to 14, and hydrangea from 12 | Purdue HO-238-W, Table 2, quoted in `../plans/packages/H1-zones-light-rain-soil.md` | spoken specific 2 |
+| Blueberry: "A 30-50% shade net is recommended", and 75 percent or more "can lessen fruit quality", so the zone uses a shade share of 0.40 | Washington State University fact sheet, in H1 | not Florida practice, said so whenever the blueberry's number is said |
 | The rain supplied about 54 percent of the hydrangea zone's water over 2023, simulated | our own run, 0.545 in H1's year table | spoken specific 3, provisional, from the planner's run, confirm against `headline.json` before it is said |
+| From April to October the hydrangea zone needed no irrigation in six months of seven, simulated | `../plans/packages/H3-result-card.md`, from the planner's run | spoken, as the human sized form of the 54 percent, provisional, the same rule |
 | About 17 percent for the blueberry zone, and the fern held to its 8 mol on about 354 of 365 days, simulated | H1's year table, 0.171 and 354 | provisional, the same rule, for the card and the questions |
 | 3 June 2023: 42 mm of rain in two hours, the fern shut at eleven, the hydrangea at noon | H1's demo day table, 42.4 mm, local hours 11 and 12 | provisional, the same rule |
 | Opening for that rain gave the hydrangea about 6 mol of light it did not want | H1's demo day, 5.96 mol, 12.72 to 18.68 | provisional, the same rule |
@@ -42,19 +68,45 @@ It is strong because it is the honest state of the art, and the numbers say so.
 Three specifics per sixty seconds is the playbook's rule.
 Ours are 50,000 square feet a motor, 8 mol against 12, and about 54 percent.
 
+## Why the fin
+
+This is the argument for why the roof has to be made of Flectofins and not of something else, and it is the team's own argument, said as one.
+
+1. **To decide bed by bed, a roof needs many small parts.**
+   One curtain cannot do it, however clever the computer behind it.
+2. **Many small parts with hinges is many bearings to grease.**
+   The upkeep of today's roofs is already a documented chore: "Lubricate bearings, rack and pinions, and vent arm hinge points."
+   Multiply the moving parts and that chore is multiplied with them.
+3. **The Flectofin has no hinge.**
+   It is a thin blade on a rib that bends open, with no hinge, no bearing, and no lubricant.
+   That is what makes a roof of many small parts a reasonable thing to propose.
+4. **One part does three jobs.**
+   The same fin shades, opens for air, and lets the rain through, where today those are a screen, a vent, and a gutter.
+   On the demo day the judge sees it: the part that shaded the hydrangea at noon is the part that lets the rain in at three.
+
+The limits, which are said as plainly as the argument.
+
+- The saving in upkeep is not quantified by any source, so there is no figure, and the words are "removes documented maintenance tasks", never anything stronger.
+- Nothing is claimed about how the fin itself behaves, its life, or wind, hail, and the cost of many actuators, because nothing physical was built and the simulation treats a zone's roof as one open fraction.
+- "We found no prior proposal to put a Flectofin over crops" is an absence in our searches, and those are the words.
+
 ## The turn
 
 A roof made of many small fins can give each bed its own answer.
 That is the whole idea, and it is the only part that is ours.
+In speech: "Ours is the size of the decision: a bed, not a building."
 
 ## The story spine
 
+Elena is the subject of every beat, because the user is the hero and the team never is.
+
 - **Once upon a time** there was a grower named [Elena], near Apopka, with three crops under one shade house roof.
-- **Every day** one curtain made one decision for all of them, because one motor moves up to 50,000 square feet of roof.
-- **Until one day** we read the growers' own light tables, and the fern wanted 8 mol a day where the hydrangea wanted 12, and the blueberries wanted nearly all of it.
-- **Because of that** whatever the curtain did was wrong for somebody, and we asked what a roof would do if it could decide bed by bed.
-- **Because of that** we went looking for a roof element small enough, and found one that already exists: ITKE's Flectofin, a fin that bends open with no hinge.
-- **Until finally** we simulated a roof of those fins over her three zones, on a real year of Central Florida weather, by nine written rules: night, then rain, then light.
+- **Every day** her computer knew what each crop wanted, and her roof could only do one thing, because one motor pulls up to 50,000 square feet of curtain.
+- **Until one day**, a bright morning in June, the fern had had its light by eleven and the blueberries wanted the whole day, and she had one curtain to give them both.
+- **Because of that** whatever she chose, the roof was wrong for one of her crops.
+- **Because of that**, when the afternoon storm came, the rain fell on all of her beds or on none of them, the dry one and the wet one alike.
+- **Until finally** her roof was made of many small fins with no hinge, ITKE's Flectofin, and it decided bed by bed, by nine written rules: night, then rain, then light.
+  That roof is what we simulated, over her three zones, on a real year of Central Florida weather.
 - **And ever since then**, in the shade house we want, the fern is shut by eleven, the blueberries have the whole sky, and the afternoon storm falls only on the bed that is dry.
   That is a vision, and it is said as one.
 
@@ -67,14 +119,12 @@ The lens changes the order, not the claims.
 - **One hero, still.**
   Elena carries the pitch from the opening line to the last.
   The plants are never the hero: the stake is a grower's living.
-- **What is not ours is said unasked, in this order.**
-  The fin is ITKE's.
-  The control logic, watering by the sun's energy and holding a daily light target, is standard practice in greenhouse computers sold by Ridder, Hoogendoorn, Argus, and Priva.
-  Moving roofs over crops are sold by Cravo and Sun'Agri.
-  Growers keep rain off glasshouse crops on purpose, which is why this is a shade house, why each crop opts in, and why the fern opts out.
-  Nothing here is measured.
+- **What is not ours is said unasked, and each piece is said where the judge can see why it matters.**
+  Before Play, as part of how roofs work today: the control logic is standard, moving roofs are sold, and the fin is ITKE's.
+  At the year view, on a still screen: nothing here is measured apart from one rain gauge, nothing physical was built, growers keep rain off glasshouse crops on purpose, and the blueberry's figure is from Washington State.
+  Said as one block before the demo, the same facts took thirty seconds and pushed Play past the first minute, which the playbook's checklist fails.
 - **What is ours is one thing.**
-  The resolution, zone by zone.
+  The size of the decision, a bed and not a building.
   The words are "we found no prior proposal to put a Flectofin over crops", and never anything stronger.
 - **The roof is dumb on purpose.**
   Nine written rules, no AI and no learned model in the loop, and the fins never follow the sun's position.
@@ -85,15 +135,16 @@ The lens changes the order, not the claims.
 | Beat | Feeling | What carries it |
 |---|---|---|
 | Setup | recognition | "Picture Elena", three crops, one sky |
-| Tension | unease | one motor, 50,000 square feet, one decision for every plant under it |
-| Disarming | trust | what is not ours, said before anyone asks |
-| Rising action | curiosity | what a fin is, over the shut roof: a blade that bends open with no hinge, ITKE's and credited |
+| Tension | unease | a fine brain and a blunt hand: the computer waters one valve at a time, and one motor pulls 50,000 square feet |
+| The low | sympathy | every morning she picks which crop the roof is wrong for |
+| Rising action | curiosity | many small parts, and the hinge is the chore, so a part with no hinge: ITKE's, and credited |
 | Climax | delight | the judge presses Play, and by noon the three zones stop behaving as one roof |
 | Proof | surprise | the same storm, three answers, each with its reason in words |
-| Resolution | respect | the trade on the card: the rain came with six mol of light the hydrangea did not want |
-| Close | warmth | back to Elena, then the offer |
+| Resolution | respect | the trade on the card, and one part that did all of it |
+| Disarming | trust | what is not measured, not built, and not claimed, said on a still screen |
+| Close | warmth | the ask, then back to Elena |
 
-Without the low the high does not land, so the single curtain gets its full breath before the fins appear.
+Without the low the high does not land, so the single curtain and the morning choice get their full breath before the fins appear.
 
 ## The closing story
 
@@ -104,11 +155,13 @@ Until then the scripts carry this working draft, and it is replaced, not polishe
 "Elena still has three crops and one sky.
 Now the roof can tell them apart."
 
-Then the offer, which at a booth is an invitation and not a funding ask.
+The ask comes before the close, and never after it, so the last words are hers.
+At a booth it is an invitation and not a funding ask, and it is honest about the one thing the checklist asks for that we do not have, which is feedback from a user.
 
-"Press Play again, and this time watch only the hydrangea."
+"No grower has seen this yet.
+That is what we want next: one grower near Apopka to tell us where it is wrong."
 
-If a judge asks what we want next: one grower near Apopka willing to tell us where this is wrong.
+After the close, the offer: "Press Play again, and this time watch only the hydrangea."
 
 ## The demo as a scene
 
@@ -120,6 +173,10 @@ The playbook's five rules, applied.
 4. End on an emotional beat: the same rain, three answers, and the trade said plainly.
 5. Under sixty seconds: the day plays in about forty seconds, so the narration runs over it and never before it.
 
+The words are cut to the screen, not the screen to the words.
+H2 shuts the fern 15.0 seconds after Play, starts the storm at 24.6, and shows the card at 38.6, and `script.md` counts what is said in each of those three windows.
+Anything that needs explaining, the rules and the stack, waits for the result card, which is a still screen.
+
 The scene, from `../plans/plan-d-louvre-roof.md`: the fern has its light by eleven, the hydrangea by noon, the blueberries want all of it, then the afternoon storm, and three zones give three answers to the same rain, each for its own reason.
 
 ## What this story asks of the screen
@@ -127,11 +184,16 @@ The scene, from `../plans/plan-d-louvre-roof.md`: the fern has its light by elev
 The screen is the second storyteller at the table, and its specification is `../plans/packages/H2-page.md` and `H3-result-card.md`.
 In one line: the screen shows Elena's roof and Elena's day, never a dashboard, and every zone says its reason in words.
 
+One thing to watch when H2 plays for the first time: the storm is on the screen for 4.8 seconds, which is two daylight hours, and the three reasons have to be read in that time.
+If a person a metre away cannot read them, the fix is in H2, a longer `play_seconds` for an hour with rain, and not in the script.
+
 ## Where each figure came from
 
 | Figure | File |
 |---|---|
-| 50,000 and 40,000 square feet a motor | `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md` |
-| 8 and 12 mol, the 0.40 shade share, the Apopka quote | `../plans/packages/H1-zones-light-rain-soil.md` |
+| 50,000 and 40,000 square feet a motor, one valve at a time, a target DLI, the bearings to grease, one part with three jobs | `../docs/research/flectofin-greenhouse-roof/market-and-differentiation.md` |
+| 8 and 12 mol, the fern's band to 14, the 0.40 shade share and the 75 percent line, the Apopka quote | `../plans/packages/H1-zones-light-rain-soil.md` |
 | 54 and 17 percent, 354 days, 42 mm, eleven and noon, 6 mol, 2.4 percent | the same file, from the planner's run, all provisional until `headline.json` exists |
+| Six months of seven, April to October | `../plans/packages/H3-result-card.md`, from the planner's run, provisional the same way |
+| 15.0, 24.6, and 38.6 seconds after Play | `../plans/packages/H2-page.md`, computed from S1's file for 3 June 2023 |
 | The patent number and the inventors | `../docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md` |

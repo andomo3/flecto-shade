@@ -18,7 +18,10 @@ The skill's `pitch_timer.py` was left in the planning repo on purpose, so the co
 - One sentence: a Central Florida grower with three crops under one shade house roof gives each its own light, and lets the rain through only where the soil is dry, with a roof made of many small hingeless fins in place of one big curtain.
 - The hero is a grower near Apopka, introduced as illustrative, and the opening line is "Picture Elena, a grower near Apopka, Florida."
   The name is the team's to change.
-- The villain is the single curtain: one motor, one decision, for every plant under it.
+- How a roof like hers works today is said before anything else: the climate computer holds a daily light target and waters one valve at a time, and one motor pulls up to 50,000 square feet of curtain, "a fine brain, and a blunt hand".
+- The villain is the single curtain: one motor, one decision, for every plant under it, so every morning she picks which crop the roof is wrong for.
+- Why the fin: deciding bed by bed takes many small parts, every hinge is a bearing to grease, which is a documented chore, so the roof is made of a part with no hinge, ITKE's Flectofin, which also shades, opens for air, and lets the rain in as one element. No saving is quantified.
+- The ask, said before the close: one grower near Apopka to tell us where it is wrong.
 - The three specifics: 50,000 square feet a motor, from the UMass fact sheet; the fern's 8 mol a day against the hydrangea's 12, from Purdue; and the rain's share of the hydrangea zone's water, about 54 percent, from our own simulated run.
 - The watched moment: the judge presses Play, 3 June 2023 runs in about forty seconds, the fern's zone shuts by eleven, the hydrangea's by noon, the blueberries stay open, and then the afternoon storm gets three answers, each with its reason in words.
 - The closing line is abba's to write, and the scripts carry a working draft until then.
@@ -34,7 +37,7 @@ The skill's `pitch_timer.py` was left in the planning repo on purpose, so the co
 ## Honesty rules
 
 - What is not ours is said unasked, before a judge can ask: the fin is ITKE's, the control logic is standard practice in greenhouse computers sold by Ridder, Hoogendoorn, Argus, and Priva, moving roofs over crops are sold by Cravo and Sun'Agri, growers keep rain off glasshouse crops on purpose, and nothing here is measured.
-- What is ours is the resolution, zone by zone.
+- What is ours is the size of the decision, a bed and not a building.
   The words are "we found no prior proposal to put a Flectofin over crops".
 - Every figure is said as simulated or modelled.
   The rain is one real gauge's record, and the sun is a satellite product.

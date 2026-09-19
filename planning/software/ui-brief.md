@@ -44,7 +44,7 @@ That divergence is the product, and every design decision either sharpens it or 
 | Beat | Demo time | The speaker | The screen | What is absent |
 |---|---|---|---|---|
 | 1 | 0:00 | The grower near Apopka, three crops, one sky | The roof from above, shut, three zones named with their crops, one Play button, the word "simulated" | Every digit. A judge who sees zeroes reads "broken", and a judge who sees figures stops listening |
-| 2 | 0:20 | "Each of those is a fin with no hinge, which bends to open and shut. The fin is not ours. It is ITKE's Flectofin, and it is patented." | Unchanged. Nothing on the screen moves before Play | Any idle animation |
+| 2 | 0:20 | "Bed by bed takes many small parts, and every hinge is a bearing to grease. So we borrowed a part with no hinge: ITKE's Flectofin, patented, and not ours." | Unchanged. Nothing on the screen moves before Play | Any idle animation |
 | 3 | 0:30 | "Would you press play? This is 3 June 2023." | One press starts the day, the sun rises, every fin opens, and three light gauges fill at the same rate | A second control |
 | 4 | 0:45 | "The fern has had its light by eleven. The hydrangea by noon. The blueberries want all of it." | Zone A's fins shut when its gauge reaches 8 mol, zone B's about an hour later at 12 mol, and zone C stays open | Anything that competes with the fins shutting |
 | 5 | 0:55 | "Then the afternoon storm. Forty two millimetres in two hours, from the real gauge." | Rain over all three zones. The hydrangea's fins reopen and its soil gauge climbs to full. The blueberry stays shut, "the soil is wet enough". The fern stays shut, "this crop opted out of rain" | A reason shown as an icon or a colour alone. Each reason is in words |

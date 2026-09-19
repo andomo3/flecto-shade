@@ -17,7 +17,7 @@ Elena, in our pitch, is an illustration.
 We have not spoken to a grower."
 
 **2. What problem does it solve that existing roofs do not?**
-"Resolution, and only that.
+"The size of the decision, and only that.
 A UMass fact sheet says one gear motor handles up to fifty thousand square feet of retractable roof, and one screen motor up to forty thousand.
 So every plant under it gets one decision.
 A roof of many small fins can treat one bed differently from the next.
@@ -99,7 +99,7 @@ We claim the water arithmetic and never safety from disease."
 **Your logic is already in Priva.**
 "Yes.
 Ridder and Hoogendoorn water by the radiation sum, Argus sells a daily light integral program, and Priva steers screens from a light sensor.
-The contribution is the resolution of the actuator, a bed and not a bay, and not the algorithm."
+The contribution is the size of what the roof can decide, a bed and not a bay, and not the algorithm."
 
 **Is this real?**
 "No.
@@ -128,6 +128,18 @@ One actuator a row would keep the actuator count near that of screens, and that 
 "The sources document the chores it removes: an insurer's guide tells growers to lubricate bearings, racks, and vent hinge points, and a university fact sheet asks for cable tension kept and gear motors lubricated once or twice a year.
 A fin with no hinge removes documented maintenance tasks.
 No saving is quantified, by them or by us."
+
+**How does a roof like this work today?**
+"A climate computer runs it, and the computer is already fine grained.
+Argus sells a control program that begins with a target for the day's light, and Hoogendoorn starts irrigation valve by valve.
+The roof is the blunt part: a curtain or a screen on a motor, and one motor handles up to fifty thousand square feet.
+So the computer can tell one valve from the next, and the roof cannot tell one bed from the next."
+
+**Why a Flectofin, and not many small motorised louvres?**
+"Small hinged louvres would work, and Sun'Agri tilts shutters over crops today.
+Our argument is about what happens when you multiply them: every hinge is a bearing, and the sources already call greasing those a chore at today's scale.
+A fin with no hinge removes that documented task, and the same part shades, opens for air, and lets the rain through.
+That is an argument and not a finding: no saving is quantified, and we built no fin."
 
 **Why Apopka, and why is your gauge in Orlando?**
 "Apopka because of the industry there, in the University of Florida's own words.
