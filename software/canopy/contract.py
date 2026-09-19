@@ -80,6 +80,18 @@ class Reading:
         )
 
 
+def to_line(reading: Reading) -> str:
+    """The line a board would have printed for this reading.
+
+    An absent sensor is an empty field, never a zero, because a zero is a
+    measurement and an empty field is the truth.
+    """
+    return ",".join(
+        "" if getattr(reading, name) is None else str(getattr(reading, name))
+        for name in FIELD_NAMES
+    )
+
+
 def parse_line(line: str) -> Header | Reading | None:
     """Parse one line of the stream, or return None if it is not one.
 

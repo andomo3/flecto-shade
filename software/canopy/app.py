@@ -19,6 +19,7 @@ from pydantic import BaseModel, Field
 
 from canopy import config, contract
 from canopy.day import DEFAULT_DAY, DayPlayer, load_day
+from canopy.recorder import Recorder
 from canopy.sources import Source, open_source
 from canopy.state import State
 
@@ -148,12 +149,14 @@ def create_app(
     *,
     fixture: str | Path | None = None,
     day: str | Path | None = None,
+    record: str | Path | None = None,
     autoplay: bool = False,
     **source_kwargs,
 ) -> FastAPI:
     source = open_source(
         source_name, fixture=fixture or DEFAULT_FIXTURE, **source_kwargs
     )
+    recorder = Recorder(record).attach(source) if record else None
     # A fixture already holds a whole day; anything live needs one played to it.
     player = (
         None
@@ -169,6 +172,8 @@ def create_app(
             yield
         finally:
             await runner.stop()
+            if recorder is not None:
+                recorder.close()
 
     app = FastAPI(title="flecto-stop", lifespan=lifespan)
     app.state.runner = runner

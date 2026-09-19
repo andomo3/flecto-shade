@@ -8,6 +8,7 @@ import uvicorn
 
 from canopy.app import DEFAULT_FIXTURE, create_app
 from canopy.day import DEFAULT_DAY
+from canopy.recorder import run_path
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -15,7 +16,16 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
 
     serve = sub.add_parser("serve", help="serve the page")
-    serve.add_argument("--source", default="fixture", choices=["fixture", "fake"])
+    serve.add_argument(
+        "--source", default="fixture", choices=["fixture", "fake", "serial"]
+    )
+    serve.add_argument("--port-name", help="the serial port, for --source serial")
+    serve.add_argument(
+        "--record",
+        nargs="?",
+        const="",
+        help="write every line of this run to fixtures/, unchanged",
+    )
     serve.add_argument("--fixture", default=str(DEFAULT_FIXTURE))
     serve.add_argument(
         "--day",
@@ -32,11 +42,17 @@ def main(argv: list[str] | None = None) -> int:
 
     args = parser.parse_args(argv)
     if args.command == "serve":
+        record = None
+        if args.record is not None:
+            record = args.record or run_path(args.source)
+        source_kwargs = {"port": args.port_name} if args.source == "serial" else {}
         app = create_app(
             args.source,
             fixture=args.fixture,
             day=args.day,
+            record=record,
             autoplay=args.autoplay,
+            **source_kwargs,
         )
         uvicorn.run(app, host=args.host, port=args.port, log_level="info")
     return 0

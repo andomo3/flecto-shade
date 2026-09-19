@@ -18,12 +18,28 @@ from canopy import config, contract
 from canopy.contract import Reading
 
 Sleeper = Callable[[float], Awaitable[None]]
+Listener = Callable[[str], None]
 
 
 class Source(ABC):
-    """One interface: iterate readings, and send commands back."""
+    """One interface: iterate readings, and send commands back.
+
+    A source also hands out the raw line behind each reading, so the recorder
+    can keep the stream exactly as it arrived rather than a re-rendering of it.
+    """
 
     name: str = "source"
+    _line_listeners: list[Listener] | None = None
+
+    def observe(self, listener: Listener) -> None:
+        """Call ``listener`` with every raw line this source sees."""
+        if self._line_listeners is None:
+            self._line_listeners = []
+        self._line_listeners.append(listener)
+
+    def _emit(self, line: str) -> None:
+        for listener in self._line_listeners or ():
+            listener(line)
 
     @abstractmethod
     def readings(self) -> AsyncIterator[Reading]:
@@ -67,12 +83,12 @@ class FixtureSource(Source):
     def send(self, command: str) -> None:
         self._commands.append(command)
 
-    def _parsed(self) -> list[Reading]:
+    def _parsed(self) -> list[tuple[str, Reading]]:
         readings = []
         for line in self.path.read_text(encoding="utf-8").splitlines():
             parsed = contract.parse_line(line)
             if isinstance(parsed, Reading):
-                readings.append(parsed)
+                readings.append((line, parsed))
         return readings
 
     async def readings(self) -> AsyncIterator[Reading]:
@@ -81,12 +97,13 @@ class FixtureSource(Source):
             return
         while True:
             previous_t_ms: int | None = None
-            for reading in readings:
+            for line, reading in readings:
                 if previous_t_ms is not None and self.speed > 0:
                     gap = (reading.t_ms - previous_t_ms) / 1000 / self.speed
                     if gap > 0:
                         await self._sleep(gap)
                 previous_t_ms = reading.t_ms
+                self._emit(line)
                 yield reading
             if not self.loop:
                 return
@@ -207,8 +224,44 @@ class FakeSource(Source):
 
     async def readings(self) -> AsyncIterator[Reading]:
         while self._running:
-            yield self.tick()
+            reading = self.tick()
+            self._emit(contract.to_line(reading))
+            yield reading
             await self._sleep(config.TICK_MS / 1000)
+
+
+class SerialSource(Source):
+    """The board on a USB cable.
+
+    Reading the port blocks, so it happens on a worker thread and the loop
+    stays free for the page. A line that does not parse is dropped, which is
+    what lets the app connect in the middle of a stream.
+    """
+
+    name = "serial"
+
+    def __init__(self, port: str, *, baud: int = 115200, timeout: float = 1.0) -> None:
+        import serial  # Imported here so the demo runs on a laptop with no pyserial.
+
+        self.port = port
+        self._serial = serial.Serial(port, baud, timeout=timeout)
+
+    def send(self, command: str) -> None:
+        self._serial.write(command.encode("ascii"))
+
+    async def close(self) -> None:
+        self._serial.close()
+
+    async def readings(self) -> AsyncIterator[Reading]:
+        while self._serial.is_open:
+            raw = await asyncio.to_thread(self._serial.readline)
+            if not raw:
+                continue
+            line = raw.decode("ascii", errors="replace").rstrip("\r\n")
+            self._emit(line)
+            parsed = contract.parse_line(line)
+            if isinstance(parsed, Reading):
+                yield parsed
 
 
 def open_source(name: str, *, fixture: str | Path | None = None, **kwargs) -> Source:
@@ -219,4 +272,6 @@ def open_source(name: str, *, fixture: str | Path | None = None, **kwargs) -> So
         return FixtureSource(fixture, **kwargs)
     if name == "fake":
         return FakeSource(**kwargs)
+    if name == "serial":
+        return SerialSource(**kwargs)
     raise ValueError(f"unknown source {name!r}")
