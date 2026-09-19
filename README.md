@@ -2,8 +2,11 @@
 
 hack-mit project w/ Shanon, Abba, &amp; Ameya ;p
 
-A bus stop roof that bends into shade on its own.
-Three hingeless leaves, borrowed from the bird of paradise flower, feel the sun and bend over the bench, and open again when the light is gentle.
+A simulated smart louvre roof for a Central Florida grower with three crops under one shade house roof.
+The roof is made of many small hingeless fins, grouped into zones, and each zone gets its own light and lets the rain through only when its soil is dry.
+Everything is simulated, from a real year of weather near Apopka, and the fin is ITKE's Flectofin, patented as EP2320015.
+
+The repo is still named after the bus stop canopy the team arrived with, which was set aside on Saturday afternoon and is kept under `planning/` as the record.
 
 ## Status
 
