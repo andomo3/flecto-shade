@@ -2,9 +2,686 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>flecto-stop</title>
+    <style>
+      /* One scene, one action, a 4 px grid, nothing under 18 px. */
+      :root {
+        --night-top: #060b1b;
+        --night-bottom: #16233f;
+        --sky-top: #0b1d3a;
+        --sky-bottom: #24406b;
+        --sun: #ffc25c;
+        --shade: #2c3f63;
+        --ink: #f3f6fb;
+        --ink-quiet: #9fb0cc;
+        --ink-faint: #61708c;
+        --line: rgba(255, 255, 255, 0.12);
+        --panel: rgba(9, 15, 30, 0.72);
+        --good: #63d6a0;
+        --warn: #ffb020;
+        --bad: #ff6b6b;
+        --step: 4px;
+        --ease: cubic-bezier(0.32, 0.72, 0.28, 1);
+        color-scheme: dark;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        background: #05080f;
+        color: var(--ink);
+        font: 400 18px/1.45 "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
+        font-variant-numeric: tabular-nums;
+        overflow: hidden;
+      }
+
+      #app {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        height: 100%;
+        padding: 24px 32px 20px;
+        gap: 16px;
+      }
+
+      header { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
+
+      h1 {
+        font-size: 34px;
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        margin: 0;
+      }
+
+      .dataset { color: var(--ink-quiet); font-size: 18px; text-align: right; }
+      .dataset b { color: var(--ink); font-weight: 600; }
+
+      main {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: 28px;
+        min-height: 0;
+      }
+
+      .scene {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, var(--night-top), var(--night-bottom));
+        transition: background 1.2s linear;
+        min-height: 0;
+      }
+
+      .scene svg { width: 100%; height: 100%; display: block; }
+
+      .leaf, #sun-disc, #sun-glow, #figure, #bench-pool {
+        transition: transform 300ms var(--ease), opacity 400ms linear, fill 600ms linear;
+      }
+
+      .badge {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        font-size: 20px;
+        font-weight: 600;
+        backdrop-filter: blur(6px);
+      }
+
+      .badge .dot {
+        width: 12px; height: 12px; border-radius: 50%;
+        background: var(--ink-quiet);
+        transition: background 300ms linear;
+      }
+      .badge[data-leaves="bent"] .dot { background: var(--good); }
+      .badge[data-leaves="bending"] .dot { background: var(--warn); }
+
+      .banner {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-size: 19px;
+        font-weight: 600;
+        background: rgba(255, 176, 32, 0.16);
+        border: 1px solid rgba(255, 176, 32, 0.5);
+        color: #ffd68a;
+      }
+      .banner.error {
+        background: rgba(255, 107, 107, 0.16);
+        border-color: rgba(255, 107, 107, 0.5);
+        color: #ffc0c0;
+      }
+
+      .clock {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      aside { display: flex; flex-direction: column; gap: 20px; min-height: 0; }
+
+      .bar { display: grid; gap: 8px; }
+      .bar .top { display: flex; justify-content: space-between; align-items: baseline; }
+      .bar .name { font-size: 20px; font-weight: 600; }
+      .bar .value { font-size: 20px; color: var(--ink-quiet); }
+      .bar .value.absent { color: var(--ink-faint); font-size: 18px; font-weight: 400; }
+
+      .track {
+        height: 20px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.07);
+        overflow: hidden;
+      }
+      .fill {
+        height: 100%;
+        width: 0%;
+        border-radius: 10px;
+        transition: width 120ms linear, background 600ms linear;
+      }
+      #sun-fill { background: linear-gradient(90deg, #ffb020, #ffe0a3); }
+      #bench-fill { background: linear-gradient(90deg, #4a7bd0, #8fb6ff); }
+      #fixed-fill { background: linear-gradient(90deg, #6b7a99, #a4b2c9); }
+
+      .quiet { color: var(--ink-quiet); font-size: 18px; }
+      .hidden { display: none !important; }
+      .skeleton {
+        background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+        background-size: 200% 100%;
+        animation: sweep 1.6s linear infinite;
+      }
+      @keyframes sweep { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+      .flex-trace { height: 36px; width: 100%; }
+
+      footer { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+
+      .play {
+        appearance: none;
+        border: 0;
+        border-radius: 14px;
+        padding: 18px 44px;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+        color: #0b1220;
+        background: linear-gradient(180deg, #ffd88a, #ffb020);
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(255, 176, 32, 0.25);
+        transition: transform 120ms var(--ease), box-shadow 200ms var(--ease);
+      }
+      .play:hover { transform: translateY(-1px); }
+      .play:active { transform: translateY(1px); }
+
+      .hint { color: var(--ink-faint); font-size: 18px; }
+
+      /* The drawer: everything the judge does not press. */
+      .drawer {
+        position: fixed;
+        right: 0; top: 0; bottom: 0;
+        width: 380px;
+        padding: 28px;
+        background: #0a1120;
+        border-left: 1px solid var(--line);
+        transform: translateX(100%);
+        transition: transform 260ms var(--ease);
+        overflow-y: auto;
+        z-index: 3;
+      }
+      .drawer.open { transform: none; }
+      .drawer h2 { font-size: 22px; margin: 0 0 20px; }
+      .drawer label { display: block; margin: 20px 0 8px; font-size: 18px; color: var(--ink-quiet); }
+      .drawer input[type="range"] { width: 100%; }
+      .drawer button {
+        appearance: none;
+        width: 100%;
+        margin-top: 12px;
+        padding: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .drawer button[aria-pressed="true"] { background: rgba(255, 176, 32, 0.22); border-color: var(--warn); }
+      .drawer .keys { margin-top: 28px; color: var(--ink-faint); font-size: 18px; }
+
+      /* The result card: the only place big figures live. */
+      .result {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: rgba(4, 7, 14, 0.82);
+        backdrop-filter: blur(8px);
+        z-index: 4;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 500ms linear;
+      }
+      .result.show { opacity: 1; pointer-events: auto; }
+      .card {
+        width: min(760px, 88vw);
+        padding: 48px;
+        border-radius: 24px;
+        background: #0b1526;
+        border: 1px solid var(--line);
+        text-align: center;
+      }
+      .card h2 { font-size: 30px; font-weight: 600; margin: 0 0 32px; }
+      .figures { display: flex; justify-content: center; gap: 56px; }
+      .figure .n { font-size: 84px; font-weight: 700; line-height: 1; letter-spacing: -0.03em; }
+      .figure .n.resting { color: #ffd68a; }
+      .figure .n.bent { color: #8fb6ff; }
+      .figure .k { margin-top: 12px; font-size: 20px; color: var(--ink-quiet); }
+      .provenance { margin-top: 36px; font-size: 20px; color: var(--ink-quiet); }
+      .card .quiet { margin-top: 12px; }
+    </style>
   </head>
   <body>
-    <p>The page is built in C8.</p>
+    <div id="app">
+      <header>
+        <h1 id="headline">A bus stop roof that bends into the shade</h1>
+        <div class="dataset">
+          <div>Sun: PVGIS typical year, Houston, <b id="date">real date</b></div>
+          <div id="source-line" class="quiet">Waiting for the first reading</div>
+        </div>
+      </header>
+
+      <main>
+        <section class="scene" id="scene">
+          <svg viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid slice" aria-label="The stop, its leaves, and the bench">
+            <defs>
+              <radialGradient id="glow">
+                <stop offset="0%" stop-color="#ffd98a" stop-opacity="0.75" />
+                <stop offset="100%" stop-color="#ffd98a" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1b2740" />
+                <stop offset="100%" stop-color="#0b1120" />
+              </linearGradient>
+            </defs>
+
+            <!-- The sun rides the day's arc. -->
+            <circle id="sun-glow" cx="120" cy="520" r="150" fill="url(#glow)" opacity="0" />
+            <circle id="sun-disc" cx="120" cy="520" r="34" fill="#ffc25c" opacity="0" />
+
+            <rect x="0" y="470" width="1000" height="150" fill="url(#ground)" />
+
+            <!-- The pool of light on the bench: it shrinks when the leaves bend. -->
+            <ellipse id="bench-pool" cx="500" cy="474" rx="150" ry="16" fill="#ffc25c" opacity="0" />
+
+            <!-- The stop, seen from the front, the way the judge sees the rig. -->
+            <g id="stop">
+              <rect x="212" y="214" width="16" height="264" rx="4" fill="#33415c" />
+              <rect x="772" y="214" width="16" height="264" rx="4" fill="#33415c" />
+              <rect x="196" y="196" width="608" height="18" rx="6" fill="#455573" />
+
+              <!-- Three leaves, hinged at the ridge, rotating with the angle field. -->
+              <g class="leaf" id="leaf-1" style="transform-origin: 320px 205px">
+                <path d="M 248 205 L 392 205 L 380 150 L 260 150 Z" fill="#5c6f92" />
+              </g>
+              <g class="leaf" id="leaf-2" style="transform-origin: 500px 205px">
+                <path d="M 428 205 L 572 205 L 560 150 L 440 150 Z" fill="#65799e" />
+              </g>
+              <g class="leaf" id="leaf-3" style="transform-origin: 680px 205px">
+                <path d="M 608 205 L 752 205 L 740 150 L 620 150 Z" fill="#5c6f92" />
+              </g>
+
+              <!-- The bench, and Rosa on it. -->
+              <rect x="400" y="418" width="200" height="14" rx="4" fill="#4a5a7a" />
+              <rect x="410" y="432" width="12" height="42" fill="#3a4863" />
+              <rect x="578" y="432" width="12" height="42" fill="#3a4863" />
+              <g id="figure" fill="#8ea3c7">
+                <circle cx="470" cy="352" r="21" />
+                <path d="M 452 380 q 18 -8 36 0 l 8 40 l -52 0 Z" />
+                <rect x="444" y="416" width="52" height="12" rx="5" />
+                <rect x="486" y="424" width="14" height="48" rx="6" />
+              </g>
+            </g>
+          </svg>
+
+          <div class="badge" id="badge" data-leaves="resting">
+            <span class="dot"></span><span id="badge-text">Leaves resting</span>
+          </div>
+          <div class="clock hidden" id="clock">--:--</div>
+          <div class="banner hidden" id="banner"></div>
+        </section>
+
+        <aside>
+          <div class="bar">
+            <div class="top">
+              <span class="name">Sun</span>
+              <span class="value" id="sun-value"></span>
+            </div>
+            <div class="track"><div class="fill" id="sun-fill"></div></div>
+          </div>
+
+          <div class="bar">
+            <div class="top">
+              <span class="name">Bench</span>
+              <span class="value" id="bench-value"></span>
+            </div>
+            <div class="track"><div class="fill" id="bench-fill"></div></div>
+          </div>
+
+          <div class="bar hidden" id="fixed-bar">
+            <div class="top">
+              <span class="name">Fixed roof</span>
+              <span class="value" id="fixed-value"></span>
+            </div>
+            <div class="track"><div class="fill" id="fixed-fill"></div></div>
+          </div>
+
+          <div id="flex-block" class="hidden">
+            <div class="quiet">Leaf bend</div>
+            <svg class="flex-trace" viewBox="0 0 300 36" preserveAspectRatio="none">
+              <polyline id="flex-line" fill="none" stroke="#8fb6ff" stroke-width="2" points="" />
+            </svg>
+          </div>
+
+          <div class="quiet hidden" id="temperature"></div>
+          <div class="quiet hidden" id="cycles"></div>
+        </aside>
+      </main>
+
+      <footer>
+        <button class="play" id="play">Play the day</button>
+        <span class="hint">Space plays &middot; R resets the day &middot; D opens the controls</span>
+      </footer>
+    </div>
+
+    <div class="drawer" id="drawer" aria-hidden="true">
+      <h2>Controls</h2>
+      <div class="quiet" id="drawer-source">Source: fixture</div>
+
+      <label for="led">Lamp brightness <span id="led-out">0</span></label>
+      <input type="range" id="led" min="0" max="255" value="0" />
+
+      <label for="sun-angle">Sun arm angle <span id="sun-out">90</span>&deg;</label>
+      <input type="range" id="sun-angle" min="0" max="180" value="90" />
+
+      <button id="replay" aria-pressed="false">Replay mode: off</button>
+      <button id="reset">Reset the day</button>
+      <button id="close-drawer">Close</button>
+
+      <div class="keys">
+        Replay mode drives the leaves from recorded angles instead of the light
+        sensor, and the page says so in words while it is on.
+      </div>
+    </div>
+
+    <div class="result" id="result">
+      <div class="card">
+        <h2>Light reaching the bench</h2>
+        <div class="figures">
+          <div class="figure">
+            <div class="n resting" id="result-resting">--</div>
+            <div class="k">leaves resting</div>
+          </div>
+          <div class="figure">
+            <div class="n bent" id="result-bent">--</div>
+            <div class="k">leaves bent</div>
+          </div>
+        </div>
+        <div class="provenance" id="result-provenance">Measured today on this table</div>
+        <div class="quiet" id="result-detail"></div>
+      </div>
+    </div>
+
+    <script>
+      "use strict";
+
+      const $ = (id) => document.getElementById(id);
+      const BEND_LIGHT = 620; // per mille, the firmware's threshold
+      const ANGLE_BENT = 125;
+      const STALE_MS = 2500;
+
+      const el = {
+        headline: $("headline"), date: $("date"), sourceLine: $("source-line"),
+        scene: $("scene"), badge: $("badge"), badgeText: $("badge-text"),
+        clock: $("clock"), banner: $("banner"),
+        sunDisc: $("sun-disc"), sunGlow: $("sun-glow"), pool: $("bench-pool"),
+        figure: $("figure"), leaves: [$("leaf-1"), $("leaf-2"), $("leaf-3")],
+        sunFill: $("sun-fill"), sunValue: $("sun-value"),
+        benchFill: $("bench-fill"), benchValue: $("bench-value"),
+        fixedBar: $("fixed-bar"), fixedFill: $("fixed-fill"), fixedValue: $("fixed-value"),
+        flexBlock: $("flex-block"), flexLine: $("flex-line"),
+        temperature: $("temperature"), cycles: $("cycles"),
+        play: $("play"), drawer: $("drawer"), drawerSource: $("drawer-source"),
+        led: $("led"), ledOut: $("led-out"), sunAngle: $("sun-angle"), sunOut: $("sun-out"),
+        replay: $("replay"), reset: $("reset"), closeDrawer: $("close-drawer"),
+        result: $("result"), resultResting: $("result-resting"), resultBent: $("result-bent"),
+        resultProvenance: $("result-provenance"), resultDetail: $("result-detail"),
+      };
+
+      let playing = false;
+      let started = false;
+      let latest = null;
+      let lastReadingAt = 0;
+      const flex = [];
+
+      const PROVENANCE = {
+        serial: "Measured today on this table",
+        fixture: "Replayed from a run recorded on this table",
+        fake: "Simulated: no hardware is connected",
+        sim: "Simulated from our CAD and public solar data",
+      };
+
+      function post(path, body) {
+        return fetch(path, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: body === undefined ? null : JSON.stringify(body),
+        }).then((response) => response.json());
+      }
+
+      /* The sky is the clock: deep blue before dawn, amber at noon. */
+      function paintSky(light) {
+        const day = Math.min(1, Math.max(0, light / 1000));
+        const top = mix([6, 11, 27], [64, 118, 190], day);
+        const bottom = mix([22, 35, 63], [232, 168, 96], day);
+        el.scene.style.background = `linear-gradient(180deg, rgb(${top}), rgb(${bottom}))`;
+      }
+
+      function mix(a, b, t) {
+        return a.map((value, i) => Math.round(value + (b[i] - value) * t)).join(",");
+      }
+
+      function placeSun(light, elevation) {
+        const day = Math.min(1, Math.max(0, light / 1000));
+        const height = elevation === null || elevation === undefined ? day * 80 : elevation;
+        const along = Math.min(1, Math.max(0, (height + 6) / 96));
+        el.sunDisc.setAttribute("cx", 120 + 760 * timeOfDay());
+        el.sunDisc.setAttribute("cy", 520 - 430 * along);
+        el.sunGlow.setAttribute("cx", el.sunDisc.getAttribute("cx"));
+        el.sunGlow.setAttribute("cy", el.sunDisc.getAttribute("cy"));
+        el.sunDisc.setAttribute("opacity", day > 0.02 ? 1 : 0);
+        el.sunGlow.setAttribute("opacity", day * 0.9);
+      }
+
+      let progress = 0;
+      function timeOfDay() { return progress; }
+
+      function render(s) {
+        latest = s;
+        if (s.day) {
+          el.date.textContent = `${s.day.date} ${s.day.local_time}`;
+          el.clock.textContent = s.day.local_time;
+          el.clock.classList.toggle("hidden", !started);
+          progress = s.day.step / s.day.steps;
+        }
+
+        el.drawerSource.textContent = `Source: ${s.source}`;
+        el.sourceLine.textContent = s.waiting && !started
+          ? "Press Play"
+          : PROVENANCE[s.source] || s.source;
+
+        if (s.waiting) {
+          skeleton(true);
+          return;
+        }
+        skeleton(false);
+        lastReadingAt = performance.now();
+
+        paintSky(s.light);
+        placeSun(s.light, s.day ? s.day.elevation : null);
+
+        const angle = s.angle === null ? 0 : s.angle;
+        el.leaves.forEach((leaf, i) => {
+          const sign = i === 1 ? 1 : i === 0 ? -1 : 1;
+          leaf.style.transform = `rotate(${sign * angle * 0.6}deg)`;
+        });
+
+        el.badge.dataset.leaves = s.leaves;
+        el.badgeText.textContent = {
+          resting: "Leaves resting", bending: "Leaves bending", bent: "Leaves bent",
+        }[s.leaves];
+
+        // Sun is the light falling on the roof; Bench is what gets through.
+        const sunShare = Math.min(100, (s.light / 1000) * 100);
+        el.sunFill.style.width = `${sunShare}%`;
+        el.sunValue.textContent = `${Math.round(sunShare)}%`;
+
+        if (s.fitted.bench && s.bench_percent !== null) {
+          el.benchFill.style.width = `${Math.min(100, s.bench_percent)}%`;
+          el.benchValue.textContent = `${s.bench_percent}%`;
+          el.benchValue.classList.remove("absent");
+        } else if (!s.fitted.bench) {
+          el.benchFill.style.width = "0%";
+          el.benchValue.textContent = "not fitted";
+          el.benchValue.classList.add("absent");
+        }
+
+        el.fixedBar.classList.toggle("hidden", !s.fitted.fixed);
+        if (s.fitted.fixed && s.fixed_percent !== null) {
+          el.fixedFill.style.width = `${Math.min(100, s.fixed_percent)}%`;
+          el.fixedValue.textContent = `${s.fixed_percent}% (modelled roof)`;
+        }
+
+        // Rosa is lit or in shade, and so is the pool of light under her.
+        const lit = s.fitted.bench && s.bench_percent !== null
+          ? s.bench_percent / 100
+          : Math.min(1, s.light / 1000);
+        el.figure.setAttribute("fill", lit > 0.4 ? "#ffd9a1" : "#7f93b8");
+        el.pool.setAttribute("opacity", Math.min(0.5, lit * 0.5));
+        el.pool.setAttribute("rx", 60 + 120 * lit);
+
+        el.flexBlock.classList.toggle("hidden", !s.fitted.flex);
+        if (s.fitted.flex) { traceFlex(s.flex); }
+
+        el.temperature.classList.toggle("hidden", s.temperature_difference === null);
+        if (s.temperature_difference !== null) {
+          el.temperature.textContent = `${s.temperature_difference} \u00b0C cooler under the canopy`;
+        }
+
+        el.cycles.classList.toggle("hidden", s.cycles === 0);
+        el.cycles.textContent = `${s.cycles} full bend and rest ${s.cycles === 1 ? "cycle" : "cycles"}`;
+
+        banner(s);
+        if (s.day_finished) { showResult(s); }
+      }
+
+      function skeleton(on) {
+        [el.sunFill, el.benchFill].forEach((fill) => {
+          fill.classList.toggle("skeleton", on);
+          if (on) { fill.style.width = "100%"; }
+        });
+        if (on) {
+          el.sunValue.textContent = "";
+          el.benchValue.textContent = "";
+        }
+      }
+
+      function traceFlex(value) {
+        flex.push(value === null ? 0 : value);
+        if (flex.length > 150) { flex.shift(); }
+        const high = Math.max(1, ...flex);
+        el.flexLine.setAttribute(
+          "points",
+          flex.map((v, i) => `${(i / 149) * 300},${36 - (v / high) * 34}`).join(" ")
+        );
+      }
+
+      function banner(s) {
+        if (s.replay_mode) {
+          return say("Replay mode: the leaves are driven by recorded angles, not by the light sensor", false);
+        }
+        if (s.source === "fake" || s.source === "sim") {
+          return say("Simulation: no hardware is connected", false);
+        }
+        if (stale()) {
+          return say("The board stopped sending readings. Check the USB cable, or switch to this morning's recorded run.", true);
+        }
+        el.banner.classList.add("hidden");
+      }
+
+      function stale() {
+        return playing && lastReadingAt > 0 && performance.now() - lastReadingAt > STALE_MS;
+      }
+
+      function say(text, isError) {
+        el.banner.textContent = text;
+        el.banner.classList.remove("hidden");
+        el.banner.classList.toggle("error", !!isError);
+      }
+
+      function showResult(s) {
+        const resting = s.averages.resting.mean;
+        const bent = s.averages.bent.mean;
+        el.resultResting.textContent = resting === null ? "--" : `${Math.round(resting)}%`;
+        el.resultBent.textContent = bent === null ? "--" : `${Math.round(bent)}%`;
+        el.resultProvenance.textContent = PROVENANCE[s.source] || s.source;
+        el.resultDetail.textContent = s.day
+          ? `${s.day.city[0].toUpperCase()}${s.day.city.slice(1)}, ${s.day.date}, ${s.cycles} bend and rest cycles`
+          : `${s.cycles} bend and rest cycles`;
+        el.result.classList.add("show");
+      }
+
+      function connect() {
+        const events = new EventSource("/events");
+        events.onmessage = (message) => render(JSON.parse(message.data));
+        events.onerror = () => {
+          events.close();
+          setTimeout(connect, 1000);
+        };
+      }
+
+      el.play.addEventListener("click", () => {
+        started = true;
+        playing = !playing;
+        el.result.classList.remove("show");
+        post(playing ? "/play" : "/pause").then(render);
+        el.play.textContent = playing ? "Pause" : "Play the day";
+      });
+
+      el.reset.addEventListener("click", () => {
+        playing = false;
+        started = false;
+        flex.length = 0;
+        el.play.textContent = "Play the day";
+        el.result.classList.remove("show");
+        post("/reset").then(render);
+      });
+
+      el.led.addEventListener("input", () => {
+        el.ledOut.textContent = el.led.value;
+        post("/led", { duty: Number(el.led.value) });
+      });
+
+      el.sunAngle.addEventListener("input", () => {
+        el.sunOut.textContent = el.sunAngle.value;
+        post("/sun", { angle: Number(el.sunAngle.value) });
+      });
+
+      el.replay.addEventListener("click", () => {
+        const on = el.replay.getAttribute("aria-pressed") !== "true";
+        el.replay.setAttribute("aria-pressed", String(on));
+        el.replay.textContent = `Replay mode: ${on ? "on" : "off"}`;
+        post("/replay-mode", { on, angle: ANGLE_BENT }).then(render);
+      });
+
+      const toggleDrawer = (open) => {
+        el.drawer.classList.toggle("open", open);
+        el.drawer.setAttribute("aria-hidden", String(!open));
+      };
+      el.closeDrawer.addEventListener("click", () => toggleDrawer(false));
+
+      document.addEventListener("keydown", (event) => {
+        if (event.target.tagName === "INPUT") { return; }
+        const key = event.key.toLowerCase();
+        if (key === " " || event.code === "Space") { event.preventDefault(); el.play.click(); }
+        if (key === "r") { el.reset.click(); }
+        if (key === "d") { toggleDrawer(!el.drawer.classList.contains("open")); }
+        if (key === "escape") { toggleDrawer(false); el.result.classList.remove("show"); }
+      });
+
+      // A silent board is a state the page has to show, not a frozen screen.
+      setInterval(() => { if (latest && stale()) { banner(latest); } }, 1000);
+
+      connect();
+    </script>
   </body>
 </html>
