@@ -2,6 +2,7 @@
 
 The live board for the build.
 `AGENTS.md` holds the rules, `planning/plans/plan-d-louvre-roof.md` holds the plan, and this file holds the state.
+`planning/README.md` says which files under `planning/` are current and which are only the record, and `planning/playbook.md` is the team's HackMIT playbook, for the pitch, the screen, the README, and the testing.
 Read all three before doing anything.
 
 ## The team
@@ -49,7 +50,7 @@ If a package seems to need a file someone else owns, stop and tell your person, 
 | `data/processed/sim-apopka.csv` and `sim-summary-apopka.csv` | H1 | H2, H3 | `planning/plans/packages/H1-zones-light-rain-soil.md` |
 | `data/crops.csv` | H1 | H2, H3 | the same |
 | `data/roof-layout.json` | K2 | H2 | this file, under K2 |
-| `data/processed/headline.json` | H3 | the pitch | H3's package, not written yet |
+| `data/processed/headline.json` | H3 | the pitch | `planning/plans/packages/H3-result-card.md` |
 
 ## Order, and what can run side by side
 
@@ -68,8 +69,9 @@ Until G1 is merged there is no gate command, so S1 and K1 finish on their own ac
 | Package | Spec | Status | Branch | Done when |
 |---|---|---|---|---|
 | G1, the gate runner | `planning/plans/packages/G1-gate-runner.md` | not started | | `pytest tools/tests/test_gates.py` exits 0, and `python tools/gates.py --package G1 --allowed "tools/,gates-log/"` exits 0 |
-| H2, the page | not written yet, it is specified against H1's real output | blocked by H1 and K2 | | to come |
-| H3, the result card and `headline.json` | not written yet | blocked by H2 | | to come |
+| H2, the page | `planning/plans/packages/H2-page.md` | blocked by H1 and K2 | | `python software/page/build_day.py --date 2023-06-03` and `pytest software/tests/test_page.py` exit 0, and a person passes the demo gate's beats 1 to 5 |
+| H3, the result card and `headline.json` | `planning/plans/packages/H3-result-card.md` | blocked by H2 | | `python software/h3/build_headline.py` and `pytest software/tests/test_headline.py` exit 0, and a person passes beats 6 and 7 and the pitch gate |
+| The pitch, the polish, the README, the table | `planning/plans/pitch-plan-d.md`, with `planning/playbook.md` and the `hackathon-*` skills | the story can start now, the figures wait for H3 | | the scripts sit inside their word targets, and every figure in them is in `headline.json` |
 
 Integration duties, each time a package is offered for merge:
 

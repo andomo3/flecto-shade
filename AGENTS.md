@@ -28,8 +28,8 @@ All project code is written between 11:00 Saturday 2026-09-19 and 11:00 Sunday 2
 - Write every line of code here, fresh, from the specifications under `planning/`.
 - Never copy code from the planning repo, https://github.com/andomo3/hack-mit.
   Its `firmware/canopy/`, `firmware/host_test/`, `software/canopy/`, and `tests/` directories are a labelled pre-event prototype and are off limits, to read or to copy.
-- `planning/` is Markdown only and is a snapshot.
-  Do not edit it and do not put code in it.
+- `planning/` is Markdown only.
+  From Saturday evening it is the team's working copy of the plan, changed only by abba, and never by a build agent. Do not put code in it.
 - Cite every open source library, every dataset, every source of a crop figure, and every AI tool in the submission, because the rules require it.
 
 ## Read first
@@ -39,6 +39,9 @@ All project code is written between 11:00 Saturday 2026-09-19 and 11:00 Sunday 2
 2. `planning/plans/gates.md`, what every package is checked against.
 3. `planning/plans/packages/README.md`, the package index and the handoff prompt.
 4. `planning/docs/research/flectofin-greenhouse-roof/market-and-differentiation.md`, what already exists, and the words the team never says.
+5. `planning/README.md`, which files under `planning/` are current and which are only the record.
+
+For the pitch, the screen's polish, the README, and the testing: `planning/plans/pitch-plan-d.md`, `planning/playbook.md`, and the `hackathon-*` skills.
 
 ## Order of work
 
