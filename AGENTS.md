@@ -4,19 +4,21 @@ This is the repo the team submits to HackMIT 2026.
 
 The project, since about 16:45 on Saturday 2026-09-19: a simulated smart louvre roof for a grower with three crops under one shade roof.
 The roof is made of many small hingeless fins, grouped into zones, and each zone gets its own light and lets the rain through only when its soil is dry.
-Everything is simulated, from a real year of Central Florida weather near Apopka, and the one physical thing is a printed fin on the table.
+Everything is simulated, from a real year of Central Florida weather near Apopka, and nothing physical is built.
+The printed fin first planned for the table was cut on Saturday evening, so the project is the simulation, the pitch, and the story.
 The structure is a shade house, which the team calls a greenhouse in plain speech, and the page says shade house.
 
 The plan is `planning/plans/plan-d-louvre-roof.md`.
-Earlier the same day the team planned a bus stop canopy and then a leaf design tool, and those files are still under `planning/` as the record.
+Earlier the same day the team planned a bus stop canopy and then a leaf design tool, and those files are under `planning/archive/` as the record.
 Build nothing from them.
+This is the only rules file in the repo, and any other file that claims to be one is the record.
 
 Status: planning imported, nothing built yet.
 Do not start until your person hands you a work package.
 
 ## Three people, three agents, one repo
 
-Abba does the software engineering and is the integrator who merges, Ameya does the data engineering, and Shannon does the CAD modelling.
+Abba does the software engineering and is the integrator who merges, Ameya does the data engineering, and Shannon did the CAD modelling until the printed fin was cut, and takes what the team agrees out loud.
 Each drives a Devin agent on their own laptop, all in this repo at the same time.
 `CHECKLIST.md` is the live board: who owns which package and which directories, the order, what can run side by side, the files where packages meet, and the ten rules that keep three agents from colliding.
 Read it before anything else, work only on your own person's packages, and edit only your own person's section of it.
@@ -39,16 +41,17 @@ All project code is written between 11:00 Saturday 2026-09-19 and 11:00 Sunday 2
 2. `planning/plans/gates.md`, what every package is checked against.
 3. `planning/plans/packages/README.md`, the package index and the handoff prompt.
 4. `planning/docs/research/flectofin-greenhouse-roof/market-and-differentiation.md`, what already exists, and the words the team never says.
-5. `planning/README.md`, which files under `planning/` are current and which are only the record.
+5. `planning/README.md`, the map of `planning/`, and what is in its archive.
 
 For the pitch, the screen's polish, the README, and the testing: `planning/plans/pitch-plan-d.md`, `planning/playbook.md`, and the `hackathon-*` skills.
 
 ## Order of work
 
-G1 the gate runner, S1 the 2023 sun for the Apopka area, and K1 the display fin start at once, on three laptops.
+G1 the gate runner and S1 the 2023 sun for the Apopka area start at once.
 Then H1 the zones and the rules, and K2 the roof layout. Then H2 the page, then H3 the result card.
 Each has a file under `planning/plans/packages/`, or will before it is handed over.
-These packages under the same folder belong to plans that were set aside, and are never built: R1, C6, V1 to V4, and F1.
+K1, the printed display fin, was cut, and K2, the roof layout, is optional, because H2 draws a default grid without it.
+These packages belong to plans that were set aside, sit under `planning/archive/`, and are never built: R1, C6, C1 to C9, V1 to V4, and F1.
 
 ## Boundaries that hold whatever else changes
 
@@ -98,7 +101,6 @@ Code that passes its own tests and breaks the demo is not done.
 |---|---|
 | `tools/` | The gate runner and its tests |
 | `gates-log/` | One gate report file per package |
-| `hardware/` | The display fin's CAD and record, and the roof's plan view |
 | `data/raw/` | Downloaded public datasets, gitignored, copied in by a person with the sha256 checked |
 | `data/` | The build scripts, `crops.csv`, and `processed/`, which is committed |
 | `software/` | The simulation, the page, `requirements.txt`, and `tests/` |

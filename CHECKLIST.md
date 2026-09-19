@@ -13,7 +13,7 @@ Three people, each driving a Devin agent on their own laptop, all in this one re
 |---|---|---|---|
 | Abba | Software engineering, and the integrator who merges | `tools/`, `software/page/`, `pitch/`, the root files | G1, H2, H3 |
 | Ameya | Data engineering | `data/`, `software/h1/`, `software/tests/` for S1 and H1 | S1, H1 |
-| Shannon | CAD modelling | `hardware/`, `data/roof-layout.json` | K1, K2 |
+| Shannon | The roof layout, and whatever the team agrees out loud now that the printed fin is cut | `data/roof-layout.json` | K2, optional |
 
 An agent works only on its own person's packages, and only in that person's directories.
 If a package seems to need a file someone else owns, stop and tell your person, who asks the owner.
@@ -57,19 +57,20 @@ If a package seems to need a file someone else owns, stop and tell your person, 
 ```text
 Abba:     G1 ------------------> H2 ----------> H3 ----> pitch figures
 Ameya:    S1 ------> H1 ----------^
-Shannon:  K1 (print tonight) --> K2 ---^
+Shannon:  K2 (optional) - - - - ^
 ```
 
-G1, S1, and K1 start at once and depend on nothing.
-H1 needs S1 merged. H2 needs H1 and K2 merged. H3 needs H2.
-Until G1 is merged there is no gate command, so S1 and K1 finish on their own acceptance checks, and run the gates as soon as G1 lands, before anything else.
+G1 and S1 start at once and depend on nothing.
+H1 needs S1 merged. H2 needs H1 merged. H3 needs H2.
+K2 is optional: without `data/roof-layout.json`, H2 draws a default grid with the words "default layout", as its specification says.
+Until G1 is merged there is no gate command, so S1 finishes on its own acceptance checks, and runs the gates as soon as G1 lands, before anything else.
 
 ## Abba's section: software engineering and integration
 
 | Package | Spec | Status | Branch | Done when |
 |---|---|---|---|---|
 | G1, the gate runner | `planning/plans/packages/G1-gate-runner.md` | not started | | `pytest tools/tests/test_gates.py` exits 0, and `python tools/gates.py --package G1 --allowed "tools/,gates-log/"` exits 0 |
-| H2, the page | `planning/plans/packages/H2-page.md` | blocked by H1 and K2 | | `python software/page/build_day.py --date 2023-06-03` and `pytest software/tests/test_page.py` exit 0, and a person passes the demo gate's beats 1 to 5 |
+| H2, the page | `planning/plans/packages/H2-page.md` | blocked by H1 | | `python software/page/build_day.py --date 2023-06-03` and `pytest software/tests/test_page.py` exit 0, and a person passes the demo gate's beats 1 to 5 |
 | H3, the result card and `headline.json` | `planning/plans/packages/H3-result-card.md` | blocked by H2 | | `python software/h3/build_headline.py` and `pytest software/tests/test_headline.py` exit 0, and a person passes beats 6 and 7 and the pitch gate |
 | The pitch, the polish, the README, the table | `planning/plans/pitch-plan-d.md`, with `planning/playbook.md` and the `hackathon-*` skills | the story can start now, the figures wait for H3 | | the scripts sit inside their word targets, and every figure in them is in `headline.json` |
 
@@ -95,15 +96,15 @@ Notes for this section:
 - H1's evaporation formula is marked RECALLED in its spec, which means nobody confirmed it at a source. If there is a spare ten minutes, confirm the Makkink form, its 0.65 coefficient, and the 2.45 divisor at a source, and record the address in the README.
 - Two questions in H1 are the team's to answer and do not block the build: a soil bucket sized for containers or for soil, and whether the hydrangea stays.
 
-## Shannon's section: CAD modelling
+## Shannon's section: the roof layout
 
 | Package | What | Status | Branch | Done when |
 |---|---|---|---|---|
-| K1, the display fin | The fin's CAD, sent to the print queue tonight, before it closes. One fin, for display only, a rib with a thin sheet along it | not started | | The print is submitted, and `hardware/fin/README.md` records the fin's dimensions, its material, the print settings, the CAD tool, and a screenshot or render, with the STL or STEP file beside it if it is under 5 MB |
-| K2, the roof layout | How the roof is laid out over the three zones, as data the page can draw: how many fins, how big, over what size of bed | blocked by nothing | | `data/roof-layout.json` validates against the schema below, in a test at `software/tests/test_roof_layout.py`, and `hardware/roof/README.md` shows a plan view with the dimensions |
+| K1, the display fin | CUT at about 19:15 on Saturday 2026-09-19. There is no hardware, and the project is the simulation alone | cut | `pkg/K1` is not merged | never |
+| K2, the roof layout | How the roof is laid out over the three zones, as data the page can draw: how many fins, how big, over what size of bed | blocked by nothing | | `data/roof-layout.json` validates against the schema below, in a test at `software/tests/test_roof_layout.py`, and `data/roof-layout.md` shows a plan view with the dimensions |
 
-K1 comes first, because the print queue closes tonight and nothing else in the project has a deadline that early.
-The fin is ITKE's Flectofin, patented as EP2320015, and `hardware/fin/README.md` says so in its first line.
+K1 was cut so that every hour goes to the simulation, the pitch, and the story, and its planning files are under `planning/archive/hardware/`.
+The fin is ITKE's Flectofin, patented as EP2320015, and the page says so.
 
 The schema for `data/roof-layout.json`, which H2 reads and nothing else does:
 
@@ -111,7 +112,7 @@ The schema for `data/roof-layout.json`, which H2 reads and nothing else does:
 {
   "units": "m",
   "note": "modelled layout, not a built structure",
-  "fin": { "length_m": 0.0, "sheet_width_m": 0.0, "source": "hardware/fin/README.md" },
+  "fin": { "length_m": 0.0, "sheet_width_m": 0.0, "source": "modelled, after ITKE's Flectofin, EP2320015" },
   "zones": [
     { "zone": "A", "crop": "boston fern", "bed_width_m": 0.0, "bed_length_m": 0.0, "fin_rows": 0, "fins_per_row": 0 },
     { "zone": "B", "crop": "hydrangea",   "bed_width_m": 0.0, "bed_length_m": 0.0, "fin_rows": 0, "fins_per_row": 0 },
@@ -138,7 +139,6 @@ The schema for `data/roof-layout.json`, which H2 reads and nothing else does:
 
 | When | What must be true |
 |---|---|
-| Tonight, before the print queue closes | K1 is submitted |
 | 21:00 Saturday | G1 and S1 are merged |
 | 23:00 Saturday, the hard checkpoint | H1 is merged and the year's summary exists. If it is not, the page is cut to the demo day only |
 | 01:00 Sunday, the freeze, the venue closes | H2 plays the demo day end to end, or the fallback is a recorded run of H1's output drawn as simply as possible |
