@@ -27,7 +27,8 @@ A word count is one line in any editor, or the build agent can write a new count
 - **The three specifics.** 50,000 square feet a motor, from the UMass fact sheet. The fern's 8 mol a day against the hydrangea's 12, from Purdue. The rain's share of the hydrangea zone's water, from `headline.json`.
 - **The close.** Return to the grower. The closing line is abba's to write, in abba's own voice, and the `writing-voice` skill is not in this repo.
 
-The old pitch under `../pitch/` is for the bus stop and is kept for its method: the story spine, the emotional arc table, the question bank's formula of answer, evidence, and scope, the four cards, and the recovery lines.
+The pitch under `../pitch/` was rewritten for this plan on Saturday evening, keeping the bus stop pitch's method: the story spine, the emotional arc table, the question bank's formula of answer, evidence, and scope, the four cards, and the recovery lines.
+Its simulation figures are provisional until H3 has produced `headline.json`, and the bus stop versions are in the git history.
 Copy the shapes, never the content.
 
 ## Honesty first, and unasked

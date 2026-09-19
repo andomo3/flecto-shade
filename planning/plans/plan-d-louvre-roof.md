@@ -74,7 +74,7 @@ The fallback is the recorded run, then the screen recording.
 - The three specifics: 50,000 square feet a motor, from the UMass fact sheet; the fern's 8 mol a day against the hydrangea's 12, from Purdue; and the rain's share of the hydrangea zone's water, about 54 percent, from our own run.
 - The honesty comes first and unasked: the fin is ITKE's, the control logic is standard, growers keep rain off glasshouse crops on purpose, and nothing here is measured.
 - The list of words the team never says is in the market research file.
-- The scripts, the question bank, the cards, and the submission are rewritten from these points once H3 has produced `headline.json`, following `pitch-plan-d.md`, and the old ones under `../pitch/` are the record of the bus stop, kept for their method.
+- The scripts, the question bank, the cards, and the submission under `../pitch/` were rewritten from these points on Saturday evening, following `pitch-plan-d.md`, and their simulation figures are checked against `headline.json` once H3 has produced it.
 
 ## The gates
 
