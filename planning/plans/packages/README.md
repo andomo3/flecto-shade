@@ -9,11 +9,13 @@ The rules for the agent are in `../README.md`, and the rules for the event repo 
 | ID | File | What | Needs | Status |
 |---|---|---|---|---|
 | R1 | `R1-simulation-research.md` | Research, time boxed to 120 minutes: how to simulate and render the stop, 2D or 3D, where the geometry comes from, which of three routes gives the leaf its shape, and what not to build | The name of the engineers' CAD tool | spec ready, and it is the build agent's first task |
+| G1 | `G1-gate-runner.md` | One command that runs every fast gate in `../gates.md` and prints the gate report, built before the features so every later package is checked the same way | Nothing | spec ready, and it is the second task |
 | C6 | `C6-data-pipeline.md` | PVGIS Houston typical year to the 600 row demo day and the 8,760 hour year, sun position from `pvlib` | The raw file, already downloaded | spec ready |
 | V1 to V4 | `V-metro-exposure.md` | The Voloridge analysis: rank Houston's unsheltered stops by modelled rider sun exposure | The raw METRO files, already downloaded, and C6's year file for V2 | spec ready, and outside public data is confirmed to count |
 | F1 | `F1-farmworker-shade-drift.md` | How far a fixed rest canopy's shadow drifts during the hours California law requires shade | The raw NOAA files, already downloaded | spec ready and parked: its headline swings with the canopy size the team assumes, so it waits until V1 to V3 are green |
 
 Order of handover: R1 first, because it decides what Plan B's scene is, and it is research, so it blocks nothing else.
+Then G1, the gate runner, so that every package after it ends in the same checked report.
 Then C6, because V2 and Plan B both read its year file.
 V1 needs nothing from C6, so it can run beside it.
 If the build agent can run two sessions at once, the app's shared core and V1 to V3 run side by side, in separate branches that touch separate directories.
@@ -70,11 +72,20 @@ CONSTRAINTS
   expected value to make a test pass: if a value looks wrong, stop and report it.
 - Everything must run with the network off.
 - No secrets, keys, or personal data anywhere.
+- Read planning/plans/gates.md before you start. The demo, the pitch, and the checklists in
+  it are the definition of done. Before you write code, state in three lines which storyboard
+  beat, which script sentence, and which gate this package serves. If it serves none, stop
+  and say so.
+- When the package's own check passes, run python tools/gates.py --package [ID] --allowed
+  "[FILES]" --append. A gate that passed before and fails now is fixed before anything else.
+  If the same gate fails twice, stop and report.
 
 FORMAT
 Work in one branch named pkg/[ID]. When done, reply with: the commands you ran and their
 exit codes, the full pytest output, the list of files created, anything in the package you
 could not satisfy, and any expected value that did not match, with what you got instead.
+End with the gate report from planning/plans/gates.md, filled in, including its last line:
+anything in the demo, the pitch, or a checklist that this package makes harder.
 One commit, message starting "[ID]:". Do not merge.
 ```
 

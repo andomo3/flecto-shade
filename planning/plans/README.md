@@ -72,7 +72,7 @@ If Plan A is chosen and the simulator is wanted anyway, it is a stretch after Pl
 Abba decided, ahead of the 17:00 gate: the team can demo the flapping leaf and nothing else, so the whole setup is simulated, reaction included.
 Plan B applies, with packages B13 and B14 added so that the leaf on the table bends at the same moment as the leaves on the screen.
 Plan A and the third option below are kept as the record of what was considered, and neither is built.
-The build agent's order is R1, then C6, then the shared core, then B1 to B9 with B13 and B14, then the stretch, with V1 to V3 beside them if a second session exists.
+The build agent's order is R1, then G1 the gate runner in `gates.md`, then C6, then the shared core, then B1 to B9 with B13 and B14, then the stretch, with V1 to V3 beside them if a second session exists.
 
 ## The inventory reported on 2026-09-19, and a third option, not taken
 
