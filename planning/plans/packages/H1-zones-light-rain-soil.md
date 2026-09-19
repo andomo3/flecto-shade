@@ -246,7 +246,7 @@ The two hardest questions:
 - "Growers keep rain off crops, so why let it in?"
   True for glasshouses, for ferns, and for fruit near harvest, which is why each crop opts in, only in daylight, only with drying time, and why we claim the water arithmetic and never safety from disease.
 - "Is this real?"
-  No. The rain is a real gauge, the sun is a satellite product for the same hours, the soil and crop numbers are textbook coefficients with assumed bucket sizes, and the only physical object is one printed fin.
+  No. The rain is a real gauge, the sun is a satellite product for the same hours, the soil and crop numbers are textbook coefficients with assumed bucket sizes, and nothing physical was built.
 
 ## Estimated minutes
 
