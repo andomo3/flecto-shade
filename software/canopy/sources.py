@@ -126,6 +126,11 @@ class FakeSource(Source):
         self._commanded_angle: int | None = None
         self._running = True
 
+    @property
+    def commanded_angle(self) -> int | None:
+        """The angle held by replay mode, or ``None`` when the light decides."""
+        return self._commanded_angle
+
     def send(self, command: str) -> None:
         text = command.strip()
         if not text:
