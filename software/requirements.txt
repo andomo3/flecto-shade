@@ -1,0 +1,7 @@
+fastapi==0.141.1
+uvicorn==0.53.0
+pyserial==3.5
+pandas==3.0.6
+pvlib==0.15.2
+pytest==9.1.1
+httpx==0.28.1
