@@ -1,4 +1,8 @@
-# Plans: live or simulated
+# Plans
+
+**The current plan is `plan-d-louvre-roof.md`, chosen on 2026-09-19 at about 16:45 and frozen at the 17:00 standup.**
+Everything below this notice describes Plan A and Plan B for the bus stop canopy, which were set aside the same day, and is kept as the record.
+The gates in `gates.md`, the rules for the build agent at the foot of this file, and the packages G1 and C6 still hold.
 
 Written 2026-09-19, on the first day of the event, because some hardware could not be sourced.
 Two complete plans for the MVP, the demo, and the presentation, and one shared core that both of them need.

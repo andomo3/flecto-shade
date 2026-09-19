@@ -6,23 +6,18 @@ The rules for the agent are in `../README.md`, and the rules for the event repo 
 
 ## The packages
 
-| ID | File | What | Needs | Status |
-|---|---|---|---|---|
-| R1 | `R1-simulation-research.md` | Research, time boxed to 120 minutes: how to simulate and render the stop, 2D or 3D, where the geometry comes from, which of three routes gives the leaf its shape, and what not to build | The name of the engineers' CAD tool | spec ready, and it is the build agent's first task |
-| G1 | `G1-gate-runner.md` | One command that runs every fast gate in `../gates.md` and prints the gate report, built before the features so every later package is checked the same way | Nothing | spec ready, and it is the second task |
-| C6 | `C6-data-pipeline.md` | PVGIS Houston typical year to the 600 row demo day and the 8,760 hour year, sun position from `pvlib` | The raw file, already downloaded | spec ready |
-| V1 to V4 | `V-metro-exposure.md` | The Voloridge analysis: rank Houston's unsheltered stops by modelled rider sun exposure | The raw METRO files, already downloaded, and C6's year file for V2 | spec ready, and outside public data is confirmed to count |
-| F1 | `F1-farmworker-shade-drift.md` | How far a fixed rest canopy's shadow drifts during the hours California law requires shade | The raw NOAA files, already downloaded | spec ready and parked: its headline swings with the canopy size the team assumes, so it waits until V1 to V3 are green |
+The current plan is `../plan-d-louvre-roof.md`, the simulated smart louvre roof, chosen on 2026-09-19 at about 16:45.
 
-Order of handover: R1 first, because it decides what Plan B's scene is, and it is research, so it blocks nothing else.
-Then G1, the gate runner, so that every package after it ends in the same checked report.
-Then C6, because V2 and Plan B both read its year file.
-V1 needs nothing from C6, so it can run beside it.
-If the build agent can run two sessions at once, the app's shared core and V1 to V3 run side by side, in separate branches that touch separate directories.
-If it can run only one, the shared core comes first, because every judge scores the demo and only one sponsor scores the analysis.
-F1 is a side card and comes last.
+| ID | File | What | Status |
+|---|---|---|---|
+| G1 | `G1-gate-runner.md` | One command that runs every fast gate in `../gates.md` and prints the gate report | ready, first |
+| S1 | `S1-solar-2023.md` | The sun for Houston in 2023 from NASA POWER, the same year as the rain, one row an hour, no new dependency | ready, second |
+| H1 | `H1-zones-light-rain-soil.md` | The crops, the rain, the light, the soil bucket, the nine rules, and the year's summary | ready, third, and it needs S1's file |
+| H2 | not written yet | The page that plays one day in a minute from H1's output | after H1's first run |
+| H3 | not written yet | The result card and `headline.json` | with H2 |
 
-C1 to C5 and C7 to C9, the app's shared core, are specified in `../README.md` and in `../../software/CLAUDE.md`, and get their own files here when they are handed over.
+Set aside with the plans they served, and kept as the record: `C6-data-pipeline.md`, `R1-simulation-research.md`, `V-metro-exposure.md`, and `F1-farmworker-shade-drift.md`.
+None of them is handed to the build agent.
 
 ## Where the raw data is
 
