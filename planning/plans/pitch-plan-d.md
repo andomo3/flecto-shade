@@ -39,7 +39,7 @@ These are said before a judge can ask, because each is a question an expert woul
 3. Growers keep rain off glasshouse crops on purpose. That is why this is a shade house, why each crop opts in, only in daylight, only with time to dry, and why the fern opts out.
 4. Nothing here is measured, except the rain, which is one real gauge. The sun is a satellite product. The soil and crop numbers are textbook coefficients with assumed bucket sizes.
 5. Shading blueberries is not Florida practice. That figure is from Washington State.
-6. The only physical object is one printed fin.
+6. Nothing physical was built. There is no prototype and no printed fin, and nothing is claimed about how the fin itself behaves.
 
 ## The words the team never says
 

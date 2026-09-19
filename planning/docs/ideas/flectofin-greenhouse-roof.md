@@ -8,12 +8,12 @@ updated: 2026-09-19
 
 # Flectofin smart greenhouse roof
 
-Chosen by the team at about 16:45 on Saturday 2026-09-19, the fourth plan of the day, replacing the [leaf design tool](flectofin-design-tool.md).
+Chosen by the team at about 16:45 on Saturday 2026-09-19, the fourth plan of the day, replacing the [leaf design tool](../../archive/docs/ideas/flectofin-design-tool.md).
 Four decisions were put to abba as questions and answered the same hour, and they are what makes this one small enough to finish.
 
 | Decision | Answer |
 |---|---|
-| Physical or simulated | Simulated, with one printed fin on the table for display |
+| Physical or simulated | Simulated, all of it. The one printed fin first planned for display was cut at about 19:15 on Saturday 2026-09-19 |
 | How the roof waters | The fins over a zone open when it rains and that zone is dry, and stay shut over zones that are wet enough |
 | What makes it smart | Programmed targets per zone, one crop per zone, each with a published daily light target and a water need. Deterministic rules, and no AI in the loop |
 | The end user | A commercial grower with several crops under one roof |
@@ -33,7 +33,7 @@ They press play and one real day runs in a minute: the sun crosses, the light ea
 Then it rains, from a real weather record.
 The fins over the dry zone open, the fins over the wet zone stay shut, and the soil gauge of the dry zone climbs.
 The day ends on a card: each crop's light against its target, and the share of each zone's water that the rain supplied.
-The speaker hands over the printed fin: "this is one of those, and it has no hinge."
+There is nothing to hand over: the fin is explained in words, and credited to ITKE on the page.
 
 ## What "done" means, so it can be checked
 
@@ -44,7 +44,7 @@ The speaker hands over the printed fin: "this is one of those, and it has no hin
 
 ## Hardware needed
 
-- One printed fin, for display. Nothing else.
+- None. The project is the simulation alone.
 
 ## Software needed
 
@@ -80,4 +80,4 @@ The ray cast shade table from Plan B is probably more than this needs, because a
 
 - The team's description of the pivot, pasted by abba on 2026-09-19.
 - [Sector choice for the design tool](../research/flectofin-design-tool/sector-choice.md), for the patent.
-- [Plan B](../../plans/plan-b-simulated.md) and [package C6](../../plans/packages/C6-data-pipeline.md), for what carries over.
+- [Plan B](../../archive/plans/plan-b-simulated.md) and [package C6](../../archive/plans/packages/C6-data-pipeline.md), for what carries over.

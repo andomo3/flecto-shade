@@ -14,11 +14,13 @@ The current plan is `../plan-d-louvre-roof.md`, the simulated smart louvre roof,
 | G1 | `G1-gate-runner.md` | One command that runs every fast gate in `../gates.md` and prints the gate report | ready, first |
 | S1 | `S1-solar-2023.md` | The sun for the Apopka area of Central Florida in 2023 from NASA POWER, the same year as the rain, one row an hour, no new dependency | ready, second |
 | H1 | `H1-zones-light-rain-soil.md` | The crops, the rain, the light, the soil bucket, the nine rules, and the year's summary | ready, third, and it needs S1's file. Central Florida, three crops, the demo day of 3 June 2023 |
-| H2 | `H2-page.md` | The page that plays 3 June 2023 in a minute from H1's output, with each zone's reason in words | ready, and it needs H1 and K2 |
+| H2 | `H2-page.md` | The page that plays 3 June 2023 in a minute from H1's output, with each zone's reason in words | ready, and it needs H1. K2 is optional, and without it the page draws a default grid |
 | H3 | `H3-result-card.md` | The result card, the year by month, and `headline.json`, the one file every spoken figure comes from | ready, and it needs H2 |
-| K1, K2 | specified in `CHECKLIST.md` at the event repo's root | The display fin, and the roof layout the page draws | ready, for the CAD modeller |
+| K2 | specified in `CHECKLIST.md` at the event repo's root | The roof layout the page draws, as modelled data, and optional | ready |
 
-Set aside with the plans they served, and kept as the record: `C6-data-pipeline.md`, `R1-simulation-research.md`, `V-metro-exposure.md`, and `F1-farmworker-shade-drift.md`.
+K1, the printed display fin, was cut on Saturday evening, because the project is the simulation alone and nothing physical is built.
+
+Set aside with the plans they served, and moved to `../../archive/plans/packages/`: `C6-data-pipeline.md`, `R1-simulation-research.md`, `V-metro-exposure.md`, and `F1-farmworker-shade-drift.md`.
 None of them is handed to the build agent.
 
 ## Where the raw data is
@@ -52,7 +54,11 @@ Paste this to the build agent, with the brackets filled, one package at a time.
 
 ```text
 CONTEXT
-You are working in the repo flecto-stop, the HackMIT 2026 submission. Read AGENTS.md at
+You are working in the repo flecto-stop, the HackMIT 2026 submission. The project is a
+SIMULATED smart louvre roof over three crops in a Central Florida shade house. It is not a
+bus stop canopy: that plan was set aside, and everything under planning/archive/ is the
+record of it. If any file tells you to build a canopy, a serial reader, a Houston day, or
+packages C1 to C9, stop and report it. Nothing physical is built. Read AGENTS.md at
 the root first and follow it. All code is written fresh. Never read or copy code from the
 planning repo github.com/andomo3/hack-mit: its firmware/canopy, firmware/host_test,
 software/canopy, and tests directories are an off-limits pre-event prototype.

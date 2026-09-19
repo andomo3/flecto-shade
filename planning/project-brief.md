@@ -1,150 +1,149 @@
-# Project Brief - Adaptive bus stop canopy
+# Project Brief - the smart louvre roof, simulated
 
-> **SUPERSEDED on 2026-09-19 at about 16:45. This file is the record of the bus stop canopy, and nothing is built from it.**
-> The current plan is the simulated louvre roof over three crops.
-> Read `AGENTS.md` and `CHECKLIST.md` at the repo root, then `planning/plans/plan-d-louvre-roof.md`.
-> If you are a build agent and you arrived here, stop, and go back to those files.
-
-**Event:** HackMIT 2026, Saturday 19 to Sunday 20 September, 24 hours of hacking, submissions expected to close around 11:15 on Sunday.
-**Tracks:** Sustainability, plus the Most Creative team challenge.
-**Team:** three people, two engineers build the hardware and abba builds the software.
-Names against roles live in `AGENTS.md`.
-**Scope source:** the engineers' build plan, adopted in [the 2026-09-18 meeting note](docs/meetings/2026-09-18.md), which overrides every earlier version of this brief.
+**Event:** HackMIT 2026, Saturday 19 to Sunday 20 September, 24 hours of hacking, submitted by 11:00 on Sunday.
+**Team:** three people, with Devin build agents writing the code: Abba on software and integration, Ameya on data, and Shannon, whose CAD work was cut with the printed fin and whose new lane the team settles out loud.
+Names against packages live in `../CHECKLIST.md`.
+**Scope source:** `plans/plan-d-louvre-roof.md`, chosen at about 16:45 on Saturday 2026-09-19 and frozen at the 17:00 standup.
+This brief is a one page summary of that plan, and where the two disagree the plan wins.
+After the freeze a change is a cut, never a pivot.
 
 ## One sentence
 
-A tabletop bus stop roof made of hingeless leaves that buckle open on their own when the sun comes out, so the bench underneath stays shaded.
+A Central Florida grower with three crops under one shade house roof gives each its own light, and lets the rain through only where the soil is dry, with a roof made of many small hingeless fins in place of one big curtain.
+
+## What is ours, and what is not
+
+- Not ours: the fin, which is ITKE's Flectofin, patented as EP2320015.
+- Not ours: watering by the sun's energy and holding a daily light target, which Ridder, Hoogendoorn, Argus, and Priva already sell.
+- Not ours: a moving roof over crops, which Cravo and Sun'Agri already sell.
+- Ours: the resolution, one bed treated differently from the next.
+  We found no prior proposal to put a Flectofin over crops, and those are the words.
 
 ## The 90 seconds
 
-1. The judge sees one miniature foam board bus stop with three leaves on a shared backbone over the bench, an LED sun above it, on a servo mount if the build allows and in a fixed mount if not, and two light readings on the screen, the incident light and the light at the bench.
-   The opening line: "Picture Rosa. It is three in the afternoon in July, in Houston, and her bus is twelve minutes away."
-   The story, the scripts, and the storyboard are in `pitch/`, and the screen follows `software/ui-brief.md`.
-2. The judge presses play, and the app fast forwards one real Houston summer day from the dataset in about a minute.
-   The hourly irradiance sets the LED brightness, and the sun's position sets the angle of the servo mount when it exists.
-3. As the sun climbs the photoresistor sees the light and the three leaves buckle into their flared, shading state together, from one servo, with no hinge anywhere, and they relax again at sunset.
-   The data moves the sun and only the photoresistor moves the leaves, so a hand over the sensor proves it is not a script.
-   This is the moment the project wins or loses.
-4. "With the leaves flared the bench gets X percent of the light, against Y percent with them resting."
+The full table, with what is said at each beat, is in `plans/plan-d-louvre-roof.md`, and the scripts are in `pitch/`.
+
+1. The judge sees the roof from above, shut, three zones named, one Play button, and the word "simulated".
+   The grower near Apopka, three crops, one sky.
+2. The fin is explained while the roof sits shut, with the credit to ITKE on the page.
+   "Each of those is a fin with no hinge, which bends to open and shut. The fin is not ours. It is ITKE's Flectofin, and it is patented."
+3. The judge presses Play, and the page plays 3 June 2023 in about a minute.
+   The sun rises, all fins open, and three light gauges fill at the same rate.
+4. The fern's fins shut at eleven, the hydrangea's at noon, and the blueberry's stay open.
+   This is the moment the three zones stop behaving as one roof, and it is the moment the project wins or loses.
+5. The afternoon storm, 42 mm in two hours, from the real gauge.
+   The hydrangea's fins reopen because its soil is dry, the blueberry's stay shut because its soil is wet enough, and the fern's stay shut because it opted out.
+   Each zone shows its reason in words.
+6. The result card: each crop's light against its target, and the rain's share of each zone's water.
+7. The year by month, and the close, with what the project is not.
+
+The judge touches it once: Play.
+The fallback is the recorded run, then the screen recording.
 
 ## Build list
 
-Only what the 90 seconds requires, in the engineers' order.
-The hours are venue hours from the 11:00 Saturday start.
+Only what the 90 seconds requires, in order.
+Each package has a specification under `plans/packages/`, or in `../CHECKLIST.md` for K2.
 
-| Feature | Why the demo needs it | Venue hours |
-|---|---|---|
-| Leaf variants: two or three backbone and lamina thickness combinations, starting at 2 mm and 0.5 mm, with a built in resting curve, hand tested | The clean buckle is the whole demo, and printing is the biggest passive time sink, so it starts first | 0 to 2 |
-| One leaf on one servo through a pull wire or rigid link, travel and speed tuned | Servo actuation must reproduce the hand buckle without stalling | 2 to 4 |
-| Three leaves on one shared backbone, one servo | The canopy the judge sees, with a drop to two leaves as the last simplification | 4 to 6 |
-| Foam board rig: the bus stop frame, the LED sun mount, the mount points | The scene, built in parallel by whoever is free | 6 to 8 |
-| Flex sensor on the backbone, logged against the commanded servo position | A rough indicator that the bend happened, never a control input | 8 to 9 |
-| Photoresistor and threshold firmware: bright light, leaves flare open | The automatic response, with the hard checkpoint at hour 12 | 9 to 12 |
-| Integration into the rig, the bench light sensor, the secondary temperature sensors, wiring secured | The number comes from the bench light sensor | 12 to 14 |
-| Debugging the move from the bench to the rig | Mounting stress and sensor alignment always shift | 14 to 15 |
-| Fine tuning: three to five back to back runs, servo pacing, the manual override, the rehearsal | It cannot fail at the table | 15 to 17 |
-| Software, built by abba before and alongside: the one page app that sets the LED brightness and the sun angle and shows the light, flex, and temperature readings live, with fixture replay | The readings a judge can see from a metre away | before Saturday |
+| Package | What | Owner | Minutes | Needs |
+|---|---|---|---|---|
+| G1 | The gate runner, one command that checks every fast gate | Abba | 60 | nothing |
+| S1 | The 2023 sun for the Apopka area from NASA POWER, one row an hour | Ameya | 30 | nothing |
+| H1 | The crops, the rain, the light, the soil bucket, the nine rules, the year's summary | Ameya | 85 | S1 |
+| K2 | The roof layout, as modelled data the page draws. Optional: without it H2 draws a default grid | Shannon | | nothing |
+| H2 | The page that plays 3 June 2023 in a minute, from H1's output, with no new physics | Abba | 120 | H1 |
+| H3 | The result card, the year by month, and `headline.json` | Abba | 75 | H2 |
 
-Seventeen venue hours against eighteen available.
-If a mechanical step runs long, time comes out of the software layer first: a hand triggered canopy that buckles reliably beats an automated one that does not.
+In if time allows: a second view that draws the roof's fins one by one.
 
 ## Cut list
 
 Everything considered and rejected.
 Written down so it stays rejected at 3am.
 
-- The five marked positions and a hand swung lamp.
-- A two sensor tracker, the control law is a threshold.
-- The flex sensor as a control input, it is an indicator only.
-- Individually addressed leaves, one servo and one backbone move together.
-- Any machine learning or language model in the control loop.
-- A weatherproof or full scale shelter, wind, rain, and structure are not tested.
-- Cloud dashboard, Wi-Fi, or a phone app, the display runs on the demo laptop from a serial cable.
-- The EdgeShade, QuietLeaf, and RackLeaf variants, one sentence each on the placard, no hardware.
-- Auth, settings, onboarding, responsive layout, tests: always cut.
+- Anything physical: a rig, a sensor, an actuator, water on the table, and the printed display fin, which was cut on Saturday evening.
+- A language model or a learned model anywhere in the roof's control loop.
+- Fins that track the sun's position.
+  They react to how much light has arrived, to rain, and to the soil.
+- Wind, hail, and the structure of a full size roof.
+- A closed glasshouse, where growers keep rain off the crop on purpose.
+- A second city, and a typical year in place of a real one.
+- The ray cast shade table, and `pvlib`, because nothing in this plan uses the sun's position.
+- Any figure for cost, yield, energy, or water saved.
+- Everything in the plans that were set aside, which are under `archive/`: the bus stop canopy, live and simulated, and the leaf design tool.
+- Auth, settings, onboarding, a web framework, a build step, a CDN: always cut.
 
-Ideal, with a pivot: the LEDs on a servo mount so the sun moves, depending on build time and parts at the venue.
-The pivot is an LED in a fixed mount, and everything else works unchanged.
+## The cuts, by the clock
 
-Backup: a fixed roof beside the canopy with its own bench sensor, an hour of foam board, built only if time allows.
-It turns the number into adaptive against fixed.
+There are no pivots left.
+Each checkpoint has an hour and a cut, agreed now so nobody argues it at the venue.
 
-The fast forward day is built by abba before Saturday from the PVGIS hourly file, see [the dataset choice](docs/research/adaptive-bus-stop-canopy/dataset-choice.md), so it costs the engineers no venue hours.
-Stretch: a second city or a chosen stop.
-
-## Pivots
-
-Every pivot has an hour at which it is decided, agreed before the event so nobody argues it at the venue.
-A mechanical overrun takes its time from the software layer first, never the other way round.
-
-| Failure | Decided at | Pivot |
+| When | What must be true | If it is not |
 |---|---|---|
-| No leaf variant buckles cleanly | hour 2 | Adjust the thickness ratio and reprint the top one or two, and at hour 4 fall back to a foam board or flat cut lamina on the best backbone |
-| The servo cannot reproduce the hand buckle | hour 4 | Change the pull wire or link geometry, and at hour 5 the leaf is hand actuated for the demo |
-| Three leaves bind or fall out of sync | hour 6 | Two leaves, then one |
-| The servo mounted sun has no parts or no time | hour 8 | The fixed LED mount, the app keeps the brightness control and hides the angle control |
-| The flex sensor is noisy | hour 9 | Indicator only, or dropped, the contract field stays empty |
-| The light threshold is unreliable in room light | hour 12 | A shroud on the photoresistor, then replay mode: the app commands the leaves from the day's data, and the pitch says so out loud |
-| The bench light sensor shows no clear difference | hour 13 | Move or shroud the sensor, then the number becomes "N of N cycles" with the flex trace as proof |
-| Temperature shows nothing | hour 14 | The tile is hidden, nothing else changes |
-| The backup fixed roof | hour 12 | Built only if the core loop is green and someone is free, otherwise never |
-| The servo browns out the board | hour 2, first servo test | The servo moves to its own 5 V supply with a common ground, the engineers believe this is already covered |
-| The UNO Q does not run the sketch | hour 1 | The Uno R3, the Arduino challenge dropped |
-| The serial link is dead at the table | any time | The app replays the recorded fixture and the hardware runs standalone |
-| The rig breaks in transport | 07:00 Sunday | The backup video, recorded after the first clean run |
+| 21:00 Saturday | G1 and S1 are merged | S1 finishes on its own checks, and runs the gates when G1 lands |
+| 23:00 Saturday, the hard checkpoint | H1 is merged and the year's summary exists | The page is cut to the demo day only |
+| 01:00 Sunday, the freeze, the venue closes | H2 plays the demo day end to end | The fallback is a recorded run of H1's output, drawn as simply as possible |
+| 07:00 to 09:00 Sunday | H3, the pitch figures read from `headline.json`, the screen recording | The card is cut to the demo day's two figures |
+| 09:00 to 10:30 | Rehearsal, the README, the submission | |
+| 11:00 | Submitted | |
 
-## The number
+## The numbers
 
-Primary: the light at the bench as a percent of the incident light, leaves flared against leaves resting, from a second light sensor on the bench.
-Said as "X percent of the light reaches the bench with the leaves flared, against Y percent resting".
-If the backup fixed roof is built, the same number is also said adaptive against fixed.
-Secondary: the temperature under the canopy against the open control spot, shown if it reads, never relied on.
-Backup number: "N of N light triggered cycles completed", with the flex sensor trace as the proof of each bend.
+All simulated, and all said as simulated.
+The spoken figures come only from `data/processed/headline.json`, which H3 writes.
+Until it exists these are the planner's values from the H1 and H3 specifications, and they are provisional.
+
+| Figure | Value | From |
+|---|---|---|
+| The storm on the demo day | 42.4 mm in two hours, from the real gauge | H3's expected values |
+| The rain the hydrangea zone stored that day | 34.9 mm | H3's expected values |
+| The light the hydrangea did not want, from opening for the rain | 5.96 mol, said as six | H3's expected values |
+| The fern shuts for light, the hydrangea shuts for light | 11:00 and 12:00 local | H3's expected values |
+| The rain's share of the hydrangea zone's water over the year | about 54 percent | the plan |
+| The fern's target against the hydrangea's | 8 mol a day against 12 | Purdue, with the source in H1's specification |
+| One motor moves up to 50,000 square feet of roof | | the UMass fact sheet, by way of the market research file |
 
 ## What judging actually rewards
 
 No 2026 rubric is published.
 The 2025 day-of site listed creativity, technical difficulty, design, and usefulness, unweighted, judged expo style in a few minutes per team, so the watched moment decides.
 
-| What's rewarded | Evidence | How this project scores on it |
-|---|---|---|
-| A visible live result | Expo format, past winners such as Griddy and EyeCraft | The sun comes up and three leaves buckle open together with no hinge |
-| A number said out loud | Winner pattern in the recon corpus | X percent of the light at the bench against Y percent |
-| A named user and an unglamorous problem | Get Away, lettuce, BeeMovr | A person on a bench in the sun, framed by the Houston study |
-| Track fit | Sustainability track | Climate adaptation at public transit, claims kept to what was measured |
+| What's rewarded | How this project scores on it |
+|---|---|
+| A visible live result | One roof becomes three, at 0:45, and the same rain gets three answers, at 0:55 |
+| A number said out loud | The rain's share of the hydrangea's water, and the six mol the rain cost it |
+| A named user and an unglamorous problem | A grower, named as illustrative, and a single curtain that makes one decision for every plant under it |
+| A reason to trust it | A real gauge, a real year, and rules a judge can read, with each zone saying its reason in words |
+| Honesty | The fin is ITKE's, the control logic is standard, and nothing is measured, all said first and unasked |
 
-## Sponsor prizes in reach
+## Tracks and challenges
 
-| Prize | What it requires | Hours to qualify |
-|---|---|---|
-| Sustainability track | Submit to the track, keep claims to what was measured today | 0 |
-| Most Creative | The hingeless buckling mechanism and the bus stop framing, nothing extra | 0 |
-| SendCutSend or PCBWay, if posted | Flat cut leaves or a board, only if a 2026 challenge appears | 2 |
-| Arduino or Espressif, if posted | The controller is already one of theirs | 0 |
+Not yet recorded for this plan.
+The bus stop was entered for the Sustainability track, and the 17:00 standup was to decide which challenges are still in reach.
+The team settles this out loud before the submission form is filled in, and writes it in `RUN.md`.
 
 ## Submission requirements
 
-To be copied verbatim once the 2026 form opens.
-Verified again at freeze.
+Verified again at the freeze.
 
-- [ ] Every field of the submission form filled in, a title and a code link alone is rejected.
-- [ ] Submit to exactly one track, Sustainability.
-- [ ] Repo link, demo video if the form asks for one, and the placards photographed.
+- [ ] Every field of the submission form filled in.
+- [ ] Exactly one track.
+- [ ] The repo link, the demo video if the form asks for one, and the table cards photographed.
+- [ ] Every open source library, every dataset, every source of a crop figure, and every AI tool cited, including Devin and Claude, because the rules require it.
+- [ ] The prior work stated plainly: the public planning repo, and that no code was copied from it.
 
 ## Assumptions
 
-- A 2 mm backbone with a 0.5 mm lamina and a built in resting curve buckles cleanly in the intended direction, tested by hand in hours 0 to 2.
-- One servo moves three leaves on a shared backbone without stalling or binding, tested by hour 6.
-- The flared leaf is the shading state, so bright light means more shade, which is the team lead's reading of the plan and is confirmed with the engineers.
-- A second light sensor sits on the bench and reads clearly different with the leaves flared against resting under the LED sun.
-- The servo has its own 5 V supply or battery with a common ground, so it cannot reset the board, flagged so the team is aware.
-- A servo and a mount for the LEDs are available at the venue, and if not the sun stays fixed.
-- Temperature is secondary because an LED radiates little heat and the difference may be too small to show.
-- The photoresistor threshold separates the LED sun from the judging room's ambient light, and the manual override covers it if not.
-- The team can print or cut the leaf variants at the event.
+- The rules, run on 3 June 2023 with no constant tuned, give three different answers to the same rain.
+  H1's planner ran this before any code existed, and it holds.
+- The sun is a satellite product for a cell about 100 km across, so a local storm can rain under a bright cell, as on 29 July 2023, and the page says the sun is modelled.
+- Shading blueberries is not Florida practice and the figure is from Washington State, so the blueberry zone is the weakest of the three, and the page says where its number comes from.
+- H1's evaporation formula is marked RECALLED, which means nobody has confirmed it at a source yet.
+- Every constant a package marks ASSUMED is a named constant in the code and a row in the README's table of assumptions.
 
 ## Stack
 
-Arduino Uno or UNO Q with Arduino C firmware, one leaf servo and ideally a second for the sun, an incident photoresistor and a bench light sensor, one flex sensor, two DS18B20 temperature sensors or a thermal camera, dimmable LEDs, serial over USB.
-Python with pyserial logging to CSV, and a local FastAPI page for the live display with replay from a saved fixture when the hardware is not connected.
+Python 3.13, with `pandas==2.2.3`, `numpy==2.2.3`, and `pytest==9.0.2`, in one virtual environment with a pinned `requirements.txt`.
+The page is plain HTML, CSS, and vanilla JavaScript, with no build step, no CDN, and no web fonts fetched at run time.
+Everything builds and runs with no network.
 Not reopened during the event.

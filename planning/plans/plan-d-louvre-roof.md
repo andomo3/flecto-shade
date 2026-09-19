@@ -20,7 +20,8 @@ A Central Florida grower with three crops under one shade house roof gives each 
 
 ## The MVP
 
-Simulated, with one printed fin on the table.
+Simulated, all of it.
+Nothing physical is built, and there is no printed fin: the fin was cut at about 19:15 on Saturday, as a cut and not a pivot, so that every hour goes to the simulation, the pitch, and the story.
 
 In:
 
@@ -32,9 +33,9 @@ In:
 - One page that plays one day in about a minute, and ends on a result card.
 - The year's summary, by zone and by month.
 
-In if time allows, in this order: a second view that draws the roof's fins one by one, and the printed fin's dimensions shown beside it.
+In if time allows: a second view that draws the roof's fins one by one.
 
-Out: any physical rig, any sensor, water, AI in the loop, wind and hail, a closed glasshouse, a second city, the ray cast shade table, cost and yield figures, and everything in the plans set aside.
+Out: any physical rig, a printed fin, any sensor, water, AI in the loop, wind and hail, a closed glasshouse, a second city, the ray cast shade table, cost and yield figures, and everything in the plans set aside.
 
 ## The packages, in order
 
@@ -56,14 +57,14 @@ The day the page plays is 3 June 2023, sun until mid afternoon and then 42 mm of
 | Time | Say | The screen |
 |---|---|---|
 | 0:00 | The grower near Apopka, three crops, one sky | The roof from above, shut, three zones named, one Play button, the word "simulated" |
-| 0:20 | "This is one of the fins. It has no hinge. Bend it." | Unchanged. The judge holds the printed fin |
+| 0:20 | "Each of those is a fin with no hinge, which bends to open and shut. The fin is not ours. It is ITKE's Flectofin, and it is patented." | Unchanged, the roof shut, with the credit to ITKE on the page |
 | 0:30 | "Would you press play? This is 3 June 2023." | The sun rises, all fins open, three light gauges fill at the same rate |
 | 0:45 | "The fern has had its light by eleven. The hydrangea by noon. The blueberries want all of it." | Zone A's fins shut, then zone B's an hour later, and zone C stays open. This is the moment the three zones stop behaving as one roof |
 | 0:55 | "Then the afternoon storm. Forty two millimetres in two hours, from the real gauge." | Rain over all three. The hydrangea's fins reopen, because its soil is dry, and its soil gauge climbs to full. The blueberry's stay shut, because its soil is wet enough. The fern's stay shut, because it opted out. Each zone shows its reason in words |
 | 1:10 | "Same rain, three answers. And opening for it cost the hydrangea six mol of light it did not want. That is the trade, and it is on the card." | The result card: light against target per crop, and the rain's share of each zone's water |
 | 1:20 | The close, and what it is not | The year by month: the wet season carrying the hydrangea, the dry season on the grower's own water |
 
-The judge touches it twice, Play and the fin.
+The judge touches it once, Play.
 The fallback is the recorded run, then the screen recording.
 
 ## The presentation

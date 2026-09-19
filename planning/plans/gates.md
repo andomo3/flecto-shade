@@ -54,7 +54,7 @@ The demo is the table in `plan-d-louvre-roof.md`, and each beat has one thing a 
 | Beat | Time | It passes when |
 |---|---|---|
 | 1 | 0:00 | Before Play the roof is shut, three zones are named with their crops, there is one Play button, the word "simulated" is on the page, and there is not one digit on it |
-| 2 | 0:20 | Nothing on the screen moves while the judge holds the printed fin |
+| 2 | 0:20 | Nothing on the screen moves while the fin is explained, and the credit to ITKE and the patent number are on the page |
 | 3 | 0:30 | One press of Play starts the day, the sun rises, every fin opens, and three light gauges fill, with no second control needed |
 | 4 | 0:45 | The fern zone's fins shut when its gauge reaches 8 mol, the hydrangea zone's about an hour later at 12 mol, and the blueberry zone stays open: the three zones visibly stop behaving as one roof |
 | 5 | 0:55 | Rain appears over all three zones, the hydrangea's fins reopen and its soil gauge climbs to full, the blueberry stays shut with the words "wet enough", and the fern stays shut with the words "opted out": three zones, three reasons, each in words |
