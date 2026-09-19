@@ -43,9 +43,11 @@ Logged during the event with the clock time, one line each, what was decided and
 - Saturday night: an hour with rain plays in 5.0 seconds, so the storm holds the screen for 10 seconds and not 4.8, because three reasons in words have to be read from a metre away. The card moves from 38.6 to 43.8 seconds after Play, and nothing before the storm moves.
 - About 19:30 Saturday: every gate test file has an owning package, H3 writes a copy of `headline.json` into the served page folder, and the page plays a dark hour in half a second and a daylight hour in 2.4 seconds, so the screen keeps to the spoken script.
 
+- Saturday night: Voloridge's challenge accepts any dataset, confirmed by abba, so the project's two public datasets qualify and no rule here limits the choice of dataset for it.
+
 Open, for the team to settle out loud:
 
-- Which track and which challenges the project enters.
+- Which track the project enters, and whether it enters Voloridge's challenge, which is open to it.
 - What Shannon works on now that the CAD packages are cut or optional.
 - A soil bucket sized for containers or for soil, from H1.
 - Whether the hydrangea stays, from H1.

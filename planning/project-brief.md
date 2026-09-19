@@ -117,9 +117,18 @@ The 2025 day-of site listed creativity, technical difficulty, design, and useful
 
 ## Tracks and challenges
 
-Not yet recorded for this plan.
+The track is not yet recorded for this plan.
 The 2026 tracks are Entertainment, Education, Sustainability, and Healthcare, and a project enters at most one.
-The team settles this out loud before the submission form is filled in, and writes it in `RUN.md`.
+The team settles it out loud before the submission form is filled in, and writes it in `RUN.md`.
+
+Voloridge's challenge is open to this project.
+It accepts any dataset, confirmed by abba on Saturday evening, so there is no curated list to stay inside, and the NASA POWER sun and the NOAA rain gauge qualify as they are.
+No rule in this repo limits the choice of dataset for it, and any earlier note that said otherwise is overridden.
+What the project already has to show for it, which is the planner's suggestion and the team's to decide: joined to a real year of rain, a typical year of sun made the rainy daylight hours brighter than the dry ones, by a ratio of 1.11 in a check on another Gulf Coast site's files, and with the sun taken for the same place and year as the rain, this project's file gives 0.627, rainy hours darker, as they are outside.
+That finding is in S1's specification, and it came out of the noise in two public files.
+
+Cognition's challenge, if it has one, is in reach because Devin wrote the code.
+A hardware challenge is out, because nothing physical is built.
 
 ## Submission requirements
 

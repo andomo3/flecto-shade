@@ -15,7 +15,7 @@ The 2026 tracks are Entertainment, Education, Sustainability, and Healthcare, a 
 Sponsor challenges entered: [the ones the team adopts, each checked against its own text.
 `../RUN.md` lists this as open.
 The hardware challenge is out, because there is no hardware.
-A public data challenge is in reach only if its text fits a year of NASA and NOAA weather.
+Voloridge's challenge accepts any dataset, confirmed by abba on Saturday evening, so the project's NASA POWER sun and NOAA rain gauge qualify as they are, and no rule in this repo limits the choice of dataset for it.
 Cognition's, if it has one, because Devin wrote the code.]
 
 **Tagline, one line:** A simulated shade house roof of small hingeless fins that gives three crops three different answers to the same sky.
