@@ -27,10 +27,19 @@ All project code is written between 11:00 Saturday 2026-09-19 and 11:00 Sunday 2
 
 Two plans exist because some hardware could not be sourced.
 Plan A is the live demo and Plan B is the simulated one.
-The choice is made once, at 17:00 Saturday, against the five items in `planning/plans/README.md`.
-Until then only the shared core, packages C1 to C9, may be built, because both plans need it unchanged.
+Decision: Plan B, made by abba on Saturday 2026-09-19, in the afternoon and ahead of the 17:00 gate.
+Reason: the team can demo the flapping leaf and nothing else, so the stop, the sun, the sensing, and the reaction are all simulated.
+The one real thing on the table is the leaf on its servo, and the simulation drives it through the contract's `S` command, packages B13 and B14 in `planning/plans/plan-b-simulated.md`.
+Plan A is not built.
 
-Decision: [not made yet. Record it here, with the time and the reason, when it is.]
+Two boundaries that hold whatever is simulated:
+
+- The leaves react to how bright the light is, through a threshold, and have two states.
+  Never build a roof that tracks the sun's position, because that is not the roof the team designed.
+- The leaf's buckling is never simulated live.
+  The simulation is light, geometry, and the control law, and the leaf's shape comes from one of the three routes in `planning/plans/packages/R1-simulation-research.md`.
+
+Order of work: R1, then C6, then the shared core C1 to C9, then B1 to B9 with B13 and B14, then the stretch, with V1 to V3 beside them if a second session exists.
 
 ## How work is handed over
 
