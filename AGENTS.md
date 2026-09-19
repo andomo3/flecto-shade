@@ -1,16 +1,17 @@
 # flecto-stop: rules for anyone, human or agent, working in this repo
 
 This is the repo the team submits to HackMIT 2026.
-It is a tabletop bus stop roof made of three hingeless leaves that bend into shade on their own when a light sensor sees the sun, with a laptop app that plays one real Houston day and shows the light reaching the bench.
 
-Status on 2026-09-19: planning context imported, nothing built yet.
-Do not start building until abba hands over a work package.
+The project, since about 16:45 on Saturday 2026-09-19: a simulated smart louvre roof for a grower with three crops under one shade roof.
+The roof is made of many small hingeless fins, grouped into zones, and each zone gets its own light and lets the rain through only when its soil is dry.
+Everything is simulated, from a real year of Houston weather, and the one physical thing is a printed fin on the table.
 
-**PAUSED at 16:00 Saturday: the team is pivoting from the bus stop canopy to a Flectofin leaf design tool.**
-Everything below about Plan B, and the packages R1, C6, V1 to V4, and F1 under `planning/plans/packages/`, describes the plan that is being set aside.
-Start none of them.
-The gates in `planning/plans/gates.md`, package G1, and the rules in this file still hold.
-New packages follow the 17:00 standup, and this notice is replaced when they arrive.
+The plan is `planning/plans/plan-d-louvre-roof.md`.
+Earlier the same day the team planned a bus stop canopy and then a leaf design tool, and those files are still under `planning/` as the record.
+Build nothing from them.
+
+Status: planning imported, nothing built yet.
+Do not start until abba hands over a work package.
 
 ## The rule that outranks every other
 
@@ -19,54 +20,54 @@ All project code is written between 11:00 Saturday 2026-09-19 and 11:00 Sunday 2
 - Write every line of code here, fresh, from the specifications under `planning/`.
 - Never copy code from the planning repo, https://github.com/andomo3/hack-mit.
   Its `firmware/canopy/`, `firmware/host_test/`, `software/canopy/`, and `tests/` directories are a labelled pre-event prototype and are off limits, to read or to copy.
-- `planning/` is Markdown only and is a frozen snapshot.
+- `planning/` is Markdown only and is a snapshot.
   Do not edit it and do not put code in it.
-- Cite every open source library, every dataset, and every AI tool in the submission, because the rules require it.
+- Cite every open source library, every dataset, every source of a crop figure, and every AI tool in the submission, because the rules require it.
 
 ## Read first
 
-1. `planning/README.md`, what the planning record is and where to start in it.
-2. `planning/plans/README.md`, the two plans, the shared core, the gate, and the rules for the build agent.
-3. `planning/docs/meetings/2026-09-19.md`, the newest decisions.
+1. `planning/plans/plan-d-louvre-roof.md`, the plan: what is ours and what is not, the MVP, the packages in order, the demo, and the risks.
+2. `planning/plans/gates.md`, what every package is checked against.
+3. `planning/plans/packages/README.md`, the package index and the handoff prompt.
+4. `planning/docs/research/flectofin-greenhouse-roof/market-and-differentiation.md`, what already exists, and the words the team never says.
 
-## Which plan
+## Order of work
 
-Two plans exist because some hardware could not be sourced.
-Plan A is the live demo and Plan B is the simulated one.
-Decision: Plan B, made by abba on Saturday 2026-09-19, in the afternoon and ahead of the 17:00 gate.
-Reason: the team can demo the flapping leaf and nothing else, so the stop, the sun, the sensing, and the reaction are all simulated.
-The one real thing on the table is the leaf on its servo, and the simulation drives it through the contract's `S` command, packages B13 and B14 in `planning/plans/plan-b-simulated.md`.
-Plan A is not built.
+G1 the gate runner, then S1 the 2023 sun, then H1 the zones and the rules, then H2 the page, then H3 the result card.
+Each has a file under `planning/plans/packages/`, or will before it is handed over.
+These packages under the same folder belong to plans that were set aside, and are never built: R1, C6, V1 to V4, and F1.
 
-Two boundaries that hold whatever is simulated:
+## Boundaries that hold whatever else changes
 
-- The leaves react to how bright the light is, through a threshold, and have two states.
-  Never build a roof that tracks the sun's position, because that is not the roof the team designed.
-- The leaf's buckling is never simulated live.
-  The simulation is light, geometry, and the control law, and the leaf's shape comes from one of the three routes in `planning/plans/packages/R1-simulation-research.md`.
-
-Order of work: R1, then G1 the gate runner, then C6, then the shared core C1 to C9, then B1 to B9 with B13 and B14, then the stretch, with V1 to V3 beside them if a second session exists.
+- The roof follows written, deterministic rules per zone. No language model and no learned model sits in the loop.
+- The fins react to how much light has arrived, to rain, and to the soil. They never track the sun's position.
+- Nothing is measured. Every figure on every screen and in every file says simulated or modelled.
+- The fin is not ours. It is ITKE's Flectofin, patented as EP2320015, and the page credits it.
+- The control logic, watering by the sun's energy and holding a daily light target, is standard practice in greenhouse computers, and nothing here claims otherwise.
+- Never write or display: "first", "measured", "maintenance free", "weatherproof", or any figure for cost, yield, energy, or water saved.
 
 ## How work is handed over
 
 Abba plans the code and the build agent writes it.
-Every task is one work package from `planning/plans/`, handed over with four things:
+Every task is one work package, handed over with four things:
 
-- the package ID, for example C1,
+- the package ID, for example S1,
 - the command that must exit 0 for it to be done,
 - the files it may create or change,
 - the files it must not touch.
 
 A package is done only when its command exits 0 and a person has run the behaviour once.
 Generated code is untrusted until it has been run and read.
+The expected values in a package were computed from the real data by a planner, before any code existed.
+If one does not match, stop and report it, and never edit the value to make a test pass.
 If a package fails its check twice, stop and say so rather than patching further.
 
 ## The demo, the pitch, and the checklists are the definition of done
 
 Code that passes its own tests and breaks the demo is not done.
-`planning/plans/gates.md` turns the storyboard, the scripts, the honesty rules, and the playbook's checklists into gates, and every package is checked against them, every time.
+`planning/plans/gates.md` turns the demo, the pitch, the honesty rules, and the playbook's checklists into gates, and every package is checked against them, every time.
 
-- Before writing code, say in three lines which storyboard beat, which sentence of `planning/pitch/script-plan-b.md`, and which gate the package serves.
+- Before writing code, say in three lines which beat of the demo, which claim of the pitch, and which gate the package serves.
   If it serves none, stop and say so, because it is probably scope creep.
 - After the package's own check passes, run `python tools/gates.py --package ID --allowed "files" --append`, and end the reply with the gate report.
 - A gate that passed before and fails now is a regression, and it is fixed before anything else is touched.
@@ -80,33 +81,22 @@ Code that passes its own tests and breaks the demo is not done.
 
 ## Layout, once building starts
 
-| Directory | Becomes | Specification |
-|---|---|---|
-| `software/` | The Python package `canopy`, its fixtures, and its tests | `planning/software/CLAUDE.md` |
-| `firmware/` | One Arduino sketch and `config.h`, Plan A only | `planning/firmware/CLAUDE.md` and `planning/firmware/SERIAL_FORMAT.md` |
-| `data/` | `raw/`, gitignored, and `processed/`, committed, with one script that rebuilds it offline | `planning/data/CLAUDE.md` |
-| `software/canopy/sim/` | The shade simulation, Plan B only | `planning/plans/plan-b-simulated.md` |
-| `hardware/` | Photographs, the pinout, and milestone exports | `planning/hardware/` |
-| `pitch/` | The final scripts, cards, and submission text, copied out of `planning/pitch/` only when they are edited for the real numbers | `planning/pitch/` |
+| Directory | Becomes |
+|---|---|
+| `tools/` | The gate runner and its tests |
+| `data/raw/` | Downloaded public datasets, gitignored, copied in by a person with the sha256 checked |
+| `data/` | The build scripts, `crops.csv`, and `processed/`, which is committed |
+| `software/` | The simulation, the page, `requirements.txt`, and `tests/` |
+| `pitch/` | The final scripts, cards, and submission text, written once the simulation has produced real figures |
 
 ## Constraints that bind every package
 
-- Python 3.13, FastAPI, uvicorn, and pyserial, in one virtual environment with a pinned `requirements.txt`.
-- The page is one HTML file with plain CSS and vanilla JavaScript: no React, no Node, no build step, no CDN, no web fonts fetched at run time.
-- Everything runs with no network and no serial port: `python -m canopy serve --source fixture` must always work.
-- The serial contract in `planning/firmware/SERIAL_FORMAT.md`, version 2, is the seam.
-  Every source, real or simulated, speaks it, and nobody changes it alone.
-- A sensor that is not fitted shows "not fitted", never zero.
-- The data moves the sun, and only the light sensor moves the leaves.
-- Check that every dependency exists and is needed before adding it.
+- Python 3.13, with `pandas==2.2.3`, `numpy==2.2.3`, and `pytest==9.0.2`, in one virtual environment with a pinned `requirements.txt`.
+- Add no other dependency unless the package names it. Check that it exists and is needed first.
+- The page is plain HTML, CSS, and vanilla JavaScript: no React, no Node, no build step, no CDN, no web fonts fetched at run time, and no web framework unless a package asks for one.
+- Everything builds and runs with no network.
+- Every constant a package marks ASSUMED is a named constant in the code and a row in the README's table of assumptions.
 - No secrets, tokens, keys, or personal data in any file, commit, prompt, or log.
-
-## Honesty rules
-
-- Only what was measured on the table during the event is called measured.
-- Anything from a dataset or a simulation is called modelled or simulated, on the screen, on the cards, and out loud.
-- A light reading is never turned into a claim about temperature, health, or lives.
-- If replay mode or simulation mode is on, a banner says so in words.
 
 ## Commits
 
