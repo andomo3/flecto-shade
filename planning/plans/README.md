@@ -1,8 +1,10 @@
 # Plans
 
-**The current plan is `plan-d-louvre-roof.md`, chosen on 2026-09-19 at about 16:45 and frozen at the 17:00 standup.**
-Everything below this notice describes Plan A and Plan B for the bus stop canopy, which were set aside the same day, and is kept as the record.
-The gates in `gates.md`, the rules for the build agent at the foot of this file, and the packages G1 and C6 still hold.
+> **SUPERSEDED on 2026-09-19 at about 16:45. Everything below this notice is the record of Plan A and Plan B for the bus stop canopy, and nothing is built from it.**
+> That includes the shared core, packages C1 to C9 and C6, the serial contract, and the section "Rules for the build agent" at the foot of this file, which names the bus stop files as the specification and no longer holds.
+> The current plan is `plan-d-louvre-roof.md`, the simulated louvre roof over three crops, and its packages are G1, S1, H1, H2, H3, K1, and K2.
+> The rules for a build agent are `AGENTS.md` and `CHECKLIST.md` at the repo root, and the gates in `gates.md`.
+> If you are a build agent and you arrived here, stop, and go back to those files.
 
 Written 2026-09-19, on the first day of the event, because some hardware could not be sourced.
 Two complete plans for the MVP, the demo, and the presentation, and one shared core that both of them need.
@@ -119,6 +121,10 @@ The 3D render in `packages/R1-simulation-research.md` becomes optional, because 
 | The story | Rosa, unchanged | Rosa, unchanged |
 
 ## Rules for the build agent
+
+> **This section is the record, and it no longer holds.**
+> It names the bus stop files as the specification.
+> The rules for a build agent are `AGENTS.md` and `CHECKLIST.md` at the repo root.
 
 Devin, from Cognition, is a sponsor of the event and the team is allowed to have it write the code.
 Abba plans the code, and the agent builds from these files.

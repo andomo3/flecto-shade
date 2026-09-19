@@ -2,7 +2,8 @@
 
 One file per package, written by planning agents that checked every input against the real data before writing a word.
 Each package is a specification, not code, and it is handed to the build agent one at a time.
-The rules for the agent are in `../README.md`, and the rules for the event repo are in its own `AGENTS.md`.
+The rules for the agent are `AGENTS.md` and `CHECKLIST.md` at the event repo's root, and nothing else.
+`../README.md` in this folder is the record of the bus stop plans, and no package is built from it.
 
 ## The packages
 
