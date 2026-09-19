@@ -29,7 +29,7 @@ A roof made of many small fins can treat each zone differently: shade the crop t
 ## The demo moment
 
 The judge sees a greenhouse from above, three zones, three crops, and a roof of fins over them.
-They press play and one real day runs in a minute: the sun crosses, the light each crop has received fills toward its target, and the fins over the low light crop close first, while the fins over the high light crop stay open.
+They press play and one real day runs in about forty seconds: the sun crosses, the light each crop has received fills toward its target, and the fins over the low light crop close first, while the fins over the high light crop stay open.
 Then it rains, from a real weather record.
 The fins over the dry zone open, the fins over the wet zone stay shut, and the soil gauge of the dry zone climbs.
 The day ends on a card: each crop's light against its target, and the share of each zone's water that the rain supplied.

@@ -19,13 +19,13 @@ Every figure spoken is provisional, from the planner's run in `../plans/packages
 | 5 | 0:55 | The storm | "Then the afternoon storm. Forty two millimetres in two hours, from the real gauge." | Still. Point at the words under each zone | Rain over all three. The hydrangea's fins reopen, "Open for the rain: the soil is dry", and its soil gauge climbs to full. The blueberry's stay shut, "Shut: the soil is wet enough". The fern's stay shut, "Shut: this crop opted out of rain". This is the hero frame |
 | 6 | 1:10 | The trade | "Same rain, three answers. And opening for it cost the hydrangea six mol of light it did not want. That is the trade, and it is on the card." | Still | The result card: "3 June 2023, simulated", light against target per crop, when each zone shut for light, the rain each stored, and the line for the trade |
 | 7 | 1:20 | The close, and what it is not | "Over the simulated year, the rain supplied about fifty four percent of the hydrangea zone's water. The fin is ITKE's, the control logic is standard, and nothing here is measured or built. Elena still has three crops and one sky. Now the roof can tell them apart." | Still, then silence | "The whole year": twelve months, the wet season carrying the hydrangea, the dry season on the grower's own water, the honesty block under it, and nothing moves after it |
-
+## The clock
 ## The clock, and where the sources disagree
 
-The plan's table puts the result card forty seconds after the press of Play.
-`H2-page.md` plays 24 hours in 60 seconds, and the demo gate allows 55 to 75 seconds from Play to the card.
-At 2.5 seconds an hour the fern shuts about 28 seconds after Play, the hydrangea about 30, the rain starts about 38, and the card arrives at 60.
-So the times in beats 4 to 7 are the plan's, and on the night the speaker follows the screen, never the clock: each line is said when the screen shows it.
+`H2-page.md` plays a dark hour in half a second and a daylight hour in 2.4 seconds, and the demo gate allows 36 to 42 seconds from Play to the card.
+On 3 June 2023 that puts the fern shutting 15 seconds after Play, the hydrangea 17.4, the storm starting 24.6, and the card at 38.6, computed from the real solar file for that day.
+So the screen keeps to the times in beats 4 to 7, and the speaker still follows the screen, never the clock: each line is said when the screen shows it.
+A flat 2.5 seconds an hour was set aside on Saturday evening, because it opened the demo with 15 seconds of night and put the spoken run nearer 1:50 than 1:30.
 If the page as built runs to its full minute, the spoken run is nearer 1:50 than 1:30, and the team either accepts that or has the page start the day at sunrise, which is abba's decision and a change to H2, not to this file.
 
 One more, for abba to settle in H2: the demo gate wants not one digit on the page before Play, and the footer's credit carries the patent number and the rain source carries the gauge's number.

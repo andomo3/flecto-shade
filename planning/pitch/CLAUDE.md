@@ -20,7 +20,7 @@ The skill's `pitch_timer.py` was left in the planning repo on purpose, so the co
   The name is the team's to change.
 - The villain is the single curtain: one motor, one decision, for every plant under it.
 - The three specifics: 50,000 square feet a motor, from the UMass fact sheet; the fern's 8 mol a day against the hydrangea's 12, from Purdue; and the rain's share of the hydrangea zone's water, about 54 percent, from our own simulated run.
-- The watched moment: the judge presses Play, 3 June 2023 runs in about a minute, the fern's zone shuts by eleven, the hydrangea's by noon, the blueberries stay open, and then the afternoon storm gets three answers, each with its reason in words.
+- The watched moment: the judge presses Play, 3 June 2023 runs in about forty seconds, the fern's zone shuts by eleven, the hydrangea's by noon, the blueberries stay open, and then the afternoon storm gets three answers, each with its reason in words.
 - The closing line is abba's to write, and the scripts carry a working draft until then.
 
 ## No hardware, decided by the team lead on the evening of 2026-09-19

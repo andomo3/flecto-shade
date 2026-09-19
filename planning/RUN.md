@@ -7,7 +7,7 @@ Statuses are real, stubbed, recorded, planned, or cut, and a feature only ever m
 Phase: building, Plan D, the simulated smart louvre roof, chosen at about 16:45 on Saturday 2026-09-19 and frozen at the 17:00 standup
 Clock: hacking 11:00 Saturday 2026-09-19 to submission 11:00 Sunday 2026-09-20, venue closed 01:00 to 07:00
 Freeze: 01:00 Sunday, the venue closure, nothing new after it
-Demo path: the roof from above, shut, three zones named, the word "simulated", the fin is explained and credited to ITKE, the judge presses Play, the page plays 3 June 2023 in about a minute, the fern's fins shut at eleven and the hydrangea's at noon and the blueberry's stay open, the afternoon storm gets three different answers with each zone's reason in words, and the day ends on the result card and the year by month
+Demo path: the roof from above, shut, three zones named, the word "simulated", the fin is explained and credited to ITKE, the judge presses Play, the page plays 3 June 2023 in about forty seconds, the fern's fins shut at eleven and the hydrangea's at noon and the blueberry's stay open, the afternoon storm gets three different answers with each zone's reason in words, and the day ends on the result card and the year by month
 The number: the rain's share of the hydrangea zone's water over the year, about 54 percent, and the six mol of light that opening for the storm cost it, both simulated, both provisional until `data/processed/headline.json` exists
 
 ## Features

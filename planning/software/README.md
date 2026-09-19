@@ -12,7 +12,7 @@ The specifications are authoritative for every schema, file name, command, const
 
 ## What the software is
 
-A simulation of a smart louvre roof over three crop zones in a shade house near Apopka, Florida, and one page that plays one simulated day of it in about a minute.
+A simulation of a smart louvre roof over three crop zones in a shade house near Apopka, Florida, and one page that plays one simulated day of it in about forty seconds.
 There is no hardware at all: no board, no sensor, no port to read, and nothing physical on the table.
 The project is the simulation and its page.
 Every figure the software produces is simulated or modelled.
@@ -28,7 +28,7 @@ The fins react to how much light has arrived, to rain, and to the soil, and they
 | The gate runner | G1 | abba | `tools/` | One command that runs the fast gates F1 to F14 and prints the gate report | `../plans/packages/G1-gate-runner.md` |
 | The sun | S1 | Ameya | `data/` | Turns the NASA POWER hourly file for 2023 into one row an hour | `../plans/packages/S1-solar-2023.md` |
 | The simulation | H1 | Ameya | `software/h1/` | The crops table, the rain parser, the join, the light, the soil bucket, the nine rules, and the year's summary | `../plans/packages/H1-zones-light-rain-soil.md` |
-| The page | H2 | abba | `software/page/` | Shows the roof from above and plays 3 June 2023 in about a minute, with no new physics | `../plans/packages/H2-page.md` |
+| The page | H2 | abba | `software/page/` | Shows the roof from above and plays 3 June 2023 in about forty seconds, with no new physics | `../plans/packages/H2-page.md` |
 | The result card | H3 | abba | `software/h3/`, and the page's card and year view | Writes `headline.json`, the one file every spoken and printed figure comes from, and shows it | `../plans/packages/H3-result-card.md` |
 
 The tests for S1, H1, H2, and H3 live in `software/tests/`, and the gate runner's tests in `tools/tests/`.
@@ -66,7 +66,6 @@ software/page/index.html, style.css, app.js     pitch/figures.md, generated
   The JavaScript only interpolates between hours and draws, because nothing here tests JavaScript.
 - After H3, nobody types a number into a script, a card, or the README by hand.
 - If a schema has to change, stop, and the two owners agree the change before either side writes code.
-
 - The page reaches the result card's figures through `software/page/headline.json`, an identical copy that H3's build writes beside `day.json` in the same run as `data/processed/headline.json`, because `software/page/` is the only folder served, on the laptop and on Vercel alike.
 
 ## The live link

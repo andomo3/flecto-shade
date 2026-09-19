@@ -36,7 +36,7 @@ Laptop:
 - [ ] Five screenshots are saved locally, the rain frame among them.
 - [ ] Notifications off, sleep and the screensaver off, the browser full screen at 100 percent zoom.
 - [ ] "Reset the day" works on the `R` key and takes under five seconds.
-- [ ] One full play, timed from Play to the result card, inside 55 to 75 seconds.
+- [ ] One full play, timed from Play to the result card, inside 36 to 42 seconds.
 - [ ] The playbook's demo day test, at 30, 15, and 5 minutes before.
 
 People:

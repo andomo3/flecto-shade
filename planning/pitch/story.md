@@ -118,7 +118,7 @@ The playbook's five rules, applied.
 2. A story during the demo: the judge is not shown a dashboard, the judge is handed Elena's third of June.
 3. The transformation, not the process: no code, no data pipeline, three zones parting ways is the whole show.
 4. End on an emotional beat: the same rain, three answers, and the trade said plainly.
-5. Under sixty seconds: the day plays in about a minute, so the narration runs over it and never before it.
+5. Under sixty seconds: the day plays in about forty seconds, so the narration runs over it and never before it.
 
 The scene, from `../plans/plan-d-louvre-roof.md`: the fern has its light by eleven, the hydrangea by noon, the blueberries want all of it, then the afternoon storm, and three zones give three answers to the same rain, each for its own reason.
 

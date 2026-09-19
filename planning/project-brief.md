@@ -27,7 +27,7 @@ The full table, with what is said at each beat, is in `plans/plan-d-louvre-roof.
    The grower near Apopka, three crops, one sky.
 2. The fin is explained while the roof sits shut, with the credit to ITKE on the page.
    "Each of those is a fin with no hinge, which bends to open and shut. The fin is not ours. It is ITKE's Flectofin, and it is patented."
-3. The judge presses Play, and the page plays 3 June 2023 in about a minute.
+3. The judge presses Play, and the page plays 3 June 2023 in about forty seconds.
    The sun rises, all fins open, and three light gauges fill at the same rate.
 4. The fern's fins shut at eleven, the hydrangea's at noon, and the blueberry's stay open.
    This is the moment the three zones stop behaving as one roof, and it is the moment the project wins or loses.
@@ -51,7 +51,7 @@ Each package has a specification under `plans/packages/`, or in `../CHECKLIST.md
 | S1 | The 2023 sun for the Apopka area from NASA POWER, one row an hour | Ameya | 30 | nothing |
 | H1 | The crops, the rain, the light, the soil bucket, the nine rules, the year's summary | Ameya | 85 | S1 |
 | K2 | The roof layout, as modelled data the page draws. Optional: without it H2 draws a default grid | Shannon | | nothing |
-| H2 | The page that plays 3 June 2023 in a minute, from H1's output, with no new physics | Abba | 120 | H1 |
+| H2 | The page that plays 3 June 2023 in about forty seconds, from H1's output, with no new physics | Abba | 120 | H1 |
 | H3 | The result card, the year by month, and `headline.json` | Abba | 75 | H2 |
 
 In if time allows: a second view that draws the roof's fins one by one.

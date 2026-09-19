@@ -6,7 +6,7 @@ Owner: abba. It needs H1 and K2 merged.
 
 ## Goal
 
-One page that shows the shade house roof from above, three zones, and plays 3 June 2023 in about a minute, from files the simulation already wrote.
+One page that shows the shade house roof from above, three zones, and plays 3 June 2023 in about forty seconds, with the dark hours quick and the daylight hours slow, from files the simulation already wrote.
 It adds no physics: every number it shows was computed by H1.
 
 ## The shape of it
@@ -40,7 +40,7 @@ The JavaScript only interpolates between hours and draws, because nothing here t
     "rain": "NOAA ISD gauge 72205312841, measured"
   },
   "credit": "The fin is the Flectofin, by ITKE, University of Stuttgart, patented as EP2320015.",
-  "hours": [ { "local_hour": 0, "ghi": 0.0, "rain_mm": 0.0, "t2m": 0.0 } ],
+  "hours": [ { "local_hour": 0, "ghi": 0.0, "rain_mm": 0.0, "t2m": 0.0, "play_seconds": 0.5 } ],
   "zones": [
     {
       "zone": "A", "crop": "boston fern", "light_rule": "dli", "light_target": 8,
@@ -53,6 +53,8 @@ The JavaScript only interpolates between hours and draws, because nothing here t
 ```
 
 24 entries in every `hours` list, local hours 0 to 23, America/New_York.
+`play_seconds` is how long the page spends on that hour: 0.5 where the hour's `ghi` is 0, and 2.4 where it is above 0.
+It is decided in `build_day.py`, from the two named constants `NIGHT_HOUR_SECONDS` and `DAY_HOUR_SECONDS`, so that a test can check the demo's timing, and `app.js` only obeys it.
 `soil_mm` is drawn against the bucket's 60 mm, with marks at 18, 30, and 54.
 
 The words for each state, fixed here so the screen and the speaker agree:
@@ -81,9 +83,12 @@ The words for each state, fixed here so the screen and the speaker agree:
 
 ## How it plays
 
-- 24 hours in 60 seconds, so 2.5 seconds an hour.
+- Each hour plays for its `play_seconds`: half a second for a dark hour, and 2.4 seconds for a daylight hour.
+  A flat 2.5 seconds an hour would open the demo with 15 seconds of night in which nothing moves, and would put every beat late against the spoken script.
+- On the demo day that puts the fern's fins shutting 15 seconds after Play, the storm starting about 25 seconds after Play, and the result card 38.6 seconds after Play, which is the table in `../plan-d-louvre-roof.md`: 0:45, 0:55, and 1:10 with Play at 0:30.
 - Gauges move linearly between an hour's value and the next.
 - A fin changes at the hour boundary, over 1.5 seconds, and never faster: the screen shows a slow roof.
+  A change that starts at the end of the daylight runs its full 1.5 seconds across the short dark hours that follow.
 - When the last hour ends, the page shows the result card, which is package H3, and until H3 exists it shows the three zones' end of day values in a plain table.
 
 ## States to build
@@ -112,7 +117,7 @@ The words for each state, fixed here so the screen and the speaker agree:
 
 1. `build_day.py --date 2023-06-03`. Check: the tests below.
 2. The static page with state 1 only. Check: it opens with the network off, and no digit is on it.
-3. Playback: the clock, the sky, the gauges. Check: Play to the end takes 58 to 62 seconds, by a timer.
+3. Playback: the clock, the sky, the gauges. Check: Play to the end takes 38.6 seconds within 2, by a timer.
 4. The fins and the words. Check: a person walks states 2 to 6 against H1's demo day table, hour by hour.
 5. States 7 to 10. Check: renaming `day.json` shows state 9, and removing the layout file and rebuilding shows state 10.
 
@@ -130,6 +135,8 @@ Test cases, from H1's asserted demo day:
 - Zone C: RAIN_SHUT at 15 with the words "Shut: the soil is wet enough". The test carries a comment that this rests on a margin of 1.2 mm.
 - Zone A at 15: the words "Shut: this crop opted out of rain".
 - The hours list has `rain_mm` 23.9 at local 15 and 18.5 at local 16.
+- `play_seconds` is 0.5 in every hour whose `ghi` is 0 and 2.4 in every other hour. On the demo day 14 hours have `ghi` above 0, local hours 6 to 19, and 10 do not, so the sum is 38.6 within 0.1.
+- The `play_seconds` of local hours 0 to 10 sum to 15.0 within 0.1, which is when the fern's fins shut, and those of local hours 0 to 14 sum to 24.6 within 0.1, which is when the storm starts. These three values were computed by the planner from S1's processed year for 2023-06-03, before any page code existed.
 - Every `words` value is one of the nine in the table above.
 - The three page files contain no external address, by the same pattern gate F3 uses.
 - The page files do not contain the forbidden words, with the one allowed use of "measured".

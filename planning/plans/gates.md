@@ -81,7 +81,8 @@ The demo is the table in `plan-d-louvre-roof.md`, and each beat has one thing a 
 | 7 | 1:20 | The year by month shows, the wet season and the dry season plain to see, and nothing moves after it |
 | Reset | between judges | One control returns everything to beat 1 in under five seconds |
 
-The whole run, from the press of Play to the result card, is between 55 and 75 seconds.
+The whole run, from the press of Play to the result card, is between 36 and 42 seconds, with the fern's fins shutting 14 to 16 seconds after Play and the storm starting 24 to 26 seconds after it.
+The dark hours play quickly and the daylight hours slowly, as H2 specifies, so that the screen keeps to the spoken script.
 The day that plays is 3 June 2023, sun until mid afternoon and then 42 mm of rain in two hours, named on the screen with its date.
 
 ### The UI gate

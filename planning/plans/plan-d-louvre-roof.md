@@ -30,7 +30,7 @@ In:
 - A roof of fins per zone that opens and shuts by nine written rules, in the priority night, then rain, then light.
 - Real hourly rain from the Orlando Executive Airport gauge in 2023, and the sun for the same place and the same year, so that rainy hours are darker hours.
 - A soil water bucket per zone, with the grower's own irrigation as the backstop, so the question becomes how much of the water the rain supplied.
-- One page that plays one day in about a minute, and ends on a result card.
+- One page that plays one day in about forty seconds, and ends on a result card.
 - The year's summary, by zone and by month.
 
 In if time allows: a second view that draws the roof's fins one by one.
@@ -44,7 +44,7 @@ Out: any physical rig, a printed fin, any sensor, water, AI in the loop, wind an
 | 1 | G1 | The gate runner | `packages/G1-gate-runner.md` | 60 |
 | 2 | S1 | The sun for the Apopka area in 2023, from NASA POWER, one row an hour | `packages/S1-solar-2023.md` | 30 |
 | 3 | H1 | The crops, the rain, the light, the soil, the rules, and the year's summary | `packages/H1-zones-light-rain-soil.md` | 85 |
-| 4 | H2 | The page: the roof from above, three zones, the fins, a light gauge and a soil gauge per zone, Play, and one day in a minute, read from H1's output with no new physics | `packages/H2-page.md` | 120 |
+| 4 | H2 | The page: the roof from above, three zones, the fins, a light gauge and a soil gauge per zone, Play, and one day in about forty seconds, read from H1's output with no new physics | `packages/H2-page.md` | 120 |
 | 5 | H3 | The result card and `headline.json`: each crop's light against its target, the rain's share of each zone's water, the year by month | `packages/H3-result-card.md` | 75 |
 
 G1 and S1 can start now.

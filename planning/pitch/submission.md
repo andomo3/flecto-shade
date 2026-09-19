@@ -33,7 +33,7 @@ Everything here is simulated, and nothing physical was built.
 It simulates a roof of many small fins over three crop zones near Apopka, Florida, hour by hour through 2023.
 Each zone's fins open and shut by nine written rules, in the priority night, then rain, then light.
 Each zone gets its own light, and lets the rain through only when its soil is dry, only in daylight, and only if its crop has opted in.
-One page plays one real day, 3 June 2023, in about a minute: the fern's zone shuts by eleven, the hydrangea's by noon, the blueberries stay open, and then an afternoon storm gets three different answers, each with its reason in words.
+One page plays one real day, 3 June 2023, in about forty seconds: the fern's zone shuts by eleven, the hydrangea's by noon, the blueberries stay open, and then an afternoon storm gets three different answers, each with its reason in words.
 The day ends on a result card, and then the year by month.
 Over the simulated year, the rain supplied about [54] percent of the hydrangea zone's water and about [17] percent of the blueberry zone's, and the fern was held to its light target on about [354] of 365 days.
 

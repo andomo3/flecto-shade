@@ -14,7 +14,7 @@ The current plan is `../plan-d-louvre-roof.md`, the simulated smart louvre roof,
 | G1 | `G1-gate-runner.md` | One command that runs every fast gate in `../gates.md` and prints the gate report | ready, first |
 | S1 | `S1-solar-2023.md` | The sun for the Apopka area of Central Florida in 2023 from NASA POWER, the same year as the rain, one row an hour, no new dependency | ready, second |
 | H1 | `H1-zones-light-rain-soil.md` | The crops, the rain, the light, the soil bucket, the nine rules, and the year's summary | ready, third, and it needs S1's file. Central Florida, three crops, the demo day of 3 June 2023 |
-| H2 | `H2-page.md` | The page that plays 3 June 2023 in a minute from H1's output, with each zone's reason in words | ready, and it needs H1. K2 is optional, and without it the page draws a default grid |
+| H2 | `H2-page.md` | The page that plays 3 June 2023 in about forty seconds from H1's output, with each zone's reason in words | ready, and it needs H1. K2 is optional, and without it the page draws a default grid |
 | H3 | `H3-result-card.md` | The result card, the year by month, and `headline.json`, the one file every spoken figure comes from | ready, and it needs H2 |
 | K2 | specified in `CHECKLIST.md` at the event repo's root | The roof layout the page draws, as modelled data, and optional | ready |
 

@@ -57,14 +57,13 @@ There is nothing physical at the table, so the screen carries the whole demo.
 
 ## How the day plays
 
-- 24 hours in 60 seconds, so 2.5 seconds an hour, and the whole run from Play to the result card is between 55 and 75 seconds.
+- A dark hour plays in half a second and a daylight hour in 2.4 seconds, from `play_seconds` in `day.json`, and the whole run from Play to the result card is between 36 and 42 seconds.
 - Gauges move linearly between an hour's value and the next.
 - A fin changes at the hour boundary, over 1.5 seconds, and never faster.
   The screen shows a slow roof.
 - On the demo day, from H1's table: night until local hour 5, every zone open from 6, the fern shut at 11 with 8.08 mol, the hydrangea shut at 12 with 12.72, rain at 15 and 16, 23.9 and then 18.5 mm, the hydrangea's soil from 25.48 to 59.75, and night from 20.
   All of it is simulated.
-- At 2.5 seconds an hour, the fern shuts about 27 seconds after Play and the rain starts about 37 seconds after Play.
-  NEEDED: the demo table puts those beats 15 and 25 seconds after Play and the card 40 seconds after it, so abba settles whether the speaker's timings move or the day starts later than local hour 0.
+- On the demo day the fern shuts 15 seconds after Play, the rain starts 24.6 seconds after Play, and the card arrives at 38.6, which is the demo table's 0:45, 0:55, and 1:10 with Play at 0:30.
 
 ## Design consequences
 
