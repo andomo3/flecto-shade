@@ -122,7 +122,7 @@ Level 4: Team huddle (5 min max, then someone owns the fix)
 - No code goes to `main` without at least one review
 - Reviewer's job is to find bugs, not rewrite code
 - If a review takes more than 5 minutes, it's too big — break it up
-- Emergency hotfixes: push to `main`, but comment what you did and why
+- Emergency hotfixes: use a `fix/` branch and a tested, reviewed PR into `main`
 
 ### Decision-Making Protocol
 
