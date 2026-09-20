@@ -334,8 +334,12 @@ def list_runs(request, params, db):
     })
 
 
+# The last field says whether the view needs the database: True, False, or OPTIONAL,
+# which opens it if it can and hands the view None if it cannot.
+OPTIONAL = "optional"
+
 ROUTES = [
-    ("GET", r"^/api/health$", health, False),
+    ("GET", r"^/api/health$", health, OPTIONAL),
     ("GET", r"^/api/metric-definitions$", metric_definitions, False),
     ("GET", r"^/api/sites/(?P<site_id>[\w.-]+)/zones$", list_zones, True),
     ("POST", r"^/api/sites/(?P<site_id>[\w.-]+)/zones$", create_zone, True),
@@ -369,7 +373,12 @@ def dispatch(request, db_factory=store.open_database):
             continue
         db = None
         try:
-            if needs_db:
+            if needs_db == OPTIONAL:
+                try:
+                    db = db_factory()
+                except Exception:  # noqa: BLE001 - health reports this, and stays up
+                    db = None
+            elif needs_db:
                 db = db_factory()
             return view(request, match.groupdict(), db)
         except ApiError as error:
