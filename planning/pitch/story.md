@@ -147,6 +147,11 @@ A judge who knows horticulture will know within a minute that most of this exist
 So the story says it before they can, and that is what earns the one claim that is left.
 The lens changes the order, not the claims.
 
+- **The lens is set in the first twenty seconds, before any claim.**
+  The playbook's rule is that a judge evaluates everything afterwards through whatever lens the opening sets, so the opening sets it to "simulated, and honest about it".
+  The words: "Everything you are about to see is a simulation, run over one real day of Central Florida weather, and every number on the screen says where it came from."
+  It costs about six seconds, and it buys the right to put a number on the screen at all.
+  It is said once, early, and the disarming block later in the pitch still does its own work.
 - **One hero, still.**
   Elena carries the pitch from the opening line to the last.
   The plants are never the hero: the stake is a grower's living.
@@ -177,6 +182,49 @@ The lens changes the order, not the claims.
 
 Without the low the high does not land, so the one number and the moved plant get their full breath before the fins appear.
 
+## The real story, and the line that keeps it honest
+
+Added on Sunday morning, on abba's instruction.
+Ameya's grandmother lost a hundred acres, because she could not get water to it.
+
+This is the only real person in the pitch, and it outranks Elena for force, because Elena is illustrative and this happened.
+Four rules govern it, and they are not negotiable.
+
+- **It is Ameya's to tell, and Ameya's to word.**
+  Nobody else writes a family's loss, and nobody else says it on stage.
+  Ameya confirms the wording, and fills what the team does not know: where the land was, what was grown, and when.
+  Those are marked gaps in `script.md` and they are never guessed at.
+- **It is motivation, and never a claim.**
+  This project does not solve it.
+  A roof that decides bed by bed does not bring water to land that has none, and the pitch already says the irrigation system stays.
+  A judge who hears the story and then hears a claim of relief for that farm will catch the gap, and the whole honesty lens goes with it.
+- **So the honest bridge is said out loud, by Ameya, in the same breath.**
+  "This roof would not have saved that land. Nothing we built delivers water to a farm that has none. But it is why I care where water ends up."
+  That sentence is the point of telling it at all: it converts a real loss into a reason to care about where water lands, which is exactly what the roof decides.
+- **It sits before the demo and not at the opening.**
+  The opening belongs to the problem a judge can check, and a hundred acres is too heavy to put down and walk away from.
+  Placed at 2:35, it is the last thing heard before the roof moves, and the demo carries its weight.
+
+The hundred acres is the one specific, in the playbook's sense, and no second figure is added to it.
+
+## What is next: three steps, in the order of cost
+
+The playbook's rule of three.
+The order is deliberate, because the cheapest and most sceptical step comes first, and a judge who hears "we try to break our own model" stops looking for the crack themselves.
+None of the three carries a figure, and all three are said in the future tense.
+
+1. **Stress the model.**
+   A Monte Carlo study over the twelve constants the code marks as assumed, to find out which of our own guesses the result depends on.
+   It is specified before it is built, in `../docs/research/flectofin-greenhouse-roof/simulation-study-protocol.md`, and it needs nothing the project does not already have.
+2. **Check the inputs on site.**
+   The same rules, run over the weather station at Apopka instead of the satellite product, which needs no hardware at all.
+   Our own research already found that the two disagree in about a fifth of daylight hours, and that is a finding about our fragility, not about the roof.
+3. **Keep the record.**
+   A roof that decides bed by bed also knows what every bed was given, hour by hour.
+   Paired with soil sensors, that record is how a grower would see which beds are drifting, and it is the part that outlives the roof.
+
+In one breath at the table: "First we try to break our own model, then we check our inputs against a station on site, and then the roof starts keeping a record worth learning from."
+
 ## The closing story
 
 The callback close, because the story opened on a person and should end on her.
@@ -191,6 +239,17 @@ At a booth it is an invitation and not a funding ask, and it is honest about the
 
 "No grower has seen this yet.
 That is what we want next: one grower near Apopka to tell us where it is wrong."
+
+The ask is abba's, in the first person, and it is the one place in the pitch where the team appears in its own story.
+It is said once, it sits with the ask and never at the opening, and the wording is abba's to adjust.
+
+"I study industrial and operations research, so the simulation is the product today, and the next thing I build is the study that tries to break it.
+If you know a grower, or a soil dataset, I want the introduction."
+
+The sentence before it does not change, and the thing asked for does, according to who is standing there.
+For Voloridge, ask for the dataset.
+For Cognition, ask what they would have done differently in how we directed the agent.
+For a general judge, ask for the grower.
 
 After the close, the offer: "Press Play again, and this time watch only the bed that stays shut in the rain."
 
@@ -229,3 +288,5 @@ One thing to watch when H2 plays for the first time: a person a metre away reads
 | Six months of seven, April to October | `../plans/packages/H3-result-card.md`, from the planner's run, provisional the same way |
 | 15.0, 24.6, 34.6, and 43.8 seconds after Play | `../plans/packages/H2-page.md`, computed from S1's file for 3 June 2023 |
 | The patent number and the inventors | `../docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md` |
+| About a fifth of daylight hours, where the station on site disagrees with the modelled sky | `../docs/research/flectofin-greenhouse-roof/simulation-and-field-test-plan.md`, section 2 |
+| The twelve assumed constants, and the study that varies them | `../docs/research/flectofin-greenhouse-roof/simulation-study-protocol.md` |
