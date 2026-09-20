@@ -1,7 +1,7 @@
 # UI brief, derived from the demo
 
 The screen is the second storyteller at the table.
-It shows one grower's roof, three crops under it, and one real day of Central Florida weather, and it is never a dashboard.
+It shows one grower's roof, three beds under it as three light classes, and one real day of Central Florida weather, and it is never a dashboard.
 This brief is derived from the demo table in `../plans/plan-d-louvre-roof.md`, the demo gate in `../plans/gates.md`, and the story in `../plans/pitch-plan-d.md`.
 It is a design brief, so it is planning and not code, and the code lives in the repo's own `software/page/` directory.
 Packages H2 and H3, `../plans/packages/H2-page.md` and `../plans/packages/H3-result-card.md`, are authoritative for every file, word, and figure, and where this brief and a package disagree the package wins.
@@ -43,7 +43,7 @@ That divergence is the product, and every design decision either sharpens it or 
 
 | Beat | Demo time | The speaker | The screen | What is absent |
 |---|---|---|---|---|
-| 1 | 0:00 | The grower near Apopka, three crops, one sky | The roof from above, shut, three zones named with their crops, one Play button, the word "simulated" | Every digit. A judge who sees zeroes reads "broken", and a judge who sees figures stops listening |
+| 1 | 0:00 | A foliage grower near Apopka, the general problem from her own university, one number for every bed, a fine brain and a blunt hand | The roof from above, shut, three zones named with their crops, one Play button, the word "simulated" | Every digit. A judge who sees zeroes reads "broken", and a judge who sees figures stops listening |
 | 2 | 0:20 | "Bed by bed takes many small parts, and every hinge is a bearing to grease. So we borrowed a part with no hinge: ITKE's Flectofin, patented, and not ours." | Unchanged. Nothing on the screen moves before Play | Any idle animation |
 | 3 | 0:30 | "Would you press play? This is 3 June 2023." | One press starts the day, the sun rises, every fin opens, and three light gauges fill at the same rate | A second control |
 | 4 | 0:45 | "The fern has had its light by eleven. The hydrangea by noon. The blueberries want all of it." | Zone A's fins shut when its gauge reaches 8 mol, zone B's about an hour later at 12 mol, and zone C stays open | Anything that competes with the fins shutting |

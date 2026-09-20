@@ -6,6 +6,18 @@ data/raw/
 __pycache__/
 *.pyc
 .pytest_cache/
+.ruff_cache/
 
 # secrets
 .env
+.env.*
+!.env.example
+
+# local dependencies and disposable build/deploy output
+node_modules/
+.next/
+dist/
+build/
+coverage/
+.vercel/
+.DS_Store

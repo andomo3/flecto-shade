@@ -1,0 +1,53 @@
+name: Team task
+description: A feature, bug, design task or pitch deliverable with one owner.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Assign one teammate and apply the relevant area label in the sidebar.
+        Add urgent only for demo-critical work. Use blocked with a concrete dependency.
+        Track the branch and PR here; close the issue with the merged outcome.
+  - type: input
+    id: owner
+    attributes:
+      label: Owner
+      description: GitHub handle or teammate name; also set the assignee when possible.
+      placeholder: "@handle"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Apply the corresponding label in the sidebar; this field does not set it automatically.
+      options:
+        - frontend
+        - backend
+        - design
+        - pitch
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Outcome
+      description: What should work, and why does it matter for the demo?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance checks
+      description: Concrete commands or observable behavior that establish completion.
+    validations:
+      required: true
+  - type: textarea
+    id: coordination
+    attributes:
+      label: Dependencies and handoff
+      description: Overlapping files, related issues/PRs, blockers and who can resolve them.
+  - type: input
+    id: branch
+    attributes:
+      label: Branch or PR
+      description: Add the link when work starts.
