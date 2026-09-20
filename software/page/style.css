@@ -444,7 +444,7 @@ button { cursor: pointer; }
   padding-top: .95em;
   color: var(--ink);
   font-family: var(--display);
-  font-size: clamp(46px, 7.5vw, 88px);
+  font-size: clamp(40px, 9.5vw, 150px);
   font-weight: 600;
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -483,7 +483,7 @@ button { cursor: pointer; }
   margin: 0 0 var(--s5);
   max-width: 42ch;
   color: var(--ink-3);
-  font-size: clamp(18px, 1.4vw, 20px);
+  font-size: clamp(18px, 1.6vw, 26px);
   line-height: 1.5;
   text-wrap: balance;
 }
@@ -932,7 +932,7 @@ button { cursor: pointer; }
   /* The lede stops capping its height on a phone: the button has to be reachable
      without a scroll, and a 60vh cap would push it under the fold. */
   .lede { padding-inline: var(--s3); }
-  .swap { font-size: 32px; }
+  .swap { font-size: 44px; }
   .btn-lede { width: 100%; justify-content: center; }
   .stage-readout { display: none; }
   .stage-identity { max-width: none; right: var(--s4); }
