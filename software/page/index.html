@@ -3,51 +3,67 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Choose growing areas and simulate rain through individually controlled shade-house flaps.">
   <title>Shade house — water the areas you choose</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="watering.css">
 </head>
 <body data-mode="watering">
-<header class="bar">
-  <div>
-    <h1>Shade house 1</h1>
-    <p class="bar-sub">Choose the growing areas. Let the roof decide where rain enters.</p>
-  </div>
-  <span class="pill pill-sim">Simulated · CAD prototype</span>
-</header>
-<main class="stage">
+<a class="skip-link" href="#selection-title">Skip to growing areas</a>
+<main class="console">
   <p id="status" role="status" aria-live="polite">Loading the roof and soil map…</p>
-  <form id="rain-form" class="sky-wrap rain-controls">
-    <label>Rain event <span class="field-unit">mm</span>
-      <input id="rain" type="number" min="0" max="200" step="0.1" value="10" required>
-    </label>
-    <label>Starting soil water <span class="field-unit">mm</span>
-      <input id="soil" type="number" min="0" max="60" step="0.1" value="20" required>
-    </label>
-    <label>Selected area target <span class="field-unit">mm</span>
-      <input id="target" type="number" min="0" max="60" step="0.1" value="25" required>
-    </label>
-    <button class="btn" id="simulate" type="submit" disabled>Simulate rain</button>
-    <button class="btn-ghost" id="finish" type="button" hidden>Show result now</button>
-    <button class="btn-ghost" id="reset" type="button" disabled>Reset</button>
-    <label class="spill-choice"><input type="checkbox" id="spill"> Allow watering outside selected areas</label>
-    <p class="ctl-help">By default, an opening is blocked if it would wet an unselected cell or a cell already at its target. Each run starts from the soil value above.</p>
-  </form>
-  <figure class="model">
-    <p class="assumption-banner">Idealized rain model: circular openings act independently.
-      Blocking by the CAD’s overlapping layers and base is not simulated.</p>
-    <div class="model-frame" id="roof"></div>
-    <figcaption>
-      <span class="cap-lead">Ameya’s CAD, with independent flap control.</span>
-      Rain and the soil plane are simulated. Flap rotation illustrates a commanded opening.
-    </figcaption>
-  </figure>
+  <section class="hero" aria-labelledby="page-title">
+    <figure class="model">
+      <div class="model-frame" id="model-frame">
+        <div class="model-viewport" id="roof" aria-live="off"></div>
+        <canvas class="rain-canvas" id="rain-canvas" aria-hidden="true"></canvas>
+        <div class="model-identity">
+          <div class="identity-line"><span class="status-dot" aria-hidden="true"></span>Simulated · CAD prototype</div>
+          <h1 id="page-title">Water the areas you choose.</h1>
+          <p>Select soil below. Watch individual flaps admit rain.</p>
+        </div>
+        <p class="rain-now event-label" id="rain-status">Ready for rain</p>
+        <button type="button" class="view-reset" id="reset-view" aria-label="Reset the roof to bird's-eye view">Bird's-eye</button>
+        <p class="camera-help">Drag to orbit · Scroll to zoom · Arrow keys to rotate</p>
+        <form id="rain-form" class="rain-plan rain-controls">
+          <div class="rain-plan-head">
+            <h2>Rain event</h2>
+            <p>Choose growing areas, then apply simulated rain.</p>
+          </div>
+          <button id="example" class="btn-secondary" type="button" disabled>Select two footprints</button>
+          <div>
+            <p class="control-caption">Or select a region’s footprints</p>
+            <div id="region-controls" aria-label="Select footprints in a roof region"></div>
+          </div>
+          <label>Rain event <span class="field-unit">mm</span>
+            <input id="rain" type="number" min="0" max="200" step="0.1" value="10" required>
+          </label>
+          <label>Starting soil water <span class="field-unit">mm</span>
+            <input id="soil" type="number" min="0" max="60" step="0.1" value="20" required>
+          </label>
+          <label>Selected area target <span class="field-unit">mm</span>
+            <input id="target" type="number" min="0" max="60" step="0.1" value="25" required>
+          </label>
+          <label class="spill-choice"><input type="checkbox" id="spill"> Allow watering outside selected areas</label>
+          <div class="event-actions">
+            <button class="btn" id="simulate" type="submit" disabled>Simulate rain</button>
+            <button class="btn-ghost" id="reset" type="button" disabled>Reset</button>
+          </div>
+          <button class="btn-ghost" id="finish" type="button" hidden>Show result now</button>
+          <p class="ctl-help">Default: protect unselected and already-satisfied cells. Each run starts from the soil value above.</p>
+        </form>
+      </div>
+      <figcaption>Ameya’s CAD, with individual flap control. Rain and soil are simulated; rotation illustrates a commanded opening.</figcaption>
+    </figure>
+  </section>
+  <p class="assumption-banner">Idealized rain model: circular openings act independently.
+    Blocking by the CAD’s overlapping layers and base is not simulated.</p>
   <div class="watering-workspace">
     <section class="zone" aria-labelledby="selection-title">
-      <h2 id="selection-title">1. Pick your growing areas</h2>
-      <p class="ctl-help">Click or drag cells to plant or clear them. Use arrow keys and Space on the map. Outlined circles show the assumed rain footprints.</p>
+      <h2 id="selection-title" tabindex="-1">1. Pick your growing areas</h2>
+      <p class="ctl-help">Click or drag cells to select or clear them. Use arrow keys and Space on the map. Circles show assumed rain footprints.</p>
       <div class="ctl">
-        <button id="example" class="btn-ghost" type="button" disabled>Select two footprints</button>
         <button id="all" class="btn-ghost" type="button" disabled>Select all</button>
         <button id="clear" class="btn-ghost" type="button" disabled>Clear</button>
       </div>
@@ -70,7 +86,7 @@
       <h2 id="result-title">2. Watch the roof respond</h2>
       <p id="phase-status" role="status" aria-live="polite">All flaps closed. Ready for a rain event.</p>
       <progress id="event-progress" max="1" value="0" aria-label="Rain event progress"></progress>
-      <dl id="metrics" class="watering-metrics">
+      <dl class="watering-metrics">
         <div><dt>Selected targets met</dt><dd id="met">—</dd></div>
         <div><dt>Delivered to selected areas</dt><dd id="delivered">—</dd></div>
         <div><dt>Delivered outside selection</dt><dd id="outside">—</dd></div>
@@ -79,14 +95,11 @@
       <p id="shortfalls">Choose areas and simulate rain to see the result.</p>
       <p id="accounting" class="ctl-help"></p>
       <button id="export" class="btn-ghost" type="button" disabled>Download simulation JSON</button>
-      <details>
-        <summary>Opening sequence</summary>
-        <ol id="phases"><li>No rain event yet.</li></ol>
-      </details>
+      <details><summary>Opening sequence</summary><ol id="phases"><li>No rain event yet.</li></ol></details>
     </section>
   </div>
   <details class="model-notes">
-    <summary>What this model does — and what the CAD establishes</summary>
+    <summary>Model assumptions and CAD provenance</summary>
     <p id="layout-source"></p>
     <p>The STEP establishes 22 flap instances in two overlapping height layers and one base.
       A 25 mm circular rain aperture centred 25 mm along local −Y from each flap origin is an assumption,
@@ -94,9 +107,8 @@
       water volumes are not farm-scale projections.</p>
     <p>The controller treats these as independent apertures. It does not calculate obstruction by the other
       flap layer, base, or supports. It rasterizes circles by cell centres, clips them to the rectangular
-      map, and admits rain over the union of open masks. Zero outside delivery means zero at this grid resolution;
-      it does not establish physical zero spill.</p>
-    <p>Uniform vertical rain; instantaneous switching; binary transmission; 60 mm soil capacity.
+      map, and admits rain once per cell when any covering aperture is open.</p>
+    <p>Strict protection can leave selected cells dry when an aperture would also wet an unselected cell.
       No wind, runoff redistribution, evaporation, crop response, actuators, or structural deformation.
       The deterministic greedy choice is not an optimization proof. Animation speed is illustrative.
       All inputs, states, and outputs in this flow are simulated.</p>

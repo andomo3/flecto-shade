@@ -219,6 +219,20 @@
       window.CadRoof.update = () => {};
       $("roof").textContent = `CAD rendering unavailable: ${error.message}. The soil map still works.`;
     }
+    for (const zone of ["A", "B", "C", "D"]) {
+      const button = document.createElement("button");
+      button.type = "button"; button.className = "btn-ghost";
+      button.textContent = zone;
+      button.setAttribute("aria-label", `Select region ${zone} footprints`);
+      button.addEventListener("click", () => {
+        selected.clear();
+        for (const instance of model.instances.filter(item => item.kind === "flap" && item.renderZone === zone)) {
+          for (const id of masks.get(instance.node)) selected.add(id);
+        }
+        invalidate(); describe(focusId);
+      });
+      $("region-controls").appendChild(button);
+    }
     $("layout-source").textContent = `${(layout.width_m * 1000).toFixed(1)} × ${(layout.length_m * 1000).toFixed(1)} mm ` +
       `assembly bounding rectangle. ${layout.cols} × ${layout.rows} cells, approximately 10 mm each. ${layout.source}.`;
     for (const id of ["simulate", "reset", "example", "all", "clear"]) $(id).disabled = false;
