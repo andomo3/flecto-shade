@@ -98,7 +98,8 @@ node --check software/page/app.js
 ```
 
 Run any additional tests or generators introduced by your feature.
-The watering controller tests and figure checks in PR #5 become part of the checks when that PR lands.
+CI also runs the watering controller tests when they are present.
+Run the figure checks documented in PR #5 when working on that feature.
 There is currently no TypeScript typecheck command or npm application build.
 UI changes also need a browser check of the affected interaction; attach evidence and identify the tested revision.
 CI does not verify visual rendering, physical hardware or agricultural outcomes.
@@ -120,7 +121,8 @@ File changes do not configure GitHub settings or create issues automatically.
    Select the check after this workflow has run at least once.
 2. Create the six labels above in [Labels](https://github.com/andomo3/flecto-shade/labels), then create and assign the initial issues.
 3. Connect the approved static host to `main`.
-   For Vercel, use `software/page` as the root, the Other framework preset, no build command, and `.` as the output directory.
+   For Vercel, use `software/page` as the root, the Other framework preset, an enabled but empty Build Command override, and `.` as the output directory.
+   See Vercel's [static build instructions](https://vercel.com/docs/builds/configure-a-build#skip-build-step).
    Record the actual public URL in the README only after verifying it.
    Host auto-deployment is not configured by this PR; CI runs tests but does not deploy.
 4. Merge the workflow PR and ask all active sessions to fetch `main` and read `AGENTS.md`.
