@@ -15,11 +15,14 @@ The skill's `pitch_timer.py` was left in the planning repo on purpose, so the co
 
 ## The story, as of the evening of 2026-09-19
 
-- One sentence: a Central Florida grower with three crops under one shade house roof gives each its own light, and lets the rain through only where the soil is dry, with a roof made of many small hingeless fins in place of one big curtain.
+- One sentence: What a plant needs depends on the state of its own bed, its crop, its stage, the season, and how wet its soil is, and a shade house gives every bed one number, so we simulate a roof of many small hingeless fins that gives each bed its own light, uses the rain where the soil is dry, and keeps it off where the soil is wet.
 - The hero is a grower near Apopka, introduced as illustrative, and the opening line is "Picture Elena, a grower near Apopka, Florida."
   The name is the team's to change.
 - How a roof like hers works today is said before anything else: the climate computer holds a daily light target and waters one valve at a time, and one motor pulls up to 50,000 square feet of curtain, "a fine brain, and a blunt hand".
-- The villain is the single curtain: one motor, one decision, for every plant under it, so every morning she picks which crop the roof is wrong for.
+- The general problem comes before everything: the University of Florida's table lists fifty crops with shade from thirty percent to ninety, croton wants thirty in summer and forty seven is too much in winter, and a shade house gives every bed one number.
+- The villain is one number for every bed, so to change a plant's light she moves the plant.
+- The storm has two halves: one bed uses the rain and one is protected from it, because water on saturated soil leaches fertilizer.
+- Never said, because the sources contradict them: that irrigation is wasted, that motors or lamps are saved. The irrigation system stays.
 - Why the fin: deciding bed by bed takes many small parts, every hinge is a bearing to grease, which is a documented chore, so the roof is made of a part with no hinge, ITKE's Flectofin, which also shades, opens for air, and lets the rain in as one element. No saving is quantified.
 - The ask, said before the close: one grower near Apopka to tell us where it is wrong.
 - The three specifics: 50,000 square feet a motor, from the UMass fact sheet; the fern's 8 mol a day against the hydrangea's 12, from Purdue; and the rain's share of the hydrangea zone's water, about 54 percent, from our own simulated run.

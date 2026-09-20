@@ -9,7 +9,7 @@ Every simulation figure is provisional, from the planner's run in `../plans/pack
 
 | File | What | Owner | State |
 |---|---|---|---|
-| `story.md` | The story every script is cut from: the grower, the single curtain, the story spine, the arc, the sourced specifics, the close | abba | rewritten 2026-09-19, the closing line is abba's to write |
+| `story.md` | The story every script is cut from: the grower, the general problem, one number for every bed, the story spine, the arc, the sourced specifics, the close | abba | rewritten 2026-09-19, the closing line is abba's to write |
 | `script.md` | The 30 second, 60 second, and 3 minute scripts, inside the playbook's word targets with the counts stated, and the recovery lines | abba | rewritten 2026-09-19, figures provisional, read aloud and timed on Sunday |
 | `storyboard.md` | The ninety second demo beat by beat: what is said, what the table does, what the screen shows | abba | rewritten 2026-09-19, matches the plan's table |
 | `questions.md` | The judge Q&A bank, the playbook's fifteen and the ones only this project gets | abba | rewritten 2026-09-19, brackets filled at the event |

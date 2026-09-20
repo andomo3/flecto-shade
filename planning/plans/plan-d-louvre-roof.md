@@ -7,7 +7,7 @@ The idea is in `../docs/ideas/flectofin-greenhouse-roof.md`, and the market rese
 
 ## The one sentence
 
-A Central Florida grower with three crops under one shade house roof gives each its own light, and lets the rain through only where the soil is dry, with a roof made of many small hingeless fins in place of one big curtain.
+What a plant needs depends on the state of its own bed, its crop, its stage, the season, and how wet its soil is, and a shade house gives every bed one number, so we simulate a roof of many small hingeless fins that gives each bed its own light, uses the rain where the soil is dry, and keeps it off where the soil is wet.
 
 ## What is ours, and what is not
 
@@ -65,12 +65,12 @@ The day the page plays is 3 June 2023, sun until mid afternoon and then 42 mm of
 
 | Time | Say | The screen |
 |---|---|---|
-| 0:00 | The grower near Apopka, three crops, one sky. How her roof works today: the computer waters one valve at a time, and one motor pulls up to 50,000 square feet of curtain, "a fine brain, and a blunt hand". So every morning she picks which crop the roof is wrong for | The roof from above, shut, three zones named, one Play button, the word "simulated" |
+| 0:00 | A foliage grower near Apopka, and the general problem from her own university: fifty crops with shade from thirty percent to ninety, and a shade house that gives every bed one number. How her roof works today: one motor pulls up to 50,000 square feet, "a fine brain, and a blunt hand". So to change a plant's light, she moves the plant | The roof from above, shut, three zones named, one Play button, the word "simulated" |
 | 0:20 | "Bed by bed takes many small parts, and every hinge is a bearing to grease. So we borrowed a part with no hinge: ITKE's Flectofin, patented, and not ours." | Unchanged, the roof shut, with the credit to ITKE on the page |
 | 0:30 | "Would you press play? This is 3 June 2023." | The sun rises, all fins open, three light gauges fill at the same rate |
 | 0:45 | "The fern has had its light by eleven. The hydrangea by noon. The blueberries want all of it." | Zone A's fins shut, then zone B's an hour later, and zone C stays open. This is the moment the three zones stop behaving as one roof |
-| 0:55 | "Then the afternoon storm. Forty two millimetres in two hours, from the real gauge." | Rain over all three. The hydrangea's fins reopen, because its soil is dry, and its soil gauge climbs to full. The blueberry's stay shut, because its soil is wet enough. The fern's stay shut, because it opted out. Each zone shows its reason in words |
-| 1:15 | "Same rain, three answers. And opening for it cost the hydrangea six mol of light it did not want. That is the trade, and it is on the card." | The result card: light against target per crop, and the rain's share of each zone's water |
+| 0:55 | "Then the afternoon storm, forty two millimetres, from the real gauge. Under cloth, every bed would get all of it. Here, read the words under each bed." | Rain over all three. The hydrangea's fins reopen, because its soil is dry, and its soil gauge climbs to full. The blueberry's stay shut, because its soil is wet enough. The fern's stay shut, because it opted out. Each zone shows its reason in words |
+| 1:15 | "Same rain, three answers. One bed used it, and one was kept dry, so its fertilizer stays. And opening cost the hydrangea six mol of light it did not want." | The result card: light against target per crop, and the rain's share of each zone's water |
 | 1:25 | The close, and what it is not | The year by month: the wet season carrying the hydrangea, the dry season on the grower's own water |
 
 The judge touches it once, Play.
@@ -78,9 +78,12 @@ The fallback is the recorded run, then the screen recording.
 
 ## The presentation
 
-- The hero is a grower, named as illustrative, with three crops and one roof.
+- The hero is a foliage grower near Apopka, named as illustrative, whose beds want different light under one roof. The pitch does not rest on a mixed house: the three zones on the screen are three light classes.
+- The general problem comes first, from the University of Florida's own centre at Apopka: fifty crops with shade from thirty percent to ninety, croton's thirty in summer and forty seven in winter, and months of heavy shade before sale for the same plant. See `../docs/research/flectofin-greenhouse-roof/problem-framing.md`.
 - The ground, said before the fin means anything: how a roof works today. The climate computer holds a daily light target and waters one valve at a time, and one motor pulls up to 50,000 square feet of curtain: a fine brain, and a blunt hand.
-- The villain is the single curtain: one motor, one decision, for every plant under it.
+- The villain is one number for every bed: one cloth, or one curtain on one motor, so to change a plant's light the grower moves the plant.
+- The storm has two halves: one bed uses the rain, and one is protected from it, because under cloth every bed gets all of it, and water on saturated soil leaches fertilizer.
+- Tested against sources and dropped, never said: that irrigation infrastructure is wasted, that the roof saves motor energy, and that it cuts spending on lamps. The irrigation system stays.
 - Why the fin: deciding bed by bed takes many small parts, every hinge is a bearing to grease, which the growers' own guides list as a chore, and the Flectofin has no hinge and does three jobs as one element. It is the team's argument, with no saving quantified.
 - The three specifics: 50,000 square feet a motor, from the UMass fact sheet; the fern's 8 mol a day against the hydrangea's 12, from Purdue; and the rain's share of the hydrangea zone's water, about 54 percent, from our own run.
 - The honesty comes first and unasked: the fin is ITKE's, the control logic is standard, growers keep rain off glasshouse crops on purpose, and nothing here is measured.

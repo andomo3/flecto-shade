@@ -22,19 +22,23 @@ hardware and nothing to hold. The project is one web page and the story told ove
 the screen is the second storyteller, and the pitch wins or loses on what that page shows
 in ninety seconds.
 
-The project: a SIMULATED smart louvre roof for a grower with three crops under one shade
-house roof near Apopka, in Central Florida. The three crops are Boston fern, hydrangea,
+The project: a SIMULATED smart louvre roof for a foliage grower whose beds want different light under one shade
+house roof near Apopka, in Central Florida. The screen shows three beds as three light classes: Boston fern, hydrangea,
 and blueberry, one per zone, named A, B, and C.
 
 The story, in the order the judge hears it:
 1. The hero is a grower we call Elena, introduced as illustrative with "Picture Elena".
-   Three crops, one sky.
+   The general problem comes from her own university: fifty foliage crops with shade from
+   30 to 90 percent, croton wanting 30 percent in summer where 47 is too much in winter,
+   and a shade house that gives every bed one number.
 2. How a roof like hers works today: "a fine brain, and a blunt hand". The climate
    computer is already fine grained: it holds a daily light target and waters one valve
    at a time. The roof is not: one motor pulls up to 50,000 square feet of curtain. So
    every plant under it gets one decision.
 3. The pain: the fern is at its best from 8 mol of light a day and the hydrangea from 12,
-   so every morning Elena picks which crop the roof is wrong for.
+   and to change a plant's light today, Elena moves the plant. Rain is the same problem:
+   under cloth a storm falls on every bed alike, and on a bed that is already wet it
+   leaches the fertilizer. So one bed should use the rain and another be protected from it.
 4. Why the fin: to decide bed by bed a roof needs many small parts, and with hinges every
    one is a bearing to grease, a documented chore. So the roof is made of a part with no
    hinge: the Flectofin, a thin blade on a rib that bends open. The same part shades,

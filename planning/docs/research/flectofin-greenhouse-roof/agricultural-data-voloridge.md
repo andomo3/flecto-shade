@@ -15,6 +15,8 @@ The Florida Automated Weather Network, FAWN, run by UF/IFAS, publishes 15 minute
 It is free, needs no key, and is the same sky the project already claims to simulate, only measured instead of modelled.
 
 The finding, computed today from the real files and not yet reproduced in the event repo.
+The analysis figures below remain provisional until checked-in code reproduces them.
+Roof-state disagreements are outputs of assumed control rules, not measurements of crop injury or roof performance.
 The first one is the pitch, and the rest are why it is true:
 
 - **One roof position is wrong for one of these three crops for most of the daylight year.**
@@ -334,7 +336,7 @@ Step 7 is the argument and step 8 is the picture, and if the hours run out those
 - FAWN data access and the FTP listings, UF/IFAS, `https://fawn.ifas.ufl.edu/data/` and `https://fawn.ifas.ufl.edu/data/fawnpub/15_minute_obs/BY_STATION/`, fetched 2026-09-20.
 - FAWN station locations, `https://fawn.ifas.ufl.edu/tour/location_info.php`, fetched 2026-09-20.
 - Peeling, J. A., Judge, J., Misra, V. et al. "Gap-free 16-year (2005-2020) sub-diurnal surface meteorological observations across Florida", Sci Data 10, 907 (2023), `https://doi.org/10.1038/s41597-023-02826-4`.
-- NASA POWER hourly point API, version 2.10.2, the call already recorded in `../../../data/README.md`, and a second call at the Apopka station's own coordinates for the identical-series check.
+- NASA POWER hourly point API, version 2.10.2, the call already recorded in [data provenance](../../../../data/README.md), and a second call at the Apopka station's own coordinates for the identical-series check.
 - NOAA NCEI Global Hourly, ISD, station 72205312841, Orlando Executive Airport, 2023, `https://www.ncei.noaa.gov/data/global-hourly/access/2023/72205312841.csv`, 6,393,887 bytes, which matches the size and sha256 recorded in H1.
 - Seltsam, L. et al. "Photosynthetic Daily Light Integral Influences Growth, Morphology, Physiology, and Quality of Swordfern Cultivars", HortScience (2022), DOI 10.21273/HORTSCI16717-22.
 - USDA NASS Quick Stats API, `https://quickstats.nass.usda.gov/api`, and the 2019 Census of Horticultural Specialties tables, `https://www.nass.usda.gov/Publications/AgCensus/2017/Online_Resources/Census_of_Horticulture_Specialties/`.

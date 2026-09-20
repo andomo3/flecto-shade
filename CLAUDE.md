@@ -1,5 +1,6 @@
-# flecto-shade
+# Flecto Shade
 
-The rules for this repo live in `AGENTS.md`, so that every agent reads the same ones.
+Follow `AGENTS.md` and `CONTRIBUTING.md` for the shared GitHub workflow.
+Historical package instructions do not override them.
 
 @AGENTS.md

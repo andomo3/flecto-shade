@@ -9,7 +9,7 @@ After the freeze a change is a cut, never a pivot.
 
 ## One sentence
 
-A Central Florida grower with three crops under one shade house roof gives each its own light, and lets the rain through only where the soil is dry, with a roof made of many small hingeless fins in place of one big curtain.
+What a plant needs depends on the state of its own bed, its crop, its stage, the season, and how wet its soil is, and a shade house gives every bed one number, so we simulate a roof of many small hingeless fins that gives each bed its own light, uses the rain where the soil is dry, and keeps it off where the soil is wet.
 
 ## What is ours, and what is not
 
@@ -24,7 +24,7 @@ A Central Florida grower with three crops under one shade house roof gives each 
 The full table, with what is said at each beat, is in `plans/plan-d-louvre-roof.md`, and the scripts are in `pitch/`.
 
 1. The judge sees the roof from above, shut, three zones named, one Play button, and the word "simulated", and hears how a roof like this works today: a fine brain, and a blunt hand.
-   The grower near Apopka, three crops, one sky.
+   A foliage grower near Apopka, and her own university's table: fifty crops, thirty to ninety percent shade, and one number for every bed.
 2. Why the fin, said while the roof sits shut, with the credit to ITKE on the page.
    "Bed by bed takes many small parts, and every hinge is a bearing to grease. So we borrowed a part with no hinge: ITKE's Flectofin, patented, and not ours."
 3. The judge presses Play, and the page plays 3 June 2023 in about forty seconds.
@@ -111,7 +111,7 @@ The 2025 day-of site listed creativity, technical difficulty, design, and useful
 |---|---|
 | A visible live result | One roof becomes three, at 0:45, and the same rain gets three answers, at 0:55 |
 | A number said out loud | The rain's share of the hydrangea's water, and the six mol the rain cost it |
-| A named user and an unglamorous problem | A grower, named as illustrative, and a single curtain that makes one decision for every plant under it |
+| A named user and an unglamorous problem | A foliage grower, named as illustrative, and a roof that gives every bed one number, so she moves the plant to change its light |
 | A reason to trust it | A real gauge, a real year, and rules a judge can read, with each zone saying its reason in words |
 | Honesty | The fin is ITKE's, the control logic is standard, and nothing is measured, all said first and unasked |
 

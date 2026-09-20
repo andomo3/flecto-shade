@@ -18,26 +18,28 @@ The hardware challenge is out, because there is no hardware.
 Voloridge's challenge accepts any dataset, confirmed by abba on Saturday evening, so the project's NASA POWER sun and NOAA rain gauge qualify as they are, and no rule in this repo limits the choice of dataset for it.
 Cognition's, if it has one, because Devin wrote the code.]
 
-**Tagline, one line:** A simulated shade house roof of small hingeless fins that gives three crops three different answers to the same sky.
+**Tagline, one line:** A simulated shade house roof of small hingeless fins that gives every bed its own answer to the same sky.
 
 **Inspiration**
 
-A grower with three crops under one shade house roof gives all three the same sky.
+What a plant needs depends on the state of its own bed, and a shade house gives every bed one number.
+The University of Florida's centre at Apopka lists 50 foliage crops with shade from 30 percent to 90, and says of one of them, croton, that 30 percent shade "is not quite enough in summer, but 47% is too much in winter".
 The way such a roof works today is a fine brain and a blunt hand.
 The climate computer is already fine grained: it holds a daily light target, and it waters one valve at a time.
-The roof is not: one motor pulls up to 50,000 square feet of curtain, so every plant under it gets one decision.
-But a Boston fern is at its best from 8 mol of light a day, and a hydrangea from 12, so whatever the roof does is wrong for one of them.
+The roof is not: it is one cloth, or one curtain on a motor that pulls up to 50,000 square feet, so to change a plant's light a grower moves the plant.
+Rain is the same problem: under cloth a storm falls on every bed alike, and on a bed that is already wet the same centre says it "will leach fertilizer".
 We asked what a roof would do if it could decide bed by bed.
 That takes a roof of many small parts, and with hinges every one of them is a bearing to grease, which the growers' own guides already list as a chore.
 So we borrowed a part with no hinge: the Flectofin, a blade that bends open, which also shades, opens for air, and lets the rain through as one element.
-No saving in upkeep is quantified, by our sources or by us.
+No saving is quantified, by our sources or by us, and the irrigation system stays.
 
 **What it does**
 
 Everything here is simulated, and nothing physical was built.
 It simulates a roof of many small fins over three crop zones near Apopka, Florida, hour by hour through 2023.
 Each zone's fins open and shut by nine written rules, in the priority night, then rain, then light.
-Each zone gets its own light, and lets the rain through only when its soil is dry, only in daylight, and only if its crop has opted in.
+Each zone gets its own light, uses the rain only when its soil is dry, only in daylight, and only if its crop has opted in, and is kept out of the rain when its soil is already wet.
+The three zones are three light classes, shown with the three crops whose published daily light figures we could source.
 One page plays one real day, 3 June 2023, in about forty seconds: the fern's zone shuts by eleven, the hydrangea's by noon, the blueberries stay open, and then an afternoon storm gets three different answers, each with its reason in words.
 The day ends on a result card, and then the year by month.
 Over the simulated year, the rain supplied about [54] percent of the hydrangea zone's water and about [17] percent of the blueberry zone's, and the fern was held to its light target on about [354] of 365 days.
