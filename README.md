@@ -6,13 +6,9 @@
 
 Built at HackMIT 2026 · Plain HTML/CSS/JavaScript · Python 3.13 · [MIT](LICENSE)
 
-> **Current status:** the live demo runs the whole simulated day of 3 June 2023 in about forty seconds, for three growing zones.
+> **Current status:** the static demo runs the whole simulated day of 3 June 2023 near Apopka, Florida, in about forty seconds, for three growing zones.
 > It is deployed as a static page, so the configuration workspace shows its offline state and holds changes in the session only.
 > Everything on it is simulated from public weather inputs, and no value on it is a validated engineering result.
-
-![At 15:00 on the simulated 3 June 2023, with 23.9 mm of rain falling, the hydrangea zone's roof is open to take the rain while the fern and blueberry zones stay closed](assets/hero-storm-three-answers.jpg)
-
-*The live page at 15:00 on the simulated day. One storm, three answers: the hydrangea opens because its soil is dry, and the fern stays shut because its crop excludes rain. Simulated.*
 
 ## Problem
 
