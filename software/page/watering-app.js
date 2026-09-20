@@ -235,10 +235,10 @@
     }
     $("layout-source").textContent = `${(layout.width_m * 1000).toFixed(1)} × ${(layout.length_m * 1000).toFixed(1)} mm ` +
       `assembly bounding rectangle. ${layout.cols} × ${layout.rows} cells, approximately 10 mm each. ${layout.source}.`;
-    for (const id of ["simulate", "reset", "example", "all", "clear"]) $(id).disabled = false;
+    for (const id of ["simulate", "reset-event", "example", "all", "clear"]) $(id).disabled = false;
     $("rain-form").addEventListener("submit", run);
     for (const id of ["rain", "soil", "target", "spill"]) $(id).addEventListener("input", invalidate);
-    $("reset").addEventListener("click", () => {
+    $("reset-event").addEventListener("click", () => {
       selected.clear(); $("rain-form").reset(); invalidate(); describe(focusId);
     });
     $("clear").addEventListener("click", () => { selected.clear(); invalidate(); describe(focusId); });
