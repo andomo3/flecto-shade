@@ -53,7 +53,7 @@ def result_of(output: str, gate: str) -> str:
 
 def test_empty_repo_prints_fourteen_rows_and_exits_zero(repo: Path) -> None:
     run = gates(repo)
-    rows = [l for l in run.stdout.splitlines() if l.startswith("| F")]
+    rows = [line for line in run.stdout.splitlines() if line.startswith("| F")]
     assert len(rows) == 14
     assert "FAIL" not in run.stdout
     assert run.returncode == 0
@@ -174,6 +174,7 @@ def test_both_year_files_run_and_passing_year_cannot_hide_demo_failure(repo: Pat
     (tests / "test_demo.py").write_text("def test_demo():\n    assert False\n", encoding="utf-8")
     run = gates(repo)
     assert result_of(run.stdout, "F1") == "FAIL"
+    assert "FAILED software/tests/test_demo.py::test_demo" in run.stdout
     assert "The year: PASS - 2 passed" in run.stdout
     assert run.returncode == 1
 

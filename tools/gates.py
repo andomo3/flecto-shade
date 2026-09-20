@@ -140,7 +140,11 @@ def _pytest(run: Run, *targets: str) -> tuple[str, str]:
         return PASS, summary or "pytest exited 0"
     if result.returncode == PYTEST_NO_TESTS:
         return NOT_YET, "no tests collected; the first package with a test switches it on"
-    return FAIL, summary or f"pytest exited {result.returncode}"
+    failures = [line for line in result.stdout.splitlines() if line.startswith(("FAILED ", "ERROR "))]
+    evidence = summary or f"pytest exited {result.returncode}"
+    if failures:
+        evidence += "; " + failures[0]
+    return FAIL, evidence
 
 
 def _gate_test(gate_id: str, package: str) -> Gate:
