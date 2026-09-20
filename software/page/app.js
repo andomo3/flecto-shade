@@ -138,7 +138,7 @@
   }
 
   /* A tag is centred on its zone, so a zone near the edge pushes half its tag out of
-     the frame. Only a tag that close to an edge is measured and pulled back in. */
+     the frame. Only a tag that close to an edge has its width read, and is pulled back in. */
   function keepTagsInside(host) {
     var width = host.clientWidth, margin = 8, near = 140;
     Array.prototype.forEach.call(host.children, function (tag) {
