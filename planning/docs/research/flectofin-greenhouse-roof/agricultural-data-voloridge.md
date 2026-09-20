@@ -14,8 +14,12 @@ idea: flectofin-greenhouse-roof
 The Florida Automated Weather Network, FAWN, run by UF/IFAS, publishes 15 minute measured solar radiation and rainfall from 57 stations, one of which sits at the UF/IFAS Mid-Florida Research and Education Center in Apopka and has run since 1997.
 It is free, needs no key, and is the same sky the project already claims to simulate, only measured instead of modelled.
 
-The finding, computed today from the real files and not yet reproduced in the event repo:
+The finding, computed today from the real files and not yet reproduced in the event repo.
+The first one is the pitch, and the rest are why it is true:
 
+- **One roof position is wrong for one of these three crops for most of the daylight year.**
+  H1's own rules, reimplemented to its spec and run over the measured 2023 year at Apopka, put the three zones in different positions for 2,866 of 5,031 daylight hours, 57 percent, on 364 of 365 days, a median of 8 hours a day.
+  Swapping only the weather record, the modelled one the project uses for the on site one, changes what the roof does in 20 percent of daylight hours.
 - **Rain in Central Florida does not survive 21 km.**
   Of the 557 hours in 2023 that were wet at either the Apopka station or the Avalon station, 21 km apart, only 205 were wet at both, which is 36.8 percent, with a bootstrap 95 percent interval of 32.7 to 40.9 percent.
   The same figure over 2018 to 2024 is 34 to 43 percent, mean 38 percent, so it is not one odd year.
@@ -51,8 +55,10 @@ The judges are quants, so expect the questions to be about the assumptions, the 
 
 Still open, and the same question the bus stop research left open in `../../../archive/docs/research/adaptive-bus-stop-canopy/voloridge-datasets.md`.
 The transcribed challenge text says "We'll provide a curated selection of large, publicly available datasets", and it is not known whether a public dataset from outside that selection counts.
-Ask at the booth, and ask before any hour is spent.
-If outside data is not allowed, the shape of the analysis below survives with any gridded or station climate set in the curated list: it needs two or more nearby stations and one modelled product over the same hours.
+Ask at the booth, and enter either way.
+The team's decision, 2026-09-20: this analysis is done because the project needs it, and the Voloridge entry is a use of it rather than the reason for it.
+Every finding below backs a claim the pitch has to make anyway, so none of the work is wasted if the curated list turns out to be binding.
+If it is binding, the shape of the analysis survives with any gridded or station climate set in that list, because all it needs is two or more nearby stations and one modelled product over the same hours.
 
 ## The dataset
 
@@ -206,11 +212,67 @@ At Apopka in 2023 there were 761 wet quarter hours, and 382 of them, 50 percent,
 Half of all rain arrives while opening the roof still costs the crop light.
 That is the conflict the demo's fifth beat shows, and it is not a rare case.
 
+### 6. The roof's own rules, run on measured weather, back the claim directly
+
+Findings 1 to 5 are about weather.
+This one is about the product, and it is the one the pitch should lead with, because it answers "why zones" with the project's own rules rather than with an argument.
+
+H1's rules were reimplemented exactly as `../../../plans/packages/H1-zones-light-rain-soil.md` specifies them, night then rain then light, the same constants, the same 60 mm bucket and its latch, and run twice over 2023 at Apopka on two sets of inputs.
+The modelled run uses what the project actually uses: NASA POWER for sun and temperature, and the Orlando Executive gauge 23 km away for rain.
+The measured run swaps all three for the FAWN station on the site itself.
+
+The replication is faithful, and that is checkable: on the modelled inputs it reproduces H1's planned year table to the hour for the blueberry, `NIGHT 4184, LIGHT_OPEN 3681, HEAT_SHADE 645, RAIN_SHUT 182, RAIN_OPEN 60` against a planned `4192, 3681, 645, 182, 60`, with rain stored 186.3 mm and irrigation 904.8 mm on the nose, and it independently lands on the plan's 702 daylight hours at or above 32.2 C.
+The hydrangea's rain share comes out 0.544 against a planned 0.545.
+So H1's expected values are right before a line of it is written, which is worth knowing on its own.
+
+**The zones want different things for most of the daylight year.**
+On the measured inputs the three zones are not all in the same position for 2,866 of 5,031 daylight hours, 57 percent, on 364 of 365 days, a median of 8 hours a day and as many as 14.
+One roof, one position, is wrong for at least one of these three crops for most of the daylight hours of the year.
+That is the claim the whole project rests on, and it is now a number from a measured year rather than an assertion.
+
+**Changing nothing but the weather record changes what the roof does.**
+Same rules, same site, same year.
+
+| Zone | hours the two runs choose differently |
+|---|---|
+| A fern | 4.0 percent |
+| B hydrangea | 5.8 percent |
+| C blueberry | 13.8 percent |
+| at least one zone | 20.0 percent |
+
+Those are shares of the 4,567 hours both sources agree are daylight, which is the conservative denominator.
+Counting every hour either source calls daylight gives 26.1 percent, and on 344 of 365 days the two runs disagree about at least one hour.
+
+The reasons are separable, and each one is a finding.
+
+- **Temperature.** The modelled year has 702 daylight hours at or above 32.2 C and the on site thermometer has 293.
+  MERRA-2's 2 m temperature says shade the blueberries two and a half times as often as the site itself does.
+  That is the whole of the blueberry zone's 13.8 percent, since heat is its only shade trigger.
+- **Rain.** The on site bucket and the airport gauge agree on 205 of the 545 hours one of them called wet, 38 percent, which is the same agreement as two FAWN stations 21 km apart in finding 1.
+  The airport is wetter for the year, 1,339 mm against 1,194, and yet has fewer wet daylight hours, 242 against 306, so it is not simply a scale factor.
+- **Light.** The pyranometer sees roughly an hour a day more twilight than POWER does, and crosses the crop targets about an hour later, which is a consequence of the smoothing in finding 3 rather than a separate effect.
+
+**And the water number moves a long way.**
+Fed the on site rain record instead of the airport's, the simulation stores 326.9 mm for the hydrangea instead of 258.1 and irrigates 145.0 mm instead of 216.7, so the rain's modelled share goes from 0.54 to 0.69.
+That is not a claim about water saved, and it must never be said as one.
+It is a claim about data: a third of the modelled irrigation for that zone is an artefact of measuring the rain 23 km away.
+
+Read together with findings 1 and 3 the shape is one argument at three scales.
+The satellite cannot resolve 23 km, the gauge 23 km away is right about the rain 38 percent of the time, and one roof position is wrong for one of three crops 57 percent of the daylight year.
+Every layer of the usual stack is coarser than the thing it is deciding about, and the roof is the layer this project can actually fix.
+
+Caveats, because a quant will find them.
+The two runs are not an error measurement, because neither source is truth for the other, and the rain comparison mixes model error with 23 km of separation, though the solar and temperature comparison does not, since POWER returns the identical series at both points.
+FAWN's thermometer and MERRA-2's 2 m temperature are not the same quantity.
+The soil bucket latches, so a small early difference can carry for days, which inflates the daily counts and not the hourly ones.
+None of that moves 57 percent or 702 against 293.
+
 ## The risk this research found
 
 The project assumes 8 mol a day for the Boston fern.
 Seltsam et al., "Photosynthetic Daily Light Integral Influences Growth, Morphology, Physiology, and Quality of Swordfern Cultivars", HortScience 2022, DOI 10.21273/HORTSCI16717-22, recommend about 10 to 12 mol for containerised Nephrolepis in greenhouse production.
 If the fern's target is 10 rather than 8, the fern and the hydrangea shut within about twenty minutes of each other and the demo's fourth beat, the moment one roof becomes three, is much weaker.
+Finding 6 softens this but does not remove it: even with the 8 mol target the light rule is only part of the 57 percent, and the rain and heat rules carry the rest.
 
 Three ways out, and the team picks one out loud.
 
@@ -238,9 +300,11 @@ Each step with the check that makes it defensible.
 6. NASA POWER against the pyranometer at Apopka, hourly and daily, with the daylight saving join asserted in a test.
    Check: the fixed five hour join must give a clearly worse fit than the corrected one, and that gap, 175 against 103 W/m2, is the test.
    Second check: pull POWER at two coordinates 23 km apart and assert the series are identical, because that one assertion is the finding.
-7. One figure: disagreement against distance, with the fern to hydrangea target gap drawn as a horizontal line, so the eye reads "the noise between two farms is the size of the difference between two crops".
+7. The two runs of H1's rules, one on the modelled record and one on the measured one, and the hour by hour difference between them.
+   Check: the modelled run must reproduce H1's planned year table within its stated tolerances, and if it does not, the replication is wrong and nothing downstream is said.
+8. One figure: disagreement against distance, with the fern to hydrangea target gap drawn as a horizontal line, so the eye reads "the noise between two farms is the size of the difference between two crops".
 
-That figure is the submission, and it is the one thing to build if the hours run out.
+Step 7 is the argument and step 8 is the picture, and if the hours run out those two are what ship.
 
 ## What was considered and set aside
 
@@ -270,7 +334,8 @@ That figure is the submission, and it is the one thing to build if the hours run
 - FAWN data access and the FTP listings, UF/IFAS, `https://fawn.ifas.ufl.edu/data/` and `https://fawn.ifas.ufl.edu/data/fawnpub/15_minute_obs/BY_STATION/`, fetched 2026-09-20.
 - FAWN station locations, `https://fawn.ifas.ufl.edu/tour/location_info.php`, fetched 2026-09-20.
 - Peeling, J. A., Judge, J., Misra, V. et al. "Gap-free 16-year (2005-2020) sub-diurnal surface meteorological observations across Florida", Sci Data 10, 907 (2023), `https://doi.org/10.1038/s41597-023-02826-4`.
-- NASA POWER hourly point API, version 2.10.2, the call already recorded in `../../../data/README.md`.
+- NASA POWER hourly point API, version 2.10.2, the call already recorded in `../../../data/README.md`, and a second call at the Apopka station's own coordinates for the identical-series check.
+- NOAA NCEI Global Hourly, ISD, station 72205312841, Orlando Executive Airport, 2023, `https://www.ncei.noaa.gov/data/global-hourly/access/2023/72205312841.csv`, 6,393,887 bytes, which matches the size and sha256 recorded in H1.
 - Seltsam, L. et al. "Photosynthetic Daily Light Integral Influences Growth, Morphology, Physiology, and Quality of Swordfern Cultivars", HortScience (2022), DOI 10.21273/HORTSCI16717-22.
 - USDA NASS Quick Stats API, `https://quickstats.nass.usda.gov/api`, and the 2019 Census of Horticultural Specialties tables, `https://www.nass.usda.gov/Publications/AgCensus/2017/Online_Resources/Census_of_Horticulture_Specialties/`.
 - The Voloridge challenge slide, photographed at the opening ceremony, 2026-09-19, transcribed in `../../../archive/docs/research/adaptive-bus-stop-canopy/voloridge-datasets.md`.
