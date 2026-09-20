@@ -11,14 +11,15 @@ The closing line is a working draft, and abba replaces it in abba's own voice.
 
 ## The voiceover
 
-Count: 229 words, inside the 225 to 270 that 90 seconds allows at the playbook's pace, and at the low end on purpose, because the screen talks twice.
+Count: 233 words, inside the 225 to 270 that 90 seconds allows at the playbook's pace, and at the low end on purpose, because the screen talks twice.
 Counted as whitespace separated words in the spoken text only, and counted again after any edit.
 
 ### 0:00 to 0:21, the problem, over the roof before the run
 
 "Picture Elena, a foliage grower near Apopka, Florida.
 The University of Florida's table lists fifty crops, with shade from thirty percent to ninety.
-But a shade house gives every bed one number, and one motor pulls up to fifty thousand square feet of roof.
+But her shade is one curtain on one motor, and one motor can cover most of a football field.
+So every bed gets the same.
 So to change a plant's light, Elena moves the plant."
 
 ### 0:21 to 0:36, the turn and the credit, over the module view
@@ -74,7 +75,9 @@ Why shot 5 exists: on the built page an hour of rain plays in 2.4 seconds, so th
 The story asked for 5.0 seconds an hour, and the page was built without it, so the edit holds a still frame in its place.
 
 Captions are burned in for every spoken line, because judges often watch with the sound off.
-Where fifty crops and 50,000 square feet are spoken, the source sits under them in small type: UF/IFAS, Apopka, and the UMass fact sheet on retractable roof greenhouses and shadehouses.
+Where fifty crops is spoken, its source sits under it in small type: UF/IFAS, Apopka.
+Where the football field is spoken, the caption gives the real figure and its source: "One gear motor will handle up to 50,000 sq ft of roof", UMass fact sheet on retractable roof greenhouses and shadehouses.
+The football field is the team's comparison and not the source's: a field with its end zones is 57,600 square feet, so 50,000 is most of one.
 The voice is recorded apart from the screen, in a quiet room, on a phone held close.
 
 ## If the farmer-selected watering flow merges before the recording
@@ -95,18 +98,18 @@ NOT YET means it cannot be checked until the recording exists, and it is never r
 |---|---|---|
 | Opens with a story, and never with "hi, we are" | PASS | "Picture Elena" |
 | The user is named within the opening two sentences | PASS | Sentence one |
-| The problem is said in one sentence | PASS | "a shade house gives every bed one number" |
+| The problem is said in one sentence | PASS | "one curtain on one motor", so "every bed gets the same" |
 | The pain is felt, in under 30 seconds | PASS | "Elena moves the plant", by 0:21 |
 | The problem has its low before the product appears | PASS | 21 seconds before the turn |
 | The demo starts by the 60 second mark | PASS | The click is at 0:36 |
-| Three specifics in each sixty seconds | PASS | Fifty crops, thirty to ninety percent, 50,000 square feet, then eleven, noon, and forty two millimetres |
+| Three specifics in each sixty seconds | PASS | Fifty crops, thirty to ninety percent, most of a football field with 50,000 square feet in the caption, then eleven, noon, and forty two millimetres |
 | The demo is a scene and not a tour | PASS | One day, one storm, no feature list, no stack |
 | A wow moment is marked | PASS | Shot 5, one storm and three answers |
-| What makes it different is said | PASS | "bed by bed", against one motor for 50,000 square feet |
+| What makes it different is said | PASS | "bed by bed", against one curtain over most of a football field |
 | The close returns to the character, with no new information | PASS | Elena, the last two lines |
 | The ask comes before the close | PASS | "and that is next" |
 | Ends on the link, and stops | PASS | The end card, then silence |
-| Inside the word range for its length | PASS | 229 words, range 225 to 270 |
+| Inside the word range for its length | PASS | 233 words, range 225 to 270 |
 | Nothing invented about users or evidence | PASS | No quote, no pilot, no user feedback claimed, and "no grower has seen this yet" is said |
 | A proxy stays a proxy | PASS | Light and rain are said as light and rain, and no outcome for a crop is claimed |
 | One concrete metric tied to a person | PARTLY | Forty two millimetres and three answers are tied to Elena's beds. The year's figure for the rain's share is left out, because `headline.json` does not exist |
