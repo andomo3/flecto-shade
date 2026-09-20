@@ -106,54 +106,257 @@
     return D.zones.some(function (z) { return overrides[z.zone] !== !!z.rain_ok; });
   }
 
-  /* ---------- the roof figure ---------- */
+  /* ---------- the roof, the team's CAD, drawn in WebGL with no library ----------
+
+     model.json carries three tessellated meshes and 23 instances: one base plate and
+     22 flaps in 11 rows, banded across the three zones. Every flap is hinged at its own
+     local origin and runs 50 mm along local -Y, so a flap opens by rotating about its
+     local X axis. Shading is flat, taken from screen-space derivatives, so the file
+     needs no normals. */
+
+  var MODEL = null, gl = null, prog = null, loc = {}, gpu = [], canvas = null;
+  var MAX_FLAP_DEG = 72;
+
+  // Flaps ease toward the hour's open fraction rather than snapping to it. The day
+  // plays 24 hours in 38 seconds, so an untweened roof reads as broken rather than fast.
+  var shown = {}, settled = true, raf = null;
+
+  var VERT = [
+    "#version 300 es",
+    "in vec3 aPos;",
+    "uniform mat4 uProj; uniform mat4 uView; uniform mat4 uModel;",
+    "out vec3 vWorld;",
+    "void main() {",
+    "  vec4 w = uModel * vec4(aPos, 1.0);",
+    "  vWorld = w.xyz;",
+    "  gl_Position = uProj * uView * w;",
+    "}"
+  ].join("\n");
+
+  var FRAG = [
+    "#version 300 es",
+    "precision highp float;",
+    "in vec3 vWorld;",
+    "uniform vec3 uColor; uniform vec3 uLight;",
+    "out vec4 frag;",
+    "void main() {",
+    "  vec3 n = normalize(cross(dFdx(vWorld), dFdy(vWorld)));",
+    "  float key = max(dot(n, normalize(uLight)), 0.0);",
+    "  float rim = max(dot(n, normalize(vec3(-0.4, 0.3, 0.6))), 0.0);",
+    "  vec3 c = uColor * (0.42 + 0.62 * key + 0.10 * rim);",
+    "  frag = vec4(pow(c, vec3(0.4545)), 1.0);",
+    "}"
+  ].join("\n");
+
+  function mat4() {
+    return new Float32Array([1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1]);
+  }
+
+  function multiply(a, b) {
+    var out = new Float32Array(16);
+    for (var c = 0; c < 4; c++) {
+      for (var r = 0; r < 4; r++) {
+        out[c * 4 + r] = a[r] * b[c * 4] + a[4 + r] * b[c * 4 + 1] +
+                         a[8 + r] * b[c * 4 + 2] + a[12 + r] * b[c * 4 + 3];
+      }
+    }
+    return out;
+  }
+
+  function translation(x, y, z) {
+    var m = mat4(); m[12] = x; m[13] = y; m[14] = z; return m;
+  }
+
+  function rotationX(rad) {
+    var m = mat4(), c = Math.cos(rad), s = Math.sin(rad);
+    m[5] = c; m[6] = s; m[9] = -s; m[10] = c;
+    return m;
+  }
+
+  function perspective(fovy, aspect, near, far) {
+    var f = 1 / Math.tan(fovy / 2), m = new Float32Array(16);
+    m[0] = f / aspect; m[5] = f; m[11] = -1;
+    m[10] = (far + near) / (near - far);
+    m[14] = (2 * far * near) / (near - far);
+    return m;
+  }
+
+  function lookAt(eye, at, up) {
+    var z = norm(sub(eye, at)), x = norm(cross(up, z)), y = cross(z, x);
+    return new Float32Array([
+      x[0], y[0], z[0], 0,
+      x[1], y[1], z[1], 0,
+      x[2], y[2], z[2], 0,
+      -dot(x, eye), -dot(y, eye), -dot(z, eye), 1
+    ]);
+  }
+
+  function sub(a, b) { return [a[0]-b[0], a[1]-b[1], a[2]-b[2]]; }
+  function dot(a, b) { return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]; }
+  function cross(a, b) {
+    return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+  }
+  function norm(v) {
+    var l = Math.hypot(v[0], v[1], v[2]) || 1;
+    return [v[0]/l, v[1]/l, v[2]/l];
+  }
+
+  function compile(type, src) {
+    var sh = gl.createShader(type);
+    gl.shaderSource(sh, src);
+    gl.compileShader(sh);
+    if (!gl.getShaderParameter(sh, gl.COMPILE_STATUS)) {
+      throw new Error(gl.getShaderInfoLog(sh));
+    }
+    return sh;
+  }
 
   function buildRoof() {
-    var W = 1000, H = 420, padX = 30, gap = 40, topPad = 56;
-    var n = D.zones.length;
-    var bedW = (W - padX * 2 - gap * (n - 1)) / n;
-    var bedH = H - topPad - 24;
-    var svg = ['<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet"' +
-               ' role="img" aria-label="Three shade house zones seen from above, each under its own roof of fins">'];
+    var host = $("roof");
+    host.innerHTML = "";
 
-    D.zones.forEach(function (z, zi) {
-      var x = padX + zi * (bedW + gap);
-      svg.push('<text class="bed-label" x="' + x + '" y="24">Zone ' + z.zone + '</text>');
-      svg.push('<text class="bed-crop" x="' + x + '" y="44">' + z.crop + '</text>');
-      svg.push('<rect x="' + x + '" y="' + topPad + '" width="' + bedW + '" height="' + bedH +
-               '" rx="8" fill="#ffffff" stroke="#ded7c9"/>');
+    if (!MODEL) {
+      host.innerHTML = '<p class="model-missing">The roof model is missing. ' +
+        'Run python software/page/build_model.py, then reload.</p>';
+      return;
+    }
 
-      // A louvre turning edge-on narrows to a line, so a fin's drawn depth is its open
-      // fraction. Shut, the slats touch and roof the bed.
-      var slats = 12, inset = 14;
-      var span = bedH - inset * 2;
-      var pitch = span / (slats - 1);
-      for (var i = 0; i < slats; i++) {
-        var fy = topPad + inset + pitch * i;
-        var h = pitch - 2;
-        svg.push('<rect class="fin" id="fin-' + z.zone + '-' + i + '" x="' + (x + 10) +
-                 '" y="' + (fy - h / 2) + '" width="' + (bedW - 20) + '" height="' + h.toFixed(1) +
-                 '" rx="2" fill="#1e6b3a"/>');
+    canvas = document.createElement("canvas");
+    canvas.className = "roof-canvas";
+    canvas.setAttribute("role", "img");
+    canvas.setAttribute("aria-label",
+      "The shade house roof, three zones of hinged flaps, drawn from the team's CAD");
+    host.appendChild(canvas);
+
+    gl = canvas.getContext("webgl2", { antialias: true, alpha: true });
+    if (!gl) {
+      host.innerHTML = '<p class="model-missing">This browser has no WebGL2, ' +
+        'so the roof model cannot be drawn.</p>';
+      return;
+    }
+
+    prog = gl.createProgram();
+    gl.attachShader(prog, compile(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      throw new Error(gl.getProgramInfoLog(prog));
+    }
+    gl.useProgram(prog);
+    ["uProj", "uView", "uModel", "uColor", "uLight"].forEach(function (name) {
+      loc[name] = gl.getUniformLocation(prog, name);
+    });
+    var aPos = gl.getAttribLocation(prog, "aPos");
+
+    // Normalise so the roof's long axis spans about two units about the origin.
+    var half = MODEL.extent[1] / 2 || 1;
+    var centre = MODEL.centre;
+
+    gpu = MODEL.meshes.map(function (mesh) {
+      var vao = gl.createVertexArray();
+      gl.bindVertexArray(vao);
+
+      var positions = new Float32Array(mesh.positions.length);
+      for (var i = 0; i < mesh.positions.length; i += 3) {
+        positions[i]     = (mesh.positions[i])     / half;
+        positions[i + 1] = (mesh.positions[i + 1]) / half;
+        positions[i + 2] = (mesh.positions[i + 2]) / half;
       }
+      var vbo = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
+      gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+      gl.enableVertexAttribArray(aPos);
+      gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+      var ibo = gl.createBuffer();
+      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);
+      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(mesh.indices), gl.STATIC_DRAW);
+
+      gl.bindVertexArray(null);
+      return { vao: vao, count: mesh.indices.length };
     });
 
-    svg.push('</svg>');
-    $("roof").innerHTML = svg.join("");
+    MODEL.instances.forEach(function (inst) {
+      inst.offset = [
+        (inst.origin[0] - centre[0]) / half,
+        (inst.origin[1] - centre[1]) / half,
+        (inst.origin[2] - centre[2]) / half
+      ];
+    });
+
+    gl.enable(gl.DEPTH_TEST);
+    window.addEventListener("resize", paintRoof);
   }
 
   function paintRoof() {
+    if (!gl || !MODEL) return;
+    settled = false;
+    if (raf === null) raf = requestAnimationFrame(tickRoof);
+  }
+
+  function tickRoof() {
+    raf = null;
+    var moving = false;
     D.zones.forEach(function (z) {
-      var open = sim[z.zone][hour].open;
-      var scale = (1 - open * 0.88).toFixed(3);       // 1 shut, 0.12 fully open
-      var op = (0.6 + (1 - open) * 0.4).toFixed(2);   // solid when it roofs the bed
-      for (var i = 0; i < 12; i++) {
-        var el = document.getElementById("fin-" + z.zone + "-" + i);
-        if (el) {
-          el.style.transform = "scaleY(" + scale + ")";
-          el.setAttribute("fill-opacity", op);
-        }
-      }
+      var target = sim[z.zone] ? sim[z.zone][hour].open : 0;
+      var from = shown[z.zone] === undefined ? target : shown[z.zone];
+      var next = from + (target - from) * 0.18;          // exponential ease-out
+      if (Math.abs(target - next) < 0.002) next = target;
+      else moving = true;
+      shown[z.zone] = next;
     });
+    drawRoof();
+    settled = !moving;
+    if (moving) raf = requestAnimationFrame(tickRoof);
+  }
+
+  function drawRoof() {
+    if (!gl || !MODEL) return;
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.max(1, Math.round(canvas.clientWidth * dpr));
+    var h = Math.max(1, Math.round(canvas.clientHeight * dpr));
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w; canvas.height = h;
+    }
+    gl.viewport(0, 0, w, h);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+    // The roof is long in Y, the frame is wide, so the camera sits off to +X and the
+    // long axis runs across the screen rather than diagonally through it.
+    var proj = perspective(0.52, w / h, 0.1, 40);
+    var view = lookAt([2.18, -0.48, 1.22], [0, 0, -0.04], [0, 0, 1]);
+    gl.useProgram(prog);
+    gl.uniformMatrix4fv(loc.uProj, false, proj);
+    gl.uniformMatrix4fv(loc.uView, false, view);
+
+    // The key light follows the hour, so the roof is lit from where the sun is.
+    var frac = (hour + 0.5) / 24;
+    var elev = Math.sin(Math.max(0, (frac - 0.25) / 0.5) * Math.PI);
+    gl.uniform3f(loc.uLight, Math.cos(frac * Math.PI * 2) * 0.8, -0.35, 0.35 + elev * 0.9);
+
+    var BASE = [0.815, 0.827, 0.800];
+    var LEAF = [0.118, 0.420, 0.227];
+
+    MODEL.instances.forEach(function (inst) {
+      var model = translation(inst.offset[0], inst.offset[1], inst.offset[2]);
+      var colour = BASE;
+
+      if (inst.kind === "flap") {
+        var open = shown[inst.zone] === undefined ? 0 : shown[inst.zone];
+        // Negative, so the free end at local -Y lifts away from the bed.
+        model = multiply(model, rotationX(-open * MAX_FLAP_DEG * Math.PI / 180));
+        colour = LEAF;
+      }
+
+      gl.uniformMatrix4fv(loc.uModel, false, model);
+      gl.uniform3f(loc.uColor, colour[0], colour[1], colour[2]);
+      var mesh = gpu[inst.mesh];
+      gl.bindVertexArray(mesh.vao);
+      gl.drawElements(gl.TRIANGLES, mesh.count, gl.UNSIGNED_SHORT, 0);
+    });
+    gl.bindVertexArray(null);
   }
 
   /* ---------- zone rows ---------- */
@@ -376,9 +579,12 @@
     });
   }
 
-  fetch("day.json")
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(boot)
+  Promise.all([
+    fetch("day.json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }),
+    fetch("model.json").then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; })
+  ])
+    .then(function (both) { MODEL = both[1]; boot(both[0]); })
     .catch(function () {
       $("place").textContent =
         "The day's file is missing. Run python software/page/build_day.py, then reload.";

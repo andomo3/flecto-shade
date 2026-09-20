@@ -192,25 +192,22 @@ input[type=range]::-moz-range-thumb {
   /* Capped so the three zones stay in the first viewport: the beds and the rows that
      explain them have to be readable together, which is the whole demo beat. */
   max-height: 42vh;
-  display: grid; place-items: center;
-  padding: var(--s5);
+  display: grid; place-items: stretch;
+  padding: var(--s4);
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  overflow: hidden;
 }
-.model-frame svg { display: block; width: 100%; height: 100%; }
+.roof-canvas { display: block; width: 100%; height: 100%; }
+.model-missing { align-self: center; text-align: center; color: var(--ink-3); margin: 0; }
 
 figcaption {
   margin: var(--s3) auto 0; max-width: 72ch; text-align: center;
   font-size: 18px; color: var(--ink-3); line-height: 1.5;
 }
 .cap-lead { color: var(--ink-2); font-weight: 560; }
-.cap-pending { display: block; margin-top: var(--s1); font-style: italic; }
-
-.bed-label { font: 600 15px var(--ui); fill: var(--ink-2); }
-.bed-crop  { font: 400 13px var(--ui); fill: var(--ink-3); }
-.fin { transition: transform .34s cubic-bezier(.22,.9,.3,1), fill-opacity .34s ease;
-       transform-box: fill-box; transform-origin: 50% 50%; }
+.cap-pending { display: block; margin-top: var(--s1); }
 
 /* ---------- three zones, aligned under their beds ---------- */
 
