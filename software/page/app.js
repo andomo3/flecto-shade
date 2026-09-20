@@ -134,6 +134,19 @@
         '" style="left:' + at[0].toFixed(1) + 'px;top:' + at[1].toFixed(1) + 'px">' +
         '<b>' + letter + '</b>' + (zone ? "<i>" + zone.name + "</i>" : "") + '</span>';
     }).join("");
+    keepTagsInside(host);
+  }
+
+  /* A tag is centred on its zone, so a zone near the edge pushes half its tag out of
+     the frame. Only a tag that close to an edge has its width read, and is pulled back in. */
+  function keepTagsInside(host) {
+    var width = host.clientWidth, margin = 8, near = 140;
+    Array.prototype.forEach.call(host.children, function (tag) {
+      var x = parseFloat(tag.style.left);
+      if (x > near && x < width - near) { return; }
+      var half = tag.offsetWidth / 2 + margin;
+      tag.style.left = Math.min(Math.max(x, half), Math.max(half, width - half)).toFixed(1) + "px";
+    });
   }
 
   function buildModuleParts() {

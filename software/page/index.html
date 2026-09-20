@@ -3,7 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shade house operating console - simulated, Apopka, Florida</title>
+<title>Flecto Shade - one roof, a different answer for every bed (simulated)</title>
+<meta name="description" content="A simulated shade house roof of small hingeless fins that gives each bed its own light and rain, played over one real day of Central Florida weather.">
+<meta name="theme-color" content="#171a19">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,9 +26,9 @@
       <div class="stage-identity">
         <p class="sim-flag">
           <svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h3l2-5 2 10 2-5h3"/></svg>
-          Simulated, from historical weather inputs
+          Simulated
         </p>
-        <h1 id="stage-title">Shade house operating console</h1>
+        <h1 id="stage-title">One roof, a different answer for every bed</h1>
         <p class="stage-place" id="stage-place">Loading the simulated day</p>
       </div>
 
@@ -34,7 +37,15 @@
         <p class="sky" id="sky-readout">Modelled sun, rain, and air loading</p>
       </div>
 
-      <div class="stage-tools" role="group" aria-label="Model view controls">
+      <div class="stage-tools">
+        <div class="playback" role="group" aria-label="Simulated day playback">
+          <button type="button" class="btn btn-run" id="play" disabled>
+            <svg class="glyph solid" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>
+            <span id="play-label">Run the simulated day</span>
+          </button>
+          <button type="button" class="tool" id="jump-storm" disabled>Go to the storm</button>
+          <button type="button" class="tool" id="restore" hidden>Restore the baseline</button>
+        </div>
         <div class="tool-row" role="group" aria-label="Camera presets">
           <span class="tool-label">View</span>
           <button type="button" class="tool" data-preset="overview" aria-pressed="true">Overview</button>
@@ -49,7 +60,6 @@
           <button type="button" class="tool" id="overlay-toggle" aria-pressed="false">Technical overlay</button>
           <button type="button" class="tool" id="reset-view">Reset view</button>
         </div>
-        <p class="tool-help">Drag to orbit. Shift and drag to pan. Scroll to zoom. Arrow keys turn the model, 1 to 4 select a zone, 0 resets the view.</p>
       </div>
 
       <div class="module-legend" id="module-legend" hidden>
@@ -62,10 +72,6 @@
       <div class="stage-fallback" id="stage-fallback" hidden></div>
     </div>
 
-    <p class="stage-caption" id="stage-caption">
-      A modelled commercial shade house. Columns carry the primary beams, the beams carry the secondary rails, and every Flectofin module clamps to the two rails that bound its square bay.
-      The planting below is drawn deterministically as decoration and is not a simulated crop response.
-    </p>
   </section>
 
   <!-- 2. every configured zone at once -->
@@ -103,14 +109,6 @@
         <h2 id="timeline-title">Simulated day</h2>
         <p class="panel-sub" id="timeline-date">&nbsp;</p>
       </div>
-      <div class="playback">
-        <button type="button" class="btn-quiet" id="jump-storm" disabled>Go to the storm</button>
-        <button type="button" class="btn-quiet" id="restore" hidden>Restore the baseline</button>
-        <button type="button" class="btn" id="play" disabled>
-          <svg class="glyph solid" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>
-          <span id="play-label">Run the simulated day</span>
-        </button>
-      </div>
     </div>
     <div class="timeline-control">
       <label for="time-control">Modelled local hour</label>
@@ -119,6 +117,14 @@
       <div class="timeline-marks" id="timeline-marks" aria-hidden="true"></div>
     </div>
     <p class="timeline-readout" id="timeline-readout">Modelled inputs loading</p>
+    <details class="model-notes">
+      <summary>About this model, and how to move around it</summary>
+      <p class="stage-caption" id="stage-caption">
+        A modelled commercial shade house. Columns carry the primary beams, the beams carry the secondary rails, and every Flectofin module clamps to the two rails that bound its square bay.
+        The planting below is drawn deterministically as decoration and is not a simulated crop response.
+      </p>
+      <p class="tool-help">Drag to orbit. Shift and drag to pan. Scroll to zoom. Arrow keys turn the model, 1 to 4 select a zone, 0 resets the view.</p>
+    </details>
   </section>
 
   <!-- 5. configuration -->
