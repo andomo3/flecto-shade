@@ -11,7 +11,7 @@
 
   var Fin = root.Flectofin;
   var $ = function (id) { return document.getElementById(id); };
-  var SITE = "boston-demo";
+  var SITE = "apopka-demo";
 
   var scene = null, panel = null, day = null;
 

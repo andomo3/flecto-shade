@@ -1,13 +1,12 @@
 """H1: zone targets, light, rain, and the soil bucket.
 
 The heart of the louvre roof simulation.
-Joins S1's 2023 sun for the Greater Boston area to the Boston Logan International
-Airport rain gauge for the same year, then walks every hour of the year for three crop
-zones under nine deterministic rules and writes what the roof did.
+Joins S1's 2023 sun for the Apopka area to the Orlando Executive Airport rain gauge for
+the same year, then walks every hour of the year for three crop zones under nine
+deterministic rules and writes what the roof did.
 
 Sun and temperature are NASA POWER for 2023, modelled from satellite and reanalysis.
-Rain is the Boston Logan International Airport gauge for 2023, measured. Same place,
-same year.
+Rain is the Orlando Executive Airport gauge for 2023, measured. Same place, same year.
 
 Everything it writes is simulated. Runs with the network off, identical bytes every run.
 """
@@ -22,7 +21,7 @@ from zoneinfo import ZoneInfo
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CROPS_PATH = REPO_ROOT / "data" / "crops.csv"
 PROCESSED = REPO_ROOT / "data" / "processed"
-RAIN_PATH = REPO_ROOT / "data" / "raw" / "isd-rain" / "72509014739-2023.csv"
+RAIN_PATH = REPO_ROOT / "data" / "raw" / "isd-rain" / "72205312841-2023.csv"
 LOCAL_TZ = ZoneInfo("America/New_York")
 
 # --- light -------------------------------------------------------------------
@@ -38,12 +37,12 @@ T_CLOSED = 0.0                                 # ASSUMED, a closed fin is opaque
 # --- water -------------------------------------------------------------------
 # Modified Makkink, de Bruin 1987, not Makkink 1957, which used 0.61 with an additive
 # 0.12 mm/day term. RECALLED in the package, confirmed at source and recorded in
-# data/README.md. Pressure is a constant from the gauge's elevation of 3.2 m.
+# data/README.md. Pressure is a constant from the gauge's elevation of 31.7 m.
 MAKKINK_C = 0.65                               # RECALLED, confirmed: C3S/KNMI PET manual
 LATENT_HEAT_MJ_PER_KG = 2.45                   # RECALLED, confirmed: FAO-56 chapter 3
-ELEVATION_M = 3.2
-PRESSURE_KPA = 101.3 * ((293 - 0.0065 * ELEVATION_M) / 293) ** 5.26   # 101.2622
-GAMMA = 0.665e-3 * PRESSURE_KPA                                        # 0.067339
+ELEVATION_M = 31.7
+PRESSURE_KPA = 101.3 * ((293 - 0.0065 * ELEVATION_M) / 293) ** 5.26   # 100.9258
+GAMMA = 0.665e-3 * PRESSURE_KPA                                        # 0.067116
 
 # --- the soil bucket, all ASSUMED --------------------------------------------
 SOIL_CAPACITY = 60.0
@@ -250,7 +249,7 @@ def fmt(value, places):
     return "0." + "0" * places if text.startswith("-0.") and float(text) == 0 else text
 
 
-def build(city="boston", et_scale=1.0, write=True):
+def build(city="apopka", et_scale=1.0, write=True):
     crops = read_crops()
     weather = read_year(city)
     rain, _ = read_rain()
@@ -327,7 +326,7 @@ def summary_rows(crops, weather, runs):
 
 def main():
     parser = argparse.ArgumentParser(description="H1: the zones, the rules, the year.")
-    parser.add_argument("--city", default="boston")
+    parser.add_argument("--city", default="apopka")
     args = parser.parse_args()
 
     crops, weather, runs = build(args.city)

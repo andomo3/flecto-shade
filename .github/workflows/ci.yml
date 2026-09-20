@@ -42,21 +42,21 @@ jobs:
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
           path: data/raw
-          key: weather-boston-2023-v1-${{ hashFiles('data/README.md', 'data/build_solar_2023.py', 'software/h1/build.py') }}
+          key: weather-2023-v1-${{ hashFiles('data/README.md', 'data/build_solar_2023.py', 'software/h1/build.py') }}
       - name: Download public weather inputs
         if: steps.weather.outputs.cache-hit != 'true'
         run: |
           mkdir -p data/raw/nasa-power data/raw/isd-rain
           curl --fail --location --retry 3 --max-time 180 \
-            'https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN,ALLSKY_SFC_SW_DNI,ALLSKY_SFC_SW_DIFF,T2M,PRECTOTCORR&community=RE&longitude=-71.00975&latitude=42.36057&start=20230101&end=20231231&format=CSV&time-standard=UTC' \
-            -o data/raw/nasa-power/power-hourly-boston-logan-2023.csv
+            'https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN,ALLSKY_SFC_SW_DNI,ALLSKY_SFC_SW_DIFF,T2M,PRECTOTCORR&community=RE&longitude=-81.33544&latitude=28.54653&start=20230101&end=20231231&format=CSV&time-standard=UTC' \
+            -o data/raw/nasa-power/power-hourly-orlando-executive-2023.csv
           curl --fail --location --retry 3 --max-time 180 \
-            'https://www.ncei.noaa.gov/data/global-hourly/access/2023/72509014739.csv' \
-            -o data/raw/isd-rain/72509014739-2023.csv
+            'https://www.ncei.noaa.gov/data/global-hourly/access/2023/72205312841.csv' \
+            -o data/raw/isd-rain/72205312841-2023.csv
       - name: Verify weather snapshots
         run: |
-          echo '9d6310e79a7986e7bee10fcea8d71494b7b842ce659dd97be107e0acdbb355e3  data/raw/nasa-power/power-hourly-boston-logan-2023.csv' | sha256sum --check
-          echo '2654aba24fe8fe2ad2ad36686346f92d9dc812caf507a53ec2e94638aacbccd9  data/raw/isd-rain/72509014739-2023.csv' | sha256sum --check
+          echo 'c81490d249cb1fc857b0edf44c54d6fcdbc7c1e5b30b326310138a10f25cefc4  data/raw/nasa-power/power-hourly-orlando-executive-2023.csv' | sha256sum --check
+          echo 'd26366ed5b470b8a79d0c447b08b693b7b77f810bc8ee7a138c1a75682c64f08  data/raw/isd-rain/72205312841-2023.csv' | sha256sum --check
       - name: Run Python tests including offline builds
         run: python -m pytest software/tests -q
       - name: Run watering controller tests when present

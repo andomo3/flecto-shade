@@ -23,7 +23,7 @@ The surface succeeds if the judge understands the mechanism and believes the num
 
 A shade house roof made of many small hingeless fins, grouped into zones, where each zone holds its own daily light target and admits rain only when its own soil is dry.
 
-The project is a simulation of that roof, driven by one real year of Greater Boston weather, plus the pitch and the story around it.
+The project is a simulation of that roof, driven by one real year of Apopka-area weather, plus the pitch and the story around it.
 Success is a judge who, after one forty second run, can say what the roof did and why, and who has no reason to doubt any figure on the screen.
 
 The demo moment is the point where three zones stop behaving as one roof: the fern has taken its light by eleven, the hydrangea by noon, the blueberry wants all of it, and then one storm gets three different answers.
@@ -47,13 +47,9 @@ That is an absence in those searches and not proof, so the words are "we found n
 The setting is a shade house, which the team calls a greenhouse in plain speech.
 It is deliberately not a closed glasshouse, because closed greenhouses keep rain off the crop on purpose: the maker of rain admitting roofs closes them before rain to avoid crop damage and foliar disease, and rain is used today by collecting it and feeding it through drippers, never by dropping it on the crop.
 
-The place is Greater Boston, Massachusetts, on the Boston Logan International Airport gauge, chosen on 2026-09-20 so that the site is the one the judges are standing in at HackMIT, and because a New England summer still puts sun and rain on the same days.
-2023 was a wet year there, 1,242.7 mm against a 1991 to 2020 normal of 1,107, which gives the rain rule something to do.
-
-The site was the Apopka area of Central Florida until that date, chosen because the University of Florida's Mid-Florida Research and Education Center there describes itself as located in the heart of Florida's greenhouse and nursery industry.
-The three crops below, and the published sources behind their light targets and shade shares, were picked for that site and have not been rechosen for a Massachusetts one.
-The southern highbush blueberry in particular is a southern cultivar; northern highbush is the Massachusetts crop.
-Nothing in the simulation depends on the choice, since every crop figure is read from `data/crops.csv`, but the pitch should not claim the crop list is regional.
+The place is the Apopka area of Central Florida, represented by the Orlando Executive Airport gauge.
+It was chosen because the University of Florida's Mid-Florida Research and Education Center there describes itself as located in the heart of Florida's greenhouse and nursery industry.
+The three crops below, and the published sources behind their light targets and shade shares, were picked for this site.
 
 Three zones, one crop each, all sourced:
 
@@ -63,7 +59,7 @@ Three zones, one crop each, all sourced:
 | B | Hydrangea, as nursery stock | 12 mol per m2 per day | opted in |
 | C | Southern highbush blueberry | 0.40 shade share | opted in |
 
-The judging surface is a page that plays one real day, 10 June 2023, in 40.5 seconds, and ends on a result card.
+The judging surface is a page that plays one real day, 3 June 2023, in 38.6 seconds, and ends on a result card.
 
 ## Capabilities and Constraints
 
@@ -96,9 +92,9 @@ Open decisions, recorded rather than invented:
 
 Real, downloaded, and checksummed:
 
-- `data/raw/nasa-power/power-hourly-boston-logan-2023.csv`, NASA POWER hourly for the Boston Logan International Airport gauge, 2023. A satellite product for a cell about 100 km across. Always labelled modelled.
-- `data/raw/isd-rain/72509014739-2023.csv`, NOAA Integrated Surface Database hourly for the same gauge and year. A real instrument, and the only measured thing in the project.
-- `data/processed/year-boston-2023.csv`, 8,760 rows, committed, built by package S1 and checked against values recomputed from the raw file on 2026-09-20.
+- `data/raw/nasa-power/power-hourly-orlando-executive-2023.csv`, NASA POWER hourly for the Orlando Executive Airport gauge, 2023. A satellite product for a cell about 100 km across. Always labelled modelled.
+- `data/raw/isd-rain/72205312841-2023.csv`, NOAA Integrated Surface Database hourly for the same gauge and year. A real instrument, and the only measured thing in the project.
+- `data/processed/year-apopka-2023.csv`, 8,760 rows, committed, built by package S1 and checked against the source file.
 
 Every crop figure has a published source: Purdue HO-238-W for the fern's and hydrangea's daily light sums, a Washington State University fact sheet for the blueberry's shade share, and FAO-56 Table 12 for the crop coefficients, with 1.00 assumed where the table has no row.
 

@@ -13,7 +13,7 @@
   "use strict";
 
   var Rules = root.Rules;
-  var SITE = "boston-demo";
+  var SITE = "apopka-demo";
   var MAX_ZONES = 4;
   var LETTERS = ["A", "B", "C", "D"];
 

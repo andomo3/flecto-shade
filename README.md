@@ -6,7 +6,7 @@
 
 Built at HackMIT 2026 · Plain HTML/CSS/JavaScript · Python 3.13 · [MIT](LICENSE)
 
-> **Current status:** the static demo runs the whole simulated day of 10 June 2023 in Greater Boston in about forty seconds, for three growing zones.
+> **Current status:** the static demo runs the whole simulated day of 3 June 2023 near Apopka, Florida, in about forty seconds, for three growing zones.
 > It is deployed as a static page, so the configuration workspace shows its offline state and holds changes in the session only.
 > Everything on it is simulated from public weather inputs, and no value on it is a validated engineering result.
 
@@ -16,14 +16,13 @@ Different crops, growth stages and soil conditions call for different exposure.
 A bed that needs water and a bed that is already wet should not necessarily receive the same storm.
 
 UF/IFAS's Apopka guidance documents different shade requirements across foliage crops and seasons.
-The crop guidance is from that Florida extension work; the weather driving the simulation is from Boston, Massachusetts.
 Its guidance also warns that additional water on saturated growing media can leach fertilizer.
 Our [problem research](planning/docs/research/flectofin-greenhouse-roof/problem-framing.md) links the sources and distinguishes the evidence from our design proposal.
 
 ## What we built
 
 - **An interactive CAD roof viewer:** the team's circular flaps, animated roof states and camera controls.
-- **A weather replay:** 10 June 2023 in Greater Boston, with crop-specific decisions and explanations.
+- **A weather replay:** 3 June 2023 in the Apopka area, with crop-specific decisions and explanations.
 - **A reproducible simulation:** deterministic light/rain rules and soil-water buckets driven by public 2023 weather inputs.
 - **An offline static page:** local assets and precomputed data, without runtime API calls.
 

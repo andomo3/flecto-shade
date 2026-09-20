@@ -1,10 +1,10 @@
 {
  "label": "simulated",
- "date_local": "2023-06-10",
- "place": "Boston Logan International Airport gauge, Boston, Massachusetts",
+ "date_local": "2023-06-03",
+ "place": "Orlando Executive Airport gauge, near Apopka, Florida",
  "sources": {
   "sun": "NASA POWER, satellite product, hourly means, modelled",
-  "rain": "NOAA ISD gauge 72509014739, measured"
+  "rain": "NOAA ISD gauge 72205312841, measured"
  },
  "credit": "The fin is the Flectofin, by ITKE, University of Stuttgart, patented as EP2320015.",
  "from_package": "H1",
@@ -14,7 +14,7 @@
   "T_CLOSED": 0.0,
   "MAKKINK_C": 0.65,
   "LATENT_HEAT": 2.45,
-  "GAMMA": 0.067339,
+  "GAMMA": 0.067116,
   "SOIL_CAPACITY": 60.0,
   "SOIL_DRY_BELOW": 30.0,
   "SOIL_FULL_AT": 54.0,
@@ -25,179 +25,179 @@
   "HEAT_SHADE_OPEN": 0.6
  },
  "day": {
-  "lit_hours": 15,
-  "rain_mm": 8.6,
-  "play_seconds": 40.5,
-  "peak_ghi": 672.45,
-  "peak_t2m": 19.86
+  "lit_hours": 14,
+  "rain_mm": 42.4,
+  "play_seconds": 38.6,
+  "peak_ghi": 821.3,
+  "peak_t2m": 29.84
  },
  "hours": [
   {
    "local_hour": 0,
    "ghi": 0.0,
    "rain_mm": 0.0,
-   "t2m": 11.86,
+   "t2m": 23.03,
    "play_seconds": 0.5
   },
   {
    "local_hour": 1,
    "ghi": 0.0,
    "rain_mm": 0.0,
-   "t2m": 11.35,
+   "t2m": 22.73,
    "play_seconds": 0.5
   },
   {
    "local_hour": 2,
    "ghi": 0.0,
    "rain_mm": 0.0,
-   "t2m": 11.06,
+   "t2m": 22.45,
    "play_seconds": 0.5
   },
   {
    "local_hour": 3,
    "ghi": 0.0,
    "rain_mm": 0.0,
-   "t2m": 10.91,
+   "t2m": 22.2,
    "play_seconds": 0.5
   },
   {
    "local_hour": 4,
    "ghi": 0.0,
    "rain_mm": 0.0,
-   "t2m": 10.72,
+   "t2m": 21.95,
    "play_seconds": 0.5
   },
   {
    "local_hour": 5,
-   "ghi": 12.23,
+   "ghi": 0.0,
    "rain_mm": 0.0,
-   "t2m": 10.59,
-   "play_seconds": 2.4
+   "t2m": 21.8,
+   "play_seconds": 0.5
   },
   {
    "local_hour": 6,
-   "ghi": 81.1,
+   "ghi": 5.7,
    "rain_mm": 0.0,
-   "t2m": 11.63,
+   "t2m": 21.71,
    "play_seconds": 2.4
   },
   {
    "local_hour": 7,
-   "ghi": 181.23,
+   "ghi": 89.62,
    "rain_mm": 0.0,
-   "t2m": 12.69,
+   "t2m": 22.65,
    "play_seconds": 2.4
   },
   {
    "local_hour": 8,
-   "ghi": 299.08,
+   "ghi": 217.68,
    "rain_mm": 0.0,
-   "t2m": 14.0,
+   "t2m": 23.83,
    "play_seconds": 2.4
   },
   {
    "local_hour": 9,
-   "ghi": 441.45,
+   "ghi": 351.1,
    "rain_mm": 0.0,
-   "t2m": 15.72,
+   "t2m": 25.52,
    "play_seconds": 2.4
   },
   {
    "local_hour": 10,
-   "ghi": 533.22,
+   "ghi": 549.0,
    "rain_mm": 0.0,
-   "t2m": 17.46,
+   "t2m": 26.71,
    "play_seconds": 2.4
   },
   {
    "local_hour": 11,
-   "ghi": 600.05,
+   "ghi": 696.25,
    "rain_mm": 0.0,
-   "t2m": 18.44,
+   "t2m": 27.75,
    "play_seconds": 2.4
   },
   {
    "local_hour": 12,
-   "ghi": 672.45,
+   "ghi": 821.3,
    "rain_mm": 0.0,
-   "t2m": 19.08,
+   "t2m": 28.74,
    "play_seconds": 2.4
   },
   {
    "local_hour": 13,
-   "ghi": 566.53,
+   "ghi": 792.7,
    "rain_mm": 0.0,
-   "t2m": 19.64,
+   "t2m": 29.44,
    "play_seconds": 2.4
   },
   {
    "local_hour": 14,
-   "ghi": 664.42,
-   "rain_mm": 5.3,
-   "t2m": 19.86,
+   "ghi": 726.42,
+   "rain_mm": 0.0,
+   "t2m": 29.84,
    "play_seconds": 2.4
   },
   {
    "local_hour": 15,
-   "ghi": 588.95,
-   "rain_mm": 0.0,
-   "t2m": 19.85,
+   "ghi": 516.65,
+   "rain_mm": 23.9,
+   "t2m": 29.74,
    "play_seconds": 2.4
   },
   {
    "local_hour": 16,
-   "ghi": 491.67,
-   "rain_mm": 0.0,
-   "t2m": 19.6,
+   "ghi": 377.38,
+   "rain_mm": 18.5,
+   "t2m": 29.24,
    "play_seconds": 2.4
   },
   {
    "local_hour": 17,
-   "ghi": 326.9,
+   "ghi": 218.38,
    "rain_mm": 0.0,
-   "t2m": 19.31,
+   "t2m": 28.61,
    "play_seconds": 2.4
   },
   {
    "local_hour": 18,
-   "ghi": 188.25,
+   "ghi": 122.62,
    "rain_mm": 0.0,
-   "t2m": 18.91,
+   "t2m": 27.54,
    "play_seconds": 2.4
   },
   {
    "local_hour": 19,
-   "ghi": 63.83,
-   "rain_mm": 0.3,
-   "t2m": 17.31,
+   "ghi": 46.58,
+   "rain_mm": 0.0,
+   "t2m": 26.11,
    "play_seconds": 2.4
   },
   {
    "local_hour": 20,
    "ghi": 0.0,
-   "rain_mm": 3.0,
-   "t2m": 15.96,
+   "rain_mm": 0.0,
+   "t2m": 24.33,
    "play_seconds": 0.5
   },
   {
    "local_hour": 21,
    "ghi": 0.0,
    "rain_mm": 0.0,
-   "t2m": 14.4,
+   "t2m": 23.57,
    "play_seconds": 0.5
   },
   {
    "local_hour": 22,
    "ghi": 0.0,
    "rain_mm": 0.0,
-   "t2m": 13.05,
+   "t2m": 23.05,
    "play_seconds": 0.5
   },
   {
    "local_hour": 23,
    "ghi": 0.0,
    "rain_mm": 0.0,
-   "t2m": 12.62,
+   "t2m": 22.77,
    "play_seconds": 0.5
   }
  ],
@@ -211,12 +211,12 @@
    "kc": 1.0,
    "rain_ok": 0,
    "note": "Purdue HO-238-W Table 2, Nephrolepis: minimum 4, good 6, high quality 8 to 14. No row in the table, 1.00 assumed for kc. Opts out of rain because the crop is sold on clean fronds and its guide wants the foliage to dry during the day.",
-   "soil_start": 33.901,
+   "soil_start": 53.256,
    "hours": [
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 33.9,
+     "soil_mm": 53.26,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -227,7 +227,7 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 33.9,
+     "soil_mm": 53.26,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -238,7 +238,7 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 33.9,
+     "soil_mm": 53.26,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -249,7 +249,7 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 33.9,
+     "soil_mm": 53.26,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -260,7 +260,18 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 33.9,
+     "soil_mm": 53.26,
+     "rain_in_mm": 0.0,
+     "irrigation_mm": 0.0,
+     "state": "NIGHT",
+     "reason": "",
+     "words": "Night",
+     "because": ""
+    },
+    {
+     "open_fraction": 0.0,
+     "light_mol_so_far": 0.0,
+     "soil_mm": 53.26,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -270,8 +281,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 0.08,
-     "soil_mm": 33.9,
+     "light_mol_so_far": 0.04,
+     "soil_mm": 53.25,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -281,8 +292,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 0.62,
-     "soil_mm": 33.85,
+     "light_mol_so_far": 0.64,
+     "soil_mm": 53.2,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -292,8 +303,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 1.83,
-     "soil_mm": 33.76,
+     "light_mol_so_far": 2.09,
+     "soil_mm": 53.06,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -303,8 +314,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 3.82,
-     "soil_mm": 33.61,
+     "light_mol_so_far": 4.42,
+     "soil_mm": 52.84,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -314,19 +325,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 6.76,
-     "soil_mm": 33.37,
-     "rain_in_mm": 0.0,
-     "irrigation_mm": 0.0,
-     "state": "LIGHT_OPEN",
-     "reason": "",
-     "words": "Open for light",
-     "because": ""
-    },
-    {
-     "open_fraction": 1.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -336,8 +336,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "SHADE",
@@ -347,8 +347,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "SHADE",
@@ -358,8 +358,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "SHADE",
@@ -369,8 +369,19 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
+     "rain_in_mm": 0.0,
+     "irrigation_mm": 0.0,
+     "state": "SHADE",
+     "reason": "",
+     "words": "Shaded, target met",
+     "because": ""
+    },
+    {
+     "open_fraction": 0.0,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "RAIN_SHUT",
@@ -380,52 +391,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
-     "rain_in_mm": 0.0,
-     "irrigation_mm": 0.0,
-     "state": "SHADE",
-     "reason": "",
-     "words": "Shaded, target met",
-     "because": ""
-    },
-    {
-     "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
-     "rain_in_mm": 0.0,
-     "irrigation_mm": 0.0,
-     "state": "SHADE",
-     "reason": "",
-     "words": "Shaded, target met",
-     "because": ""
-    },
-    {
-     "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
-     "rain_in_mm": 0.0,
-     "irrigation_mm": 0.0,
-     "state": "SHADE",
-     "reason": "",
-     "words": "Shaded, target met",
-     "because": ""
-    },
-    {
-     "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
-     "rain_in_mm": 0.0,
-     "irrigation_mm": 0.0,
-     "state": "SHADE",
-     "reason": "",
-     "words": "Shaded, target met",
-     "because": ""
-    },
-    {
-     "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "RAIN_SHUT",
@@ -435,8 +402,41 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
+     "rain_in_mm": 0.0,
+     "irrigation_mm": 0.0,
+     "state": "SHADE",
+     "reason": "",
+     "words": "Shaded, target met",
+     "because": ""
+    },
+    {
+     "open_fraction": 0.0,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
+     "rain_in_mm": 0.0,
+     "irrigation_mm": 0.0,
+     "state": "SHADE",
+     "reason": "",
+     "words": "Shaded, target met",
+     "because": ""
+    },
+    {
+     "open_fraction": 0.0,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
+     "rain_in_mm": 0.0,
+     "irrigation_mm": 0.0,
+     "state": "SHADE",
+     "reason": "",
+     "words": "Shaded, target met",
+     "because": ""
+    },
+    {
+     "open_fraction": 0.0,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -446,8 +446,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -457,8 +457,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -468,8 +468,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 33.07,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 52.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -488,12 +488,12 @@
    "kc": 1.0,
    "rain_ok": 1,
    "note": "Purdue HO-238-W Table 2, hydrangea: minimum 6, good 8 to 10, high quality 12 and up. No row in the table, 1.00 assumed for kc. Outdoor nursery stock, opts in to rain.",
-   "soil_start": 20.406,
+   "soil_start": 26.711,
    "hours": [
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 20.41,
+     "soil_mm": 26.71,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -504,7 +504,7 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 20.41,
+     "soil_mm": 26.71,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -515,7 +515,7 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 20.41,
+     "soil_mm": 26.71,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -526,7 +526,7 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 20.41,
+     "soil_mm": 26.71,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -537,7 +537,18 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 20.41,
+     "soil_mm": 26.71,
+     "rain_in_mm": 0.0,
+     "irrigation_mm": 0.0,
+     "state": "NIGHT",
+     "reason": "",
+     "words": "Night",
+     "because": ""
+    },
+    {
+     "open_fraction": 0.0,
+     "light_mol_so_far": 0.0,
+     "soil_mm": 26.71,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -547,8 +558,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 0.08,
-     "soil_mm": 20.4,
+     "light_mol_so_far": 0.04,
+     "soil_mm": 26.71,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -558,8 +569,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 0.62,
-     "soil_mm": 20.36,
+     "light_mol_so_far": 0.64,
+     "soil_mm": 26.65,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -569,8 +580,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 1.83,
-     "soil_mm": 20.27,
+     "light_mol_so_far": 2.09,
+     "soil_mm": 26.52,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -580,8 +591,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 3.82,
-     "soil_mm": 20.11,
+     "light_mol_so_far": 4.42,
+     "soil_mm": 26.29,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -591,8 +602,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 6.76,
-     "soil_mm": 19.87,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 25.94,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -602,19 +613,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 19.57,
-     "rain_in_mm": 0.0,
-     "irrigation_mm": 0.0,
-     "state": "LIGHT_OPEN",
-     "reason": "",
-     "words": "Open for light",
-     "because": ""
-    },
-    {
-     "open_fraction": 1.0,
-     "light_mol_so_far": 14.31,
-     "soil_mm": 19.23,
+     "light_mol_so_far": 12.72,
+     "soil_mm": 25.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -624,8 +624,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 14.31,
-     "soil_mm": 19.23,
+     "light_mol_so_far": 12.72,
+     "soil_mm": 25.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "SHADE",
@@ -635,8 +635,19 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 14.31,
-     "soil_mm": 19.23,
+     "light_mol_so_far": 12.72,
+     "soil_mm": 25.48,
+     "rain_in_mm": 0.0,
+     "irrigation_mm": 0.0,
+     "state": "SHADE",
+     "reason": "",
+     "words": "Shaded, target met",
+     "because": ""
+    },
+    {
+     "open_fraction": 0.0,
+     "light_mol_so_far": 12.72,
+     "soil_mm": 25.48,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "SHADE",
@@ -646,9 +657,20 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 18.74,
-     "soil_mm": 24.14,
-     "rain_in_mm": 5.3,
+     "light_mol_so_far": 16.16,
+     "soil_mm": 49.03,
+     "rain_in_mm": 23.9,
+     "irrigation_mm": 0.0,
+     "state": "RAIN_OPEN",
+     "reason": "",
+     "words": "Open for rain",
+     "because": ""
+    },
+    {
+     "open_fraction": 1.0,
+     "light_mol_so_far": 18.68,
+     "soil_mm": 59.75,
+     "rain_in_mm": 10.97,
      "irrigation_mm": 0.0,
      "state": "RAIN_OPEN",
      "reason": "",
@@ -657,8 +679,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 18.74,
-     "soil_mm": 24.14,
+     "light_mol_so_far": 18.68,
+     "soil_mm": 59.75,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "SHADE",
@@ -668,8 +690,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 18.74,
-     "soil_mm": 24.14,
+     "light_mol_so_far": 18.68,
+     "soil_mm": 59.75,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "SHADE",
@@ -679,8 +701,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 18.74,
-     "soil_mm": 24.14,
+     "light_mol_so_far": 18.68,
+     "soil_mm": 59.75,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "SHADE",
@@ -690,30 +712,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 18.74,
-     "soil_mm": 24.14,
-     "rain_in_mm": 0.0,
-     "irrigation_mm": 0.0,
-     "state": "SHADE",
-     "reason": "",
-     "words": "Shaded, target met",
-     "because": ""
-    },
-    {
-     "open_fraction": 0.0,
-     "light_mol_so_far": 18.74,
-     "soil_mm": 24.14,
-     "rain_in_mm": 0.0,
-     "irrigation_mm": 0.0,
-     "state": "RAIN_SHUT",
-     "reason": "no_drying_time",
-     "words": "Shut against rain",
-     "because": "no drying time left today"
-    },
-    {
-     "open_fraction": 0.0,
-     "light_mol_so_far": 18.74,
-     "soil_mm": 24.14,
+     "light_mol_so_far": 18.68,
+     "soil_mm": 59.75,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -723,8 +723,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 18.74,
-     "soil_mm": 24.14,
+     "light_mol_so_far": 18.68,
+     "soil_mm": 59.75,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -734,8 +734,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 18.74,
-     "soil_mm": 24.14,
+     "light_mol_so_far": 18.68,
+     "soil_mm": 59.75,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -745,8 +745,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 18.74,
-     "soil_mm": 24.14,
+     "light_mol_so_far": 18.68,
+     "soil_mm": 59.75,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -765,12 +765,12 @@
    "kc": 1.05,
    "rain_ok": 1,
    "note": "WSU fact sheet: a 30-50% shade net is recommended for blueberry plants. 0.40 is the middle. FAO-56 Table 12, berries on bushes 1.05. Opts in to rain.",
-   "soil_start": 48.027,
+   "soil_start": 34.111,
    "hours": [
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 48.03,
+     "soil_mm": 34.11,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -781,7 +781,7 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 48.03,
+     "soil_mm": 34.11,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -792,7 +792,7 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 48.03,
+     "soil_mm": 34.11,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -803,7 +803,7 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 48.03,
+     "soil_mm": 34.11,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -814,7 +814,18 @@
     {
      "open_fraction": 0.0,
      "light_mol_so_far": 0.0,
-     "soil_mm": 48.03,
+     "soil_mm": 34.11,
+     "rain_in_mm": 0.0,
+     "irrigation_mm": 0.0,
+     "state": "NIGHT",
+     "reason": "",
+     "words": "Night",
+     "because": ""
+    },
+    {
+     "open_fraction": 0.0,
+     "light_mol_so_far": 0.0,
+     "soil_mm": 34.11,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -824,8 +835,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 0.08,
-     "soil_mm": 48.02,
+     "light_mol_so_far": 0.04,
+     "soil_mm": 34.11,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -835,8 +846,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 0.62,
-     "soil_mm": 47.98,
+     "light_mol_so_far": 0.64,
+     "soil_mm": 34.05,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -846,8 +857,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 1.83,
-     "soil_mm": 47.88,
+     "light_mol_so_far": 2.09,
+     "soil_mm": 33.91,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -857,8 +868,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 3.82,
-     "soil_mm": 47.72,
+     "light_mol_so_far": 4.42,
+     "soil_mm": 33.67,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -868,8 +879,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 6.76,
-     "soil_mm": 47.47,
+     "light_mol_so_far": 8.08,
+     "soil_mm": 33.3,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -879,8 +890,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 10.32,
-     "soil_mm": 47.15,
+     "light_mol_so_far": 12.72,
+     "soil_mm": 32.82,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -890,8 +901,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 14.31,
-     "soil_mm": 46.8,
+     "light_mol_so_far": 18.19,
+     "soil_mm": 32.24,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -901,8 +912,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 18.8,
-     "soil_mm": 46.39,
+     "light_mol_so_far": 23.48,
+     "soil_mm": 31.69,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -912,8 +923,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 22.57,
-     "soil_mm": 46.04,
+     "light_mol_so_far": 28.32,
+     "soil_mm": 31.18,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -923,8 +934,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 22.57,
-     "soil_mm": 46.04,
+     "light_mol_so_far": 28.32,
+     "soil_mm": 31.18,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "RAIN_SHUT",
@@ -933,20 +944,20 @@
      "because": "its soil is wet enough"
     },
     {
-     "open_fraction": 1.0,
-     "light_mol_so_far": 26.49,
-     "soil_mm": 45.68,
+     "open_fraction": 0.0,
+     "light_mol_so_far": 28.32,
+     "soil_mm": 31.18,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
-     "state": "LIGHT_OPEN",
-     "reason": "",
-     "words": "Open for light",
-     "because": ""
+     "state": "RAIN_SHUT",
+     "reason": "wet_enough",
+     "words": "Shut against rain",
+     "because": "its soil is wet enough"
     },
     {
      "open_fraction": 1.0,
      "light_mol_so_far": 29.77,
-     "soil_mm": 45.38,
+     "soil_mm": 31.02,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -956,8 +967,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 31.95,
-     "soil_mm": 45.18,
+     "light_mol_so_far": 30.59,
+     "soil_mm": 30.94,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -967,8 +978,8 @@
     },
     {
      "open_fraction": 1.0,
-     "light_mol_so_far": 33.2,
-     "soil_mm": 45.06,
+     "light_mol_so_far": 30.9,
+     "soil_mm": 30.91,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "LIGHT_OPEN",
@@ -978,19 +989,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 33.2,
-     "soil_mm": 45.06,
-     "rain_in_mm": 0.0,
-     "irrigation_mm": 0.0,
-     "state": "RAIN_SHUT",
-     "reason": "wet_enough",
-     "words": "Shut against rain",
-     "because": "its soil is wet enough"
-    },
-    {
-     "open_fraction": 0.0,
-     "light_mol_so_far": 33.2,
-     "soil_mm": 45.06,
+     "light_mol_so_far": 30.9,
+     "soil_mm": 30.91,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -1000,8 +1000,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 33.2,
-     "soil_mm": 45.06,
+     "light_mol_so_far": 30.9,
+     "soil_mm": 30.91,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -1011,8 +1011,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 33.2,
-     "soil_mm": 45.06,
+     "light_mol_so_far": 30.9,
+     "soil_mm": 30.91,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -1022,8 +1022,8 @@
     },
     {
      "open_fraction": 0.0,
-     "light_mol_so_far": 33.2,
-     "soil_mm": 45.06,
+     "light_mol_so_far": 30.9,
+     "soil_mm": 30.91,
      "rain_in_mm": 0.0,
      "irrigation_mm": 0.0,
      "state": "NIGHT",
@@ -1036,27 +1036,27 @@
  ],
  "region": {
   "year": 2023,
-  "rain_mm": 1242.7,
-  "rain_hours": 729,
-  "lit_hours": 4513,
-  "daylight_rain_hours": 372,
-  "daylight_rain_mm": 618.6,
-  "normal_mm": 1107,
-  "vs_normal_pct": 12.3,
+  "rain_mm": 1338.6,
+  "rain_hours": 373,
+  "lit_hours": 4568,
+  "daylight_rain_hours": 242,
+  "daylight_rain_mm": 924.2,
+  "normal_mm": 1307,
+  "vs_normal_pct": 2.4,
   "monthly_rain_mm": [
-   141.5,
-   35.3,
-   107.0,
-   64.2,
-   76.0,
-   79.6,
-   235.8,
-   164.4,
-   96.2,
-   36.9,
-   49.5,
-   156.3
+   12.4,
+   21.1,
+   18.0,
+   61.0,
+   133.5,
+   197.9,
+   189.6,
+   183.1,
+   171.9,
+   69.8,
+   144.9,
+   135.4
   ],
-  "source": "NOAA NCEI Integrated Surface Database, station 72509014739, 2023. Normal is the 1991 to 2020 value for this station."
+  "source": "NOAA NCEI Integrated Surface Database, station 72205312841, 2023. Normal is the 1991 to 2020 value for this station."
  }
 }

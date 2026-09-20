@@ -24,8 +24,8 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 PAGE = REPO_ROOT / "software" / "page"
 BUILD = PAGE / "build_day.py"
 
-DEMO_DAY = "2023-06-10"
-STORM_HOUR = 14          # local, the one hour of the demo day that rains in daylight
+DEMO_DAY = "2023-06-03"
+STORM_HOUR = 15          # local, the first storm hour with three different zone answers
 SCRIPTS = ["flectofin.js", "rules.js", "scene.js", "api.js", "console.js", "app.js"]
 SERVED = ["index.html", "style.css"] + SCRIPTS
 
@@ -83,28 +83,28 @@ def test_the_day_is_whole(day):
 
 
 def test_playback_matches_the_spoken_demo(day):
-    """H2's three asserted values, recomputed from S1's year with the site."""
-    assert day["day"]["lit_hours"] == 15
-    assert day["day"]["play_seconds"] == pytest.approx(40.5, abs=0.1)
+    """H2's three asserted values, computed by a planner from S1's year."""
+    assert day["day"]["lit_hours"] == 14
+    assert day["day"]["play_seconds"] == pytest.approx(38.6, abs=0.1)
     seconds = [h["play_seconds"] for h in day["hours"]]
-    assert sum(seconds[:11]) == pytest.approx(16.9, abs=0.1), "the fern's fins shut"
-    assert sum(seconds[:15]) == pytest.approx(26.5, abs=0.1), "the storm starts"
+    assert sum(seconds[:11]) == pytest.approx(15.0, abs=0.1), "the fern's fins shut"
+    assert sum(seconds[:15]) == pytest.approx(24.6, abs=0.1), "the storm starts"
 
 
 def test_it_carried_h1s_numbers_without_changing_them(day):
-    assert day["day"]["rain_mm"] == pytest.approx(8.6, abs=0.05)
+    assert day["day"]["rain_mm"] == pytest.approx(42.4, abs=0.05)
     a, b, c = zone(day, "A"), zone(day, "B"), zone(day, "C")
-    assert a["soil_start"] == pytest.approx(33.90, abs=0.02)
-    assert b["soil_start"] == pytest.approx(20.41, abs=0.02)
-    assert c["soil_start"] == pytest.approx(48.03, abs=0.02)
-    assert b["hours"][11]["light_mol_so_far"] == pytest.approx(14.31, abs=0.02)
-    assert b["hours"][19]["light_mol_so_far"] == pytest.approx(18.74, abs=0.02)
-    assert sum(h["rain_in_mm"] for h in b["hours"]) == pytest.approx(5.3, abs=0.1)
+    assert a["soil_start"] == pytest.approx(53.26, abs=0.02)
+    assert b["soil_start"] == pytest.approx(26.71, abs=0.02)
+    assert c["soil_start"] == pytest.approx(34.11, abs=0.02)
+    assert b["hours"][11]["light_mol_so_far"] == pytest.approx(12.72, abs=0.02)
+    assert b["hours"][19]["light_mol_so_far"] == pytest.approx(18.68, abs=0.02)
+    assert sum(h["rain_in_mm"] for h in b["hours"]) == pytest.approx(34.9, abs=0.1)
 
 
 def test_three_zones_three_answers_with_their_reasons_in_words(day):
     a, b, c = zone(day, "A"), zone(day, "B"), zone(day, "C")
-    for hour in (STORM_HOUR,):
+    for hour in (STORM_HOUR, STORM_HOUR + 1):
         assert a["hours"][hour]["open_fraction"] == 0
         assert a["hours"][hour]["state"] == "RAIN_SHUT"
         assert a["hours"][hour]["reason"] == "opted_out"
@@ -133,11 +133,11 @@ def test_the_constants_come_from_h1(day):
 
 def test_the_region_panel(day):
     region = day["region"]
-    assert region["rain_mm"] == pytest.approx(1242.7, abs=0.05)
-    assert region["rain_hours"] == 729
-    assert region["daylight_rain_hours"] == 372
-    assert region["daylight_rain_mm"] == pytest.approx(618.6, abs=0.05)
-    assert region["lit_hours"] == 4513
+    assert region["rain_mm"] == pytest.approx(1338.6, abs=0.05)
+    assert region["rain_hours"] == 373
+    assert region["daylight_rain_hours"] == 242
+    assert region["daylight_rain_mm"] == pytest.approx(924.2, abs=0.05)
+    assert region["lit_hours"] == 4568
     assert len(region["monthly_rain_mm"]) == 12
     assert region["source"].startswith("NOAA")
 

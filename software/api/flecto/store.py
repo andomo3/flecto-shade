@@ -24,7 +24,7 @@ from . import metrics as metric_registry
 
 MAX_ACTIVE_ZONES = 4
 ZONE_LETTERS = ("A", "B", "C", "D")
-DEFAULT_SITE = "boston-demo"
+DEFAULT_SITE = "apopka-demo"
 
 MIGRATIONS = [
     (
@@ -228,7 +228,7 @@ def migrate(db):
 
 # --------------------------------------------------------------------------- zones
 
-def ensure_site(db, site_id=DEFAULT_SITE, name="Boston demonstration shade house"):
+def ensure_site(db, site_id=DEFAULT_SITE, name="Apopka demonstration shade house"):
     site = db.one("SELECT * FROM sites WHERE id = ?", (site_id,))
     if site:
         return site

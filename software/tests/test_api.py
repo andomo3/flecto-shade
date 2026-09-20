@@ -24,8 +24,8 @@ from flecto import engine, metrics, seed, store, weather  # noqa: E402
 from flecto.app import Request, dispatch  # noqa: E402
 
 LOCAL_TZ = ZoneInfo("America/New_York")
-DEMO_DATE = "2023-06-10"
-STORM_HOUR = 14          # local, the one hour of the demo day that rains in daylight
+DEMO_DATE = "2023-06-03"
+STORM_HOUR = 15          # local, the first storm hour with three different zone answers
 
 
 @pytest.fixture
@@ -57,7 +57,7 @@ def call(db_path):
 
 @pytest.fixture
 def site_zones(call):
-    return call("GET", "/api/sites/boston-demo/zones").body["zones"]
+    return call("GET", "/api/sites/apopka-demo/zones").body["zones"]
 
 
 def zone_by_letter(zones, letter):
@@ -88,7 +88,7 @@ def test_the_engine_reproduces_package_h1_for_the_demo_day(db):
     hours = weather.hours_from(day)
 
     stamps = set()
-    with open(REPO_ROOT / "data" / "processed" / "weather-boston.csv", newline="") as handle:
+    with open(REPO_ROOT / "data" / "processed" / "weather-apopka.csv", newline="") as handle:
         for row in csv.DictReader(handle):
             local = datetime.strptime(row["time_utc"], "%Y-%m-%dT%H:%M:%SZ").replace(
                 tzinfo=timezone.utc).astimezone(LOCAL_TZ)
@@ -96,7 +96,7 @@ def test_the_engine_reproduces_package_h1_for_the_demo_day(db):
                 stamps.add(row["time_utc"])
 
     h1_rows = {}
-    with open(REPO_ROOT / "data" / "processed" / "sim-boston.csv", newline="") as handle:
+    with open(REPO_ROOT / "data" / "processed" / "sim-apopka.csv", newline="") as handle:
         for row in csv.DictReader(handle):
             if row["time_utc"] in stamps:
                 h1_rows.setdefault(row["zone"], []).append(row)
@@ -135,37 +135,37 @@ def test_the_engine_is_deterministic(db):
 
 def test_a_site_seeds_three_zones_and_can_take_a_fourth(call, site_zones):
     assert [zone["letter"] for zone in site_zones] == ["A", "B", "C"]
-    listing = call("GET", "/api/sites/boston-demo/zones").body
+    listing = call("GET", "/api/sites/apopka-demo/zones").body
     assert listing["can_add_zone"] is True
     assert listing["zone_limit"] == 4
 
-    created = call("POST", "/api/sites/boston-demo/zones", NEW_ZONE)
+    created = call("POST", "/api/sites/apopka-demo/zones", NEW_ZONE)
     assert created.status == 201
     assert created.body["zone"]["letter"] == "D"
 
-    listing = call("GET", "/api/sites/boston-demo/zones").body
+    listing = call("GET", "/api/sites/apopka-demo/zones").body
     assert listing["can_add_zone"] is False
     assert "Archive one" in listing["add_zone_blocked_because"]
 
 
 def test_a_fifth_active_zone_is_refused_by_the_api(call):
-    call("POST", "/api/sites/boston-demo/zones", NEW_ZONE)
-    refused = call("POST", "/api/sites/boston-demo/zones",
+    call("POST", "/api/sites/apopka-demo/zones", NEW_ZONE)
+    refused = call("POST", "/api/sites/apopka-demo/zones",
                    dict(NEW_ZONE, name="One zone too many"))
     assert refused.status == 409
     assert refused.body["error"]["code"] == "zone_limit_reached"
     assert refused.body["error"]["details"]["limit"] == 4
-    assert len(call("GET", "/api/sites/boston-demo/zones").body["zones"]) == 4
+    assert len(call("GET", "/api/sites/apopka-demo/zones").body["zones"]) == 4
 
 
 def test_archiving_frees_a_slot_and_keeps_the_zone_readable(call, site_zones):
     zone_a = zone_by_letter(site_zones, "A")
-    call("POST", "/api/sites/boston-demo/zones", NEW_ZONE)
+    call("POST", "/api/sites/apopka-demo/zones", NEW_ZONE)
     archived = call("POST", f"/api/zones/{zone_a['id']}/archive")
     assert archived.status == 200
     assert archived.body["zone"]["archived"] is True
 
-    listing = call("GET", "/api/sites/boston-demo/zones").body
+    listing = call("GET", "/api/sites/apopka-demo/zones").body
     assert listing["can_add_zone"] is True
     assert any(zone["archived"] for zone in listing["zones"]), "the archived zone is still listed"
 
@@ -288,16 +288,15 @@ def test_an_expired_override_leaves_the_zone_on_automatic(call, db, site_zones):
 
     assert hours[STORM_HOUR]["manual"] is True, "the override hour is manual"
     assert hours[STORM_HOUR + 1]["manual"] is False, "the hour after expiry is automatic again"
-    # The storm is one hour long, so the automatic answer after it is the light rule.
-    assert hours[STORM_HOUR + 1]["state"] == "LIGHT_OPEN"
-    assert hours[STORM_HOUR + 1]["reason"] == ""
+    assert hours[STORM_HOUR + 1]["state"] == "RAIN_SHUT"
+    assert hours[STORM_HOUR + 1]["reason"] == "wet_enough"
 
 
 def test_a_safety_rule_outranks_a_manual_open(call, site_zones):
     """A held-open command at a dark hour is refused, and the console is told why.
 
-    The demo day's heaviest hour is 5.3 mm, well under the 25.0 mm hard-rain rule, so
-    that branch never fires on 10 June. The night rule is the conflict this day carries.
+    The demo day's heaviest hour is 23.9 mm, under the 25.0 mm hard-rain rule, so that
+    branch never fires on 3 June. The night rule is the conflict this day carries.
     """
     zone_b = zone_by_letter(site_zones, "B")
     call("POST", f"/api/zones/{zone_b['id']}/overrides",
@@ -335,7 +334,7 @@ def test_return_to_automatic_releases_and_is_logged(call, site_zones):
     assert released.body["control"] == "automatic"
     assert released.body["released"]
 
-    zones = call("GET", "/api/sites/boston-demo/zones").body["zones"]
+    zones = call("GET", "/api/sites/apopka-demo/zones").body["zones"]
     assert zone_by_letter(zones, "C")["manual_overrides"] == []
 
     kinds = [event["kind"] for event in
@@ -367,7 +366,7 @@ def test_the_metric_registry_is_the_only_way_to_change_the_overview(call, site_z
     assert saved.status == 200
     assert saved.body["metrics"] == reordered
 
-    zones = call("GET", "/api/sites/boston-demo/zones").body["zones"]
+    zones = call("GET", "/api/sites/apopka-demo/zones").body["zones"]
     assert zone_by_letter(zones, "A")["review_profile"] == reordered
 
 
@@ -392,7 +391,7 @@ def test_the_overview_keeps_the_metrics_a_grower_cannot_drop(call, site_zones):
 # ------------------------------------------------------------------ validation errors
 
 def test_an_invalid_configuration_lists_every_problem_at_once(call):
-    refused = call("POST", "/api/sites/boston-demo/zones", {
+    refused = call("POST", "/api/sites/apopka-demo/zones", {
         "name": "", "light_rule": "guesswork", "light_target": -3,
         "soil_request_below_mm": 900, "rain_ok": "yes", "mystery": 1,
     })
@@ -409,7 +408,7 @@ def test_an_invalid_configuration_lists_every_problem_at_once(call):
 
 def test_unknown_routes_and_methods_carry_stable_codes(call):
     assert call("GET", "/api/nothing-here").body["error"]["code"] == "not_found"
-    refused = call("DELETE", "/api/sites/boston-demo/zones")
+    refused = call("DELETE", "/api/sites/apopka-demo/zones")
     assert refused.status == 405
     assert refused.body["error"]["code"] == "method_not_allowed"
     assert "GET" in refused.body["error"]["details"]["allowed"]
@@ -439,7 +438,7 @@ def test_health_stays_up_and_says_so_when_the_database_cannot_open():
 
 
 def test_operating_state_is_never_cached(call, site_zones):
-    for path in ("/api/sites/boston-demo/zones",
+    for path in ("/api/sites/apopka-demo/zones",
                  f"/api/zones/{site_zones[0]['id']}/control-events"):
         assert call("GET", path).headers["Cache-Control"] == "no-store"
 
