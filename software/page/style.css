@@ -687,6 +687,8 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
   .stage-identity { max-width: none; right: var(--s4); }
   .stage-identity h1 { font-size: 24px; }
   .btn.btn-run { flex: 1 1 100%; justify-content: center; }
+  /* A phone keeps the views a thumb can use, and leaves the roof in sight. */
+  .tool[data-preset="eave"], .tool[data-preset="bay"], #explode-toggle, #overlay-toggle { display: none; }
   .cells { grid-template-columns: 1fr; }
   .tool-label { display: none; }
   .panel-head { flex-direction: column; }
