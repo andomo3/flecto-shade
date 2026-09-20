@@ -134,3 +134,40 @@ Stretch, from the W3a branch, only if W3a is open by 09:20.
 The title uses `feat:`, `ui:` or `fix:`.
 The body follows `.github/pull_request_template.md`, states the commands run with their real output, names what was not tested, and attaches a screenshot at 1440 by 900 and one at 390 px.
 The planner reviews it, runs the full suite and the page, and abba merges.
+
+## The two handoff prompts
+
+The planner's Devin connection cannot start a session, because its token carries no organisation.
+Each person pastes their prompt into their own Devin, with the repo `andomo3/flecto-shade` selected.
+
+### For abba's Devin
+
+```text
+Repo: andomo3/flecto-shade. Read AGENTS.md and CONTRIBUTING.md first, then the plan at planning/plans/devin-parallel-2026-09-20.md on branch docs/parallel-devin-plan (PR 12). You are "abba's Devin" in that plan. Do W1 (the hero landing section), open its pull request, then do W2 (the simulation interface) on a branch from W1 and open a second pull request.
+
+Hard deadline, US Eastern: W1 pull request open by 09:10, W2 by 09:50. Nothing touches the page after 10:00. If a step is not done by its time, open the pull request with what works and say what was cut.
+
+Base branch: if origin/main contains commit fef8e75, branch from main. If it does not, branch from feat/judging-ui-polish, which is PR 9.
+
+Another Devin is working on the same page at the same time. Stay inside your column of the "Who may touch what" table: in index.html edit only above the comment "<!-- 5. configuration -->", and never create or edit designer.js, designer.css or scene.js. If you need a file outside your column, stop and say so on the pull request.
+
+Read the section "Traps the test suite sets" before writing anything. The suite fails on the substring "roi" anywhere in the page or its scripts, forbids any <header tag, forbids type under 18 px, and forbids any http:// or https:// in a served file. Run "python -m pytest software/tests -q" in full and "node --check" on every changed script before each pull request. Never edit an expected value to make a test pass, except the one change task T1 names, with its reason written in the pull request.
+
+Serve the page with "python software/api/local_server.py --port 8000" and check it in a browser at 1440 by 900 and at 390 px wide. Attach both screenshots. Use the pull request template, state the commands you ran with their real output, and name what you did not test. Do not merge your own pull requests and never push to main. Small commits with ui:, feat: or fix: prefixes. Do not use the em dash character in any file.
+```
+
+### For Ameya's Devin
+
+```text
+Repo: andomo3/flecto-shade. Read AGENTS.md and CONTRIBUTING.md first, then the plan at planning/plans/devin-parallel-2026-09-20.md on branch docs/parallel-devin-plan (PR 12). You are "Ameya's Devin" in that plan. Do W3a (the design component with a plan drawing) and open its pull request. Only if W3a is open by 09:20 US Eastern, do the stretch W3b (the design drives the 3D roof) on a branch from W3a.
+
+Hard deadline, US Eastern: W3a pull request open by 09:20, W3b by 09:50. Nothing touches the page after 10:00. If W3b is not working by 09:45, close its branch and say so. W3a stands without it.
+
+Base branch: if origin/main contains commit fef8e75, branch from main. If it does not, branch from feat/judging-ui-polish, which is PR 9.
+
+Another Devin is rebuilding the top of the same page at the same time. Stay inside your column of the "Who may touch what" table: the new files designer.js, designer.css and software/tests/test_designer.py, plus exactly one new <section id="designer"> directly before <footer class="foot"> in index.html, one <link> tag, one <script> tag, and the one line in test_page.py that adds designer.js to SCRIPTS. Do not touch style.css, console.js, or anything above the configuration section. scene.js and one listener line in app.js are allowed in W3b only. The hero being built in parallel links to #designer, so the section's id must be exactly that.
+
+Read the section "Traps the test suite sets" before writing anything. The suite fails on the substring "roi" anywhere in the page or its scripts, forbids any http:// or https:// in a served file outside a comment, and forbids words about cost, yield, energy or water saved. designer.css keeps type at 18 px or more and controls at 48 px. Every number the component shows is labelled as design arithmetic or as simulated, never as a result about a real roof.
+
+Run "python -m pytest software/tests -q" in full and "node --check" on every changed script before each pull request. Serve the page with "python software/api/local_server.py --port 8000" and check it in a browser at 1440 by 900 and at 390 px wide, by keyboard as well as by pointer. Attach both screenshots. Use the pull request template, state the commands you ran with their real output, and name what you did not test. Do not merge your own pull requests and never push to main. Small commits with feat:, ui: or fix: prefixes. Do not use the em dash character in any file.
+```
