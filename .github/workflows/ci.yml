@@ -62,3 +62,12 @@ jobs:
       - name: Run watering controller tests when present
         if: hashFiles('software/tests/*.test.cjs') != ''
         run: node --test software/tests/*.test.cjs
+      - name: Package static demo
+        run: git archive --format=zip --output=flecto-shade-static.zip HEAD:software/page '*.html' '*.css' '*.js' '*.json' '*.svg' .vercelignore
+      - name: Upload deployable static demo
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: flecto-shade-static
+          path: flecto-shade-static.zip
+          if-no-files-found: error
+          retention-days: 14

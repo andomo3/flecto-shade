@@ -69,6 +69,7 @@ python -m http.server --directory software/page 8000
 
 Open `http://localhost:8000`.
 No API keys, `.env`, database or Docker are required.
+The console supports offline configuration when its API is absent. For optional local persistence, follow [the API guide](software/api/README.md).
 
 ## Development checks
 
@@ -121,7 +122,8 @@ File changes do not configure GitHub settings or create issues automatically.
    Select the check after this workflow has run at least once.
 2. Create the six labels above in [Labels](https://github.com/andomo3/flecto-shade/labels), then create and assign the initial issues.
 3. Connect the approved static host to `main`.
-   For Vercel, use `software/page` as the root, the Other framework preset, an enabled but empty Build Command override, and `.` as the output directory.
+   For static-only Vercel hosting, use `software/page` as the root, the Other framework preset, an enabled but empty Build Command override, and `.` as the output directory.
+   The team's [optional API deployment](software/DEPLOYMENT.md) instead uses `software` as the root and `page` as the output, with the checked-in Vercel configuration. Deployed durable storage is not implemented.
    See Vercel's [static build instructions](https://vercel.com/docs/builds/configure-a-build#skip-build-step).
    Record the actual public URL in the README only after verifying it.
    Host auto-deployment is not configured by this PR; CI runs tests but does not deploy.

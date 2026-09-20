@@ -1,18 +1,17 @@
 # Flecto Shade
 
-**An adaptive shade-house simulation for giving growing areas different amounts of light and rain.**
+**Select growing areas and simulate how circular roof flaps deliver rain to them.**
 
-[Run locally](#setup) · [Watering preview and recording](https://github.com/andomo3/flecto-shade/pull/5#issuecomment-5747121392) · [Team workflow](CONTRIBUTING.md) · [Issues](https://github.com/andomo3/flecto-shade/issues)
+[Run locally](#setup) · [Recorded demo](https://github.com/andomo3/flecto-shade/pull/5#issuecomment-5747121392) · [Presentation](pitch/presentation.html) · [Team workflow](CONTRIBUTING.md) · [Issues](https://github.com/andomo3/flecto-shade/issues)
 
-Built at HackMIT 2026 · Plain HTML/CSS/JavaScript · Python 3.13 · [MIT](LICENSE)
+Built at HackMIT 2026 · Plain HTML/CSS/JavaScript + WebGL · Python 3.13 · [MIT](LICENSE)
 
-> **Current status:** `main` contains the CAD roof viewer and Florida weather replay.
-> Farmer-selected areas → simulated rain → individual flap control is implemented in [PR #5](https://github.com/andomo3/flecto-shade/pull/5), pending integration.
-> Its recording is a preview of that branch. A public deployment URL and final frontend screenshot are still pending.
+> **Demo status:** this revision includes farmer-selected watering and a separate Florida weather replay.
+> All roof and water results are simulated. A permanent public demo URL and final submission recording are still pending.
 
 ![Two selected soil areas receive simulated rain through individual circular flaps](assets/watering-preview.png)
 
-*Watering preview from PR #5, tested revision `15ebcfd`; this flow is not yet merged into `main`.*
+*Recorded watering demo at revision `15ebcfd`. Its controller and renderer are preserved; that earlier recording does not cover the secondary console or navigation between the pages. Current integration evidence is tracked in PR #5.*
 
 ## Problem
 
@@ -25,52 +24,58 @@ Our [problem research](planning/docs/research/flectofin-greenhouse-roof/problem-
 
 ## What we built
 
-- **An interactive CAD roof viewer:** the team's circular flaps, animated roof states and camera controls.
-- **A weather replay:** 3 June 2023 in the Apopka area, with crop-specific decisions and explanations.
-- **A reproducible simulation:** deterministic light/rain rules and soil-water buckets driven by public 2023 weather inputs.
-- **An offline static page:** local assets and precomputed data, without runtime API calls.
-
-The next primary interaction is the farmer-selected watering flow in [PR #5](https://github.com/andomo3/flecto-shade/pull/5).
-It lets the farmer select soil areas, set rain and moisture targets, and inspect flap combinations, delivered water, spill, shortfalls and a JSON export.
-The weather replay remains a separate supporting demonstration.
+- **Farmer-selected growing areas:** click, drag or use the keyboard to select soil cells; A-D are selection shortcuts.
+- **A rain-event controller:** set rain depth, starting soil water, target and capacity, then watch deterministic combinations of individual circular flaps open and close.
+- **Visible limits and accounting:** inspect covered/uncovered cells, target shortfalls, selected/outside delivery, stored water and overflow; allow spill explicitly and export the inputs/results as JSON.
+- **An interactive CAD roof:** the team's 22 circular flaps, rain animation and orbit/zoom camera controls.
+- **A secondary weather and zone console:** explore 3 June 2023 at `console.html`, with the team's procedural Flectofin renderer, crop rules, configuration controls and optional API persistence.
+- **Offline static demos:** local assets and precomputed weather data; CAD watering makes no API calls, and the console supports an explicit offline mode when its optional API is unavailable.
 
 ## Tech stack
 
 | Layer | Technology |
 | --- | --- |
 | Browser app | Plain HTML, CSS, vanilla JavaScript and WebGL |
-| Data and simulation | Python 3.13, pandas 2.2.3, numpy 2.2.3 |
-| Checks | pytest 9.0.2, Ruff correctness checks, JavaScript syntax checks, GitHub Actions |
+| Rain-event controller | Deterministic browser JavaScript, also reused by Node tests and the figure generator |
+| Weather simulation | Python 3.13, pandas 2.2.3, numpy 2.2.3 |
+| Optional console persistence | Python standard-library API and local SQLite; no new dependencies |
+| Checks | pytest 9.0.2, Node tests, Ruff correctness checks, JavaScript syntax checks, GitHub Actions |
 | Weather | NASA POWER modeled radiation/temperature and NOAA ISD gauge rainfall |
 | Serving | Python's standard-library HTTP server, or a static host |
 
-No backend, database, Docker or frontend build is required to run the checked-in page.
-Node is used only for development checks and browser-controller tests.
+No backend, database, Docker or frontend build is required to run the static demos.
+Node is used only for development checks and figure generation.
+The secondary console's optional [API](software/api/README.md) stores configuration and simulation runs locally; deployed durable storage is not implemented.
 
 ## Architecture
 
 ```mermaid
 flowchart TD
+    cad["Team CAD export"] --> model["model.json"]
+    model --> layout["Assumed circular soil footprints"]
+    farmer["Selected cells + rain + soil inputs"] --> controller["Watering.simulate"]
+    layout --> controller
+    controller --> page["Static watering demo"]
+    model --> page
+    controller --> export["Water accounting + JSON export"]
+    controller --> figures["Node example/figure generator"]
     nasa["NASA POWER hourly data"] --> solar["data/build_solar_2023.py"]
-    solar --> year["Processed 2023 solar data"]
-    year --> sim["software/h1/build.py"]
+    solar --> sim["software/h1/build.py"]
     noaa["NOAA hourly gauge rain"] --> sim
     crops["data/crops.csv"] --> sim
     sim --> tables["Processed weather and simulation CSVs"]
     tables --> day["software/page/build_day.py"]
     day --> json["day.json"]
-    cad["Team CAD export"] --> model["model.json"]
-    json --> page["Static browser app"]
-    model --> page
+    json --> replay["Separate weather replay"]
+    mechanism["Procedural Flectofin geometry"] --> replay
 ```
 
-This diagram describes the merged weather-replay pipeline.
-Raw downloads stay outside git; processed inputs and runtime JSON are versioned so the page can run offline.
-The farmer-area controller in PR #5 computes rain-event results in the browser.
+Rain-event results are computed in the browser.
+Raw weather downloads stay outside git; processed inputs and runtime assets are versioned so the demos can run offline.
 
 ## Setup
 
-With Python installed, the existing demo takes three commands:
+With Python installed, the demo takes three commands:
 
 ```bash
 git clone https://github.com/andomo3/flecto-shade.git
@@ -79,40 +84,76 @@ python -m http.server --directory software/page 8000
 ```
 
 Open `http://localhost:8000`.
-No accounts, API keys or raw-data download are needed to view the checked-in page.
+No accounts, API keys or raw-data download are needed to view the checked-in demo.
+Select growing areas, set the rain and soil inputs, then start the rain event.
+Use the weather and zone console link for the secondary demonstration; the old `replay.html` URL redirects there.
+The secondary console's procedural roof and weather rules are distinct from the primary demo's CAD geometry and manually configured rain event.
+To enable local console persistence, run `python software/api/local_server.py --port 8000` instead of the static server.
 
 For Python 3.13 development dependencies, raw inputs and test commands, see [CONTRIBUTING.md](CONTRIBUTING.md#development-checks) and [data provenance](data/README.md).
-CI downloads and verifies the two documented weather snapshots, checks Python/JavaScript and runs the tests, including offline build checks.
-It does not publish a deployment.
+CI verifies both documented weather snapshots and runs Python/JavaScript checks, including offline build tests.
+After checks pass, CI attaches a `flecto-shade-static` archive that can be extracted and uploaded to a static host. It does not publish automatically.
 
-## Demo media
+### Deploy the demo
 
-The [recorded watering preview](https://github.com/andomo3/flecto-shade/pull/5#issuecomment-5747121392) shows the proposed primary flow and identifies its tested revision.
-The final public demo, hero screenshot and submission recording must match the integrated frontend.
-Their handoff is tracked in the [release checklist](CHECKLIST.md).
+Import this repository into [Vercel](https://vercel.com/new), choose **Root Directory `software/page`**, and keep the framework as **Other**. The checked-in configuration disables install/build steps and publishes the static pages without an API, database or secrets.
+Use the integrated branch for a preview until its PR is merged; production should track `main`.
+The root opens CAD watering; `console.html` opens the secondary console with session-only configuration.
+See the [deployment guide](software/DEPLOYMENT.md) for the downloadable bundle, verification and optional local API.
+
+## Reproducible results and demo media
+
+The default two-footprint example reaches **42/42** selected targets with **21.1 mL** selected delivery and **0.0 mL** outside delivery/overflow.
+These are simulated at the approximately **129 × 304 mm CAD scale**, not a farm-scale savings benchmark.
+See [results](pitch/results.md) and [full-precision examples](pitch/examples.json) for inputs and other cases.
+
+```bash
+node --test software/tests/watering.test.cjs
+node software/tools/build_watering_examples.cjs --check
+node --check software/page/app.js
+node --check software/page/watering-renderer.js
+node --check software/page/watering-app.js
+```
+
+To regenerate examples, figures and the self-contained presentation, omit `--check`.
+Do not manually edit generated outputs.
+The [presentation](pitch/presentation.html), [demo script](pitch/demo.md) and [recorded browser acceptance](https://github.com/andomo3/flecto-shade/pull/5#issuecomment-5747121392) support the farmer-selected rain-event flow.
+The final public demo and submission recording must match the submitted frontend; see the [release checklist](CHECKLIST.md).
 
 ## Evidence and limits
 
-NASA POWER radiation and temperature are **modeled**; NOAA rain is a **gauge observation**.
-Roof states, crop light exposure and soil-water accounting are **simulated**.
-See [dataset provenance and model assumptions](data/README.md) before using any figures.
+The supplied STEP establishes **22 flap instances in two overlapping layers plus a base**.
+Its geometry agrees with the H2 mesh within approximately 0.08 mm.
+Independent circles of **25 mm radius**, their offsets and the rectangular soil grid are assumptions.
 
-The current soil-water model reduces modeled crop water use with roof opening.
-It needs refinement before it can support a water-savings claim.
-The project does not establish yield improvement, soil restoration, hydraulic performance, actuator reliability or farm-scale savings.
+Cells whose centres lie inside an open footprint receive rain.
+Open footprints form a union so overlapping flaps do not double-count water.
+Conservative mode excludes apertures that would wet unselected or already-satisfied cells.
+A deterministic greedy combination advances to the next receiving-cell target, then replans.
+Spill is an explicit opt-in; capacity overflow is tracked separately.
+Greedy selection is not proven globally optimal.
+
+The event model checks `event = admitted + excluded`, `admitted = selected + outside`, and `initial soil + admitted = final soil + overflow`.
+It does not calculate cross-layer/base obstruction, wind, runoff redistribution, evaporation, crop response, physical folding or actuator performance.
+
+For the separate weather replay, NASA POWER radiation and temperature are **modeled**; NOAA rain is a **gauge observation**.
+Its soil-water model reduces modeled crop water use with roof opening and needs refinement before supporting a water-savings claim.
+See [dataset provenance and assumptions](data/README.md).
+
+The [FAWN agricultural-data research](planning/docs/research/flectofin-greenhouse-roof/agricultural-data-voloridge.md) proposes measured-weather comparisons.
+Its analysis figures remain provisional until reproduced by checked-in project code.
+The project does not establish crop-yield improvement, soil restoration, hydraulic performance, actuator reliability or farm-scale water savings.
 
 The Flectofin mechanism is credited to ITKE at the University of Stuttgart, patent EP2320015.
 Our contribution is the simulation and control demonstration; we do not claim to have invented the mechanism or established patent novelty.
 See [mechanism credits](planning/docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md).
 
-The [FAWN agricultural-data research](planning/docs/research/flectofin-greenhouse-roof/agricultural-data-voloridge.md) proposes measured-weather comparisons.
-Its analysis figures remain provisional until reproduced by checked-in project code.
-
 ## What's next
 
-- [ ] Integrate farmer-selected watering with the team's final frontend and publish the demo.
+- [ ] Finish frontend polish, publish the approved static demo and rehearse the submission.
+- [ ] Ask a grower to test the area-selection workflow.
+- [ ] Measure physical flap behavior, rain footprints, layer blockage and drainage.
 - [ ] Compare adaptive shade with fixed shade using crop, soil-moisture and temperature measurements.
-- [ ] Validate physical flap behavior, drainage and rain delivery before making field-performance claims.
 
 ## Team
 
@@ -133,7 +174,7 @@ Read the [shared workflow](CONTRIBUTING.md) and [release checklist](CHECKLIST.md
 Devin, from Cognition, assisted with implementation, integration and checks.
 Claude, from Anthropic, assisted with planning, research and documentation.
 The roof controller uses deterministic rules; no learned model runs in its control loop.
-Library, dataset and crop-source credits are collected in the [submission material](planning/pitch/submission.md).
+Source credits and the prior-work disclosure are collected in the [submission material](pitch/submission.md).
 
 Before the event, the team researched and planned a different idea in [hack-mit](https://github.com/andomo3/hack-mit), including a labeled throwaway prototype.
 That idea was set aside on Saturday. This shade-house project was chosen and built during the hacking period; no code was copied from that planning repository.

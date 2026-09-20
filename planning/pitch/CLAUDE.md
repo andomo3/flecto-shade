@@ -1,9 +1,12 @@
 # pitch - local memory
 
+Follow the repository's `AGENTS.md` and `CONTRIBUTING.md`.
+The current demo material is in `../../pitch/`; the notes below preserve historical weather-replay planning.
+
 Owner: abba, alongside the submission.
 The current plan is `../plans/plan-d-louvre-roof.md`, the simulated smart louvre roof, and the guide for these files is `../plans/pitch-plan-d.md`.
 Use the `hackathon-pitch`, `hackathon-readme`, and `hackathon-testing` skills, which are built from `../playbook.md`.
-This folder is Markdown only, and a build agent never changes it.
+Preserve source citations when updating this historical planning material.
 
 ## Where the pitch lives
 

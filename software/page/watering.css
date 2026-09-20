@@ -1,0 +1,69 @@
+.rain-controls { display: flex; flex-direction: column; gap: var(--s3); margin: 0; }
+.rain-controls label:not(.spill-choice) { display: block; font-size: 16px; }
+.rain-controls input[type=number] { display: block; width: 100%; margin-top: var(--s1); padding: var(--s2); border: 1px solid var(--line-strong); border-radius: 5px; background: var(--paper); color: var(--ink); font: inherit; }
+.field-unit { color: var(--ink-3); }
+.assumption-banner { font-size: 15px; background: var(--warn-bg); border-left: 3px solid var(--warn); padding: var(--s2) var(--s3); margin: var(--s4) 0; }
+[data-mode=watering] .model-frame { display: grid; grid-template-columns: minmax(0, 1fr) 320px; min-height: 700px; height: auto; }
+[data-mode=watering] .model-viewport, [data-mode=watering] .rain-canvas { inset: 150px 320px 100px 0; height: auto; }
+[data-mode=watering] .rain-plan { position: relative; grid-column: 2; width: auto; inset: auto; }
+[data-mode=watering] .model-identity { max-width: calc(100% - 368px); }
+[data-mode=watering] .model-identity h1 { max-width: 18ch; font-size: clamp(28px, 3.3vw, 44px); }
+[data-mode=watering] .view-reset, [data-mode=watering] .camera-help { right: 344px; }
+[data-mode=watering] .roof-canvas { position: absolute; inset: 0; min-width: 0; min-height: 0; }
+[data-mode=watering] .rain-plan p { font-size: 15px; }
+[data-mode=watering] .rain-plan-head { margin: 0; }
+.event-label { position: absolute; left: var(--s5); bottom: var(--s5); color: var(--stage-muted); }
+.event-actions, .ctl { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.btn-ghost { background: var(--paper); color: var(--ink-2); border: 1px solid var(--line-strong); border-radius: var(--radius-small); min-height: 44px; padding: var(--s2) var(--s3); cursor: pointer; }
+.btn-ghost:hover:not(:disabled) { background: var(--leaf-soft); }
+.btn-ghost:disabled { opacity: .55; cursor: not-allowed; }
+#region-controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s2); margin-top: var(--s2); }
+.control-caption { margin: 0; }
+.skip-link { position: absolute; top: -100px; z-index: 10; padding: var(--s3); background: white; }
+.skip-link:focus { top: 0; }
+.rain-controls .ctl-help { width: 100%; margin: 0; font-size: 15px; }
+.spill-choice { font-size: 16px; cursor: pointer; }
+.watering-workspace { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); gap: var(--s5); }
+.watering-workspace h2 { font-size: 21px; margin: 0; }
+.watering-workspace .ctl-help { font-size: 15px; margin: 0; }
+.watering-workspace .ctl { gap: var(--s2); }
+.watering-workspace .btn-ghost { font-size: 15px; }
+.map-scroll { overflow-x: auto; padding: 3px; }
+#map-shell { position: relative; min-width: 460px; }
+#soil-map { display: grid; gap: 1px; background: var(--line-strong); border: 1px solid var(--line-strong); touch-action: none; }
+.soil-cell { border: 0; border-radius: 1px; background: #ede6db; padding: 0; min-width: 0; aspect-ratio: 1; cursor: crosshair; }
+.soil-cell[aria-selected=true] { background: #5d985d; }
+.soil-cell.wet { background: #4e9cc1; }
+.soil-cell.short { box-shadow: inset 0 0 0 2px #9a4f08; }
+.soil-cell.spilled { background: #e4b169; }
+.soil-cell:focus-visible { position: relative; z-index: 2; outline: 3px solid var(--ink); outline-offset: 1px; }
+#footprint-rings { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+#footprint-rings circle { stroke: var(--ink-3); stroke-width: 0.35; fill: none; opacity: .65; }
+#footprint-rings circle.open { stroke: var(--water); stroke-width: 1.1; opacity: 1; }
+#cell-detail, #phase-status, #shortfalls { margin: 0; font-size: 16px; }
+#status { margin: 0 0 var(--s4); color: var(--ink-2); }
+#status.error { color: #9c2b1c; }
+.watering-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); margin: 0; }
+.watering-metrics dt { font-size: 15px; color: var(--ink-3); }
+.watering-metrics dd { font: 600 24px/1.4 var(--mono); margin: var(--s1) 0 0; }
+.map-key { display: flex; flex-wrap: wrap; gap: var(--s3); font-size: 14px; }
+.map-key span { display: flex; align-items: center; gap: 5px; }
+.map-key i { display: inline-block; width: 13px; height: 13px; border: 1px solid var(--line-strong); }
+.key-selected { background: #5d985d; }
+.key-wet { background: #4e9cc1; }
+.key-short { border: 2px solid #9a4f08 !important; }
+.key-spill { background: #e4b169; }
+#event-progress { width: 100%; accent-color: var(--water); }
+#phases { padding-left: var(--s5); font-size: 14px; overflow-wrap: anywhere; }
+.model-notes { margin-top: var(--s5); font-size: 16px; }
+summary { cursor: pointer; font-weight: 580; }
+@media (max-width: 900px) { .watering-workspace { grid-template-columns: 1fr; } }
+@media (max-width: 760px) {
+  [data-mode=watering] .model-frame { grid-template-columns: 1fr; grid-template-rows: 500px auto; min-height: 0; }
+  [data-mode=watering] .model-viewport, [data-mode=watering] .rain-canvas { inset: 150px 0 auto; height: 270px; }
+  [data-mode=watering] .rain-plan { grid-column: 1; grid-row: 2; border: 0; border-top: 1px solid var(--line); }
+  [data-mode=watering] .model-identity { max-width: none; }
+  [data-mode=watering] .view-reset { top: 440px; right: var(--s4); bottom: auto; }
+  .event-label { top: 450px; bottom: auto; left: var(--s4); margin: 0; font-size: 15px; }
+}
+@media (max-width: 550px) { .watering-workspace .zone { padding: var(--s4); } .rain-controls .btn, .rain-controls .btn-ghost { flex: 1 1 auto; justify-content: center; } }

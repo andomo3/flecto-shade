@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shade house — farmer-selected watering</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#11281d;color:#f5f4e9;font:clamp(18px,2.1vw,28px)/1.5 system-ui,sans-serif}
+section{min-height:100vh;padding:7vh 8vw;border-bottom:1px solid #648673;display:flex;flex-direction:column;justify-content:center;gap:2vh}
+.kicker{color:#abcdb4;text-transform:uppercase;letter-spacing:.1em;font-size:.6em}
+h1{font-size:clamp(38px,6vw,90px);line-height:1.03;letter-spacing:-.035em;margin:0 0 2vh;max-width:18ch}
+p{max-width:60ch;margin:.5em 0}small{display:block;color:#c0d1c3;font-size:.58em;margin-top:3vh}
+a{color:#cbecbe}.metrics{display:flex;flex-wrap:wrap;gap:4vw}.metrics p{font-size:.75em}.metrics strong{display:block;font-size:1.7em}
+li{margin:.5em 0}@media print{@page{size:landscape;margin:0}section{height:100vh;break-after:page}body{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style></head><body>
+<section aria-label="01 / The grower"><div class="kicker">Shade house / 01 / The grower</div><h1>Rain is coming.<br>Only two areas need it.</h1><p>Imagine a shade-house grower near Apopka, Florida.</p><p>Choose the soil that should receive rain, and protect the neighbouring areas.</p><small>Illustrative scenario · No customer interview or measured crop result claimed</small></section>
+<section aria-label="02 / The demo"><div class="kicker">Shade house / 02 / The demo</div><h1>Choose areas.<br>Apply rain.<br>Watch the roof.</h1><ol><li>Select two footprints</li><li>Simulate the 10 mm event</li><li>Inspect targets met and outside delivery</li></ol><p>Switch to the live page for the 45-second demonstration.</p></section>
+<section aria-label="03 / The decision"><div class="kicker">Shade house / 03 / The decision</div><h1>Every opening has<br>a footprint.</h1><p>Individual flap combinations → union of circular footprints → soil targets → replan and close.</p><p>Strict protection can refuse an opening that would wet a neighbour. Spill requires an explicit choice.</p><small>Deterministic controller · Browser JavaScript + WebGL team CAD · No runtime AI</small></section>
+<section aria-label="04 / Reproducible result"><div class="kicker">Shade house / 04 / Reproducible result</div><h1>42/42<br>selected targets met</h1><div class="metrics"><p><strong>21.1 mL</strong> selected delivery</p><p><strong>0.0 mL</strong> outside delivery</p><p><strong>0.0 mL</strong> overflow</p></div><p>Rain 10 mm · Soil 20 → 25 mm · 5 mm remaining after the last opening.</p><small>Simulated at the small CAD scale. No yield or water-saving comparison.</small></section>
+<section aria-label="05 / What is proven"><div class="kicker">Shade house / 05 / What is proven</div><h1>Software today.<br>Physical validation next.</h1><p>Team CAD: 22 flap instances, two overlapping layers and a base.</p><p>Assumed: independent circular rain apertures. Not simulated: cross-layer/base blockage or actual folding mechanics.</p><p>The model accounts for water; the prototype still needs a measured footprint experiment.</p></section>
+<section aria-label="06 / The ask"><div class="kicker">Shade house / 06 / The ask</div><h1>Help us compare<br>choice with delivery.</h1><ol><li>Measure actual rain footprints and occlusion</li><li>Validate the selection workflow with one grower</li><li>Connect a small actuator and sensor experiment</li></ol><a href="https://github.com/andomo3/flecto-stop">github.com/andomo3/flecto-stop</a><small>HackMIT 2026 · Abba / Ameya / Shannon · Mechanism inspiration: ITKE Flectofin EP2320015</small></section>
+</body></html>

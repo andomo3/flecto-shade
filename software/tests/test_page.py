@@ -24,7 +24,7 @@ PAGE = REPO_ROOT / "software" / "page"
 BUILD = PAGE / "build_day.py"
 
 SCRIPTS = ["flectofin.js", "rules.js", "scene.js", "api.js", "console.js", "app.js"]
-SERVED = ["index.html", "style.css"] + SCRIPTS
+SERVED = ["console.html", "style.css"] + SCRIPTS
 
 
 def load():
@@ -48,7 +48,7 @@ def day(builder, tmp_path_factory):
 
 @pytest.fixture(scope="module")
 def html():
-    return (PAGE / "index.html").read_text(encoding="utf-8")
+    return (PAGE / "console.html").read_text(encoding="utf-8")
 
 
 @pytest.fixture(scope="module")

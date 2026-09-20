@@ -1,225 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shade house operating console - simulated, Apopka, Florida</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Choose growing areas and simulate rain through individually controlled shade-house flaps.">
+  <title>Shade house — water the areas you choose</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="watering-base.css">
+  <link rel="stylesheet" href="watering.css">
 </head>
-<body>
-
-<a class="skip" href="#overview">Skip to the zone overview</a>
-
-<main class="console" id="console">
-
-  <!-- 1. the modelled shade house -->
-  <section class="stage" aria-labelledby="stage-title">
-    <div class="stage-frame" id="stage-frame">
-      <div class="stage-viewport" id="stage-viewport"></div>
-      <div class="zone-tags" id="zone-tags" aria-hidden="true"></div>
-      <div class="anchors" id="anchors" aria-hidden="true"></div>
-      <svg class="overlay-lines" id="overlay-lines" aria-hidden="true"></svg>
-
-      <div class="stage-identity">
-        <p class="sim-flag">
-          <svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h3l2-5 2 10 2-5h3"/></svg>
-          Simulated, from historical weather inputs
-        </p>
-        <h1 id="stage-title">Shade house operating console</h1>
-        <p class="stage-place" id="stage-place">Loading the simulated day</p>
-      </div>
-
-      <div class="stage-readout" id="stage-readout">
-        <p class="clock"><span id="clock">--:--</span> <span class="clock-note" id="clock-date"></span></p>
-        <p class="sky" id="sky-readout">Modelled sun, rain, and air loading</p>
-      </div>
-
-      <div class="stage-tools" role="group" aria-label="Model view controls">
-        <div class="tool-row" role="group" aria-label="Camera presets">
-          <span class="tool-label">View</span>
-          <button type="button" class="tool" data-preset="overview" aria-pressed="true">Overview</button>
-          <button type="button" class="tool" data-preset="plan">Plan</button>
-          <button type="button" class="tool" data-preset="eave">Eave</button>
-          <button type="button" class="tool" data-preset="bay">One bay</button>
+<body data-mode="watering">
+<a class="skip-link" href="#selection-title">Skip to growing areas</a>
+<main class="console">
+  <p id="status" role="status" aria-live="polite">Loading the roof and soil map…</p>
+  <section class="hero" aria-labelledby="page-title">
+    <figure class="model">
+      <div class="model-frame" id="model-frame">
+        <div class="model-viewport" id="roof" aria-live="off"></div>
+        <canvas class="rain-canvas" id="rain-canvas" aria-hidden="true"></canvas>
+        <div class="model-identity">
+          <div class="identity-line"><span class="status-dot" aria-hidden="true"></span>Simulated · CAD prototype</div>
+          <h1 id="page-title">Water the areas you choose.</h1>
+          <p>Select soil below. Watch individual flaps admit rain.</p>
         </div>
-        <div class="tool-row" role="group" aria-label="Model detail">
-          <span class="tool-label">Detail</span>
-          <button type="button" class="tool" id="inspect-toggle" aria-pressed="false">Inspect a module</button>
-          <button type="button" class="tool" id="explode-toggle" aria-pressed="false" disabled>Exploded view</button>
-          <button type="button" class="tool" id="overlay-toggle" aria-pressed="false">Technical overlay</button>
-          <button type="button" class="tool" id="reset-view">Reset view</button>
+        <p class="rain-now event-label" id="rain-status">Ready for rain</p>
+        <button type="button" class="view-reset" id="reset-view" aria-label="Reset the roof to bird's-eye view">Bird's-eye</button>
+        <p class="camera-help">Drag to orbit · Scroll to zoom · Arrow keys to rotate</p>
+        <form id="rain-form" class="rain-plan rain-controls">
+          <div class="rain-plan-head">
+            <h2>Rain event</h2>
+            <p>Choose growing areas, then apply simulated rain.</p>
+          </div>
+          <button id="example" class="btn-secondary" type="button" disabled>Select two footprints</button>
+          <div>
+            <p class="control-caption">Or select a region’s footprints</p>
+            <div id="region-controls" aria-label="Select footprints in a roof region"></div>
+          </div>
+          <label>Rain event <span class="field-unit">mm</span>
+            <input id="rain" type="number" min="0" max="200" step="0.1" value="10" required>
+          </label>
+          <label>Starting soil water <span class="field-unit">mm</span>
+            <input id="soil" type="number" min="0" max="60" step="0.1" value="20" required>
+          </label>
+          <label>Selected area target <span class="field-unit">mm</span>
+            <input id="target" type="number" min="0" max="60" step="0.1" value="25" required>
+          </label>
+          <label class="spill-choice"><input type="checkbox" id="spill"> Allow watering outside selected areas</label>
+          <div class="event-actions">
+            <button class="btn" id="simulate" type="submit" disabled>Simulate rain</button>
+            <button class="btn-ghost" id="reset-event" type="button" disabled>Reset</button>
+          </div>
+          <button class="btn-ghost" id="finish" type="button" hidden>Show result now</button>
+          <p class="ctl-help">Default: protect unselected and already-satisfied cells. Each run starts from the soil value above.</p>
+        </form>
+      </div>
+      <figcaption>Ameya’s CAD, with individual flap control. Rain and soil are simulated; rotation illustrates a commanded opening.</figcaption>
+    </figure>
+  </section>
+  <p class="assumption-banner">Idealized rain model: circular openings act independently.
+    Blocking by the CAD’s overlapping layers and base is not simulated.</p>
+  <div class="watering-workspace">
+    <section class="zone" aria-labelledby="selection-title">
+      <h2 id="selection-title" tabindex="-1">1. Pick your growing areas</h2>
+      <p class="ctl-help">Click or drag cells to select or clear them. Use arrow keys and Space on the map. Circles show assumed rain footprints.</p>
+      <div class="ctl">
+        <button id="all" class="btn-ghost" type="button" disabled>Select all</button>
+        <button id="clear" class="btn-ghost" type="button" disabled>Clear</button>
+      </div>
+      <div class="map-scroll">
+        <div id="map-shell">
+          <div id="soil-map" role="grid" aria-label="Soil areas under the roof"></div>
+          <svg id="footprint-rings" aria-hidden="true"></svg>
         </div>
-        <p class="tool-help">Drag to orbit. Shift and drag to pan. Scroll to zoom. Arrow keys turn the model, 1 to 4 select a zone, 0 resets the view.</p>
       </div>
-
-      <div class="module-legend" id="module-legend" hidden>
-        <h2>Flectofin module, modelled</h2>
-        <dl id="module-parts"></dl>
-        <p class="module-open">Modelled roof opening <strong id="module-open-value">0%</strong> at actuation <strong id="module-actuation">0.00</strong></p>
-        <p class="module-caveat">A physically informed browser approximation of the mechanism, not a validated mechanical or structural result. Mounting is drawn as a conceptual clamp.</p>
+      <p id="selection-count" class="ctl-help"></p>
+      <p id="cell-detail" role="status">Select a cell to inspect it.</p>
+      <div class="map-key">
+        <span><i class="key-selected"></i>Selected</span>
+        <span><i class="key-wet"></i>Water received</span>
+        <span><i class="key-short"></i>Target not met</span>
+        <span><i class="key-spill"></i>Outside delivery</span>
       </div>
-
-      <div class="stage-fallback" id="stage-fallback" hidden></div>
-    </div>
-
-    <p class="stage-caption" id="stage-caption">
-      A modelled commercial shade house. Columns carry the primary beams, the beams carry the secondary rails, and every Flectofin module clamps to the two rails that bound its square bay.
-      The planting below is drawn deterministically as decoration and is not a simulated crop response.
-    </p>
-  </section>
-
-  <!-- 2. every configured zone at once -->
-  <section class="panel overview" id="overview" aria-labelledby="overview-title">
-    <div class="panel-head">
-      <div>
-        <h2 id="overview-title">Zone overview</h2>
-        <p class="panel-sub">Every configured zone, at the shown simulated hour.</p>
-      </div>
-      <p class="chip" id="run-state" data-state="loading">
-        <svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5"/></svg>
-        <span>Loading the simulated day</span>
-      </p>
-    </div>
-    <div class="zone-grid" id="zone-grid" role="list"></div>
-    <p class="announce" id="announce" role="status" aria-live="polite"></p>
-  </section>
-
-  <!-- 3. the selected zone -->
-  <section class="panel inspector" id="inspector" aria-labelledby="inspector-title">
-    <div class="panel-head">
-      <div>
-        <h2 id="inspector-title">Selected zone</h2>
-        <p class="panel-sub" id="inspector-sub">Choose a zone on the roof or in the overview.</p>
-      </div>
-      <button type="button" class="btn-quiet" id="inspector-focus" disabled>Centre on the roof</button>
-    </div>
-    <div class="inspector-body" id="inspector-body"></div>
-  </section>
-
-  <!-- 4. the simulated day -->
-  <section class="panel timeline" aria-labelledby="timeline-title">
-    <div class="panel-head">
-      <div>
-        <h2 id="timeline-title">Simulated day</h2>
-        <p class="panel-sub" id="timeline-date">&nbsp;</p>
-      </div>
-      <div class="playback">
-        <button type="button" class="btn-quiet" id="jump-storm" disabled>Go to the storm</button>
-        <button type="button" class="btn-quiet" id="restore" hidden>Restore the baseline</button>
-        <button type="button" class="btn" id="play" disabled>
-          <svg class="glyph solid" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>
-          <span id="play-label">Run the simulated day</span>
-        </button>
-      </div>
-    </div>
-    <div class="timeline-control">
-      <label for="time-control">Modelled local hour</label>
-      <input type="range" id="time-control" min="0" max="23" step="1" value="0"
-             aria-describedby="timeline-readout">
-      <div class="timeline-marks" id="timeline-marks" aria-hidden="true"></div>
-    </div>
-    <p class="timeline-readout" id="timeline-readout">Modelled inputs loading</p>
-  </section>
-
-  <!-- 5. configuration -->
-  <section class="panel workspace" aria-labelledby="workspace-title">
-    <div class="panel-head">
-      <div>
-        <h2 id="workspace-title">Configuration</h2>
-        <p class="panel-sub">Zones and the metrics the overview reviews. Changes are simulated.</p>
-      </div>
-      <p class="chip" id="store-state" data-state="loading">
-        <svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5"/></svg>
-        <span>Checking stored configuration</span>
-      </p>
-    </div>
-
-    <div class="tabs" role="tablist" aria-label="Configuration workspace">
-      <button type="button" role="tab" id="tab-zones" aria-controls="pane-zones" aria-selected="true">Zones</button>
-      <button type="button" role="tab" id="tab-metrics" aria-controls="pane-metrics" aria-selected="false">Reviewed metrics</button>
-    </div>
-
-    <div class="pane" id="pane-zones" role="tabpanel" aria-labelledby="tab-zones">
-      <div class="zone-admin" id="zone-admin"></div>
-      <div class="add-zone">
-        <button type="button" class="btn" id="add-zone">Add a zone</button>
-        <p class="add-zone-note" id="add-zone-note"></p>
-      </div>
-      <form class="zone-form" id="zone-form" hidden>
-        <h3 id="zone-form-title">Zone settings</h3>
-        <p class="form-lead" id="zone-form-lead">Every value here is simulated.</p>
-        <div class="fields">
-          <p class="field">
-            <label for="field-name">Zone name</label>
-            <input type="text" id="field-name" maxlength="60" autocomplete="off">
-          </p>
-          <p class="field">
-            <label for="field-crop">Crop profile</label>
-            <input type="text" id="field-crop" list="crop-profiles" maxlength="80" autocomplete="off">
-            <datalist id="crop-profiles"></datalist>
-          </p>
-          <p class="field">
-            <label for="field-rule">Light rule</label>
-            <select id="field-rule">
-              <option value="dli">Daily light target</option>
-              <option value="shade_pct">Heat shade rule</option>
-            </select>
-          </p>
-          <p class="field">
-            <label for="field-target" id="field-target-label">Daily light target, mol m&#8315;&#178; d&#8315;&#185;</label>
-            <input type="number" id="field-target" min="0" max="80" step="0.5">
-          </p>
-          <p class="field">
-            <label for="field-soil">Soil rain request below, mm modelled</label>
-            <input type="number" id="field-soil" min="0" max="60" step="1">
-          </p>
-          <p class="field checkbox">
-            <input type="checkbox" id="field-rain">
-            <label for="field-rain">Automatic control may admit rain</label>
-          </p>
-        </div>
-        <div class="review" id="zone-review" hidden>
-          <h4>Review before applying</h4>
-          <ul id="zone-review-list"></ul>
-          <p class="review-note">Earlier simulated hours and earlier simulation runs do not change.</p>
-        </div>
-        <p class="form-error" id="zone-form-error" hidden></p>
-        <div class="form-actions">
-          <button type="button" class="btn" id="zone-review-btn">Preview the change</button>
-          <button type="button" class="btn accent" id="zone-apply" hidden>Apply the simulated change</button>
-          <button type="button" class="btn-quiet" id="zone-cancel">Cancel</button>
-        </div>
-      </form>
-    </div>
-
-    <div class="pane" id="pane-metrics" role="tabpanel" aria-labelledby="tab-metrics" hidden>
-      <p class="pane-lead" id="metrics-lead">Choose what the overview reviews for the selected zone, and put it in the order you read it. The list is a fixed registry, not a formula.</p>
-      <ul class="metric-list" id="metric-list"></ul>
-      <p class="form-error" id="metric-error" hidden></p>
-      <div class="form-actions">
-        <button type="button" class="btn accent" id="metrics-apply">Apply to this zone</button>
-        <button type="button" class="btn-quiet" id="metrics-reset">Restore the default order</button>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="foot">
-  <p class="foot-lead">This console is a simulation driven by historical weather inputs. It is not connected to a physical shade house, and no value on it is a validated engineering result.</p>
-  <p id="foot-sources"></p>
-  <p id="foot-credit"></p>
-  <details>
-    <summary>Regional rain context and the limits of this model</summary>
-    <p id="foot-region"></p>
-    <p>Every crop, soil, roof, and zone value is modelled or simulated. The roof geometry is a physically informed browser approximation of the Flectofin mechanism, suitable for explaining an operating decision and not for structural or mechanical conclusions. Where a mounting detail is not established by a source it is drawn as a conceptual clamp and labelled as one.</p>
+    </section>
+    <section class="zone" aria-labelledby="result-title">
+      <h2 id="result-title">2. Watch the roof respond</h2>
+      <p id="phase-status" role="status" aria-live="polite">All flaps closed. Ready for a rain event.</p>
+      <progress id="event-progress" max="1" value="0" aria-label="Rain event progress"></progress>
+      <dl class="watering-metrics">
+        <div><dt>Selected targets met</dt><dd id="met">—</dd></div>
+        <div><dt>Delivered to selected areas</dt><dd id="delivered">—</dd></div>
+        <div><dt>Delivered outside selection</dt><dd id="outside">—</dd></div>
+        <div><dt>Soil overflow</dt><dd id="overflow">—</dd></div>
+      </dl>
+      <p id="shortfalls">Choose areas and simulate rain to see the result.</p>
+      <p id="accounting" class="ctl-help"></p>
+      <button id="export" class="btn-ghost" type="button" disabled>Download simulation JSON</button>
+      <details><summary>Opening sequence</summary><ol id="phases"><li>No rain event yet.</li></ol></details>
+    </section>
+  </div>
+  <details class="model-notes">
+    <summary>Model assumptions and CAD provenance</summary>
+    <p id="layout-source"></p>
+    <p>The STEP establishes 22 flap instances in two overlapping height layers and one base.
+      A 25 mm circular rain aperture centred 25 mm along local −Y from each flap origin is an assumption,
+      based on the approximate rim size and the team's description. The display uses the prototype's actual scale;
+      water volumes are not farm-scale projections.</p>
+    <p>The controller treats these as independent apertures. It does not calculate obstruction by the other
+      flap layer, base, or supports. It rasterizes circles by cell centres, clips them to the rectangular
+      map, and admits rain once per cell when any covering aperture is open.</p>
+    <p>Strict protection can leave selected cells dry when an aperture would also wet an unselected cell.
+      No wind, runoff redistribution, evaporation, crop response, actuators, or structural deformation.
+      The deterministic greedy choice is not an optimization proof. Animation speed is illustrative.
+      All inputs, states, and outputs in this flow are simulated.</p>
   </details>
+</main>
+<footer class="foot">
+  <p>One roof, different choices for the areas beneath it.</p>
+  <p>Mechanism inspiration: ITKE Flectofin, patent EP2320015. Team CAD supplied as third.STEP.
+    No operating roof or crop-yield claim is demonstrated here.</p>
+  <a href="console.html">Open the weather and zone console</a>
 </footer>
-
-<script src="flectofin.js"></script>
-<script src="rules.js"></script>
-<script src="scene.js"></script>
-<script src="api.js"></script>
-<script src="console.js"></script>
-<script src="app.js"></script>
+<script src="watering-model.js"></script>
+<script src="watering-renderer.js"></script>
+<script src="watering-app.js"></script>
 </body>
 </html>

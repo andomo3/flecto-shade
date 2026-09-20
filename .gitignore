@@ -20,4 +20,5 @@ dist/
 build/
 coverage/
 .vercel/
+/flecto-shade-static.zip
 .DS_Store

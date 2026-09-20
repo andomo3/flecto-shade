@@ -74,7 +74,8 @@ def main():
     parser.add_argument("--port", type=int, default=8000)
     args = parser.parse_args()
     server = ThreadingHTTPServer(("127.0.0.1", args.port), Console)
-    print(f"console  http://127.0.0.1:{args.port}/")
+    print(f"watering http://127.0.0.1:{args.port}/")
+    print(f"console  http://127.0.0.1:{args.port}/console.html")
     print(f"api      http://127.0.0.1:{args.port}/api/health")
     server.serve_forever()
 

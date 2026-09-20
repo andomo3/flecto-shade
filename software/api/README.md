@@ -44,7 +44,7 @@ python software/api/migrate.py
 python software/api/local_server.py --port 8000
 ```
 
-The console is then at `http://127.0.0.1:8000/` and the API at `http://127.0.0.1:8000/api/health`.
+The CAD watering demo is at `http://127.0.0.1:8000/`, the secondary console at `http://127.0.0.1:8000/console.html`, and the API at `http://127.0.0.1:8000/api/health`.
 The page works without any of this: `software/page/` is a static directory and the historical demonstration runs from `day.json` alone.
 
 ## Endpoints

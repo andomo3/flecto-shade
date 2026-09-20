@@ -1,5 +1,9 @@
 # Pitch
 
+The current farmer-selected rain-event demo uses the scripts, presentation and reproducible figures in [the root pitch directory](../../pitch/).
+This folder preserves the earlier weather-replay planning and sourced problem framing.
+Its timeline, package dependencies and provisional figures do not define the current demo.
+
 Owner: abba, who also holds the submission.
 
 Rewritten for Plan D, the simulated smart louvre roof, on the evening of Saturday 2026-09-19, following `../plans/pitch-plan-d.md`.

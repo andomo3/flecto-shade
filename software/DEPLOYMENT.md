@@ -1,90 +1,112 @@
-# Deploying the console on Vercel, without breaking the laptop
+# Deploy the shade-house demo
 
-The laptop copy is the demonstration.
-Vercel is the live link for the README and the backup at the table.
-Nothing in this file changes a rule in `AGENTS.md`: the page makes no outside request, no token or Vercel setting is committed, and everything still builds and runs with no network.
+Deploy `software/page` as a static site. No Docker, frontend build, API keys,
+database, or Python server is needed on the host.
 
-## The static demonstration
-
-The page is a static directory.
-It needs no build step, no Node, and no API.
-
-Project settings on Vercel, set once by a person:
-
-- Framework preset: Other.
-- Root Directory: `software`.
-- Build Command: leave empty.
-- Output Directory: `page`, which `software/vercel.json` also declares as `"outputDirectory": "page"`.
-- Install Command: leave empty.
-
-`software/vercel.json` is the one active configuration.
-There is no longer a `vercel.json` under `software/page/`; it was moved up so that the same file can carry the static headers and the API rewrite.
-
-It sets:
-
-- `no-store, must-revalidate` on HTML and on `/`, so a new deployment shows at once.
-- `public, max-age=0, must-revalidate` on `day.json`, on every `.css`, and on every `.js`, because these assets do not use hashed file names and a stale copy would show an old simulated day.
-- `no-store` on everything under `/api/`.
-- A rewrite from `/api/(.*)` to `/api/index`, so one Python function serves every route.
-
-What to check on the deployed address, in a private window:
-
-- The page loads from a clean browser session, with the laptop's network otherwise unused.
-- `day.json` returns 200 and the console plays the simulated day.
-- The WebGL model draws, and orbit, pan, zoom, and the arrow keys all work.
-- Direct navigation to the address works, not only a reload.
-- The words "simulated" and "modelled" are visible, and the credit to ITKE at the University of Stuttgart with patent EP2320015 is in the footer.
-- No secret, token, or connection string appears in the page source or in the deployment log.
-
-## The Python API
-
-The entry point is `software/api/index.py`, a `BaseHTTPRequestHandler` named `handler`, which Vercel's Python runtime calls.
-Every rule, query, and conversion lives in `software/api/flecto/`, outside the request handler, so the same code runs locally with no network.
-
-- Python 3.13, declared in `software/.python-version` and set in the project's settings.
-- Runtime dependencies stay pinned in `software/requirements.txt`. The API adds none.
-- `software/vercel.json` excludes tests, the local database, and bytecode from the function bundle.
-- Routes are served under `/api`, errors are structured JSON with stable codes, and responses carrying configuration, overrides, or results are `no-store`.
-- `/api/health` reports availability and nothing about credentials or internals.
-
-## Production persistence
-
-SQLite is for local development and the offline demonstration only.
-A serverless filesystem is writable only under `/tmp`, and `/tmp` does not outlive the instance, so a deployed SQLite database is not persistence.
-
-For a deployed store, use a PostgreSQL provider through the Vercel Marketplace, with:
-
-- credentials only in Vercel environment variables, never in a file, a commit, a prompt, or a log,
-- a pooled connection suitable for serverless execution,
-- the Function region close to the database region,
-- separate production and preview databases, or separate schemas with strict isolation,
-- migrations applied by an explicit deployment step running `python software/api/migrate.py`, with `FLECTO_AUTO_MIGRATE=0` set so no function invocation migrates on its own.
-
-A PostgreSQL driver is a dependency the repository has not approved yet.
-Until a work package names it, `DATABASE_URL` pointing at PostgreSQL returns `storage_unavailable` with a clear message, and the console shows its offline state.
-
-## Environment variables
-
-| Name | Needed when |
+| Route | Available on a static host |
 |---|---|
-| `DATABASE_URL` | A deployed store is connected |
-| `APP_ENV` | Always, to tell production from preview in `/api/health` |
-| `FLECTO_AUTO_MIGRATE` | Set to `0` in any deployed environment |
-| `SESSION_SECRET` | Only if authentication is added |
-| `ALLOWED_ORIGIN` | Only if the API is deployed apart from the page |
+| `/` or `/index.html` | Farmer-selected CAD watering, rain events, flap animation and JSON export |
+| `/console.html` | Secondary weather and zone console; configuration stays in the browser session |
+| `/replay.html` | Redirects to the secondary console |
 
-None of these belong in the repository.
+The pages use separate renderers and stylesheets. Only the secondary console
+attempts to use `/api`; its offline state is expected on static hosting.
+Changes to console configuration do not persist across reloads without the API.
+The primary watering flow does not need the API.
 
-## Workflow
+## Vercel: recommended setup
 
-- Preview deployments come from a feature or package branch, production only from `main`.
-- A package whose tests or repository gates are failing is not deployed.
-- The preview address is checked against the list above before it is promoted.
-- After promoting, the same checks are run again on production.
+1. [Import the GitHub repository](https://vercel.com/new).
+2. Set **Root Directory** to **`software/page`**, **Framework Preset** to
+   **Other**, and **Production Branch** to **`main`**.
+3. Deploy. `software/page/vercel.json` sets an empty build command, an empty
+   install command, output directory `.`, and `no-store` caching so edits
+   cannot be hidden by stale unversioned assets.
 
-## When the API is not there
+There are no environment variables to add. The allowlist in `.vercelignore`
+includes browser assets and excludes the Python asset generators and caches.
+Do not select `software` as the root for this static-only project: that selects
+the separate optional API configuration.
 
-That is a supported state, not a failure.
-The console loads the static simulated day, plays it, and shows every zone decision in words.
-The configuration workspace shows an explicit offline state, says that changes are held in the session only, and keeps working.
-`software/tests/test_page.py` asserts that path, and it was walked in a browser against a plain static server with no API present.
+While the integration PR is open, deploy its branch as a preview. Once reviewed
+and merged, Vercel's Git integration can publish subsequent `main` updates.
+Require the GitHub `Checks` status before merging; the Vercel Git integration
+itself is not a replacement for the test gate.
+
+Provider references: [build settings](https://vercel.com/docs/builds/configure-a-build),
+[configuration](https://vercel.com/docs/project-configuration/vercel-json),
+[file exclusions](https://vercel.com/docs/deployments/vercel-ignore).
+
+## Portable bundle
+
+Every successful GitHub Actions `CI` run attaches a `flecto-shade-static`
+artifact, retained for 14 days. Download it from the run's summary and extract
+the enclosed `flecto-shade-static.zip`. Publish the directory containing
+`index.html`, not a parent directory containing only the zip.
+
+Create the same zip locally from a committed revision, with Git installed:
+
+```bash
+git archive --format=zip --output=flecto-shade-static.zip HEAD:software/page '*.html' '*.css' '*.js' '*.json' '*.svg' .vercelignore
+```
+
+Run this from the repository root. The command packages **HEAD**, so commit
+intended edits first. The zip includes the checked-in model, controller map,
+weather day, JavaScript and styles. It excludes Python, SQLite, weather source
+downloads, credentials and caches. Do not commit the generated zip.
+
+The extracted files work with any ordinary static host that serves `index.html`
+at `/` and preserves explicit `.html` paths. There is no SPA fallback or API
+rewrite to configure. A host other than Vercel should disable long-lived caching
+for these unversioned files.
+
+To rehearse the extracted bundle with Python:
+
+```bash
+python -m http.server --directory path/to/extracted/site 8000
+```
+
+Open `http://localhost:8000`; opening `index.html` directly as a file will not
+support the JSON fetches.
+
+## Verify the published URL
+
+- Open `/` in a fresh browser session. Check that the CAD roof and soil grid load.
+- Select the two-footprint example and run rain: 42/42 targets, 21.1 mL selected
+  delivery, zero outside delivery and overflow; flaps animate and close.
+- Export JSON, reset, and check selection edits and shortfall/spill cases.
+- Follow the console link, play its weather day, and exercise the camera.
+- Confirm the console reports offline/session-only configuration; an unavailable
+  `/api` is expected for this deployment.
+- Open `/console.html` and `/replay.html` directly; follow the return link.
+- Check a narrow viewport and look for unexpected runtime errors or missing
+  scripts, styles, `model.json`, `controller-map.json`, or `day.json`.
+- Add the actual URL to the README only after checking it.
+
+Automated tests do not establish deployed browser acceptance, physical rain
+delivery, crop performance, soil restoration or water savings at farm scale.
+The default water volumes are simulated at the approximately 129 × 304 mm CAD scale.
+
+## Optional local API
+
+The API is useful for local console persistence, but is not part of the static
+release:
+
+```bash
+python software/api/local_server.py --port 8000
+```
+
+This serves watering at `/`, the console at `/console.html`, and health at
+`/api/health`. See [API setup](api/README.md) for SQLite storage configuration.
+
+`software/vercel.json` remains a separate experimental API deployment
+configuration, selected only when the project root is `software`. It rewrites
+`/api/(.*)` to `api/index.py` and outputs `page`. Do not use it to promise durable
+production storage: the repository has no PostgreSQL driver, and serverless
+local files are not a persistent database. A PostgreSQL `DATABASE_URL` currently
+returns `storage_unavailable`.
+
+Before a future API release, implement and test persistent storage, provision
+separate production/preview data, keep credentials in provider environment
+variables, set `FLECTO_AUTO_MIGRATE=0`, and apply migrations explicitly. Use a
+separate hosting project so that API work cannot disrupt the static demo.
