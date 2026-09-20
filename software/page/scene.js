@@ -1046,12 +1046,22 @@
       return Math.max(1, zones.length || 3) / 3;
     }
 
+    /* The presets were framed for a frame about one and a half times as wide as it is
+       tall. In a narrower frame the camera steps back, so the whole roof stays in view
+       and no zone is cut off at the sides. */
+    function narrowFit(name) {
+      if (name === "bay" || !canvas) { return 1; }
+      var rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) { return 1; }
+      return clamp(1.5 / (rect.width / rect.height), 1, 1.7);
+    }
+
     function applyPreset(name) {
       var preset = PRESETS[name] || PRESETS.overview;
       var wide = name === "bay" ? 1 : spread();
       camera.azimuth = preset.azimuth;
       camera.polar = preset.polar;
-      camera.distance = clamp(preset.distance * wide, 2.4, 17.0);
+      camera.distance = clamp(preset.distance * wide * narrowFit(name), 2.4, 17.0);
       camera.target = preset.target.slice();
       camera.pan = [0, 0];
       request();
