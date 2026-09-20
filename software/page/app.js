@@ -376,6 +376,22 @@
     gl.uniform1i(loc.uFlat, 0);
   }
 
+  function waterCamera(aspect) {
+    var at = [0, 0, -.05], direction = norm([2.18, -.48, 1.22]);
+    var right = norm(cross([0, 0, 1], direction)), up = cross(direction, right);
+    var distance = 0, tangent = Math.tan(.52 / 2);
+    [-.5, .5].forEach(function (x) {
+      [-1.1, 1.1].forEach(function (y) {
+        [-.6, .75].forEach(function (z) {
+          var p = sub([x, y, z], at);
+          distance = Math.max(distance, dot(direction, p) +
+            Math.max(Math.abs(dot(right, p)) / (tangent * aspect), Math.abs(dot(up, p)) / tangent));
+        });
+      });
+    });
+    return lookAt(direction.map(function (v, i) { return at[i] + v * distance * 1.08; }), at, [0, 0, 1]);
+  }
+
   function drawRoof() {
     if (!gl || !MODEL) return;
 
@@ -392,9 +408,8 @@
     // The roof is long in Y, the frame is wide, so the camera sits off to +X and the
     // long axis runs across the screen rather than diagonally through it.
     var proj = perspective(0.52, w / h, 0.1, 40);
-    var distance = watering ? Math.max(1.25, 2.1 / (w / h)) : 1;
-    var view = lookAt([2.18 * distance, -0.48 * distance, 1.22 * distance],
-      [0, 0, watering ? -.12 : -0.04], [0, 0, 1]);
+    var view = watering ? waterCamera(w / h) :
+      lookAt([2.18, -0.48, 1.22], [0, 0, -0.04], [0, 0, 1]);
     gl.useProgram(prog);
     gl.uniformMatrix4fv(loc.uProj, false, proj);
     gl.uniformMatrix4fv(loc.uView, false, view);
