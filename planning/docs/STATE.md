@@ -16,6 +16,10 @@ The plan itself is `../plans/plan-d-louvre-roof.md`, the live board is `../../CH
 |---|---|---|---|
 | [What already exists for moving greenhouse roofs, shade, and smart irrigation, and what a Flectofin roof would add](research/flectofin-greenhouse-roof/market-and-differentiation.md) | done | abba | 2026-09-19 |
 | [Whose fin it is, and how the team credits it](research/flectofin-greenhouse-roof/fin-patent-and-credit.md) | done | abba | 2026-09-19 |
+| [What is the most general problem this roof answers that the sources will back, and which wider claims have to be dropped](research/flectofin-greenhouse-roof/problem-framing.md) | done | abba | 2026-09-19 |
+| [Why is one roof, one decision the wrong size](research/flectofin-greenhouse-roof/problems-one-roof-one-decision.md) | done | abba | 2026-09-19 |
+| [Is irrigation infrastructure wasted when a roof could depend on rain](research/flectofin-greenhouse-roof/problems-water-and-rain.md) | done | abba | 2026-09-19 |
+| [Does a bed by bed roof save energy on motors, lighting, or cooling](research/flectofin-greenhouse-roof/problems-energy-light-and-heat.md) | done | abba | 2026-09-19 |
 
 ## Standing decisions
 
