@@ -72,13 +72,6 @@ def test_health_is_200_and_names_the_source():
         assert response.json()["contract"] == 2
 
 
-def test_the_page_is_served():
-    with client() as api:
-        response = api.get("/")
-        assert response.status_code == 200
-        assert response.text.lstrip().startswith("<!doctype html>")
-
-
 def test_events_streams_snapshots():
     app = create_app("fixture", autoplay=True)
     start, payloads = asyncio.run(first_events(app, 3))

@@ -1,6 +1,6 @@
 """C5: the server.
 
-One page, one event stream, and the handful of commands the drawer can send.
+One event stream and the source control commands.
 It starts with no serial port and no network: ``--source fixture`` always
 works, because that is what stands between a dead cable and a lost demo.
 """
@@ -14,7 +14,7 @@ from collections.abc import AsyncIterator
 from pathlib import Path
 
 from fastapi import FastAPI
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 from canopy import config, contract
@@ -23,7 +23,6 @@ from canopy.recorder import Recorder
 from canopy.sources import Source, open_source
 from canopy.state import State
 
-STATIC = Path(__file__).resolve().parent / "static"
 FIXTURES = Path(__file__).resolve().parents[1] / "fixtures"
 DEFAULT_FIXTURE = FIXTURES / "synthetic-day.csv"
 
@@ -186,10 +185,6 @@ def create_app(
             "playing": runner.playing,
             "contract": contract.VERSION,
         }
-
-    @app.get("/")
-    async def page() -> FileResponse:
-        return FileResponse(STATIC / "index.html")
 
     @app.get("/events")
     async def events() -> StreamingResponse:
