@@ -116,10 +116,13 @@
 
   var MODEL = null, gl = null, prog = null, loc = {}, gpu = [], canvas = null;
   var MAX_FLAP_DEG = 72;
+  var watering = document.body.dataset.mode === "watering";
+  var waterLayout = null, waterState = {open: [], selected: [], delivered: [], raining: false};
+  var overlayVAO = null, overlayBuffer = null;
 
   // Flaps ease toward the hour's open fraction rather than snapping to it. The day
   // plays 24 hours in 38 seconds, so an untweened roof reads as broken rather than fast.
-  var shown = {}, settled = true, raf = null;
+  var shown = {}, raf = null;
 
   var VERT = [
     "#version 300 es",
@@ -137,9 +140,10 @@
     "#version 300 es",
     "precision highp float;",
     "in vec3 vWorld;",
-    "uniform vec3 uColor; uniform vec3 uLight;",
+    "uniform vec3 uColor; uniform vec3 uLight; uniform bool uFlat;",
     "out vec4 frag;",
     "void main() {",
+    "  if (uFlat) { frag = vec4(uColor, 1.0); return; }",
     "  vec3 n = normalize(cross(dFdx(vWorld), dFdy(vWorld)));",
     "  float key = max(dot(n, normalize(uLight)), 0.0);",
     "  float rim = max(dot(n, normalize(vec3(-0.4, 0.3, 0.6))), 0.0);",
@@ -225,7 +229,8 @@
     canvas.className = "roof-canvas";
     canvas.setAttribute("role", "img");
     canvas.setAttribute("aria-label",
-      "The shade house roof, three zones of hinged flaps, drawn from the team's CAD");
+      watering ? "Team CAD with independently commanded flaps and simulated soil below" :
+        "The shade house roof, three zones of hinged flaps, drawn from the team's CAD");
     host.appendChild(canvas);
 
     gl = canvas.getContext("webgl2", { antialias: true, alpha: true });
@@ -243,10 +248,17 @@
       throw new Error(gl.getProgramInfoLog(prog));
     }
     gl.useProgram(prog);
-    ["uProj", "uView", "uModel", "uColor", "uLight"].forEach(function (name) {
+    ["uProj", "uView", "uModel", "uColor", "uLight", "uFlat"].forEach(function (name) {
       loc[name] = gl.getUniformLocation(prog, name);
     });
     var aPos = gl.getAttribLocation(prog, "aPos");
+    overlayVAO = gl.createVertexArray();
+    gl.bindVertexArray(overlayVAO);
+    overlayBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, overlayBuffer);
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+    gl.bindVertexArray(null);
 
     // Normalise so the roof's long axis spans about two units about the origin.
     var half = MODEL.extent[1] / 2 || 1;
@@ -290,24 +302,78 @@
 
   function paintRoof() {
     if (!gl || !MODEL) return;
-    settled = false;
     if (raf === null) raf = requestAnimationFrame(tickRoof);
   }
 
   function tickRoof() {
     raf = null;
     var moving = false;
-    D.zones.forEach(function (z) {
-      var target = sim[z.zone] ? sim[z.zone][hour].open : 0;
-      var from = shown[z.zone] === undefined ? target : shown[z.zone];
+    var keys = watering ? waterLayout.flaps.map(function (f) { return f.id; }) :
+      D.zones.map(function (z) { return z.zone; });
+    keys.forEach(function (key) {
+      var target = watering ? (waterState.open.includes(key) ? 1 : 0) :
+        (sim[key] ? sim[key][hour].open : 0);
+      var from = shown[key] === undefined ? 0 : shown[key];
       var next = from + (target - from) * 0.18;          // exponential ease-out
       if (Math.abs(target - next) < 0.002) next = target;
       else moving = true;
-      shown[z.zone] = next;
+      shown[key] = next;
     });
     drawRoof();
-    settled = !moving;
-    if (moving) raf = requestAnimationFrame(tickRoof);
+    if (moving || waterState.raining) raf = requestAnimationFrame(tickRoof);
+  }
+
+  function overlay(vertices, colour, mode) {
+    if (!vertices.length) return;
+    gl.bindVertexArray(overlayVAO);
+    gl.bindBuffer(gl.ARRAY_BUFFER, overlayBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.DYNAMIC_DRAW);
+    gl.uniformMatrix4fv(loc.uModel, false, mat4());
+    gl.uniform3fv(loc.uColor, colour);
+    gl.drawArrays(mode, 0, vertices.length / 3);
+  }
+
+  function drawWater() {
+    var layout = waterLayout, half = MODEL.extent[1] / 2;
+    var cellX = layout.width_m / layout.cols, cellY = layout.length_m / layout.rows;
+    var floor = -0.55, roof = 0.15;
+    var groups = [[], [], [], []], lines = [], rain = [];
+    function point(x, y, z) {
+      return [((layout.origin_m[0] + x) * 10000 - MODEL.centre[0]) / half,
+        ((layout.origin_m[1] + y) * 10000 - MODEL.centre[1]) / half, z];
+    }
+    for (var id = 0; id < layout.cols * layout.rows; id++) {
+      var x = (id % layout.cols) * cellX, y = Math.floor(id / layout.cols) * cellY;
+      var picked = waterState.selected.includes(id), wet = waterState.delivered[id] > 0;
+      var vertices = groups[wet ? (picked ? 2 : 3) : (picked ? 1 : 0)];
+      var a = point(x + cellX * .025, y + cellY * .025, floor);
+      var b = point(x + cellX * .975, y + cellY * .025, floor);
+      var c = point(x + cellX * .975, y + cellY * .975, floor);
+      var d = point(x + cellX * .025, y + cellY * .975, floor);
+      vertices.push(...a, ...b, ...c, ...a, ...c, ...d);
+      if (waterState.raining && id % 3 === 0) {
+        var receives = waterState.wet.includes(id);
+        var bottom = receives ? floor : roof;
+        var z = .7 - ((performance.now() / 750 + id * .618) % 1) * (.7 - bottom);
+        rain.push(...point(x + cellX / 2, y + cellY / 2, z),
+          ...point(x + cellX / 2, y + cellY / 2, Math.max(bottom, z - .08)));
+      }
+    }
+    var colours = [[.83,.79,.71], [.36,.60,.36], [.30,.61,.76], [.90,.69,.41]];
+    gl.uniform1i(loc.uFlat, 1);
+    groups.forEach(function (v, i) { overlay(v, colours[i], gl.TRIANGLES); });
+    layout.flaps.filter(function (f) { return waterState.open.includes(f.id); }).forEach(function (f) {
+      for (var j = 0; j < 32; j++) {
+        var angle = j * Math.PI / 16, next = (j + 1) * Math.PI / 16;
+        var x = f.x_m + f.radius_m * Math.cos(angle), y = f.y_m + f.radius_m * Math.sin(angle);
+        lines.push(...point(x, y, floor + .002),
+          ...point(f.x_m + f.radius_m * Math.cos(next), f.y_m + f.radius_m * Math.sin(next), floor + .002));
+        if (j % 8 === 0) lines.push(...point(x, y, floor), ...point(x, y, roof));
+      }
+    });
+    overlay(lines, [.22,.50,.62], gl.LINES);
+    overlay(rain, [.14,.43,.64], gl.LINES);
+    gl.uniform1i(loc.uFlat, 0);
   }
 
   function drawRoof() {
@@ -326,15 +392,19 @@
     // The roof is long in Y, the frame is wide, so the camera sits off to +X and the
     // long axis runs across the screen rather than diagonally through it.
     var proj = perspective(0.52, w / h, 0.1, 40);
-    var view = lookAt([2.18, -0.48, 1.22], [0, 0, -0.04], [0, 0, 1]);
+    var distance = watering ? Math.max(1.25, 2.1 / (w / h)) : 1;
+    var view = lookAt([2.18 * distance, -0.48 * distance, 1.22 * distance],
+      [0, 0, watering ? -.12 : -0.04], [0, 0, 1]);
     gl.useProgram(prog);
     gl.uniformMatrix4fv(loc.uProj, false, proj);
     gl.uniformMatrix4fv(loc.uView, false, view);
+    if (watering) drawWater();
 
     // The key light follows the hour, so the roof is lit from where the sun is.
     var frac = (hour + 0.5) / 24;
     var elev = Math.sin(Math.max(0, (frac - 0.25) / 0.5) * Math.PI);
     gl.uniform3f(loc.uLight, Math.cos(frac * Math.PI * 2) * 0.8, -0.35, 0.35 + elev * 0.9);
+    if (watering) gl.uniform3f(loc.uLight, .6, -.35, 1.1);
 
     var BASE = [0.815, 0.827, 0.800];
     var LEAF = [0.118, 0.420, 0.227];
@@ -344,10 +414,10 @@
       var colour = BASE;
 
       if (inst.kind === "flap") {
-        var open = shown[inst.zone] === undefined ? 0 : shown[inst.zone];
+        var open = shown[watering ? inst.node : inst.zone] || 0;
         // Negative, so the free end at local -Y lifts away from the bed.
         model = multiply(model, rotationX(-open * MAX_FLAP_DEG * Math.PI / 180));
-        colour = LEAF;
+        colour = watering && open > .05 ? [.10, .45, .58] : LEAF;
       }
 
       gl.uniformMatrix4fv(loc.uModel, false, model);
@@ -577,6 +647,17 @@
       });
       runAll(); paint();
     });
+  }
+
+  if (watering) {
+    window.CadRoof = {
+      mount: function (model, layout) {
+        MODEL = model; waterLayout = layout;
+        buildRoof(); paintRoof();
+      },
+      update: function (state) { waterState = state; paintRoof(); }
+    };
+    return;
   }
 
   Promise.all([

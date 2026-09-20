@@ -1,88 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shade house 1 - Apopka, Florida</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shade house — water the areas you choose</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="watering.css">
 </head>
-<body>
-
+<body data-mode="watering">
 <header class="bar">
-  <div class="bar-id">
+  <div>
     <h1>Shade house 1</h1>
-    <p class="bar-sub" id="place">Loading</p>
+    <p class="bar-sub">Choose the growing areas. Let the roof decide where rain enters.</p>
   </div>
-  <div class="bar-actions">
-    <span class="pill pill-sim">Simulated</span>
-    <span class="pill pill-what" id="mode-pill" hidden>What if</span>
-    <button type="button" class="btn-ghost" id="reset" hidden>Reset to the record</button>
-    <button type="button" class="btn" id="play" disabled>
-      <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>
-      <span id="play-label">Play the day</span>
-    </button>
-  </div>
+  <span class="pill pill-sim">Simulated · CAD prototype</span>
 </header>
-
-<section class="sky-wrap" aria-labelledby="sky-h">
-  <h2 class="sr-only" id="sky-h">Sky and time of day</h2>
-
-  <div class="sky" id="sky" role="group" aria-label="Sky band">
-    <div class="sky-fill" id="sky-fill"></div>
-    <div class="sky-cloud" id="sky-cloud"></div>
-    <div class="sky-ticks" id="sky-ticks"></div>
-    <button type="button" class="sun" id="sun"
-            role="slider" aria-label="Time of day, drag to scrub"
-            aria-valuemin="0" aria-valuemax="23" aria-valuenow="0" aria-valuetext="00:00">
-      <span class="sun-disc"></span>
-    </button>
-  </div>
-
-  <div class="sky-bottom">
-    <div class="sky-clock">
-      <span class="clock-time" id="clock">--:--</span>
-      <span class="clock-date" id="date">&nbsp;</span>
-    </div>
-
-    <dl class="record" id="record">
-      <div><dt>Recorded sun</dt><dd id="rec-ghi">-</dd></div>
-      <div><dt>Recorded rain</dt><dd id="rec-rain">-</dd></div>
-      <div><dt>Recorded air</dt><dd id="rec-t2m">-</dd></div>
-    </dl>
-
-    <label class="ctl" for="cloud">
-      <span class="ctl-label">Cloud</span>
-      <input type="range" id="cloud" min="0" max="90" step="5" value="0">
-      <output class="ctl-out" id="cloud-out">as recorded</output>
-    </label>
-  </div>
-
-  <p class="ctl-help">Drag the sun to scrub the day. Add cloud to see what the roof would have done under a different sky. The recorded figures never move.</p>
-</section>
-
 <main class="stage">
-
-  <figure class="model" id="figure-slot" data-slot="shade-house">
-    <div class="model-frame" id="roof" aria-live="off"></div>
+  <p id="status" role="status" aria-live="polite">Loading the roof and soil map…</p>
+  <form id="rain-form" class="sky-wrap rain-controls">
+    <label>Rain event <span class="field-unit">mm</span>
+      <input id="rain" type="number" min="0" max="200" step="0.1" value="10" required>
+    </label>
+    <label>Starting soil water <span class="field-unit">mm</span>
+      <input id="soil" type="number" min="0" max="60" step="0.1" value="20" required>
+    </label>
+    <label>Selected area target <span class="field-unit">mm</span>
+      <input id="target" type="number" min="0" max="60" step="0.1" value="25" required>
+    </label>
+    <button class="btn" id="simulate" type="submit" disabled>Simulate rain</button>
+    <button class="btn-ghost" id="finish" type="button" hidden>Show result now</button>
+    <button class="btn-ghost" id="reset" type="button" disabled>Reset</button>
+    <label class="spill-choice"><input type="checkbox" id="spill"> Allow watering outside selected areas</label>
+    <p class="ctl-help">By default, an opening is blocked if it would wet an unselected cell or a cell already at its target. Each run starts from the soil value above.</p>
+  </form>
+  <figure class="model">
+    <div class="model-frame" id="roof"></div>
     <figcaption>
-      <span class="cap-lead">The roof, from the team's CAD.</span>
-      One base plate and twenty two flaps in eleven rows, banded across the three zones.
-      Each flap's angle is the simulated open fraction for its zone, and the light follows the hour.
-      <span class="cap-pending">Geometry is the team's CAD, modelled and not built. No part of this roof exists.</span>
+      <span class="cap-lead">Ameya’s CAD, with independent flap control.</span>
+      Rain and the soil plane are simulated. Flap rotation illustrates a commanded opening.
     </figcaption>
   </figure>
-
-  <section class="zones" id="zones" aria-label="Zones"></section>
-
+  <div class="watering-workspace">
+    <section class="zone" aria-labelledby="selection-title">
+      <h2 id="selection-title">1. Pick your growing areas</h2>
+      <p class="ctl-help">Click or drag cells to plant or clear them. Use arrow keys and Space on the map. Outlined circles show the assumed rain footprints.</p>
+      <div class="ctl">
+        <button id="example" class="btn-ghost" type="button" disabled>Select two footprints</button>
+        <button id="all" class="btn-ghost" type="button" disabled>Select all</button>
+        <button id="clear" class="btn-ghost" type="button" disabled>Clear</button>
+      </div>
+      <div class="map-scroll">
+        <div id="map-shell">
+          <div id="soil-map" role="grid" aria-label="Soil areas under the roof"></div>
+          <svg id="footprint-rings" aria-hidden="true"></svg>
+        </div>
+      </div>
+      <p id="selection-count" class="ctl-help"></p>
+      <p id="cell-detail" role="status">Select a cell to inspect it.</p>
+      <div class="map-key">
+        <span><i class="key-selected"></i>Selected</span>
+        <span><i class="key-wet"></i>Water received</span>
+        <span><i class="key-short"></i>Target not met</span>
+        <span><i class="key-spill"></i>Outside delivery</span>
+      </div>
+    </section>
+    <section class="zone" aria-labelledby="result-title">
+      <h2 id="result-title">2. Watch the roof respond</h2>
+      <p id="phase-status" role="status" aria-live="polite">All flaps closed. Ready for a rain event.</p>
+      <progress id="event-progress" max="1" value="0" aria-label="Rain event progress"></progress>
+      <dl id="metrics" class="watering-metrics">
+        <div><dt>Selected targets met</dt><dd id="met">—</dd></div>
+        <div><dt>Delivered to selected areas</dt><dd id="delivered">—</dd></div>
+        <div><dt>Delivered outside selection</dt><dd id="outside">—</dd></div>
+        <div><dt>Soil overflow</dt><dd id="overflow">—</dd></div>
+      </dl>
+      <p id="shortfalls">Choose areas and simulate rain to see the result.</p>
+      <p id="accounting" class="ctl-help"></p>
+      <button id="export" class="btn-ghost" type="button" disabled>Download simulation JSON</button>
+      <details>
+        <summary>Opening sequence</summary>
+        <ol id="phases"><li>No rain event yet.</li></ol>
+      </details>
+    </section>
+  </div>
+  <details class="model-notes">
+    <summary>What this model does — and what the CAD establishes</summary>
+    <p id="layout-source"></p>
+    <p>The STEP establishes 22 flap instances in two overlapping height layers and one base.
+      A 25 mm circular rain aperture centred 25 mm along local −Y from each flap origin is an assumption,
+      based on the approximate rim size and the team's description. The display uses the prototype's actual scale;
+      water volumes are not farm-scale projections.</p>
+    <p>The controller treats these as independent apertures. It does not calculate obstruction by the other
+      flap layer, base, or supports. It rasterizes circles by cell centres, clips them to the rectangular
+      map, and admits rain over the union of open masks. Zero outside delivery means zero at this grid resolution;
+      it does not establish physical zero spill.</p>
+    <p>Uniform vertical rain; instantaneous switching; binary transmission; 60 mm soil capacity.
+      No wind, runoff redistribution, evaporation, crop response, actuators, or structural deformation.
+      The deterministic greedy choice is not an optimization proof. Animation speed is illustrative.
+      All inputs, states, and outputs in this flow are simulated.</p>
+  </details>
 </main>
-
 <footer class="foot">
-  <p class="foot-region" id="foot-region"></p>
-  <p class="foot-src" id="sources"></p>
-  <p class="foot-src" id="credit"></p>
-  <p class="foot-honest">Every figure on this page is modelled, and the roof, the zones and the crops are simulated. The one exception is the rain, which is a single gauge reading. No instrument in a shade house produced anything you see here.</p>
+  <p>One roof, different choices for the areas beneath it.</p>
+  <p>Mechanism inspiration: ITKE Flectofin, patent EP2320015. Team CAD supplied as third.STEP.
+    No operating roof or crop-yield claim is demonstrated here.</p>
+  <a href="replay.html">Earlier Florida weather replay</a>
 </footer>
-
+<script src="watering-model.js"></script>
 <script src="app.js"></script>
+<script src="watering-app.js"></script>
 </body>
 </html>
