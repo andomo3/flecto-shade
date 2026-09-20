@@ -12,7 +12,9 @@ Built at HackMIT 2026 · Plain HTML/CSS/JavaScript · Python 3.13 · [MIT](LICEN
 
 ![At 15:00 on the simulated 3 June 2023, with 23.9 mm of rain falling, the hydrangea zone's roof is open to take the rain while the fern and blueberry zones stay closed](assets/hero-storm-three-answers.jpg)
 
-*The live page at 15:00 on the simulated day. One storm, three answers: the hydrangea opens because its soil is dry, and the fern stays shut because its crop excludes rain. Simulated.*
+*One storm, three answers: the hydrangea opens because its soil is dry, the blueberry stays shut because its soil is already wet enough, and the fern stays shut because its crop excludes rain. Simulated.*
+
+> This screenshot predates the landing page and console redesign merged on the morning of 2026-09-20. The decisions it shows are current; the styling is not. Open the live demo for what the page looks like now.
 
 ## Problem
 
