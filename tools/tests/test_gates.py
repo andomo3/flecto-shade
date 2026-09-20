@@ -1,6 +1,7 @@
 """Each test builds a small git repo in a temporary directory and runs the gate
 runner against it, so nothing here depends on the state of this repo."""
 
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -13,18 +14,22 @@ EM_DASH = "\u2014"
 
 
 def git(repo: Path, *args: str) -> None:
-    subprocess.run(["git", *args], cwd=repo, check=True, capture_output=True)
+    env = os.environ | {
+        "GIT_AUTHOR_NAME": "gates",
+        "GIT_AUTHOR_EMAIL": "gates@test",
+        "GIT_COMMITTER_NAME": "gates",
+        "GIT_COMMITTER_EMAIL": "gates@test",
+    }
+    subprocess.run(["git", *args], cwd=repo, check=True, capture_output=True, env=env)
 
 
 @pytest.fixture
 def repo(tmp_path: Path) -> Path:
     git(tmp_path, "init", "-q")
-    git(tmp_path, "config", "user.email", "gates@test")
-    git(tmp_path, "config", "user.name", "gates")
     (tmp_path / "README.md").write_text("# a repo\n", encoding="utf-8")
     (tmp_path / "planning").mkdir()
     (tmp_path / "planning" / "plan.md").write_text("a plan\n", encoding="utf-8")
-    git(tmp_path, "add", ".")
+    git(tmp_path, "add", "README.md", "planning/plan.md")
     git(tmp_path, "commit", "-q", "-m", "start")
     return tmp_path
 
@@ -146,6 +151,93 @@ def test_gate_test_files_are_found_by_name(repo: Path) -> None:
     tests.mkdir(parents=True)
     (tests / "test_gate_f4_schema.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
     assert result_of(gates(repo).stdout, "F4") == "PASS"
+
+
+@pytest.mark.parametrize("filename", ["test_h1_year.py", "test_headline_year.py"])
+def test_year_failure_is_reported_without_blocking_f1(repo: Path, filename: str) -> None:
+    tests = repo / "software" / "tests"
+    tests.mkdir(parents=True)
+    (tests / "test_demo.py").write_text("def test_demo():\n    assert True\n", encoding="utf-8")
+    (tests / filename).write_text("def test_year():\n    assert False\n", encoding="utf-8")
+    run = gates(repo, "--package", "X1", "--allowed", "software/", "--append")
+    assert result_of(run.stdout, "F1") == "PASS"
+    assert "The year: FAIL" in run.stdout
+    assert run.returncode == 0
+    assert "The year: FAIL" in (repo / "gates-log" / "X1.md").read_text(encoding="utf-8")
+
+
+def test_both_year_files_run_and_passing_year_cannot_hide_demo_failure(repo: Path) -> None:
+    tests = repo / "software" / "tests"
+    tests.mkdir(parents=True)
+    for filename in ("test_h1_year.py", "test_headline_year.py"):
+        (tests / filename).write_text("def test_year():\n    assert True\n", encoding="utf-8")
+    (tests / "test_demo.py").write_text("def test_demo():\n    assert False\n", encoding="utf-8")
+    run = gates(repo)
+    assert result_of(run.stdout, "F1") == "FAIL"
+    assert "The year: PASS - 2 passed" in run.stdout
+    assert run.returncode == 1
+
+
+def test_only_year_checks_leave_f1_not_yet(repo: Path) -> None:
+    tests = repo / "software" / "tests"
+    tests.mkdir(parents=True)
+    (tests / "test_h1_year.py").write_text("def test_year():\n    assert False\n", encoding="utf-8")
+    run = gates(repo)
+    assert result_of(run.stdout, "F1") == "NOT YET"
+    assert "The year: FAIL" in run.stdout
+    assert run.returncode == 0
+
+
+def test_missing_year_is_reported_not_yet(repo: Path) -> None:
+    run = gates(repo)
+    assert "The year: NOT YET" in run.stdout
+    assert run.returncode == 0
+
+
+def test_year_collection_error_does_not_hide_demo_tests(repo: Path) -> None:
+    tests = repo / "software" / "tests"
+    tests.mkdir(parents=True)
+    (tests / "test_h1_year.py").write_text("raise RuntimeError('broken year')\n", encoding="utf-8")
+    (tests / "test_demo.py").write_text("def test_demo():\n    assert True\n", encoding="utf-8")
+    run = gates(repo)
+    assert result_of(run.stdout, "F1") == "PASS"
+    assert "The year: FAIL" in run.stdout
+    assert run.returncode == 0
+
+
+def test_offline_build_cannot_open_a_socket(repo: Path) -> None:
+    data = repo / "data"
+    data.mkdir()
+    (data / "build_solar_2023.py").write_text("import socket\nsocket.socket()\n", encoding="utf-8")
+    run = gates(repo)
+    assert result_of(run.stdout, "F2") == "FAIL"
+    assert "network is off for gate F2" in run.stdout
+    assert run.returncode == 1
+
+
+def test_offline_page_builder_and_local_server(repo: Path) -> None:
+    page = repo / "software" / "page"
+    page.mkdir(parents=True)
+    (page / "build_day.py").write_text(
+        "import sys\nfrom pathlib import Path\n"
+        "assert sys.argv[1:] == ['--date', '2023-06-03']\n"
+        "Path(__file__).with_name('index.html').write_text('<h1>simulated shade house</h1>')\n",
+        encoding="utf-8",
+    )
+    run = gates(repo)
+    assert result_of(run.stdout, "F2") == "PASS"
+    assert "HTTP 200 on loopback" in run.stdout
+    assert run.returncode == 0
+
+
+def test_missing_page_entrypoint_fails_f2(repo: Path) -> None:
+    page = repo / "software" / "page"
+    page.mkdir(parents=True)
+    (page / "app.js").write_text("", encoding="utf-8")
+    run = gates(repo)
+    assert result_of(run.stdout, "F2") == "FAIL"
+    assert "index.html is missing" in run.stdout
+    assert run.returncode == 1
 
 
 def test_append_twice_writes_two_sections_to_the_package_file(repo: Path) -> None:

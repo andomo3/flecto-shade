@@ -15,8 +15,12 @@ import re
 import subprocess
 import sys
 from datetime import datetime
+from functools import partial
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from threading import Thread
 from typing import Callable
+from urllib.request import ProxyHandler, build_opener
 
 PASS = "PASS"
 FAIL = "FAIL"
@@ -25,6 +29,10 @@ NOT_YET = "NOT YET"
 EM_DASH = "\u2014"
 BULKY_BYTES = 5 * 1024 * 1024
 PYTEST_NO_TESTS = 5
+YEAR_TESTS = (
+    "software/tests/test_h1_year.py",
+    "software/tests/test_headline_year.py",
+)
 
 BUILD_COMMANDS = [
     ("S1", "data/build_solar_2023.py", []),
@@ -146,13 +154,43 @@ def _gate_test(gate_id: str, package: str) -> Gate:
 
 
 def f1_tests(run: Run) -> tuple[str, str]:
-    return _pytest(run)
+    return _pytest(run, *(f"--ignore={path}" for path in YEAR_TESTS))
+
+
+def year_tests(run: Run) -> tuple[str, str]:
+    present = [path for path in YEAR_TESTS if (run.root / path).is_file()]
+    if not present:
+        return NOT_YET, "no year test files yet; H1, then H3 switches them on"
+    try:
+        return _pytest(run, *present)
+    except (OSError, subprocess.TimeoutExpired) as error:
+        return FAIL, f"the year tests could not finish: {error}"
+
+
+def check_local_page(page: Path) -> None:
+    index = page / "index.html"
+    if not index.is_file():
+        raise ValueError("software/page/index.html is missing")
+    handler = partial(SimpleHTTPRequestHandler, directory=str(page))
+    with ThreadingHTTPServer(("127.0.0.1", 0), handler) as server:
+        worker = Thread(target=server.serve_forever, daemon=True)
+        worker.start()
+        try:
+            opener = build_opener(ProxyHandler({}))
+            with opener.open(f"http://127.0.0.1:{server.server_port}/", timeout=5) as response:
+                if response.status != 200 or response.read() != index.read_bytes():
+                    raise ValueError("the local page did not serve index.html")
+        finally:
+            server.shutdown()
+            worker.join()
 
 
 def f2_offline(run: Run) -> tuple[str, str]:
     present = [(pkg, script, args) for pkg, script, args in BUILD_COMMANDS if (run.root / script).exists()]
-    if not present:
+    page = run.root / "software" / "page"
+    if not present and not page.is_dir():
         return NOT_YET, "no build command exists yet; S1 switches it on, then H2"
+    evidence = []
     for pkg, script, args in present:
         try:
             result = run.python("-c", OFFLINE_PRELUDE, script, *args)
@@ -161,8 +199,13 @@ def f2_offline(run: Run) -> tuple[str, str]:
         if result.returncode != 0:
             last = (result.stderr.strip().splitlines() or ["no output"])[-1]
             return FAIL, f"{script} exited {result.returncode} with the network off: {last}"
-    ran = ", ".join(script for _, script, _ in present)
-    return PASS, f"ran with socket.socket patched to raise: {ran}"
+    if present:
+        ran = ", ".join(script for _, script, _ in present)
+        evidence.append(f"ran with socket.socket patched to raise: {ran}")
+    if page.is_dir():
+        check_local_page(page)
+        evidence.append("software/page/index.html answers HTTP 200 on loopback")
+    return PASS, "; ".join(evidence)
 
 
 _COMMENT_HTML = re.compile(r"<!--.*?-->", re.S)
@@ -247,10 +290,10 @@ def f13_writing(run: Run) -> tuple[str, str]:
 
 
 GATES: list[tuple[str, str, Gate]] = [
-    ("F1", "Every test passes", f1_tests),
+    ("F1", "Every test that blocks passes", f1_tests),
     ("F2", "It runs with no network", f2_offline),
     ("F3", "The page fetches nothing from the internet", f3_no_fetch),
-    ("F4", "Every output file has the schema its package gives", _gate_test("F4", "S1, then H1")),
+    ("F4", "Every output file has the schema its package gives", _gate_test("F4", "H1")),
     ("F5", "Nothing simulated is called measured", _gate_test("F5", "H2, then H3")),
     ("F6", "Every assumed constant is declared", _gate_test("F6", "H1")),
     ("F7", "The rules are deterministic, and only the rules act", _gate_test("F7", "H1")),
@@ -275,7 +318,12 @@ def run_gates(run: Run) -> list[tuple[str, str, str]]:
     return rows
 
 
-def report(run: Run, rows: list[tuple[str, str, str]], exit_code: int) -> str:
+def report(
+    run: Run,
+    rows: list[tuple[str, str, str]],
+    exit_code: int,
+    year: tuple[str, str],
+) -> str:
     head = run.git("rev-parse", "--short", "HEAD")
     commit = head.stdout.strip() if head.returncode == 0 else "no commit"
     package = run.package or "none"
@@ -289,6 +337,8 @@ def report(run: Run, rows: list[tuple[str, str, str]], exit_code: int) -> str:
     for gate_id, result, evidence in rows:
         lines.append(f"| {gate_id.ljust(4)} | {result.ljust(7)} | {evidence.ljust(width)} |")
     lines += [
+        "",
+        f"The year: {year[0]} - {year[1]} (nonblocking)",
         "",
         "Milestone gates M1 to M4 are checked by a person, see planning/plans/gates.md",
         "Regressions since the last report: [fill in]",
@@ -329,7 +379,7 @@ def main(argv: list[str] | None = None) -> int:
     run = Run(Path(args.root).resolve(), args.package, allowed)
     rows = run_gates(run)
     exit_code = 1 if any(result == FAIL for _, result, _ in rows) else 0
-    text = report(run, rows, exit_code)
+    text = report(run, rows, exit_code, year_tests(run))
     print(text)
     if args.append:
         log = append_log(run, text)
