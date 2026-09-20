@@ -26,6 +26,7 @@ A word count is one line in any editor, or the build agent can write a new count
 - **The turn.** A roof made of many small fins can give each bed its own answer.
 - **The demo as a scene.** 3 June 2023: the fern has its light by eleven, the hydrangea by noon, the blueberries want all of it, then the afternoon storm, and three zones give three answers to the same rain, each for its own reason.
 - **The three specifics.** 50,000 square feet a motor, from the UMass fact sheet. The fern's 8 mol a day against the hydrangea's 12, from Purdue. The rain's share of the hydrangea zone's water, from `headline.json`.
+- **What comes next.** Because every zone is decided separately, the roof keeps a record no shade house keeps: what each bed was given, hour by hour. Paired with soil sensors, which we do not have, that record would let a grower start to see why one bed's soil wears out and its neighbour's does not. Said in the future tense, with no figure, and never as something the simulation shows.
 - **The close.** Return to the grower. The closing line is abba's to write, in abba's own voice, and the `writing-voice` skill is not in this repo.
 
 The pitch under `../pitch/` follows the playbook's method: the story spine, the emotional arc table, the question bank's formula of answer, evidence, and scope, the four cards, and the recovery lines.
