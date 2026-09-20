@@ -36,14 +36,28 @@ With the sun from the same year as the rain the ratio is 0.627, so rainy hours a
 
 Gate F6 checks this section.
 Every named constant that S1 or H1 marks ASSUMED or RECALLED appears here with its value and its label.
-S1 creates this section, and H1 adds its own rows.
+ASSUMED means a choice the team made, and RECALLED means from memory rather than a source.
 
 | Constant | Value | Label | Package | Why it is not verified |
 |---|---|---|---|---|
-| `LOCAL_TZ`, and the hour stamp it converts | `America/New_York` | ASSUMED | S1 | No sentence saying the stamp is the start of the hour and the value its mean was found on NASA's pages. It rests on a fit done on the Houston file, where global closed best against direct and diffuse with the sun taken half an hour after the stamp. It matters only for joining to the rain, and both files stamp hour starts |
+| `LOCAL_TZ`, and the hour stamp it converts | `America/New_York` | ASSUMED | S1 | No sentence saying the stamp is the start of the hour and the value its mean was found on NASA's pages. It rests on a fit done on the Houston file. It matters only for joining to the rain, and both files stamp hour starts |
+| `PAR_FRACTION` | `0.45` | ASSUMED | H1 | A choice inside the verified 0.44 to 0.55 range of global solar that is photosynthetic light. The measured range is lower, so light sums may read 5 to 18 percent high |
+| `T_STRUCT` | `0.90` | ASSUMED | H1 | The shade house structure's own transmittance, for a roof with no glazing. Leaving it out changes every figure in the year table, which is how it was caught |
+| `T_CLOSED` | `0.0` | ASSUMED | H1 | A closed fin is treated as opaque |
+| `SOIL_CAPACITY` | `60.0` | ASSUMED | H1 | The bucket's size in mm. Whether it should be sized for containers or for ground soil is an open team decision |
+| `SOIL_DRY_BELOW` | `30.0` | ASSUMED | H1 | Where the `want_rain` latch turns on |
+| `SOIL_FULL_AT` | `54.0` | ASSUMED | H1 | Where the latch turns off |
+| `SOIL_IRRIGATE_BELOW` | `18.0` | ASSUMED | H1 | Where the grower's own water takes over |
+| `SOIL_START` | `54.0` | ASSUMED | H1 | The soil at the first hour of the year |
+| `HARD_RAIN_MM` | `25.0` | ASSUMED | H1 | Rain this hard is shut out whatever the soil wants. A simplification |
+| `DRYING_HOURS` | `3` | ASSUMED | H1 | Rain is only admitted when daylight remains three rows later. A simplification |
+| `HEAT_SHADE_C` | `32.2` | ASSUMED | H1 | The blueberry fact sheet's 90 F cooling trigger, reused as a shading trigger |
+| `HEAT_SHADE_OPEN` | `0.60` | ASSUMED | H1 | The open fraction that delivers the 40 percent shade the fact sheet recommends |
+| `MAKKINK_C` | `0.65` | RECALLED | H1 | Confirmed at source on 2026-09-19, and misattributed. See the next section |
+| `LATENT_HEAT_MJ_PER_KG` | `2.45` | RECALLED | H1 | Confirmed at source on 2026-09-19. See the next section |
 
-H1's evaporation constants belong here too, and the sources for them were checked on 2026-09-19.
-They are written up in the next section so that H1 can copy them into rows.
+The crop coefficients in `crops.csv` are a separate case.
+FAO-56 Table 12 gives 1.05 for berries on bushes, VERIFIED, and the fern and the hydrangea have no row, so 1.00 is assumed for both and each row says so in its `note`.
 
 ## The evaporation constants, checked at source on 2026-09-19
 
