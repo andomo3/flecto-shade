@@ -1,4 +1,4 @@
-/* The operating console: overview, inspector, timeline, and the configuration workspace.
+/* The operating console: overview, inspector, clock, and the configuration workspace.
 
    Every figure it shows is simulated or modelled. The three committed zones carry
    package H1's own hours out of day.json unchanged; a zone a grower adds, and any hour
@@ -31,8 +31,18 @@
     { id: "data_timestamp", label: "Data timestamp", removable: true },
     { id: "irrigation", label: "Modelled irrigation added", removable: true }
   ];
+  /* The roof position, the control state, and the reason in short are rendered in the
+     row's own header, so the body never repeats them. The registry still requires all
+     three, because the row as a whole must carry them, and it does.
+
+     Out of the default: the data timestamp, which is the same hour for every zone and
+     is already on the clock and the inspector; and the last decision,
+     which is the first line of the inspector's "Today so far". Both stay in the
+     registry, so a grower who wants them can put them back. */
+  var HEADER_METRICS = ["roof_position", "control_state", "decision_reason"];
+  var OFF_BY_DEFAULT = ["data_timestamp", "last_decision", "irrigation"];
   var DEFAULT_PROFILE = METRICS.filter(function (metric) {
-    return metric.id !== "irrigation";
+    return OFF_BY_DEFAULT.indexOf(metric.id) < 0;
   }).map(function (metric) { return metric.id; });
 
   var STATUS = {
@@ -52,6 +62,7 @@
       playing: false,
       timer: null,
       selected: null,
+      openZone: null,
       zones: [],
       metrics: METRICS.slice(),
       store: { online: false, checked: false, message: "Session only, nothing stored" },
@@ -193,6 +204,31 @@
       return "Running on the deterministic zone rules.";
     }
 
+    /* The reason in a few words, for the collapsed row. The full sentence is in the
+       selected zone's "Why this decision?", so the two never sit on top of each other.
+       A short form on every row is what lets one storm show three different answers at
+       the same time, which is the whole point of the roof. */
+    var SHORT_REASON = {
+      opted_out: "opted out of rain",
+      wet_enough: "soil wet enough",
+      no_drying_time: "no drying time left",
+      hard_rain: "rain too hard",
+      manual_override: "held by hand"
+    };
+
+    function shortReason(zone, result) {
+      if (!result) { return "no modelled result"; }
+      if (result.reason) { return SHORT_REASON[result.reason] || result.reason; }
+      switch (result.state) {
+        case "NIGHT": return "night";
+        case "LIGHT_OPEN": return zone.light_rule === "dli" ? "still needs light" : "light is fine";
+        case "SHADE": return "light target met";
+        case "HEAT_SHADE": return "too hot";
+        case "RAIN_OPEN": return "taking rain in";
+        default: return "on the rules";
+      }
+    }
+
     function positionText(result) {
       if (!result) { return "Unavailable"; }
       if (result.open > 0.08 && result.open < 0.92) {
@@ -202,10 +238,8 @@
     }
 
     function rainOutcome(zone, result) {
-      if (!hours[state.hour] || hours[state.hour].rain_mm <= 0) { return "No modelled rain this hour"; }
-      return result && result.rainIn > 0
-        ? "Admitting gauge-recorded rain"
-        : "Rain excluded from this zone";
+      if (!hours[state.hour] || hours[state.hour].rain_mm <= 0) { return "None this hour"; }
+      return result && result.rainIn > 0 ? "Going in" : "Kept off";
     }
 
     function transitions(zone) {
@@ -269,8 +303,8 @@
           return {
             label: "Soil water, modelled",
             value: result
-              ? result.soil.toFixed(1) + " mm, requests rain below " +
-                zone.soil_request_below_mm.toFixed(0) + " mm"
+              ? result.soil.toFixed(1) + " mm, asks below " +
+                zone.soil_request_below_mm.toFixed(0)
               : "-",
             bar: result ? clamp(result.soil / constants.SOIL_CAPACITY, 0, 1) : null,
             mark: zone.soil_request_below_mm / constants.SOIL_CAPACITY,
@@ -279,7 +313,7 @@
         case "last_decision":
           return { label: "Last decision", value: lastDecision(zone) };
         case "next_action":
-          return { label: "Next expected action", value: nextAction(zone) };
+          return { label: "Next change", value: nextAction(zone) };
         case "data_timestamp":
           return { label: "Data timestamp",
                    value: day.date_local + " " + hourText(state.hour) + " local, historical input" };
@@ -308,6 +342,11 @@
 
     /* ------------------------------------------------------------ the overview */
 
+    /* The overview stays one compact row per zone: the letter, the crop, the roof
+       position, and the control state, which is what a grower reads at a glance.
+       Everything else is one click away, so four zones cost four rows rather than
+       four panels. Expanding a zone also selects it, so the roof, this list, and the
+       inspector never disagree about which zone is in hand. */
     function renderOverview() {
       var grid = $("zone-grid");
       var zones = activeZones();
@@ -318,44 +357,71 @@
       grid.innerHTML = zones.map(function (zone) {
         var status = statusOf(zone);
         var badge = STATUS[status];
-        var cells = zone.review_profile.map(function (id) {
+        var open = state.openZone === zone.letter;
+        var result = resultAt(zone, state.hour);
+        var cells = zone.review_profile.filter(function (id) {
+          return HEADER_METRICS.indexOf(id) < 0;
+        }).map(function (id) {
           return cellMarkup(metricCell(zone, id), id);
         }).join("");
         return '<article class="zone-card" role="listitem" data-zone="' + zone.letter +
             '" data-status="' + status + '"' +
-            (state.selected === zone.letter ? ' data-selected="true"' : "") + '>' +
-          '<button type="button" class="zone-head" data-select="' + zone.letter + '">' +
-            '<span class="zone-letter">' + zone.letter + '</span>' +
-            '<span class="zone-titles">' +
-              '<strong>' + escape(zone.name) + '</strong>' +
-              (zone.crop_name === zone.name ? ""
-                : '<span class="zone-crop">' + escape(zone.crop_name) + '</span>') +
-            '</span>' +
-            '<span class="status">' + glyph(badge.glyph) + escape(badge.word) + '</span>' +
-          '</button>' +
-          '<p class="status-note">' + escape(statusNote(zone, status)) + '</p>' +
-          '<div class="cells">' + cells + '</div>' +
-          '<p class="origin">' + (zone.source === "committed"
-            ? "Simulated hours carried from the committed run"
-            : "Simulated in this browser from the same rules and weather") +
-            (zone.persisted ? "" : ". Configuration is held in this session only") + '</p>' +
+            (state.selected === zone.letter ? ' data-selected="true"' : "") +
+            (open ? ' data-open="true"' : "") + '>' +
+          '<h3 class="zone-heading">' +
+            '<button type="button" class="zone-head" data-select="' + zone.letter + '"' +
+              ' aria-expanded="' + (open ? "true" : "false") + '"' +
+              ' aria-controls="zone-body-' + zone.letter + '">' +
+              '<span class="zone-letter">' + zone.letter + '</span>' +
+              '<span class="zone-titles">' +
+                '<strong>' + escape(zone.name) + '</strong>' +
+                (zone.crop_name === zone.name ? ""
+                  : '<span class="zone-crop">' + escape(zone.crop_name) + '</span>') +
+                '<span class="zone-now">' + escape(positionText(result)) +
+                  ' \u00B7 ' + escape(shortReason(zone, result)) + '</span>' +
+              '</span>' +
+              '<span class="status">' + glyph(badge.glyph) + escape(badge.word) + '</span>' +
+              glyph("M4 6.5l4 4 4-4", "chevron") +
+            '</button>' +
+          '</h3>' +
+          '<div class="zone-body" id="zone-body-' + zone.letter + '"' +
+              (open ? "" : " hidden") + '>' +
+            '<p class="status-note">' + escape(statusNote(zone, status)) + '</p>' +
+            '<div class="cells">' + cells + '</div>' +
+            '<p class="origin">' + (zone.source === "committed"
+              ? "From the committed simulated run"
+              : "Re-simulated here, same rules and weather") +
+              (zone.persisted ? "" : ", held in this session only") + '</p>' +
+          '</div>' +
         '</article>';
       }).join("");
 
       Array.prototype.forEach.call(grid.querySelectorAll("[data-select]"), function (button) {
         button.addEventListener("click", function () {
-          select(button.getAttribute("data-select"), true);
+          var letter = button.getAttribute("data-select");
+          /* One row at a time: opening a zone closes the others, so the list stays
+             short however many zones are configured. Clicking the open row closes it
+             again, and the same control does both. */
+          var next = state.openZone === letter ? null : letter;
+          state.openZone = next;
+          select(next, !!next);
         });
       });
     }
 
     /* ------------------------------------------------------------ the inspector */
 
+    /* What a grower needs here is the decision, the rules that made it, what the roof
+       has already done today, and the control to change it. The roof position, the
+       crop and the hour are on the open row directly above, so they are not repeated,
+       and the mechanism's actuation value and the configuration revision number are
+       not operating facts at all: the first lives on the technical overlay, the second
+       on the store chip and in the conflict message that needs it. */
     function renderInspector() {
       var body = $("inspector-body");
       var zone = zoneOf(state.selected);
-      $("inspector-focus").disabled = !zone;
       if (!zone) {
+        $("inspector-title").textContent = "Selected zone";
         $("inspector-sub").textContent = "Choose a zone on the roof or in the overview.";
         body.innerHTML = '<p class="empty">Nothing is selected. Select a roof zone or an overview card, or press 1 to ' +
           activeZones().length + ' with the model focused.</p>';
@@ -363,8 +429,8 @@
       }
       var result = resultAt(zone, state.hour);
       var status = statusOf(zone);
-      $("inspector-sub").textContent = "Zone " + zone.letter + ", " + zone.name +
-        ", at " + hourText(state.hour) + " simulated local time.";
+      $("inspector-title").textContent = "Zone " + zone.letter + ", " + zone.name;
+      $("inspector-sub").textContent = "At " + hourText(state.hour) + " simulated.";
 
       var held = zone.overrides[zone.overrides.length - 1] || null;
       var history = transitions(zone).filter(function (item) { return item.hour <= state.hour; })
@@ -381,33 +447,27 @@
               ' A safety rule outranks a manual command, so the modelled roof stayed closed.</p>'
             : "") +
         '</div>' +
-        '<dl class="facts">' +
-          fact("Automatic rain policy", zone.rain_ok
-            ? "May admit rain when modelled soil is below the request threshold"
-            : "Never admits rain") +
-          fact(zone.light_rule === "dli" ? "Daily light target" : "Heat shade rule",
-            zone.light_rule === "dli"
-              ? zone.light_target.toFixed(1) + " mol m⁻² d⁻¹, modelled"
-              : "Part folds to " + Math.round(constants.HEAT_SHADE_OPEN * 100) +
-                "% above " + constants.HEAT_SHADE_C + " °C, modelled") +
-          fact("Soil rain request threshold",
-            zone.soil_request_below_mm.toFixed(0) + " mm modelled, of " +
-            constants.SOIL_CAPACITY.toFixed(0) + " mm capacity") +
-          fact("Current roof command", positionText(result) +
-            (result ? ", actuation " + result.open.toFixed(2) : "")) +
-          fact("Configuration revision", String(zone.revision) +
-            (zone.persisted ? ", stored" : ", this session only")) +
-        '</dl>' +
-        '<div class="history">' +
-          '<h3>Decision history</h3>' +
-          (history.length
-            ? '<ol>' + history.map(function (item) {
-                return '<li><span>' + hourText(item.hour) + '</span> ' +
-                  escape(positionText(item.result)) + '. ' +
-                  escape(Rules.reasonText(zone, item.result)) + '</li>';
-              }).join("") + '</ol>'
-            : '<p class="empty">No modelled roof change before this hour.</p>') +
+        '<div class="rules">' +
+          '<h3>Rules in force</h3>' +
+          '<ul>' +
+            '<li>' + (zone.rain_ok
+              ? "Rain allowed when the soil is dry"
+              : "Rain never allowed in") + '</li>' +
+            '<li>' + (zone.light_rule === "dli"
+              ? "Light target " + zone.light_target.toFixed(1) + " mol m\u207B\u00B2 a day, modelled"
+              : "Shades to " + Math.round(constants.HEAT_SHADE_OPEN * 100) +
+                "% above " + constants.HEAT_SHADE_C + " \u00B0C, modelled") + '</li>' +
+            '<li>Asks for rain below ' + zone.soil_request_below_mm.toFixed(0) +
+              ' mm modelled soil</li>' +
+          '</ul>' +
         '</div>' +
+        (history.length
+          ? '<div class="history"><h3>Today so far</h3><ol>' + history.map(function (item) {
+              return '<li><span>' + hourText(item.hour) + '</span> ' +
+                escape(positionText(item.result)) + '. ' +
+                escape(Rules.reasonText(zone, item.result)) + '</li>';
+            }).join("") + '</ol></div>'
+          : "") +
         '<div class="manual" data-open="' + (held ? "true" : "false") + '">' +
           '<h3>Manual override</h3>' +
           (held
@@ -440,10 +500,6 @@
         $("override-review-btn").addEventListener("click", function () { reviewOverride(zone); });
         $("override-apply").addEventListener("click", function () { applyOverride(zone); });
       }
-    }
-
-    function fact(term, value) {
-      return '<div><dt>' + escape(term) + '</dt><dd>' + escape(value) + '</dd></div>';
     }
 
     /* ------------------------------------------------------------ overrides */
@@ -906,19 +962,16 @@
         : online ? "Configuration stored" : state.store.message;
     }
 
-    /* ------------------------------------------------------------ the timeline */
+    /* ------------------------------------------------------------ the clock */
 
-    function renderTimeline() {
+    /* The hour has no control of its own. It is set at start-up and moved only by
+       the simulated day run, so this only reports the hour that run has reached. */
+    function renderClock() {
       var weather = hours[state.hour];
-      $("time-control").value = String(state.hour);
       $("clock").textContent = hourText(weather.local_hour);
       $("sky-readout").textContent = "Modelled sun " + weather.ghi.toFixed(0) +
         " W m⁻², rain " + weather.rain_mm.toFixed(1) + " mm, air " +
         weather.t2m.toFixed(1) + " °C";
-      $("timeline-readout").textContent = "Historical input " + day.date_local + " " +
-        hourText(weather.local_hour) + " local. Modelled sun " + weather.ghi.toFixed(0) +
-        " W m⁻², rain " + weather.rain_mm.toFixed(1) + " mm, air " +
-        weather.t2m.toFixed(1) + " °C.";
 
       var chip = $("run-state");
       var worst = activeZones().reduce(function (carry, zone) {
@@ -937,29 +990,6 @@
         chip.querySelector("span").textContent = worst === "auto"
           ? "Every zone on automatic control"
           : STATUS[worst].word + " in at least one zone";
-      }
-    }
-
-    function buildMarks() {
-      var storm = hours.map(function (hour, index) { return hour.rain_mm > 0 ? index : -1; })
-        .filter(function (index) { return index >= 0; });
-      var marks = [{ at: 0, text: "00" }, { at: 6, text: "06" }, { at: 12, text: "12" },
-                   { at: 18, text: "18" }, { at: 23, text: "23" }];
-      if (storm.length) {
-        marks.push({ at: storm[0], text: hourText(storm[0]) + " storm", strong: true });
-      }
-      $("timeline-marks").innerHTML = marks.map(function (mark) {
-        return '<span' + (mark.strong ? ' class="strong"' : "") + ' style="left:' +
-          (mark.at / 23 * 100).toFixed(2) + '%">' + escape(mark.text) + "</span>";
-      }).join("");
-      if (storm.length) {
-        $("jump-storm").textContent = "Go to the storm at " + hourText(storm[0]);
-        $("jump-storm").disabled = false;
-        $("jump-storm").addEventListener("click", function () {
-          stopPlayback();
-          setHour(storm[0]);
-          announce("Moved to the modelled storm at " + hourText(storm[0]) + ".");
-        });
       }
     }
 
@@ -986,7 +1016,7 @@
       state.timer = null;
       $("play-label").textContent = state.hour >= hours.length - 1
         ? "Run the simulated day again" : "Run the simulated day";
-      renderTimeline();
+      renderClock();
     }
 
     function play() {
@@ -999,7 +1029,7 @@
       state.playing = true;
       $("play-label").textContent = "Pause";
       announce("Simulated day running from " + hourText(state.hour) + ".");
-      renderTimeline();
+      renderClock();
       state.timer = setTimeout(step, hours[state.hour].play_seconds * 1000);
     }
 
@@ -1015,6 +1045,9 @@
 
     function select(letter, focusRoof, quiet) {
       state.selected = letter;
+      /* A zone picked on the roof opens its row, so the list never hides the zone the
+         model is showing. One row is open at a time. */
+      state.openZone = letter;
       scene.setSelected(letter);
       if (letter && focusRoof) { scene.focusZone(letter); }
       render();
@@ -1052,7 +1085,7 @@
     function render() {
       renderOverview();
       renderInspector();
-      renderTimeline();
+      renderClock();
       renderWorkspace();
       renderMetrics();
       renderStoreState();
@@ -1083,16 +1116,6 @@
     function bind() {
       $("play").addEventListener("click", play);
       $("restore").addEventListener("click", restoreBaseline);
-      $("time-control").addEventListener("input", function (event) {
-        /* Read the wanted hour before stopping: stopping re-renders the timeline and
-           would rewrite this control from the hour we are leaving. */
-        var wanted = Number(event.target.value);
-        stopPlayback();
-        setHour(wanted);
-      });
-      $("inspector-focus").addEventListener("click", function () {
-        if (state.selected) { scene.focusZone(state.selected); }
-      });
       $("add-zone").addEventListener("click", function () { openZoneForm(null); });
       $("zone-cancel").addEventListener("click", function () {
         closeZoneForm();
@@ -1119,18 +1142,15 @@
       });
 
       document.addEventListener("keydown", function (event) {
-        /* The model handles its own arrow keys and calls preventDefault, so a key it
-           has already used must not also scrub the timeline. */
+        /* The model handles its own keys and calls preventDefault, so a key it has
+           already used must not also reach the run and restore shortcuts. The hour
+           itself has no key: only the simulated day run moves it. */
         if (event.defaultPrevented) { return; }
         var tag = document.activeElement && document.activeElement.tagName;
         if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") { return; }
         if (event.key === " " && tag !== "BUTTON") { play(); event.preventDefault(); }
         else if (event.key.toLowerCase() === "r" && !event.metaKey && !event.ctrlKey) {
           restoreBaseline();
-        } else if (event.key === "ArrowLeft" && tag !== "BUTTON") {
-          stopPlayback(); setHour(state.hour - 1); event.preventDefault();
-        } else if (event.key === "ArrowRight" && tag !== "BUTTON") {
-          stopPlayback(); setHour(state.hour + 1); event.preventDefault();
         }
       });
     }
@@ -1143,7 +1163,6 @@
       hours = day.hours;
       state.zones = day.zones.map(function (source) { return zoneFrom(source, source.zone); });
       recompute();
-      buildMarks();
       bind();
       $("play").disabled = false;
       setHour(0);

@@ -25,6 +25,7 @@ from flecto.app import Request, dispatch  # noqa: E402
 
 LOCAL_TZ = ZoneInfo("America/New_York")
 DEMO_DATE = "2023-06-03"
+STORM_HOUR = 15          # local, the first storm hour with three different zone answers
 
 
 @pytest.fixture
@@ -224,7 +225,7 @@ def test_earlier_runs_stay_reproducible_after_a_configuration_change(call, db, s
     timeline = call("GET", f"/api/simulation-runs/{before['id']}/timeline").body
     hours_b = timeline["zones"][zone_b["id"]]
     assert len(hours_b) == 24
-    assert [hour["state"] for hour in hours_b][15] == "RAIN_OPEN"
+    assert [hour["state"] for hour in hours_b][STORM_HOUR] == "RAIN_OPEN"
 
 
 def test_a_run_names_the_inputs_that_made_it(call):
@@ -280,22 +281,22 @@ def test_an_override_is_idempotent_under_one_key(call, site_zones):
 def test_an_expired_override_leaves_the_zone_on_automatic(call, db, site_zones):
     zone_c = zone_by_letter(site_zones, "C")
     call("POST", f"/api/zones/{zone_c['id']}/overrides",
-         {"command": "open", "duration": "one_hour", "from_hour": 15,
+         {"command": "open", "duration": "one_hour", "from_hour": STORM_HOUR,
           "acknowledged_review": True})
     run_id = call("POST", "/api/simulation-runs", {}).body["run"]["id"]
     hours = call("GET", f"/api/simulation-runs/{run_id}/timeline").body["zones"][zone_c["id"]]
 
-    assert hours[15]["manual"] is True, "the override hour is manual"
-    assert hours[16]["manual"] is False, "the hour after expiry is automatic again"
-    assert hours[16]["state"] == "RAIN_SHUT"
-    assert hours[16]["reason"] == "wet_enough"
+    assert hours[STORM_HOUR]["manual"] is True, "the override hour is manual"
+    assert hours[STORM_HOUR + 1]["manual"] is False, "the hour after expiry is automatic again"
+    assert hours[STORM_HOUR + 1]["state"] == "RAIN_SHUT"
+    assert hours[STORM_HOUR + 1]["reason"] == "wet_enough"
 
 
 def test_a_safety_rule_outranks_a_manual_open(call, site_zones):
     """A held-open command at a dark hour is refused, and the console is told why.
 
     The demo day's heaviest hour is 23.9 mm, under the 25.0 mm hard-rain rule, so that
-    branch never fires on 3 June. The night rule is the conflict this day does carry.
+    branch never fires on 3 June. The night rule is the conflict this day carries.
     """
     zone_b = zone_by_letter(site_zones, "B")
     call("POST", f"/api/zones/{zone_b['id']}/overrides",
