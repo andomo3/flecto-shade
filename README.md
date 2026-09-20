@@ -139,9 +139,6 @@ Claude, from Anthropic, assisted with planning, research and documentation.
 The roof controller uses deterministic rules; no learned model runs in its control loop.
 Library, dataset and crop-source credits are collected in the [submission material](planning/pitch/submission.md).
 
-Before the event, the team researched and planned a different idea in [hack-mit](https://github.com/andomo3/hack-mit), including a labeled throwaway prototype.
-That idea was set aside on Saturday. This shade-house project was chosen and built during the hacking period; no code was copied from that planning repository.
-
 ## License
 
 [MIT License](LICENSE) covers this repository's code.
