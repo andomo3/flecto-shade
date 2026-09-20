@@ -476,10 +476,23 @@ button { cursor: pointer; }
 }
 /* The limit, said in the same breath as the loss above it and at the same weight.
    It is never styled as fine print: the page earns the headline by carrying this. */
+/* What the project is, in one sentence, directly under the problem. This is the line
+   that has to survive the three second test, so it takes the body weight the bridge
+   below it does not. */
+.lede-what {
+  margin: 0 0 var(--s3);
+  max-width: 40ch;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(19px, 1.7vw, 22px);
+  line-height: 1.45;
+  text-wrap: balance;
+}
+
 .lede-bridge {
   margin: 0 0 var(--s4);
   max-width: 42ch;
-  color: var(--ink-2);
+  color: var(--ink-3);
   font-size: 18px;
   line-height: 1.5;
 }
