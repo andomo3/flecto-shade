@@ -2,17 +2,13 @@
 
 **An adaptive shade-house simulation for giving growing areas different amounts of light and rain.**
 
-[Run locally](#setup) · [Watering preview and recording](https://github.com/andomo3/flecto-shade/pull/5#issuecomment-5747121392) · [Team workflow](CONTRIBUTING.md) · [Issues](https://github.com/andomo3/flecto-shade/issues)
+**[Open the live demo](https://page-five-kappa.vercel.app)** · [Run locally](#setup) · [Team workflow](CONTRIBUTING.md) · [Issues](https://github.com/andomo3/flecto-shade/issues)
 
 Built at HackMIT 2026 · Plain HTML/CSS/JavaScript · Python 3.13 · [MIT](LICENSE)
 
-> **Current status:** `main` contains the CAD roof viewer and Greater Boston weather replay.
-> Farmer-selected areas → simulated rain → individual flap control is implemented in [PR #5](https://github.com/andomo3/flecto-shade/pull/5), pending integration.
-> Its recording is a preview of that branch. A public deployment URL and final frontend screenshot are still pending.
-
-![Two selected soil areas receive simulated rain through individual circular flaps](assets/watering-preview.png)
-
-*Watering preview from PR #5, tested revision `15ebcfd`; this flow is not yet merged into `main`.*
+> **Current status:** the static demo runs the whole simulated day of 10 June 2023 in Greater Boston in about forty seconds, for three growing zones.
+> It is deployed as a static page, so the configuration workspace shows its offline state and holds changes in the session only.
+> Everything on it is simulated from public weather inputs, and no value on it is a validated engineering result.
 
 ## Problem
 
@@ -31,9 +27,9 @@ Our [problem research](planning/docs/research/flectofin-greenhouse-roof/problem-
 - **A reproducible simulation:** deterministic light/rain rules and soil-water buckets driven by public 2023 weather inputs.
 - **An offline static page:** local assets and precomputed data, without runtime API calls.
 
-The next primary interaction is the farmer-selected watering flow in [PR #5](https://github.com/andomo3/flecto-shade/pull/5).
-It lets the farmer select soil areas, set rain and moisture targets, and inspect flap combinations, delivered water, spill, shortfalls and a JSON export.
-The weather replay remains a separate supporting demonstration.
+A farmer-driven watering flow was prototyped in [PR #5](https://github.com/andomo3/flecto-shade/pull/5) and is **not merged**.
+It replaced the console and the roof viewer rather than adding to them, and it introduced a second rain model beside the shared rules, so it was not taken.
+The farmer-driven work is being rebuilt as a component that adds to the current page instead.
 
 ## Tech stack
 
@@ -88,9 +84,11 @@ It does not publish a deployment.
 
 ## Demo media
 
-The [recorded watering preview](https://github.com/andomo3/flecto-shade/pull/5#issuecomment-5747121392) shows the proposed primary flow and identifies its tested revision.
-The final public demo, hero screenshot and submission recording must match the integrated frontend.
-Their handoff is tracked in the [release checklist](CHECKLIST.md).
+The live demo is at <https://page-five-kappa.vercel.app>, deployed from `main` on 2026-09-20.
+The hero image above is a screenshot of that page, taken at 15:00 on the simulated day.
+
+The [recorded watering preview](https://github.com/andomo3/flecto-shade/pull/5#issuecomment-5747121392) belongs to the unmerged PR #5 and does not show what the live page does.
+The submission recording must match the deployed page, and its handoff is tracked in the [release checklist](CHECKLIST.md).
 
 ## Evidence and limits
 
