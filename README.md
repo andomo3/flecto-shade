@@ -24,7 +24,7 @@ Our [problem research](planning/docs/research/flectofin-greenhouse-roof/problem-
 
 ## What we built
 
-- **Farmer-selected growing areas:** click, drag or use the keyboard to select soil cells; A–D are selection shortcuts.
+- **Farmer-selected growing areas:** click, drag or use the keyboard to select soil cells; A-D are selection shortcuts.
 - **A rain-event controller:** set rain depth, starting soil water, target and capacity, then watch deterministic combinations of individual circular flaps open and close.
 - **Visible limits and accounting:** inspect covered/uncovered cells, target shortfalls, selected/outside delivery, stored water and overflow; allow spill explicitly and export the inputs/results as JSON.
 - **An interactive CAD roof:** the team's 22 circular flaps, rain animation and orbit/zoom camera controls.
