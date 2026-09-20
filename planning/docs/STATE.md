@@ -21,6 +21,7 @@ The plan itself is `../plans/plan-d-louvre-roof.md`, the live board is `../../CH
 | [Is irrigation infrastructure wasted when a roof could depend on rain](research/flectofin-greenhouse-roof/problems-water-and-rain.md) | done | abba | 2026-09-19 |
 | [Does a bed by bed roof save energy on motors, lighting, or cooling](research/flectofin-greenhouse-roof/problems-energy-light-and-heat.md) | done | abba | 2026-09-19 |
 | [Which agricultural dataset carries a finding that supports the zoned roof, and competes for the Voloridge challenge](research/flectofin-greenhouse-roof/agricultural-data-voloridge.md) | in-progress | abba | 2026-09-20 |
+| [What study would show whether the demo's claim survives the team's own assumed constants, and what result would change the team's mind](research/flectofin-greenhouse-roof/simulation-study-protocol.md) | written, study not run | abba | 2026-09-20 |
 
 ## Standing decisions
 
