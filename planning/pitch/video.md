@@ -48,7 +48,7 @@ The backup clip is shots 3 to 8, uncut, at the page's own speed.
 
 ## The words
 
-The submission video uses the 60 second script from `script.md` as its voiceover, stretched over the shots with silence where the screen is doing the talking.
+The submission video uses the 90 second script in `video-script-90s.md`, which carries its own shot list for the page as built and replaces the shot list above where the two differ.
 Record the voice separately, in a quiet room, on a phone held close, because a hackathon hall is too loud for any microphone.
 Burn in captions, because judges often watch with the sound off.
 
