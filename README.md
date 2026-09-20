@@ -105,6 +105,9 @@ The Flectofin mechanism is credited to ITKE at the University of Stuttgart, pate
 Our contribution is the simulation and control demonstration; we do not claim to have invented the mechanism or established patent novelty.
 See [mechanism credits](planning/docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md).
 
+The [FAWN agricultural-data research](planning/docs/research/flectofin-greenhouse-roof/agricultural-data-voloridge.md) proposes measured-weather comparisons.
+Its analysis figures remain provisional until reproduced by checked-in project code.
+
 ## What's next
 
 - [ ] Integrate farmer-selected watering with the team's final frontend and publish the demo.

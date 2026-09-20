@@ -22,7 +22,7 @@ Nothing in this plan needs the sun's position, because the roof reacts to how mu
 ## Inputs, VERIFIED
 
 - `hack-mit/data/raw/nasa-power/power-hourly-orlando-executive-2023.csv`, 340,893 bytes, sha256 `c81490d249cb1fc857b0edf44c54d6fcdbc7c1e5b30b326310138a10f25cefc4`.
-  A person copies it into `flecto-stop/data/raw/nasa-power/` and checks the sha256.
+  A person copies it into `flecto-shade/data/raw/nasa-power/` and checks the sha256.
 - The request that produced it, HTTP 200, the whole year in one call:
   `https://power.larc.nasa.gov/api/temporal/hourly/point?parameters=ALLSKY_SFC_SW_DWN,ALLSKY_SFC_SW_DNI,ALLSKY_SFC_SW_DIFF,T2M,PRECTOTCORR&community=RE&longitude=-81.33544&latitude=28.54653&start=20230101&end=20231231&format=CSV&time-standard=UTC`
 - The coordinates are the rain gauge's own, from the ISD file: latitude 28.54653, longitude -81.33544, elevation 31.7 m.
