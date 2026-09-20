@@ -477,28 +477,15 @@ button { cursor: pointer; }
   text-wrap: balance;
 }
 
-/* The title and its descriptor sit on one line, the descriptor set small and aligned
-   to the title's baseline, because it names the product rather than introducing it. */
-.lede-mark {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: center;
-  gap: var(--s2) var(--s4);
-  max-width: none;
-  margin: 0 0 var(--s5);
-}
-.lede-mark .swap { margin: 0; }
-
-/* In the rounded face, so it reads as a different voice from the serif beside it, and
+/* In the rounded face, so it reads as a different voice from the serif above it, and
    it carries the word "simulated" before the roof appears. */
 .lede-caption {
-  margin: 0 0 .75em;
-  max-width: 24ch;
+  margin: 0 0 var(--s5);
+  max-width: 42ch;
   color: var(--ink-3);
-  font-size: 18px;
-  line-height: 1.35;
-  text-align: left;
+  font-size: clamp(18px, 1.4vw, 20px);
+  line-height: 1.5;
+  text-wrap: balance;
 }
 
 .lede-act { margin: 0 0 var(--s4); }
