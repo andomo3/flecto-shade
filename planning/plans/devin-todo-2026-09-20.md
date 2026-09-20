@@ -161,9 +161,58 @@ Priority 1, about 30 minutes, after T2 is merged, branch `docs/readme-hero`.
 | The demo has a wow moment that can be read | T1 | met after T1 |
 | A public demo address, a real phone, two timed rehearsals, a fallback recording | abba, because they need a login, a phone, and a voice | not started |
 
+## The handoff prompt, to paste into Devin
+
+The planner tried to start this session through the Devin connection at about 04:30 and was refused: the connection's token carries no organisation, so it can read the repo and cannot create a session.
+Until the connection is given an `X-Org-Id` header, a person pastes this into Devin.
+
+```text
+You are the executor on the HackMIT 2026 repo andomo3/flecto-shade. The planner, Claude,
+wrote your to-do list and reviews every pull request before it is merged. Submission is at
+11:00 Eastern on Sunday, so work the list in order and do not wait for a person.
+
+READ, IN THIS ORDER, BEFORE WRITING CODE
+1. AGENTS.md and CONTRIBUTING.md on main: the workflow.
+2. planning/plans/devin-todo-2026-09-20.md on the branch feat/devin-todo-and-test-plan:
+   your to-do list, tasks T1 to T6, with their order, acceptance checks, files, and cut line.
+3. planning/docs/research/flectofin-greenhouse-roof/simulation-and-field-test-plan.md on
+   the same branch, section 3: the design for task T4.
+4. planning/plans/packages/H3-result-card.md on main: the specification for task T3.
+
+THE RULES THAT MATTER MOST
+- Branch every page task from feat/judging-ui-polish, NOT from main, until that branch is
+  merged. It holds UI work that is pushed and not merged, and work built on main conflicts.
+- One task, one branch, one pull request against main, with the branch names the list gives.
+- Order: T1, T2, T3, then stop at the cut line if it is past 08:00 Eastern. Then T4 and T6.
+  Skip T5, which waits for a person to download its data.
+- Before any pull request run the FULL suite, python -m pytest software, and node --check
+  on every file in software/page/*.js. Put the real output in the pull request. Never write
+  an unrun check as passing, and state what you did not test.
+- For every page task, exercise the page in a real browser: python software/api/migrate.py,
+  then python software/api/local_server.py --port 8000, run the day to 23:00, press Go to
+  the storm, check the console for errors, and attach a 1440 by 900 screenshot.
+- A test's expected value that does not match is reported and never edited to pass. The two
+  exceptions are written into the list with their reasons: T1's playback seconds and T2's
+  header test. Say so in the pull request.
+- If a task fails its own check twice, stop, leave a draft pull request saying what
+  happened, and move to the next task.
+- The honesty rules are enforced by tests: every figure is simulated or modelled, the word
+  "measured" appears nowhere under software/page except the rain source line, code comments
+  included, and never "first", "maintenance free", "weatherproof", or any figure for cost,
+  yield, energy, or water saved. No learned model in the control loop. Plain HTML, CSS, and
+  vanilla JavaScript, no framework, no CDN, no web font, no new dependency.
+- Do not touch pull request 5. Do not merge anything. Do not edit anything under planning/.
+
+WHEN YOU FINISH OR STOP
+Reply with the pull requests you opened, the checks you ran with their real results, what
+you did not test, anything in the list you could not satisfy and why, and any expected
+value that did not match, with what you got instead.
+```
+
 ## What abba does on waking
 
-1. Open the three pull requests listed under "What is already done", review, and merge.
+1. Open the four pull requests, the three listed under "What is already done" and this branch, review, and merge.
+   Then paste the handoff prompt above into Devin, unless the connection has been given its organisation.
 2. Read Devin's pull requests with the planner's review on each.
 3. Deploy: vercel.com, import `andomo3/flecto-shade`, set the root directory to `software`, and deploy.
 4. Record the video from `planning/pitch/video-script-90s.md`.
