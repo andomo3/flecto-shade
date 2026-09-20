@@ -1,0 +1,4 @@
+# the local SQLite database, never committed
+*.db
+*.db-wal
+*.db-shm

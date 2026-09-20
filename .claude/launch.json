@@ -1,0 +1,27 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "console",
+      "runtimeExecutable": ".venv/bin/python",
+      "runtimeArgs": [
+        "software/api/local_server.py",
+        "--port",
+        "8100"
+      ],
+      "port": 8100
+    },
+    {
+      "name": "static-only",
+      "runtimeExecutable": ".venv/bin/python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8200",
+        "--directory",
+        "software/page"
+      ],
+      "port": 8200
+    }
+  ]
+}
