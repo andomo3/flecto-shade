@@ -1,6 +1,6 @@
 # Smart louvre roof
 
-**One shade house roof, three crops, three different answers to the same sky, simulated on a real year of Florida weather.**
+**One shade house roof, three beds, three different answers to the same sky, simulated on a real year of Florida weather.**
 
 [![Built at HackMIT 2026](https://img.shields.io/badge/Built%20at-HackMIT%202026-blueviolet)](https://hackmit.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
@@ -17,25 +17,29 @@
 
 ## Problem
 
-**A grower with three crops under one shade house roof gives all three the same sky.**
+**What a plant needs depends on the state of its own bed, and a shade house gives every bed one number.**
+
+The University of Florida's centre at Apopka, in the heart of Florida's nursery industry, publishes a table for foliage growers: 50 crops, with shade from "30 - 60%" to "80 - 90%".
+One crop does not sit still either: for croton, "30% shade is not quite enough in summer, but 47% is too much in winter."
+And the same plant changes: the centre's guides have a fig grown bright for its trunk and then held under heavy shade for months before sale, which today means a second structure, and moving the plant.
 
 The way such a roof works today is a fine brain and a blunt hand.
 The climate computer is already fine grained: it holds a daily light target, and it starts irrigation valve by valve.
-The roof is not: "One gear motor will handle up to 50,000 sq ft of roof", in the words of a UMass fact sheet.
-So every plant under that motor gets one decision.
+The roof is not: it is one cloth, or one curtain, and "One gear motor will handle up to 50,000 sq ft of roof", in the words of a UMass fact sheet.
+So every plant under it gets one decision.
 
-But the plants do not agree.
-Purdue's light table puts a Boston fern at its best from 8 mol of light a day, and a hydrangea from 12.
-Whatever the roof does is wrong for one of them.
-And when an afternoon storm comes, the rain falls on every bed or on none, the dry one and the wet one alike.
+Rain is the same problem.
+Under shade cloth a storm falls on every bed alike, and the FAO's paper on effective rainfall says why that is wrong: a shower after irrigation "becomes surplus water and is lost", where on dry soil it is "a saving in irrigation water".
+The Apopka report adds that water on "already saturated media will leach fertilizer and possibly contribute to ground water pollution".
 
-The sources for every figure are in [the market research](planning/docs/research/flectofin-greenhouse-roof/market-and-differentiation.md) and in [the simulation's specification](planning/plans/packages/H1-zones-light-rain-soil.md).
+The sources, and what we tested and dropped, are in [the problem framing](planning/docs/research/flectofin-greenhouse-roof/problem-framing.md), [the market research](planning/docs/research/flectofin-greenhouse-roof/market-and-differentiation.md), and [the simulation's specification](planning/plans/packages/H1-zones-light-rain-soil.md).
 
 ## Solution
 
 **A roof made of many small hingeless fins, grouped into zones, that decides bed by bed.**
 
-Each zone gets its own light, and lets the rain through only when its soil is dry.
+Each zone gets its own light, uses the rain when its soil is dry, and is kept out of the rain when its soil is wet.
+The irrigation system stays: eight months of the Florida year are dry, and the roof decides only whether today's rain is used or thrown away.
 We simulate that roof over three crop zones near Apopka, Florida, hour by hour through 2023, and one page plays one real day of it in about forty seconds.
 
 Why fins, and why this fin: deciding bed by bed takes a roof of many small parts, and with hinges every one of them is a bearing to grease, which the growers' own guides already list as a chore.
@@ -45,7 +49,7 @@ That is our argument and not a finding: no saving is quantified, by our sources 
 ### How it works
 
 1. **The sun and the rain.** A year of hourly sun from NASA POWER and hourly rain from the Orlando Executive Airport gauge, the same place and the same year, so that rainy hours are darker hours.
-2. **Three zones, three crops.** Boston fern and hydrangea each have a daily light target, blueberry has a shade share, and each crop opts in or out of rain.
+2. **Three zones, three light classes.** The three crops are the ones whose published daily light figures we could source: Boston fern and hydrangea each have a daily light target, blueberry has a shade share, and each crop opts in or out of rain.
 3. **Nine written rules.** Every hour, every zone's fins open or shut by nine deterministic rules, in the priority night, then rain, then light, with a soil water bucket per zone.
 4. **One day, played back.** The page shows the roof from above and plays 3 June 2023: the fern's zone shuts by eleven, the hydrangea's by noon, the blueberries stay open, and then an afternoon storm gets three different answers, each with its reason in words.
 5. **The result card.** Each crop's light against its target, the rain's share of each zone's water, and the year by month.
@@ -67,7 +71,7 @@ Said up front, because a judge who knows horticulture will know most of this exi
 | **Not ours** | A moving roof over crops, which Cravo and Sun'Agri already sell |
 | **Ours** | The size of the decision: a bed, not a building. We found no prior proposal to put a Flectofin over crops, which is an absence in our searches and not proof |
 | **Simulated** | Everything. Nothing physical was built, no fin was printed, and every figure on every screen says simulated or modelled. The one real record is the rain gauge |
-| **Not claimed** | Yield, cost, water or energy saved, safety from disease, wind, hail, or a built roof |
+| **Not claimed** | Yield, cost, water or energy saved, safety from disease, wind, hail, or a built roof. We tested three wider claims against sources and dropped them: that irrigation is wasted, that motor energy is saved, and that lamp costs fall |
 
 Growers keep rain off glasshouse crops on purpose, because wet leaves bring disease.
 That is why this is a shade house, why each crop opts in to rain, only in daylight and only with time to dry, and why the fern opts out.

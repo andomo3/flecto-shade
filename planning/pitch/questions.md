@@ -11,7 +11,7 @@ Every simulation figure is provisional, from the planner's run in `../plans/pack
 ## The fifteen
 
 **1. Who is this for, specifically?**
-"A grower with several crops under one shade house roof.
+"A foliage grower whose beds want different light under one shade house roof: different crops, or the same crop at different stages, or the same crop in summer and in winter.
 We set it near Apopka, in Central Florida, because the University of Florida's centre there calls it the heart of Florida's greenhouse and nursery industry, and shade houses are the practice there.
 Elena, in our pitch, is an illustration.
 We have not spoken to a grower."
@@ -25,7 +25,7 @@ Everything else, the light targets and the watering logic, already exists, and w
 
 **3. How did you validate that anyone wants this?**
 "We did not, and I will not pretend we did.
-Our evidence that the problem is real is published: Purdue's light table puts Boston fern at its best from eight mol a day and hydrangea from twelve, under roofs that make one decision.
+Our evidence that the problem is real is published by the University of Florida's own centre at Apopka: fifty foliage crops with shade from thirty percent to ninety, croton wanting thirty in summer where forty seven is too much in winter, and months of heavy shade before sale for the same plant, all under roofs that give one number.
 Whether a grower would pay for the difference is unknown."
 
 **4. What did you build, and what is mocked?**
@@ -140,6 +140,37 @@ So the computer can tell one valve from the next, and the roof cannot tell one b
 Our argument is about what happens when you multiply them: every hinge is a bearing, and the sources already call greasing those a chore at today's scale.
 A fin with no hinge removes that documented task, and the same part shades, opens for air, and lets the rain through.
 That is an argument and not a finding: no saving is quantified, and we built no fin."
+
+**Is a house with three crops in it realistic?**
+"It is plausible, and we did not find it proven common, so the pitch does not rest on it.
+Half of the University of Florida's fifty crops share one shade class, and a grower who specialises is served by one cloth.
+The problem belongs to the grower with more than one light class, and one crop can be that grower: croton wants thirty percent shade in summer, and forty seven is too much in winter.
+The three beds on our screen are three light classes, with the three crops whose published daily light figures we could source."
+
+**Why not just build two shade houses?**
+"That is what a grower does today, and it is the honest alternative.
+The Apopka guides have a fig grown bright for its trunk and then held under heavy shade for months before sale, which means a second structure and moving the plant.
+With a roof that decides by the bed, the bed changes and the plant stays.
+We found no figure for what that moving costs, so we do not give one."
+
+**Could this replace the irrigation system, if the roof uses the rain?**
+"No, and we tested that idea against the sources and dropped it.
+The wet season brings about sixty percent of the year's rain and eight months are dry, daily watering is typical in a nursery, and we found no nursery that runs without irrigation.
+In our own simulated year the rain supplied about fifty four percent of one bed's water and none of another's.
+The irrigation system stays.
+The roof decides whether today's rain is used or thrown away, bed by bed."
+
+**Does it save energy, on motors or on lights?**
+"We do not claim either, and the sources say we should not.
+Roof motors are a rounding error beside fans and heating, and a roof of many fins has more actuators, not fewer.
+Florida shade houses do not use lamps, and the glasshouses that do keep rain out on purpose.
+Both were tested against sources and dropped."
+
+**Under shade cloth the rain already reaches every bed. So what does your roof add?**
+"Exactly that, and it is the better half of the rain story.
+Cloth lets all the rain through, onto the dry bed and the soaked one alike.
+The University of Florida's Apopka report says water on already saturated media will leach fertilizer and possibly contribute to ground water pollution.
+So the roof's new act is keeping a storm off a bed that is already wet, and in our demo that is the bed that stays shut, with the words 'the soil is wet enough'."
 
 **Why Apopka, and why is your gauge in Orlando?**
 "Apopka because of the industry there, in the University of Florida's own words.

@@ -12,14 +12,41 @@ Every figure from our own run is provisional, from the planner's run, and is con
 
 ## The hero: the grower
 
-[Elena], a grower near Apopka, in Central Florida, with three crops under one shade house roof: Boston fern, hydrangea, and blueberry.
-She is not an engineer or a persona on a slide: she is someone with three kinds of plant and one sky to give them.
-Her one specific struggle: every morning she picks which crop the roof is wrong for.
+[Elena], a foliage grower near Apopka, in Central Florida.
+She is not an engineer or a persona on a slide: she is someone with plants that want different light, and one roof to give them.
+Her one specific struggle: to change a plant's light, she moves the plant.
 The name is illustrative and the team may change it.
 The structure is a shade house, and the team may say greenhouse in plain speech.
 
 Why Apopka: the University of Florida's research centre there describes itself as "Located in the heart of Florida's greenhouse and nursery industry", and shade houses are the practice there.
 Any grander title for the town was seen only in search snippets, and is never said.
+
+She does not need three crops to have the problem, and the pitch no longer rests on a mixed house.
+The screen still shows three beds, and they are presented as three light classes, with a fern, a hydrangea, and a blueberry as the three crops whose published daily light figures the team could source.
+
+## The general problem
+
+Settled on Saturday night, from `../docs/research/flectofin-greenhouse-roof/problem-framing.md`, where the planner checked the three main quotes at their sources.
+
+In one sentence: what a plant needs depends on the state of its own bed, its crop, its stage, the season, and how wet its soil is, and the roof is the one part of the system that cannot act at that size.
+
+- **The crop.** The University of Florida's table for foliage growers, from its centre at Apopka, lists 50 crops with shade from "30 - 60%" to "80 - 90%".
+  The Boston fern on our screen is in it, at "70 - 80%".
+- **The season, for one crop.** The same university, on croton: "For most cultivars, 30% shade is not quite enough in summer, but 47% is too much in winter."
+- **The stage, for one plant.** The Apopka centre's acclimatization guides have a fig grown bright for its trunk and then held under heavy shade for months before sale.
+  The research note quotes the guide's own figure for that shade, which the planner could not open to check, so the figure is never said and "heavy shade for months" is.
+  Today that is a second structure, and moving the plant.
+- **The soil, for one bed.** The FAO's paper on effective rainfall: a shower after irrigation "becomes surplus water and is lost", and on dry soil it is "a saving in irrigation water".
+  The Apopka report says the other half: water on "already saturated media will leach fertilizer and possibly contribute to ground water pollution".
+
+The honest limits, said when asked and never hidden.
+Half of that table sits in one shade class, so a grower who specialises is served by one cloth.
+Season alone argues for shade that moves, which growers can already buy.
+The croton circular is an archival copy, from 2003.
+
+What was tested and dropped, and is never said: that irrigation infrastructure is wasted, that the roof saves motor energy, and that it cuts spending on lamps.
+The sources contradict all three, and the reasons are in the research note.
+The irrigation system stays, and the pitch says so.
 
 ## How a roof like hers works today
 
@@ -40,11 +67,14 @@ All of it is from `../docs/research/flectofin-greenhouse-roof/market-and-differe
 - **And rain is kept out on purpose.**
   Growers keep rain off glasshouse crops, because wet leaves bring disease, and the maker of rain admitting roofs closes them before it rains.
   That is why this is a shade house, why each crop opts in, only in daylight and only with time to dry, and why the fern opts out.
+- **And under cloth, the rain is not a choice at all.**
+  A woven shade cloth lets all the rain through, onto every bed, the dry one and the soaked one alike.
+  So in a shade house the roof's new act is not admitting rain. It is keeping a storm off a bed that is already wet, where the Apopka report says the water "will leach fertilizer".
 
-## The villain: the single curtain
+## The villain: one number for every bed
 
 Not "the weather", which is too large to fight, and not "inefficiency", which nobody can picture.
-The villain is the single curtain: one motor, one decision, for every plant under it.
+The villain is one number for every bed: one cloth, or one curtain on one motor, and so one decision for every plant under it, all year.
 It is strong because it is the honest state of the art, and the numbers say so.
 What it costs Elena is sourced too: Purdue puts the fern's best quality from 8 mol a day and the hydrangea's from 12, so a roof held at the fern's light keeps the hydrangea out of its top grade, and Washington State's sheet says heavy shade "can lessen fruit quality" for blueberry.
 
@@ -66,7 +96,8 @@ What it costs Elena is sourced too: Purdue puts the fern's best quality from 8 m
 | The fin is the Flectofin, by ITKE at the University of Stuttgart, patented as EP2320015 | `../docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md` | said unasked, every time |
 
 Three specifics per sixty seconds is the playbook's rule.
-Ours are 50,000 square feet a motor, 8 mol against 12, and about 54 percent.
+Ours, in the first minute, are fifty crops from thirty to ninety percent shade, croton's thirty and forty seven, and 50,000 square feet a motor.
+In the demo they are eleven and noon, forty two millimetres, and six mol, and at the close, six months of seven and about 54 percent.
 
 ## Why the fin
 
@@ -100,14 +131,14 @@ In speech: "Ours is the size of the decision: a bed, not a building."
 
 Elena is the subject of every beat, because the user is the hero and the team never is.
 
-- **Once upon a time** there was a grower named [Elena], near Apopka, with three crops under one shade house roof.
-- **Every day** her computer knew what each crop wanted, and her roof could only do one thing, because one motor pulls up to 50,000 square feet of curtain.
-- **Until one day**, a bright morning in June, the fern had had its light by eleven and the blueberries wanted the whole day, and she had one curtain to give them both.
-- **Because of that** whatever she chose, the roof was wrong for one of her crops.
-- **Because of that**, when the afternoon storm came, the rain fell on all of her beds or on none of them, the dry one and the wet one alike.
+- **Once upon a time** there was a foliage grower named [Elena], near Apopka, with beds that wanted different light under one shade house roof.
+- **Every day** her computer could water one valve at a time, and her roof gave every bed one number, because it is one cloth, or one curtain on a motor that pulls up to 50,000 square feet.
+- **Until one day** a crop was ready for its months of heavy shade before sale, and the bed beside it still wanted the sun, and summer's shade was already wrong for winter.
+- **Because of that** to change a plant's light she had to move the plant, or change the cloth over all of them.
+- **Because of that**, when the afternoon storm came, it fell on every bed alike, and on the bed she had just watered it washed the fertilizer out.
 - **Until finally** her roof was made of many small fins with no hinge, ITKE's Flectofin, and it decided bed by bed, by nine written rules: night, then rain, then light.
-  That roof is what we simulated, over her three zones, on a real year of Central Florida weather.
-- **And ever since then**, in the shade house we want, the fern is shut by eleven, the blueberries have the whole sky, and the afternoon storm falls only on the bed that is dry.
+  That roof is what we simulated, over three beds, on a real year of Central Florida weather.
+- **And ever since then**, in the shade house we want, each bed gets its own light, the plants stay where they are, and the storm falls on the bed that is dry and is kept off the bed that is wet.
   That is a vision, and it is said as one.
 
 ## The lens: the honesty is the pitch
@@ -134,17 +165,17 @@ The lens changes the order, not the claims.
 
 | Beat | Feeling | What carries it |
 |---|---|---|
-| Setup | recognition | "Picture Elena", three crops, one sky |
-| Tension | unease | a fine brain and a blunt hand: the computer waters one valve at a time, and one motor pulls 50,000 square feet |
-| The low | sympathy | every morning she picks which crop the roof is wrong for |
+| Setup | recognition | "Picture Elena", a foliage grower, and her own university's table: fifty crops, thirty to ninety percent shade |
+| Tension | unease | one number for every bed, all year: a fine brain and a blunt hand, the computer waters one valve at a time and one motor pulls 50,000 square feet |
+| The low | sympathy | so to change a plant's light, she moves the plant |
 | Rising action | curiosity | many small parts, and the hinge is the chore, so a part with no hinge: ITKE's, and credited |
 | Climax | delight | the judge presses Play, and by noon the three zones stop behaving as one roof |
-| Proof | surprise | the same storm, three answers, each with its reason in words |
+| Proof | surprise | the same storm, three answers: one bed uses the rain, and one is protected from it |
 | Resolution | respect | the trade on the card, and one part that did all of it |
 | Disarming | trust | what is not measured, not built, and not claimed, said on a still screen |
 | Close | warmth | the ask, then back to Elena |
 
-Without the low the high does not land, so the single curtain and the morning choice get their full breath before the fins appear.
+Without the low the high does not land, so the one number and the moved plant get their full breath before the fins appear.
 
 ## The closing story
 
@@ -152,8 +183,8 @@ The callback close, because the story opened on a person and should end on her.
 The closing line is abba's to write, in abba's own voice.
 Until then the scripts carry this working draft, and it is replaced, not polished.
 
-"Elena still has three crops and one sky.
-Now the roof can tell them apart."
+"Elena still has one roof and one sky.
+Now every bed gets its own answer."
 
 The ask comes before the close, and never after it, so the last words are hers.
 At a booth it is an invitation and not a funding ask, and it is honest about the one thing the checklist asks for that we do not have, which is feedback from a user.
@@ -161,7 +192,7 @@ At a booth it is an invitation and not a funding ask, and it is honest about the
 "No grower has seen this yet.
 That is what we want next: one grower near Apopka to tell us where it is wrong."
 
-After the close, the offer: "Press Play again, and this time watch only the hydrangea."
+After the close, the offer: "Press Play again, and this time watch only the bed that stays shut in the rain."
 
 ## The demo as a scene
 

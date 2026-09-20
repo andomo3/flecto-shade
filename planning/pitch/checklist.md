@@ -11,7 +11,7 @@ Dropped on purpose: the live URL, the venue Wi-Fi test, slides and projectors, d
 - [ ] One run to someone outside the team, the playbook's "mom test": can they say what it does?
 - [ ] One run with a teammate playing a horticulture expert, and the answer opens by conceding.
 - [ ] The opening line and the closing line memorised by the speaker and by the backup speaker.
-- [ ] The fifteen second version ready, for a judge who is walking past: "A simulated shade house roof of small fins that gives three crops three different answers to the same storm.
+- [ ] The fifteen second version ready, for a judge who is walking past: "A simulated shade house roof of small fins that gives three beds three different answers to the same storm.
       Press Play."
 - [ ] Every figure in the scripts checked against `data/processed/headline.json`, and the word counts taken again.
 - [ ] The scripts and the cards read once against the list of words the team never says, in `../plans/pitch-plan-d.md`.

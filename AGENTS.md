@@ -2,7 +2,7 @@
 
 This is the repo the team submits to HackMIT 2026.
 
-The project, since about 16:45 on Saturday 2026-09-19: a simulated smart louvre roof for a grower with three crops under one shade roof.
+The project, since about 16:45 on Saturday 2026-09-19: a simulated smart louvre roof for a grower whose beds want different light under one shade roof, shown as three zones with three crops.
 The roof is made of many small hingeless fins, grouped into zones, and each zone gets its own light and lets the rain through only when its soil is dry.
 Everything is simulated, from a real year of Central Florida weather near Apopka, and nothing physical is built.
 The printed fin first planned for the table was cut on Saturday evening, so the project is the simulation, the pitch, and the story.
