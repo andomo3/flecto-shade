@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shade house 1 - Apopka, Florida</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-id">
+    <h1>Shade house 1</h1>
+    <p class="bar-sub" id="place">Loading</p>
+  </div>
+  <div class="bar-actions">
+    <span class="pill pill-sim">Simulated</span>
+    <span class="pill pill-what" id="mode-pill" hidden>What if</span>
+    <button type="button" class="btn-ghost" id="reset" hidden>Reset to the record</button>
+    <button type="button" class="btn" id="play" disabled>
+      <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>
+      <span id="play-label">Play the day</span>
+    </button>
+  </div>
+</header>
+
+<section class="sky-wrap" aria-labelledby="sky-h">
+  <h2 class="sr-only" id="sky-h">Sky and time of day</h2>
+
+  <div class="sky" id="sky" role="group" aria-label="Sky band">
+    <div class="sky-fill" id="sky-fill"></div>
+    <div class="sky-cloud" id="sky-cloud"></div>
+    <div class="sky-ticks" id="sky-ticks"></div>
+    <button type="button" class="sun" id="sun"
+            role="slider" aria-label="Time of day, drag to scrub"
+            aria-valuemin="0" aria-valuemax="23" aria-valuenow="0" aria-valuetext="00:00">
+      <span class="sun-disc"></span>
+    </button>
+  </div>
+
+  <div class="sky-bottom">
+    <div class="sky-clock">
+      <span class="clock-time" id="clock">--:--</span>
+      <span class="clock-date" id="date">&nbsp;</span>
+    </div>
+
+    <dl class="record" id="record">
+      <div><dt>Recorded sun</dt><dd id="rec-ghi">-</dd></div>
+      <div><dt>Recorded rain</dt><dd id="rec-rain">-</dd></div>
+      <div><dt>Recorded air</dt><dd id="rec-t2m">-</dd></div>
+    </dl>
+
+    <label class="ctl" for="cloud">
+      <span class="ctl-label">Cloud</span>
+      <input type="range" id="cloud" min="0" max="90" step="5" value="0">
+      <output class="ctl-out" id="cloud-out">as recorded</output>
+    </label>
+  </div>
+
+  <p class="ctl-help">Drag the sun to scrub the day. Add cloud to see what the roof would have done under a different sky. The recorded figures never move.</p>
+</section>
+
+<main class="stage">
+
+  <figure class="model" id="figure-slot" data-slot="shade-house">
+    <div class="model-frame" id="roof" aria-live="off"></div>
+    <figcaption>
+      <span class="cap-lead">The roof, from the team's CAD.</span>
+      One base plate and twenty two flaps in eleven rows, banded across the three zones.
+      Each flap's angle is the simulated open fraction for its zone, and the light follows the hour.
+      <span class="cap-pending">Geometry is the team's CAD, modelled and not built. No part of this roof exists.</span>
+    </figcaption>
+  </figure>
+
+  <section class="zones" id="zones" aria-label="Zones"></section>
+
+</main>
+
+<footer class="foot">
+  <p class="foot-region" id="foot-region"></p>
+  <p class="foot-src" id="sources"></p>
+  <p class="foot-src" id="credit"></p>
+  <p class="foot-honest">Every figure on this page is modelled, and the roof, the zones and the crops are simulated. The one exception is the rain, which is a single gauge reading. No instrument in a shade house produced anything you see here.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
