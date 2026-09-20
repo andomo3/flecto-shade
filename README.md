@@ -6,7 +6,7 @@
 
 Built at HackMIT 2026 · Plain HTML/CSS/JavaScript · Python 3.13 · [MIT](LICENSE)
 
-> **Current status:** `main` contains the CAD roof viewer and Florida weather replay.
+> **Current status:** `main` contains the CAD roof viewer and Greater Boston weather replay.
 > Farmer-selected areas → simulated rain → individual flap control is implemented in [PR #5](https://github.com/andomo3/flecto-shade/pull/5), pending integration.
 > Its recording is a preview of that branch. A public deployment URL and final frontend screenshot are still pending.
 
@@ -20,13 +20,14 @@ Different crops, growth stages and soil conditions call for different exposure.
 A bed that needs water and a bed that is already wet should not necessarily receive the same storm.
 
 UF/IFAS's Apopka guidance documents different shade requirements across foliage crops and seasons.
+The crop guidance is from that Florida extension work; the weather driving the simulation is from Boston, Massachusetts.
 Its guidance also warns that additional water on saturated growing media can leach fertilizer.
 Our [problem research](planning/docs/research/flectofin-greenhouse-roof/problem-framing.md) links the sources and distinguishes the evidence from our design proposal.
 
 ## What we built
 
 - **An interactive CAD roof viewer:** the team's circular flaps, animated roof states and camera controls.
-- **A weather replay:** 3 June 2023 in the Apopka area, with crop-specific decisions and explanations.
+- **A weather replay:** 10 June 2023 in Greater Boston, with crop-specific decisions and explanations.
 - **A reproducible simulation:** deterministic light/rain rules and soil-water buckets driven by public 2023 weather inputs.
 - **An offline static page:** local assets and precomputed data, without runtime API calls.
 

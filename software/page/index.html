@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Flecto Shade - one roof, a different answer for every bed (simulated)</title>
-<meta name="description" content="A simulated shade house roof of small hingeless fins that gives each bed its own light and rain, played over one real day of Central Florida weather.">
+<title>Flecto Shade - irrigation that reaches every crop (simulated)</title>
+<meta name="description" content="A simulated shade house roof of small hingeless fins that gives each bed its own light and rain, played over one real day of Greater Boston weather.">
 <meta name="theme-color" content="#171a19">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
@@ -13,7 +13,35 @@
 
 <a class="skip" href="#overview">Skip to the zone overview</a>
 
-<main class="console" id="console">
+<main>
+
+<!-- ------------------------------------------------- 1. what this is -->
+<!-- A section, never a banner tag: test_there_is_no_decorative_top_bar forbids that
+     tag outright, and this is page content rather than a bar. -->
+<section class="lede" aria-labelledby="lede-title">
+  <!-- The correction is the point: this is not a glasshouse that traps heat, it is a
+       shade house that lets it go. The struck and the written word are both decorative,
+       so the sentence a screen reader gets is spelled out beside them. -->
+  <p class="swap">
+    <span class="swap-stack" aria-hidden="true">
+      <span class="swap-out">Green</span>
+      <span class="swap-in">Shade</span>
+    </span>
+    <span aria-hidden="true">house</span>
+    <span class="reader-only">Not a green house. A shade house.</span>
+  </p>
+
+  <h1 id="lede-title">Farmers can lose hundreds of acres when irrigation cannot reach their crops</h1>
+
+  <p class="lede-act">
+    <button type="button" class="btn btn-lede" id="to-roof">
+      See the roof decide
+    </button>
+  </p>
+
+</section>
+
+<div class="console" id="console">
 
   <!-- 1. the modelled shade house -->
   <section class="stage" aria-labelledby="stage-title">
@@ -28,7 +56,7 @@
           <svg class="glyph" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h3l2-5 2 10 2-5h3"/></svg>
           Simulated
         </p>
-        <h1 id="stage-title">One roof, a different answer for every bed</h1>
+        <h2 id="stage-title" tabindex="-1">The simulated roof</h2>
         <p class="stage-place" id="stage-place">Loading the simulated day</p>
       </div>
 
@@ -43,22 +71,23 @@
             <svg class="glyph solid" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>
             <span id="play-label">Run the simulated day</span>
           </button>
-          <button type="button" class="tool" id="jump-storm" disabled>Go to the storm</button>
           <button type="button" class="tool" id="restore" hidden>Restore the baseline</button>
         </div>
-        <div class="tool-row" role="group" aria-label="Camera presets">
-          <span class="tool-label">View</span>
-          <button type="button" class="tool" data-preset="overview" aria-pressed="true">Overview</button>
-          <button type="button" class="tool" data-preset="plan">Plan</button>
-          <button type="button" class="tool" data-preset="eave">Eave</button>
-          <button type="button" class="tool" data-preset="bay">One bay</button>
-        </div>
-        <div class="tool-row" role="group" aria-label="Model detail">
-          <span class="tool-label">Detail</span>
-          <button type="button" class="tool" id="inspect-toggle" aria-pressed="false">Inspect a module</button>
-          <button type="button" class="tool" id="explode-toggle" aria-pressed="false" disabled>Exploded view</button>
-          <button type="button" class="tool" id="overlay-toggle" aria-pressed="false">Technical overlay</button>
-          <button type="button" class="tool" id="reset-view">Reset view</button>
+        <div class="tool-groups">
+          <div class="tool-row" role="group" aria-label="Camera presets">
+            <span class="tool-label">View</span>
+            <button type="button" class="tool tool-preset" data-preset="overview" aria-pressed="true">Overview</button>
+            <button type="button" class="tool tool-preset" data-preset="plan">Plan</button>
+            <button type="button" class="tool tool-preset" data-preset="eave">Eave</button>
+            <button type="button" class="tool tool-preset" data-preset="bay">One bay</button>
+          </div>
+          <div class="tool-row" role="group" aria-label="Model detail">
+            <span class="tool-label">Detail</span>
+            <button type="button" class="tool tool-toggle" id="inspect-toggle" aria-pressed="false">Inspect module</button>
+            <button type="button" class="tool tool-toggle tool-sub" id="explode-toggle" aria-pressed="false" disabled title="Turn on Inspect module before using this view">Exploded view</button>
+            <button type="button" class="tool tool-toggle" id="overlay-toggle" aria-pressed="false">Technical overlay</button>
+            <button type="button" class="tool tool-ghost" id="reset-view">Reset view</button>
+          </div>
         </div>
       </div>
 
@@ -72,6 +101,16 @@
       <div class="stage-fallback" id="stage-fallback" hidden></div>
     </div>
 
+    <div class="stage-notes">
+      <details class="model-notes">
+        <summary>About this model, and how to move around it</summary>
+        <p class="stage-caption" id="stage-caption">
+          A modelled commercial shade house. Columns carry the primary beams, the beams carry the secondary rails, and every Flectofin module clamps to the two rails that bound its square bay.
+          The planting below is drawn deterministically as decoration and is not a simulated crop response.
+        </p>
+        <p class="tool-help">Drag to orbit. Shift and drag to pan. Scroll to zoom. Arrow keys turn the model, 1 to 4 select a zone, 0 resets the view. The hour only moves while the simulated day runs.</p>
+      </details>
+    </div>
   </section>
 
   <!-- 2. every configured zone at once -->
@@ -97,37 +136,11 @@
         <h2 id="inspector-title">Selected zone</h2>
         <p class="panel-sub" id="inspector-sub">Choose a zone on the roof or in the overview.</p>
       </div>
-      <button type="button" class="btn-quiet" id="inspector-focus" disabled>Centre on the roof</button>
     </div>
     <div class="inspector-body" id="inspector-body"></div>
   </section>
 
-  <!-- 4. the simulated day -->
-  <section class="panel timeline" aria-labelledby="timeline-title">
-    <div class="panel-head">
-      <div>
-        <h2 id="timeline-title">Simulated day</h2>
-        <p class="panel-sub" id="timeline-date">&nbsp;</p>
-      </div>
-    </div>
-    <div class="timeline-control">
-      <label for="time-control">Modelled local hour</label>
-      <input type="range" id="time-control" min="0" max="23" step="1" value="0"
-             aria-describedby="timeline-readout">
-      <div class="timeline-marks" id="timeline-marks" aria-hidden="true"></div>
-    </div>
-    <p class="timeline-readout" id="timeline-readout">Modelled inputs loading</p>
-    <details class="model-notes">
-      <summary>About this model, and how to move around it</summary>
-      <p class="stage-caption" id="stage-caption">
-        A modelled commercial shade house. Columns carry the primary beams, the beams carry the secondary rails, and every Flectofin module clamps to the two rails that bound its square bay.
-        The planting below is drawn deterministically as decoration and is not a simulated crop response.
-      </p>
-      <p class="tool-help">Drag to orbit. Shift and drag to pan. Scroll to zoom. Arrow keys turn the model, 1 to 4 select a zone, 0 resets the view.</p>
-    </details>
-  </section>
-
-  <!-- 5. configuration -->
+  <!-- 4. configuration -->
   <section class="panel workspace" aria-labelledby="workspace-title">
     <div class="panel-head">
       <div>
@@ -208,6 +221,7 @@
       </div>
     </div>
   </section>
+</div>
 </main>
 
 <footer class="foot">

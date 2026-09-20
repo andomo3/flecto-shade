@@ -10,12 +10,12 @@ from pathlib import Path
 PROCESSED = Path(__file__).resolve().parents[2] / "data" / "processed"
 
 SCHEMAS = {
-    "year-apopka-2023.csv": (
+    "year-boston-2023.csv": (
         ["hour", "time_utc", "month", "source_year", "local_hour", "ghi", "dni", "dhi", "t2m"], 8760),
-    "weather-apopka.csv": (
+    "weather-boston.csv": (
         ["hour", "time_utc", "month", "source_year", "local_hour",
          "ghi", "dni", "dhi", "t2m", "rain_mm"], 8760),
-    "sim-apopka.csv": (
+    "sim-boston.csv": (
         ["hour", "time_utc", "zone", "crop", "open_fraction", "light_mol_so_far",
          "soil_mm", "rain_in_mm", "irrigation_mm", "state", "reason"], 26280),
 }

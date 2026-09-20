@@ -11,7 +11,7 @@
 
   var Fin = root.Flectofin;
   var $ = function (id) { return document.getElementById(id); };
-  var SITE = "apopka-demo";
+  var SITE = "boston-demo";
 
   var scene = null, panel = null, day = null;
 
@@ -231,10 +231,6 @@
     day = payload;
 
     $("stage-place").textContent = day.place;
-    $("timeline-date").textContent = new Date(day.date_local + "T12:00:00")
-      .toLocaleDateString(undefined,
-        { weekday: "long", day: "numeric", month: "long", year: "numeric" }) +
-      ", simulated";
     $("clock-date").textContent = day.date_local;
     $("foot-sources").textContent = "Sun: " + day.sources.sun + ". Rain: " + day.sources.rain + ".";
     $("foot-credit").textContent = day.credit;
@@ -272,6 +268,29 @@
     panel.boot(day);
     loadStored();
   }
+
+  /* ------------------------------------------------------------ the lede's one action */
+
+  /* "See the roof decide" is a one-way handoff. The introductory section leaves the
+     document flow, so scrolling up returns to the roof rather than the landing copy.
+     The canvas carries tabindex 0 once the model mounts; if the browser cannot draw
+     it, the stage heading takes the focus instead and the words below still read. */
+  function handOverToTheRoof() {
+    var button = $("to-roof");
+    if (!button) { return; }
+    button.addEventListener("click", function () {
+      var frame = $("stage-frame");
+      var target = frame.querySelector(".stage-canvas") || $("stage-title");
+      var lede = document.querySelector(".lede");
+      if (lede) { lede.hidden = true; }
+      if (frame.scrollIntoView) {
+        frame.scrollIntoView({ behavior: "auto", block: "start" });
+      }
+      if (target && target.focus) { target.focus({ preventScroll: true }); }
+    });
+  }
+
+  handOverToTheRoof();
 
   skeleton();
   fetch("day.json")

@@ -12,7 +12,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PROCESSED = REPO_ROOT / "data" / "processed"
 BUILD = REPO_ROOT / "software" / "h1" / "build.py"
-SIM = PROCESSED / "sim-apopka.csv"
+SIM = PROCESSED / "sim-boston.csv"
 
 
 def load_build():
@@ -29,7 +29,7 @@ def sim_rows():
 
 def test_two_runs_give_identical_bytes():
     build = load_build()
-    names = ["weather-apopka.csv", "sim-apopka.csv", "sim-summary-apopka.csv"]
+    names = ["weather-boston.csv", "sim-boston.csv", "sim-summary-boston.csv"]
     before = {name: (PROCESSED / name).read_bytes() for name in names}
     build.build(write=True)
     after = {name: (PROCESSED / name).read_bytes() for name in names}
@@ -47,7 +47,7 @@ def test_every_state_is_one_of_the_nine_rules_names():
 
 def test_no_rain_open_in_the_dark():
     weather = {}
-    with open(PROCESSED / "weather-apopka.csv", newline="") as handle:
+    with open(PROCESSED / "weather-boston.csv", newline="") as handle:
         for row in csv.DictReader(handle):
             weather[row["time_utc"]] = float(row["ghi"])
     for row in sim_rows():

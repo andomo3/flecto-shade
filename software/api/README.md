@@ -7,7 +7,7 @@ Everything it stores is simulated, and every figure it returns is labelled simul
 
 It holds no rules of its own.
 The nine deterministic rules, the light model, and the reference evaporation are imported from package H1, `software/h1/build.py`, so the API cannot drift from the simulation the data packages wrote.
-`software/tests/test_api.py` runs the engine against package H1's committed hours for 3 June 2023 and asserts they come back unchanged.
+`software/tests/test_api.py` runs the engine against package H1's committed hours for 10 June 2023 and asserts they come back unchanged.
 
 No language model and no learned model sits in the control loop.
 

@@ -1,7 +1,8 @@
-"""S1: the sun for the Apopka area in 2023, the same year as the rain.
+"""S1: the sun for the Greater Boston area in 2023, the same year as the rain.
 
-Reads the NASA POWER hourly file for the Orlando Executive Airport gauge and writes
-`data/processed/year-apopka-2023.csv`, one row an hour, in UTC, with the local hour.
+Reads the NASA POWER hourly file for the Boston Logan International Airport gauge and
+writes `data/processed/year-boston-2023.csv`, one row an hour, in UTC, with the local
+hour.
 
 The sun comes from a real year rather than a typical one so that rainy hours are dark
 hours when this file is joined to the gauge's rain in package H1.
@@ -15,8 +16,8 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-RAW_PATH = REPO_ROOT / "data" / "raw" / "nasa-power" / "power-hourly-orlando-executive-2023.csv"
-OUT_PATH = REPO_ROOT / "data" / "processed" / "year-apopka-2023.csv"
+RAW_PATH = REPO_ROOT / "data" / "raw" / "nasa-power" / "power-hourly-boston-logan-2023.csv"
+OUT_PATH = REPO_ROOT / "data" / "processed" / "year-boston-2023.csv"
 
 # The file carries 13 header lines from -BEGIN HEADER- to -END HEADER-, then the
 # column row, then 8,760 data rows. VERIFIED on the real file.
@@ -43,7 +44,7 @@ RAW_COLUMNS = [
 ]
 
 # NASA's own precipitation column is not used, anywhere.
-# It is reanalysis, and it has 4,395 wet hours where the gauge has 373.
+# It is reanalysis, and it has 3,742 wet hours where the gauge has 729.
 RENAMES = {
     "ALLSKY_SFC_SW_DWN": "ghi",
     "ALLSKY_SFC_SW_DNI": "dni",
@@ -56,7 +57,8 @@ INT_COLUMNS = ["hour", "month", "source_year", "local_hour"]
 FLOAT_COLUMNS = ["ghi", "dni", "dhi", "t2m"]
 
 # Wh/m2 over one hour is the mean W/m2 for that hour, so there is nothing to convert.
-# Irradiance cannot be negative. Temperature can, and is, once: -0.27 C in this file.
+# Irradiance cannot be negative. Temperature can, and does, often in a Massachusetts
+# winter, so only the three irradiance columns are checked.
 NON_NEGATIVE_COLUMNS = ["ghi", "dni", "dhi"]
 
 

@@ -7,7 +7,8 @@ itself when the grower changes the sky or takes a zone off rain.
 It derives no physics of its own. Every baseline number here came out of H1.
 
 Sun and temperature are NASA POWER for 2023, modelled from satellite and reanalysis.
-Rain is the Orlando Executive Airport gauge for 2023, measured. Same place, same year.
+Rain is the Boston Logan International Airport gauge for 2023, measured. Same place,
+same year.
 
 Runs with the network off, and gives identical bytes on every run.
 """
@@ -51,10 +52,10 @@ BOTANICAL = {
     "southern highbush blueberry": "Vaccinium corymbosum",
 }
 
-REGION_SOURCE = ("NOAA NCEI Integrated Surface Database, station 72205312841, 2023. "
+REGION_SOURCE = ("NOAA NCEI Integrated Surface Database, station 72509014739, 2023. "
                  "Normal is the 1991 to 2020 value for this station.")
-NORMAL_MM = 1307
-VS_NORMAL_PCT = 2.4
+NORMAL_MM = 1107
+VS_NORMAL_PCT = 12.3
 
 
 def h1_constants():
@@ -84,7 +85,7 @@ def read_csv(path):
     if not path.exists():
         raise FileNotFoundError(
             f"{path} is missing. It is written by package H1. "
-            "Run python software/h1/build.py --city apopka first."
+            "Run python software/h1/build.py --city boston first."
         )
     with open(path, newline="") as handle:
         return list(csv.DictReader(handle))
@@ -95,7 +96,7 @@ def local_of(time_utc):
         tzinfo=timezone.utc).astimezone(LOCAL_TZ)
 
 
-def build(city="apopka", date="2023-06-03", out_path=OUT_PATH):
+def build(city="boston", date="2023-06-10", out_path=OUT_PATH):
     crops = sorted(read_csv(CROPS_PATH), key=lambda row: row["zone"])
     weather = read_csv(PROCESSED / f"weather-{city}.csv")
     sim = read_csv(PROCESSED / f"sim-{city}.csv")
@@ -120,10 +121,10 @@ def build(city="apopka", date="2023-06-03", out_path=OUT_PATH):
     payload = {
         "label": "simulated",
         "date_local": date,
-        "place": "Orlando Executive Airport gauge, near Apopka, Florida",
+        "place": "Boston Logan International Airport gauge, Boston, Massachusetts",
         "sources": {
             "sun": "NASA POWER, satellite product, hourly means, modelled",
-            "rain": "NOAA ISD gauge 72205312841, measured",
+            "rain": "NOAA ISD gauge 72509014739, measured",
         },
         "credit": "The fin is the Flectofin, by ITKE, University of Stuttgart, patented as EP2320015.",
         "from_package": "H1",
@@ -209,8 +210,8 @@ def region_stats(weather):
 
 def main():
     parser = argparse.ArgumentParser(description="H2: the day the console plays.")
-    parser.add_argument("--city", default="apopka")
-    parser.add_argument("--date", default="2023-06-03")
+    parser.add_argument("--city", default="boston")
+    parser.add_argument("--date", default="2023-06-10")
     args = parser.parse_args()
 
     path, payload = build(args.city, args.date)

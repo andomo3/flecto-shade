@@ -1,9 +1,20 @@
 /* Operating console for a simulated shade house.
 
-   Agricultural industrial: a dark charcoal stage for the model, warm off-white
-   surfaces for the operating panels, and a restrained palette where leaf green is the
-   normal crop state, a muted water blue marks admitted rain, amber marks a warning or
-   a manual hold, and red is kept for a conflict and nothing else.
+   Organic and natural: unbleached paper, stone, raw timber and clay, with a paper
+   grain over everything and no hard ninety degree corner on any surface. Nothing in
+   nature is a straight line, so panels carry a generous curve and every control is a
+   pill.
+
+   One palette, two consumers. These custom properties are the only place a colour is
+   written: the rules below take them with var(), and scene.js reads the same hex
+   values through its own PALETTE table, so the modelled roof cannot drift from the
+   page around it.
+
+   Status keeps its own family inside that palette. Moss is automatic, clay is a manual
+   hold or a warning, burnt sienna is a conflict, river stone is admitted rain, and
+   dried grass is unavailable. Each carries four tokens, because a colour that reads
+   well as a fill does not read well as text: `-deep` is the text safe sibling, `-soft`
+   the wash behind it, and `-line` the border. Every contrast ratio below was checked.
 
    Nothing here is under 18 px, no control is under 48 px, and every status carries a
    word and a glyph as well as a colour.
@@ -13,42 +24,67 @@
   --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px;
   --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
 
-  /* operating surfaces, warm off-white */
-  --paper: #fbfaf6;
-  --paper-2: #f3f1ea;
-  --sunken: #e8e5db;
-  --line: #d3cfc2;
-  --line-strong: #a9a496;
-  --ink: #16180f;
-  --ink-2: #3a3d31;
-  --ink-3: #5c6052;
+  /* surfaces: rice paper, stone, sand and raw timber */
+  --paper: #fefefa;           /* a card                                  */
+  --paper-2: #fdfcf8;         /* the page                                */
+  --sunken: #f0ebe5;          /* stone                                   */
+  --accent: #e6dccd;          /* sand                                    */
+  --line: #ded8cf;            /* raw timber                              */
+  --line-strong: #b7ae9f;     /* timber, deepened so a border reads      */
+  --ink: #2c2c24;             /* deep loam     13.9 on a card            */
+  --ink-2: #4a4a40;           /* bark           8.9                      */
+  --ink-3: #656556;           /* dried grass, deepened to clear AA   5.9 */
+  --on-dark: #f3f4f1;         /* pale mist                               */
 
-  /* the model stage, dark charcoal */
-  --stage: #171a19;
-  --stage-2: #212523;
-  --stage-line: #3b413e;
-  --stage-text: #f4f6f1;
-  --stage-muted: #b9c1bb;
+  /* the model stage, loam darkened until the roof reads against it */
+  --stage: #22221b;
+  --stage-2: #2c2c24;
+  --stage-line: #454538;
+  --stage-line-2: #6e6e5e;
+  --stage-hover: #33332a;
+  --stage-text: #f3f4f1;      /* 14.5 on the stage  */
+  --stage-muted: #c4c0b0;     /*  8.8               */
+  --stage-off: #9a9a90;       /*  5.6, disabled     */
+  --stage-leaf: #4a5c41;
+  --stage-leaf-line: #74906a;
+  --stage-leaf-text: #e4efe0; /*  6.1 on stage-leaf */
 
-  /* status, each one also carrying a word and a glyph */
-  --leaf: #1d6b34;
-  --leaf-deep: #114521;
-  --leaf-soft: #e2eedf;
-  --water: #1f5f7d;
-  --water-soft: #dde9ef;
-  --amber: #8a5206;
-  --amber-soft: #f7ead4;
-  --red: #9d2820;
-  --red-soft: #f7e0dd;
-  --grey: #4f544b;
-  --grey-soft: #e7e6df;
+  /* status: fill, text safe deep, soft wash, border line */
+  --leaf: #5d7052;   --leaf-deep: #3f4e37;   --leaf-soft: #e4e9e0;   --leaf-line: #9fae96;
+  --water: #4f6b75;  --water-deep: #3f5760;  --water-soft: #e0e8eb;  --water-line: #9bb0b8;
+  --amber: #c18c5d;  --amber-deep: #825527;  --amber-soft: #f6eada;  --amber-line: #d2ae85;
+  --red: #a85448;    --red-deep: #7a362c;    --red-soft: #f4e3df;    --red-line: #cfa098;
+  --grey: #78786c;   --grey-deep: #5c5c4e;   --grey-soft: #edeae3;   --grey-line: #bfbbae;
 
-  --radius: 12px;
-  --radius-small: 8px;
-  --focus: #b9720c;
-  --shadow: 0 14px 40px rgba(20, 26, 20, .16);
-  --ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* a breath of the status colour over paper, for a whole card */
+  --wash-amber: #fdfaf4;
+  --wash-red: #fdf5f3;
+
+  /* marks drawn over the model: clay for the leaders, river stone for actuation */
+  --mark: #d9a86a;            /* 7.4 on the stage */
+  --mark-2: #8fb6c2;          /* 7.3              */
+
+  /* shape: a curve on every surface, a pill on every control */
+  --radius: 2rem;
+  --radius-small: 1rem;
+  --radius-pill: 999px;
+
+  /* shadow is tinted with moss and clay, and is never black */
+  --shadow-soft: 0 4px 20px -2px rgba(93, 112, 82, .15);
+  --shadow-float: 0 10px 40px -10px rgba(193, 140, 93, .20);
+  --shadow-lift: 0 20px 40px -10px rgba(93, 112, 82, .15);
+  --focus: #5d7052;
+
+  /* Fraunces and Nunito cannot be fetched at run time, so the stack reaches for the
+     warm old style serif and the rounded terminal sans already on the machine. */
+  --display: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino,
+             "Book Antiqua", Georgia, serif;
+  --ui: ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN", Quicksand,
+        "Varela Round", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* paper grain, generated by build_grain.py and laid over the whole page */
+  --grain: url("data:image/png;base64,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");
 }
 
 * { box-sizing: border-box; }
@@ -56,39 +92,63 @@
 html { -webkit-text-size-adjust: 100%; }
 
 body {
+  position: relative;
   margin: 0;
   background: var(--paper-2);
   color: var(--ink);
-  font: 18px/1.45 var(--ui);
+  font: 18px/1.5 var(--ui);
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 { letter-spacing: -.02em; }
+/* The paper grain. A fixed layer over everything, multiplied in at a few per cent, so
+   every surface reads as pressed paper rather than lit glass. It never takes a click,
+   and it is a data URI, so the page still fetches nothing. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: var(--grain);
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  mix-blend-mode: multiply;
+  opacity: .035;
+}
+
+/* Headings take the warm old style serif, body text the rounded sans. */
+h1, h2, h3, h4 {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  line-height: 1.15;
+}
 button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-::selection { background: #cfe3cd; color: var(--ink); }
+::selection { background: var(--accent); color: var(--ink); }
 
 .skip {
   position: absolute;
   left: -999px;
   padding: var(--s3) var(--s4);
   background: var(--ink);
-  color: #fff;
+  color: var(--on-dark);
   z-index: 40;
 }
 .skip:focus { left: var(--s4); top: var(--s4); }
 
 .console {
   display: grid;
-  grid-template-columns: minmax(0, 1.62fr) minmax(400px, 1fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(420px, 1fr);
+  /* The model column is sized for its square. The overview and the zone it opens sit
+     together in the other column, so neither column runs out long before the other. */
   grid-template-areas:
     "stage overview"
-    "timeline overview"
-    "inspector overview"
+    "stage inspector"
     "workspace workspace";
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
   align-items: start;
   gap: var(--s4);
   max-width: 1680px;
@@ -98,7 +158,6 @@ button { cursor: pointer; }
 .stage { grid-area: stage; }
 .overview { grid-area: overview; }
 .inspector { grid-area: inspector; }
-.timeline { grid-area: timeline; }
 .workspace { grid-area: workspace; }
 
 .glyph {
@@ -115,14 +174,18 @@ button { cursor: pointer; }
 
 /* ---------------------------------------------------------------- the stage */
 
+/* The model is a square container: one shape at every width, so the roof is framed
+   the same way on a laptop and on a phone. */
 .stage-frame {
   position: relative;
-  height: clamp(480px, calc(100vh - 32px), 680px);
+  width: min(100%, 760px);
+  margin-inline: auto;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: var(--stage);
   border: 1px solid var(--stage-line);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-soft);
 }
 .stage-viewport { position: absolute; inset: 0; z-index: 1; }
 .stage-canvas {
@@ -142,10 +205,10 @@ button { cursor: pointer; }
   pointer-events: none;
 }
 .overlay-lines { z-index: 4; }
-.overlay-lines line { stroke: #e8b45f; stroke-width: 1.4; }
-.overlay-lines line.actuation { stroke: #7fc0d8; stroke-width: 2.6; stroke-dasharray: 7 5; }
-.overlay-lines circle { fill: #e8b45f; }
-.stage-frame.is-raining { box-shadow: inset 0 0 0 2px rgba(96, 148, 172, .5), var(--shadow); }
+.overlay-lines line { stroke: var(--mark); stroke-width: 1.4; }
+.overlay-lines line.actuation { stroke: var(--mark-2); stroke-width: 2.6; stroke-dasharray: 7 5; }
+.overlay-lines circle { fill: var(--mark); }
+.stage-frame.is-raining { box-shadow: inset 0 0 0 2px rgba(79, 107, 117, .5), var(--shadow-soft); }
 
 .zone-tags { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
 .zone-tag {
@@ -181,7 +244,7 @@ button { cursor: pointer; }
   width: 232px;
   line-height: 1.25;
   padding: var(--s1) var(--s2);
-  border-left: 3px solid #e8b45f;
+  border-left: 3px solid var(--mark);
   background: rgba(19, 23, 22, .94);
   color: var(--stage-text);
 }
@@ -201,7 +264,7 @@ button { cursor: pointer; }
   background: linear-gradient(90deg, rgba(19, 23, 22, .93), rgba(19, 23, 22, .74));
   color: var(--stage-text);
 }
-.stage-identity h1 { margin: var(--s2) 0 var(--s1); font-size: 28px; line-height: 1.12; text-wrap: balance; }
+.stage-identity h2 { margin: var(--s2) 0 var(--s1); font-size: 24px; line-height: 1.12; text-wrap: balance; }
 .stage-place { margin: 0; color: var(--stage-muted); }
 .sim-flag {
   display: inline-flex;
@@ -209,10 +272,10 @@ button { cursor: pointer; }
   gap: var(--s2);
   margin: 0;
   padding: var(--s1) var(--s2);
-  border: 1px solid #4a6b52;
+  border: 1px solid var(--stage-leaf-line);
   border-radius: var(--radius-small);
-  background: rgba(29, 107, 52, .24);
-  color: #c4e3c9;
+  background: rgba(93, 112, 82, .30);
+  color: var(--stage-leaf-text);
   font-weight: 700;
 }
 
@@ -241,33 +304,79 @@ button { cursor: pointer; }
   padding: var(--s6) var(--s4) var(--s3);
   background: linear-gradient(0deg, rgba(19, 23, 22, .96), rgba(19, 23, 22, .82) 62%, transparent);
 }
-/* The run controls take a line of their own, and the view tools flow as one group under
-   them, so the roof keeps as much of the frame as it can. */
+/* The run controls take a line of their own. Below them, the view (camera) tools and the
+   detail (state) tools stay on their own labelled rows instead of flattening into one
+   undifferentiated run of chips, so a line break never straddles two different groups. */
 .stage-tools .playback { flex: 1 1 100%; }
-.stage-tools .tool-row { display: contents; }
-.stage-tools .tool-label { display: none; }
+.tool-groups {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--stage-line);
+}
 .tool-row, .stage-tools .playback { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); }
 .tool-label { width: 62px; flex: none; color: var(--stage-muted); font-weight: 700; }
 /* The one main action on the page, and the largest control on it. */
 .btn.btn-run {
   min-height: 56px;
   padding: var(--s2) var(--s5);
-  border-color: #4e8a5f;
+  border-color: var(--stage-leaf-line);
   font-size: 20px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, .38);
 }
 .tool {
   min-height: 48px;
-  padding: var(--s2) var(--s3);
+  padding: var(--s2) var(--s4);
   border: 1px solid var(--stage-line);
-  border-radius: var(--radius-small);
-  background: rgba(24, 29, 27, .92);
+  border-radius: var(--radius-pill);
+  background: rgba(34, 34, 27, .92);
   color: var(--stage-text);
   font-weight: 600;
+  transition: transform .3s cubic-bezier(.16, 1, .3, 1), background .3s ease,
+              border-color .3s ease, color .3s ease;
 }
-.tool:hover:not(:disabled) { background: #2b312e; border-color: #6d7873; }
-.tool[aria-pressed="true"] { background: #2f5c3c; border-color: #4e8a5f; color: #eaf6ea; }
-.tool:disabled { color: #7c837d; cursor: not-allowed; }
+.tool:hover:not(:disabled) { transform: translateY(-1px); }
+.tool:active:not(:disabled) { transform: translateY(0) scale(.98); }
+.tool:hover:not(:disabled) { background: var(--stage-hover); border-color: var(--stage-line-2); }
+/* Camera presets (the View row): exactly one is ever selected, so they read as a
+   segmented control in the same leaf green as elsewhere on the stage. */
+.tool-preset[aria-pressed="true"] { background: var(--stage-leaf); border-color: var(--stage-leaf-line);
+  color: var(--stage-leaf-text); }
+/* Detail toggles (the Detail row): independent on/off switches, not a single-choice
+   picker, so an "on" toggle gets its own accent instead of borrowing the preset's
+   selected-green -- otherwise the two different kinds of state look identical. */
+.tool-toggle[aria-pressed="true"] { background: var(--mark); border-color: var(--mark);
+  color: var(--ink); }
+/* Exploded view only makes sense once Inspect module is on; the indent and connector
+   tie it visually to the toggle it depends on instead of just going dim with no reason
+   given on the face of the control. */
+.tool-sub { margin-left: var(--s4); position: relative; }
+.tool-sub::before {
+  content: "";
+  position: absolute;
+  left: calc(-1 * var(--s3));
+  top: 50%;
+  width: var(--s2);
+  height: 1px;
+  background: var(--stage-line-2);
+}
+.tool:disabled { color: var(--stage-off); cursor: not-allowed; }
+/* Reset view is a one-shot action, not a state toggle, so it drops the pill chrome and
+   sits apart from the toggles it used to blend into. */
+.tool-ghost {
+  margin-left: auto;
+  min-height: 48px;
+  padding: var(--s2) var(--s3);
+  border: none;
+  background: none;
+  color: var(--stage-muted);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.tool-ghost:hover { color: var(--stage-text); }
 .tool-help { max-width: 92ch; margin: var(--s2) var(--s2) 0; color: var(--ink-3); }
 
 .module-legend {
@@ -285,7 +394,7 @@ button { cursor: pointer; }
 .module-legend h2 { margin: 0 0 var(--s2); font-size: 20px; }
 .module-legend dl { display: grid; gap: var(--s1); margin: 0; }
 .module-legend dl div { display: flex; flex-wrap: wrap; gap: var(--s2); }
-.module-legend dt { color: #e8b45f; font-weight: 700; }
+.module-legend dt { color: var(--mark); font-weight: 700; }
 .module-legend dd { margin: 0; color: var(--stage-muted); }
 .module-open { margin: var(--s3) 0 var(--s1); }
 .module-caveat { margin: 0; color: var(--stage-muted); }
@@ -304,12 +413,88 @@ button { cursor: pointer; }
 }
 .stage-caption { margin: var(--s3) var(--s2) 0; max-width: 92ch; color: var(--ink-3); }
 
+/* ---------------------------------------------------------------- the lede */
+
+/* One full-viewport introduction stands above the console. It adds no colour and no
+   face of its own. */
+
+.lede {
+  max-width: 1680px;
+  margin: 0 auto;
+  padding-inline: var(--s5);
+}
+.lede {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100svh;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--s6);
+  text-align: center;
+}
+.lede > * { max-width: 46ch; }
+
+/* Green house, corrected to shade house. The struck word sits in the quiet ink and the
+   written one in moss, so the correction reads as a correction and not as damage. The
+   written word is lifted out of the flow, so the line reserves its height above. */
+.swap {
+  margin: 0 0 var(--s3);
+  padding-top: .95em;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.swap-stack { position: relative; display: inline-block; }
+.swap-out {
+  color: var(--ink-3);
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+}
+.swap-in {
+  position: absolute;
+  left: 50%;
+  bottom: .62em;
+  transform: translateX(-50%) rotate(-4deg);
+  transform-origin: 50% 100%;
+  color: var(--leaf-deep);
+  white-space: nowrap;
+}
+
+/* The page's only h1. The stage's title drops to an h2 under it. */
+.lede h1 {
+  margin: 0 0 var(--s4);
+  max-width: 34ch;
+  color: var(--ink-2);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 400;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+.lede-act { margin: 0 0 var(--s4); }
+.btn-lede { min-height: 56px; font-size: 20px; }
+
+.reader-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* --------------------------------------------------------------- the panels */
 
 .panel {
   min-width: 0;
-  padding: var(--s4);
+  padding: var(--s5);
   background: var(--paper);
+  box-shadow: var(--shadow-soft);
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
@@ -339,13 +524,15 @@ button { cursor: pointer; }
   font-weight: 700;
   max-width: 100%;
 }
-.chip[data-state="ok"], .chip[data-state="auto"] { background: var(--leaf-soft); border-color: #86b392; color: var(--leaf-deep); }
-.chip[data-state="running"] { background: var(--water-soft); border-color: #7ba8bd; color: #144055; }
-.chip[data-state="warning"] { background: var(--amber-soft); border-color: #c99a4d; color: var(--amber); }
-.chip[data-state="manual"] { background: var(--amber-soft); border-color: #c99a4d; color: var(--amber); }
-.chip[data-state="conflict"] { background: var(--red-soft); border-color: #c1706a; color: var(--red); }
-.chip[data-state="stale"] { background: var(--amber-soft); border-color: #c99a4d; color: var(--amber); }
-.chip[data-state="offline"], .chip[data-state="empty"] { background: var(--grey-soft); color: var(--grey); }
+.chip[data-state="ok"], .chip[data-state="auto"] { background: var(--leaf-soft); border-color: var(--leaf-line); color: var(--leaf-deep); }
+.chip[data-state="running"] { background: var(--water-soft); border-color: var(--water-line); color: var(--water-deep); }
+.chip[data-state="warning"] { background: var(--amber-soft); border-color: var(--amber-line); color: var(--amber-deep); }
+.chip[data-state="manual"] { background: var(--amber-soft); border-color: var(--amber-line); color: var(--amber-deep); }
+.chip[data-state="conflict"] { background: var(--red-soft); border-color: var(--red-line); color: var(--red-deep); }
+.chip[data-state="stale"] { background: var(--amber-soft); border-color: var(--amber-line); color: var(--amber-deep); }
+.chip[data-state="offline"], .chip[data-state="empty"] {
+  background: var(--grey-soft); border-color: var(--grey-line); color: var(--grey-deep);
+}
 .chip[data-state="loading"] { background: var(--sunken); color: var(--ink-3); }
 
 .empty { margin: 0; padding: var(--s4); border: 1px dashed var(--line-strong); border-radius: var(--radius-small); color: var(--ink-3); }
@@ -353,24 +540,25 @@ button { cursor: pointer; }
 /* ------------------------------------------------------------- the overview */
 
 .overview { display: flex; flex-direction: column; }
-.zone-grid { display: grid; gap: var(--s3); }
+.zone-grid { display: grid; gap: var(--s2); }
 .zone-card {
-  padding: var(--s3);
+  padding: var(--s2) var(--s3);
   border: 1px solid var(--line);
   border-left: 5px solid var(--line-strong);
   border-radius: var(--radius-small);
   background: var(--paper);
 }
 .zone-card[data-status="auto"] { border-left-color: var(--leaf); }
-.zone-card[data-status="warning"], .zone-card[data-status="stale"] { border-left-color: var(--amber); background: #fdfaf3; }
-.zone-card[data-status="manual"] { border-left-color: var(--amber); background: #fdf8ee; border-left-style: dashed; }
-.zone-card[data-status="conflict"] { border-left-color: var(--red); background: #fdf4f2; }
+.zone-card[data-status="warning"], .zone-card[data-status="stale"] { border-left-color: var(--amber); background: var(--wash-amber); }
+.zone-card[data-status="manual"] { border-left-color: var(--amber); background: var(--wash-amber); border-left-style: dashed; }
+.zone-card[data-status="conflict"] { border-left-color: var(--red); background: var(--wash-red); }
 .zone-card[data-status="offline"] { border-left-color: var(--grey); border-left-style: dotted; background: var(--paper-2); }
 .zone-card[data-selected="true"] { box-shadow: 0 0 0 2px var(--ink-2); }
 
+.zone-heading { margin: 0; font-size: 18px; font-weight: 400; }
 .zone-head {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) auto;
+  grid-template-columns: 40px minmax(0, 1fr) auto 20px;
   align-items: center;
   gap: var(--s3);
   width: 100%;
@@ -380,16 +568,23 @@ button { cursor: pointer; }
   background: none;
   text-align: left;
 }
+/* Position and reason on one line under the crop, so a collapsed row still answers
+   "what is this bed doing, and why" without being opened. */
+.zone-now { display: block; color: var(--ink); font-weight: 700; }
+.chevron { transition: transform .16s ease; color: var(--ink-3); }
+.zone-card[data-open="true"] .chevron { transform: rotate(180deg); }
+.zone-body { padding-top: var(--s2); margin-top: var(--s2); border-top: 1px solid var(--line); }
 .zone-letter {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-small);
-  background: var(--sunken);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
   color: var(--ink);
+  font-family: var(--display);
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 700;
 }
 .zone-letter.small { width: 40px; height: 40px; }
 .zone-titles { min-width: 0; }
@@ -405,23 +600,26 @@ button { cursor: pointer; }
   font-weight: 700;
   white-space: nowrap;
 }
-[data-status="auto"] .status { border-color: #86b392; background: var(--leaf-soft); color: var(--leaf-deep); }
+[data-status="auto"] .status { border-color: var(--leaf-line); background: var(--leaf-soft); color: var(--leaf-deep); }
 [data-status="warning"] .status, [data-status="stale"] .status, [data-status="manual"] .status {
-  border-color: #c99a4d; background: var(--amber-soft); color: var(--amber);
+  border-color: var(--amber-line); background: var(--amber-soft);
+  color: var(--amber-deep);
 }
-[data-status="conflict"] .status { border-color: #c1706a; background: var(--red-soft); color: var(--red); }
+[data-status="conflict"] .status {
+  border-color: var(--red-line); background: var(--red-soft); color: var(--red-deep);
+}
 [data-status="offline"] .status { background: var(--grey-soft); color: var(--grey); }
 
-.status-note { margin: var(--s2) 0 var(--s3); color: var(--ink-2); }
-.cells { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2) var(--s3); margin-top: var(--s3); }
+.status-note { margin: 0 0 var(--s3); color: var(--ink-2); }
+/* One metric per line, label left and value right, so an open row is a short list
+   rather than a wall of stacked pairs. */
+.cells { display: grid; gap: var(--s1); }
 
-/* Every zone reads at a glance: where its roof is, why, its rain, its light, its soil.
-   The zone that is chosen opens up to every metric its review profile asks for. */
+/* A collapsed row carries the zone, its roof position, and its control state, which is
+   what is read at a glance. The rest of the review profile is one click away, so four
+   zones cost four rows rather than four panels. A row on automatic says so in its
+   status chip, and repeating that underneath adds nothing. */
 .zone-card[data-status="auto"] .status-note { display: none; }
-.zone-card:not([data-selected="true"]) .origin,
-.zone-card:not([data-selected="true"]) .cell:not([data-metric="roof_position"]):not([data-metric="decision_reason"]):not([data-metric="rain_outcome"]):not([data-metric="daily_light"]):not([data-metric="soil_water"]) {
-  display: none;
-}
 /* The five that answer "what did this bed get, and why" lead every card, in this order:
    roof beside rain, then the reason across, then light beside soil. */
 .cell[data-metric="roof_position"] { order: 1; }
@@ -430,12 +628,29 @@ button { cursor: pointer; }
 .cell[data-metric="daily_light"] { order: 4; }
 .cell[data-metric="soil_water"] { order: 5; }
 .cell { order: 6; }
-.zone-card { transition: box-shadow .15s ease, border-color .15s ease; }
-.zone-card:hover { border-top-color: var(--line-strong); border-right-color: var(--line-strong); border-bottom-color: var(--line-strong); }
+.zone-card { transition: box-shadow .3s ease, border-color .3s ease,
+                         transform .3s cubic-bezier(.16, 1, .3, 1); }
+.zone-card:hover {
+  border-top-color: var(--line-strong);
+  border-right-color: var(--line-strong);
+  border-bottom-color: var(--line-strong);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lift);
+}
 .zone-head:hover .zone-titles strong { text-decoration: underline; text-underline-offset: 3px; }
-.cell.wide { grid-column: 1 / -1; }
-.cell-label { display: block; color: var(--ink-3); }
-.cell-value { display: block; color: var(--ink); font-weight: 600; }
+.cell {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--s3);
+  padding: 2px 0;
+  border-bottom: 1px solid var(--paper-2);
+}
+.cell.wide { grid-template-columns: 1fr; gap: 0; }
+.cell-label { color: var(--ink-3); }
+.cell-value { color: var(--ink); font-weight: 600; text-align: right; }
+.cell.wide .cell-value { text-align: left; }
+.cell .bar { grid-column: 1 / -1; }
 .bar {
   position: relative;
   display: block;
@@ -472,7 +687,7 @@ button { cursor: pointer; }
 }
 .why[data-status="conflict"] { border-left-color: var(--red); background: var(--red-soft); }
 .why[data-status="offline"] { border-left-color: var(--grey); background: var(--grey-soft); }
-.why h3, .history h3, .manual h3 { margin: 0 0 var(--s2); font-size: 20px; }
+.why h3, .rules h3, .history h3, .manual h3 { margin: 0 0 var(--s2); font-size: 20px; }
 .why-lead { margin: 0; color: var(--ink); }
 .blocked, .blocked-line {
   display: flex;
@@ -480,21 +695,27 @@ button { cursor: pointer; }
   gap: var(--s2);
   margin: var(--s3) 0 0;
   padding: var(--s2);
-  border: 1px solid #c1706a;
+  border: 1px solid var(--red-line);
   border-radius: var(--radius-small);
-  background: #fff;
-  color: var(--red);
+  background: var(--paper);
+  color: var(--red-deep);
 }
-.facts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); margin: 0; }
-.facts dt { color: var(--ink-3); }
-.facts dd { margin: var(--s1) 0 0; color: var(--ink); font-weight: 600; }
-.history ol { margin: 0; padding-left: var(--s5); color: var(--ink-2); }
-.history li { margin-bottom: var(--s2); }
+/* The rules a zone runs under: three short lines, not a grid of label and value. */
+.rules ul { margin: 0; padding: 0; list-style: none; }
+.rules li {
+  padding: var(--s1) 0;
+  color: var(--ink);
+  border-bottom: 1px solid var(--paper-2);
+}
+.rules li:last-child { border-bottom: 0; }
+/* Each line leads with its hour, so a counter beside it says nothing. */
+.history ol { margin: 0; padding: 0; list-style: none; color: var(--ink-2); }
+.history li { margin-bottom: var(--s1); }
 .history span { font-family: var(--mono); font-weight: 700; }
 .manual { padding-top: var(--s3); border-top: 1px solid var(--line); }
-.held { display: flex; align-items: center; gap: var(--s2); margin: 0 0 var(--s3); color: var(--amber); font-weight: 700; }
+.held { display: flex; align-items: center; gap: var(--s2); margin: 0 0 var(--s3); color: var(--amber-deep); font-weight: 700; }
 
-/* ------------------------------------------------------------- the timeline */
+/* ------------------------------------------------------------- the playback */
 
 .playback { display: flex; flex-wrap: wrap; gap: var(--s2); }
 .btn, .btn-quiet {
@@ -502,37 +723,44 @@ button { cursor: pointer; }
   align-items: center;
   gap: var(--s2);
   min-height: 48px;
-  padding: var(--s2) var(--s4);
-  border-radius: var(--radius-small);
+  padding: var(--s2) var(--s5);
+  border-radius: var(--radius-pill);
   font-weight: 700;
+  box-shadow: var(--shadow-soft);
+  transition: transform .3s cubic-bezier(.16, 1, .3, 1), box-shadow .3s ease,
+              background .3s ease, border-color .3s ease;
 }
-.btn { border: 1px solid var(--leaf-deep); background: var(--leaf); color: #fff; }
+/* Lift on hover, press on click: the tactile feel of picking something up and setting
+   it down. Translate rather than scale, because scaling a text control blurs it. */
+.btn:hover:not(:disabled), .btn-quiet:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-float);
+}
+.btn:active:not(:disabled), .btn-quiet:active:not(:disabled) {
+  transform: translateY(0) scale(.98);
+  box-shadow: var(--shadow-soft);
+}
+.btn { border: 1px solid var(--leaf-deep); background: var(--leaf); color: var(--on-dark); }
 .btn:hover:not(:disabled) { background: var(--leaf-deep); }
-.btn.accent { border-color: #6d4105; background: var(--amber); }
-.btn.accent:hover:not(:disabled) { background: #6d4105; }
+/* White on clay measures 2.7 to 1, so the clay button takes dark text rather than
+   the white the design calls for. */
+.btn.accent { border-color: var(--amber-deep); background: var(--amber); color: var(--ink); }
+.btn.accent:hover:not(:disabled) { box-shadow: var(--shadow-float); }
 .btn:disabled { border-color: var(--line-strong); background: var(--sunken); color: var(--ink-3); cursor: not-allowed; }
 .btn-quiet { border: 1px solid var(--line-strong); background: var(--paper); color: var(--ink-2); }
 .btn-quiet:hover:not(:disabled) { background: var(--paper-2); border-color: var(--ink-3); }
 .btn-quiet:disabled { color: var(--ink-3); background: var(--sunken); cursor: not-allowed; }
 
-.timeline-control { position: relative; margin-top: var(--s3); padding-bottom: 34px; }
-.timeline-control label { display: block; margin-bottom: var(--s2); color: var(--ink-2); font-weight: 700; }
-input[type="range"] { appearance: none; width: 100%; height: 48px; margin: 0; background: transparent; cursor: pointer; }
-input[type="range"]::-webkit-slider-runnable-track { height: 10px; border-radius: 5px; background: var(--sunken); border: 1px solid var(--line-strong); }
-input[type="range"]::-moz-range-track { height: 10px; border-radius: 5px; background: var(--sunken); border: 1px solid var(--line-strong); }
-input[type="range"]::-webkit-slider-thumb {
-  appearance: none;
-  width: 30px; height: 30px;
-  margin-top: -11px;
-  border: 3px solid var(--leaf);
-  border-radius: 50%;
+/* The hour is not scrubbable: only the simulated day run moves it, so the strip under
+   the model carries the notes about the model and nothing that sets the clock. */
+.stage-notes {
+  width: min(100%, 760px);
+  margin: var(--s3) auto 0;
+  padding: var(--s3) var(--s4) var(--s2);
   background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
 }
-input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px solid var(--leaf); border-radius: 50%; background: var(--paper); }
-.timeline-marks { position: absolute; left: 0; right: 0; bottom: 0; height: 28px; }
-.timeline-marks span { position: absolute; transform: translateX(-50%); color: var(--ink-3); white-space: nowrap; }
-.timeline-marks span.strong { color: #144055; font-weight: 700; }
-.timeline-readout { margin: var(--s2) 0 0; color: var(--ink-3); }
 
 /* ------------------------------------------------------------ the workspace */
 
@@ -574,10 +802,10 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
 .add-zone-note { margin: 0; max-width: 60ch; color: var(--ink-3); }
 .add-zone-note.is-limit {
   padding: var(--s2) var(--s3);
-  border: 1px solid #c99a4d;
+  border: 1px solid var(--amber-line);
   border-radius: var(--radius-small);
   background: var(--amber-soft);
-  color: var(--amber);
+  color: var(--amber-deep);
   font-weight: 600;
 }
 
@@ -590,16 +818,22 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
 .field label { color: var(--ink-2); font-weight: 700; }
 .field input[type="text"], .field input[type="number"], .field select {
   min-height: 48px;
-  padding: var(--s2) var(--s3);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-small);
-  background: var(--paper);
+  padding: var(--s2) var(--s4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, .5);
+  transition: border-color .3s ease, box-shadow .3s ease;
+}
+.field input:focus-visible, .field select:focus-visible {
+  border-color: var(--leaf);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(93, 112, 82, .25);
 }
 .field.checkbox { display: flex; align-items: center; gap: var(--s2); }
 .field.checkbox input { width: 26px; height: 26px; }
 .field.checkbox label { font-weight: 600; }
 
-.review { margin-top: var(--s4); padding: var(--s3); border: 1px solid #c99a4d; border-radius: var(--radius-small); background: var(--amber-soft); }
+.review { margin-top: var(--s4); padding: var(--s3); border: 1px solid var(--amber-line); border-radius: var(--radius-small); background: var(--amber-soft); }
 .review h4 { margin: 0 0 var(--s2); font-size: 19px; }
 .review ul { margin: 0; padding-left: var(--s5); }
 .review li { margin-bottom: var(--s1); }
@@ -608,10 +842,10 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
 .form-error {
   margin: var(--s3) 0 0;
   padding: var(--s2) var(--s3);
-  border: 1px solid #c1706a;
+  border: 1px solid var(--red-line);
   border-radius: var(--radius-small);
   background: var(--red-soft);
-  color: var(--red);
+  color: var(--red-deep);
   font-weight: 600;
 }
 
@@ -628,7 +862,7 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
   border-radius: var(--radius-small);
   background: var(--paper-2);
 }
-.metric-row.on { border-color: #86b392; background: var(--leaf-soft); }
+.metric-row.on { border-color: var(--leaf-line); background: var(--leaf-soft); }
 .metric-row label { display: flex; align-items: center; gap: var(--s2); }
 .metric-row input { width: 26px; height: 26px; }
 .pill { padding: 2px var(--s2); border-radius: 999px; background: var(--sunken); color: var(--ink-3); }
@@ -637,7 +871,7 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
   min-width: 56px;
   min-height: 48px;
   border: 1px solid var(--line-strong);
-  border-radius: var(--radius-small);
+  border-radius: var(--radius-pill);
   background: var(--paper);
   font-weight: 700;
 }
@@ -656,7 +890,8 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
 .foot-lead { color: var(--ink-2); font-weight: 700; }
 .foot details { margin-top: var(--s3); }
 .foot summary, .model-notes summary { min-height: 48px; padding: var(--s3) 0; color: var(--ink-2); cursor: pointer; font-weight: 700; }
-.model-notes { margin-top: var(--s2); border-top: 1px solid var(--line); }
+/* Nothing sits above the notes in their strip any more, so they carry no rule. */
+.model-notes { margin-top: 0; }
 .model-notes .stage-caption { margin: 0 var(--s2); }
 
 /* --------------------------------------------------------------- responsive */
@@ -669,23 +904,25 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
 @media (max-width: 1040px) {
   .console {
     grid-template-columns: 1fr;
-    grid-template-areas: "stage" "timeline" "overview" "inspector" "workspace";
+    grid-template-areas: "stage" "overview" "inspector" "workspace";
     grid-template-rows: none;
     padding: var(--s3);
   }
-  .stage-frame { height: clamp(480px, calc(100vh - 24px), 600px); }
   .stage-identity { max-width: 24ch; }
   .stage-readout { top: auto; bottom: 200px; }
   .zone-tag i { display: none; }
   .module-legend { position: static; width: auto; max-height: none; margin-top: var(--s3); }
-  .facts { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 720px) {
-  .stage-frame { height: clamp(520px, calc(100vh - 24px), 600px); }
+  /* The lede stops capping its height on a phone: the button has to be reachable
+     without a scroll, and a 60vh cap would push it under the fold. */
+  .lede { padding-inline: var(--s3); }
+  .swap { font-size: 32px; }
+  .btn-lede { width: 100%; justify-content: center; }
   .stage-readout { display: none; }
   .stage-identity { max-width: none; right: var(--s4); }
-  .stage-identity h1 { font-size: 24px; }
+  .stage-identity h2 { font-size: 20px; }
   .btn.btn-run { flex: 1 1 100%; justify-content: center; }
   /* A phone keeps the views a thumb can use, and leaves the roof in sight. */
   .tool[data-preset="eave"], .tool[data-preset="bay"], #explode-toggle, #overlay-toggle { display: none; }
