@@ -92,7 +92,14 @@ To enable local console persistence, run `python software/api/local_server.py --
 
 For Python 3.13 development dependencies, raw inputs and test commands, see [CONTRIBUTING.md](CONTRIBUTING.md#development-checks) and [data provenance](data/README.md).
 CI verifies both documented weather snapshots and runs Python/JavaScript checks, including offline build tests.
-It does not publish a deployment.
+After checks pass, CI attaches a `flecto-shade-static` archive that can be extracted and uploaded to a static host. It does not publish automatically.
+
+### Deploy the demo
+
+Import this repository into [Vercel](https://vercel.com/new), choose **Root Directory `software/page`**, and keep the framework as **Other**. The checked-in configuration disables install/build steps and publishes the static pages without an API, database or secrets.
+Use the integrated branch for a preview until its PR is merged; production should track `main`.
+The root opens CAD watering; `console.html` opens the secondary console with session-only configuration.
+See the [deployment guide](software/DEPLOYMENT.md) for the downloadable bundle, verification and optional local API.
 
 ## Reproducible results and demo media
 
