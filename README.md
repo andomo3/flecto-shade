@@ -6,7 +6,7 @@
 
 Built at HackMIT 2026 · Plain HTML/CSS/JavaScript · Python 3.13 · [MIT](LICENSE)
 
-> **Current status:** `main` contains the CAD roof viewer and Florida weather replay.
+> **Current status:** `main` contains the procedural Flectofin console and Florida weather replay, with an optional configuration API.
 > Farmer-selected areas → simulated rain → individual flap control is implemented in [PR #5](https://github.com/andomo3/flecto-shade/pull/5), pending integration.
 > Its recording is a preview of that branch. A public deployment URL and final frontend screenshot are still pending.
 
@@ -25,10 +25,10 @@ Our [problem research](planning/docs/research/flectofin-greenhouse-roof/problem-
 
 ## What we built
 
-- **An interactive CAD roof viewer:** the team's circular flaps, animated roof states and camera controls.
+- **An interactive procedural roof viewer:** animated Flectofin states and camera controls.
 - **A weather replay:** 3 June 2023 in the Apopka area, with crop-specific decisions and explanations.
 - **A reproducible simulation:** deterministic light/rain rules and soil-water buckets driven by public 2023 weather inputs.
-- **An offline static page:** local assets and precomputed data, without runtime API calls.
+- **An offline-capable static page:** local assets and precomputed data; an optional same-origin API adds local configuration persistence.
 
 The next primary interaction is the farmer-selected watering flow in [PR #5](https://github.com/andomo3/flecto-shade/pull/5).
 It lets the farmer select soil areas, set rain and moisture targets, and inspect flap combinations, delivered water, spill, shortfalls and a JSON export.
@@ -46,6 +46,7 @@ The weather replay remains a separate supporting demonstration.
 
 No backend, database, Docker or frontend build is required to run the checked-in page.
 Node is used only for development checks and browser-controller tests.
+See the [optional API](software/api/README.md) for local persistence. Durable deployed storage is not implemented.
 
 ## Architecture
 
@@ -59,9 +60,8 @@ flowchart TD
     sim --> tables["Processed weather and simulation CSVs"]
     tables --> day["software/page/build_day.py"]
     day --> json["day.json"]
-    cad["Team CAD export"] --> model["model.json"]
     json --> page["Static browser app"]
-    model --> page
+    mechanism["Procedural Flectofin geometry"] --> page
 ```
 
 This diagram describes the merged weather-replay pipeline.
