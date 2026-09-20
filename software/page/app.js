@@ -232,12 +232,6 @@
 
     $("stage-place").textContent = day.place;
     $("clock-date").textContent = day.date_local;
-    $("foot-sources").textContent = "Sun: " + day.sources.sun + ". Rain: " + day.sources.rain + ".";
-    $("foot-credit").textContent = day.credit;
-    $("foot-region").textContent = "In " + day.region.year + " the named gauge recorded " +
-      day.region.rain_mm.toLocaleString() + " mm across " +
-      day.region.rain_hours.toLocaleString() + " rain hours, " +
-      day.region.daylight_rain_hours + " of them during daylight. " + day.region.source;
 
     document.addEventListener("visibilitychange", function () {
       syncRain(day.hours[panel.hour()]);
@@ -271,20 +265,20 @@
 
   /* ------------------------------------------------------------ the lede's one action */
 
-  /* "See the roof decide" is a one-way handoff. The introductory section leaves the
-     document flow, so scrolling up returns to the roof rather than the landing copy.
+  /* "See the roof decide" scrolls. It is one page, so the introduction stays in the
+     document and a judge can scroll back up to it, which is what a landing page is for.
      The canvas carries tabindex 0 once the model mounts; if the browser cannot draw
-     it, the stage heading takes the focus instead and the words below still read. */
+     it, the stage heading takes the focus instead and the words below still read.
+     Focus moves either way, so the keyboard follows the eye. */
   function handOverToTheRoof() {
     var button = $("to-roof");
     if (!button) { return; }
     button.addEventListener("click", function () {
       var frame = $("stage-frame");
-      var target = frame.querySelector(".stage-canvas") || $("stage-title");
-      var lede = document.querySelector(".lede");
-      if (lede) { lede.hidden = true; }
-      if (frame.scrollIntoView) {
-        frame.scrollIntoView({ behavior: "auto", block: "start" });
+      var target = (frame && frame.querySelector(".stage-canvas")) || $("stage-title");
+      var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (frame && frame.scrollIntoView) {
+        frame.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
       }
       if (target && target.focus) { target.focus({ preventScroll: true }); }
     });

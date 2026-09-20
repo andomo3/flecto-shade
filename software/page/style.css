@@ -444,9 +444,10 @@ button { cursor: pointer; }
   padding-top: .95em;
   color: var(--ink);
   font-family: var(--display);
-  font-size: 44px;
+  font-size: clamp(46px, 7.5vw, 88px);
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
 }
 .swap-stack { position: relative; display: inline-block; }
 .swap-out {
@@ -464,38 +465,42 @@ button { cursor: pointer; }
   white-space: nowrap;
 }
 
-/* The page's only h1. The stage's title drops to an h2 under it. */
-.lede h1 {
-  margin: 0 0 var(--s4);
-  max-width: 34ch;
-  color: var(--ink-2);
-  font-size: clamp(20px, 2vw, 26px);
-  font-weight: 400;
-  line-height: 1.35;
-  text-wrap: balance;
-}
-/* The limit, said in the same breath as the loss above it and at the same weight.
-   It is never styled as fine print: the page earns the headline by carrying this. */
-/* What the project is, in one sentence, directly under the problem. This is the line
-   that has to survive the three second test, so it takes the body weight the bridge
-   below it does not. */
-.lede-what {
+/* The problem, as the caption under the title. */
+.lede-problem {
   margin: 0 0 var(--s3);
-  max-width: 40ch;
-  color: var(--ink);
+  max-width: 26ch;
+  color: var(--ink-2);
   font-family: var(--display);
-  font-size: clamp(19px, 1.7vw, 22px);
-  line-height: 1.45;
+  font-size: clamp(21px, 2.3vw, 29px);
+  font-weight: 400;
+  line-height: 1.25;
   text-wrap: balance;
 }
 
-.lede-bridge {
-  margin: 0 0 var(--s4);
-  max-width: 42ch;
+/* The title and its descriptor sit on one line, the descriptor set small and aligned
+   to the title's baseline, because it names the product rather than introducing it. */
+.lede-mark {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--s2) var(--s4);
+  max-width: none;
+  margin: 0 0 var(--s5);
+}
+.lede-mark .swap { margin: 0; }
+
+/* In the rounded face, so it reads as a different voice from the serif beside it, and
+   it carries the word "simulated" before the roof appears. */
+.lede-caption {
+  margin: 0 0 .75em;
+  max-width: 24ch;
   color: var(--ink-3);
   font-size: 18px;
-  line-height: 1.5;
+  line-height: 1.35;
+  text-align: left;
 }
+
 .lede-act { margin: 0 0 var(--s4); }
 .btn-lede { min-height: 56px; font-size: 20px; }
 
