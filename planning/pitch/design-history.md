@@ -1,4 +1,7 @@
-# pitch - local memory
+# Pitch design history
+
+Historical context, not active agent instructions.
+Current requests and PR review guide implementation; the restrictions below are superseded.
 
 Owner: abba, alongside the submission.
 The current plan is `../plans/plan-d-louvre-roof.md`, the simulated smart louvre roof, and the guide for these files is `../plans/pitch-plan-d.md`.

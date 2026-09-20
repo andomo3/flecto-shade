@@ -164,7 +164,6 @@ python tools/gates.py
 
 ```text
 flecto-stop/
-├── AGENTS.md          the rules for everyone, human or agent, who works here
 ├── CHECKLIST.md       the live board: owners, order, interfaces, the clock
 ├── planning/          the plan, the specifications, the pitch, the research (Markdown only)
 ├── tools/             the gate runner and its tests

@@ -1,4 +1,7 @@
-# software - local memory
+# Software design history
+
+Historical context from the earlier day-replay plan, not active agent instructions.
+Current requests and PR review guide implementation; the restrictions below are superseded.
 
 Owners: abba for G1, H2, and H3, and Ameya for S1 and H1.
 This folder is planning, Markdown only, and the code lives in the repo's own `tools/`, `data/`, and `software/` directories.

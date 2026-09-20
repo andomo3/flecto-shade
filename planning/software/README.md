@@ -145,7 +145,7 @@ A green run never means "the demo works": the milestone gates M1 to M4 in `../pl
 
 ## Where to read next
 
-- `CLAUDE.md` in this folder: the decisions already made, the traps, and what not to build.
+- `design-history.md` in this folder: historical decisions and implementation notes.
 - `ui-brief.md`: the brief for the page, beat by beat against the demo.
 - `mockup-prompt.md`: the prompt for drawing that page in a mockup tool.
 - `../plans/gates.md`: what every package is checked against.

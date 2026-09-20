@@ -17,7 +17,7 @@ Every simulation figure is provisional, from the planner's run in `../plans/pack
 | `placards.md` | "Simulated today", "Not claimed", "Not ours", "Ours", and the QR | abba | worded 2026-09-19, card 1 waits for `headline.json` |
 | `checklist.md` | Rehearsal, one hour before, during each visit, between visits, after judging | abba | rewritten 2026-09-19 |
 | `submission.md` | Every field of the form, with the citations and the prior work statement | abba | rewritten 2026-09-19, checked against the real form |
-| `CLAUDE.md` | Local memory for an agent working in this folder | abba | rewritten 2026-09-19 |
+| `design-history.md` | Historical pitch decisions | abba | archived 2026-09-20 |
 
 The project name is not decided, and every file carries it as [project name].
 The final scripts, cards, and submission text are copied to `pitch/` at the event repo's root once `headline.json` exists, beside the generated `pitch/figures.md`.

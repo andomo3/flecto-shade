@@ -1,4 +1,7 @@
-# data - local memory
+# Data design history
+
+Historical context, not active agent instructions.
+Current requests and PR review guide implementation; the restrictions below are superseded.
 
 Owner: Ameya, with packages S1 and H1.
 This folder is planning, Markdown only, and the data and its build scripts live in the repo's own `data/` directory.

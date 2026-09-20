@@ -1,6 +1,9 @@
 # Planning
 
 The team's working copy of the plan for HackMIT 2026.
+This folder is design history and reference material, not active repository rules.
+The team now coordinates implementation changes through PR review.
+Earlier ownership, stack, package-order, and editing restrictions in these documents are superseded.
 The project is a simulated smart louvre roof for a Central Florida grower with three crops under one shade house roof.
 It is the simulation alone: nothing physical is built.
 
@@ -9,11 +12,11 @@ It is the simulation alone: nothing physical is built.
 - It is Markdown only, and it holds no project code.
   The HackMIT rules require all project code to be written during the hacking period, 11:00 Saturday 2026-09-19 to 11:00 Sunday.
 - It began as a copy of files from the team's public planning repo, https://github.com/andomo3/hack-mit, brought here on Saturday in several dated commits.
-  From Saturday evening this copy is the one the team works from, and it is changed only by abba, never by a build agent.
+  It records how the plan evolved during the event.
 - The planning repo also holds a labelled throwaway prototype, written before the event for a different idea, which the team set aside on Saturday.
   None of it was copied here, no file in this repo is derived from it, and it stays in the planning repo where anyone can compare.
 - It holds no rules for a build agent.
-  The only rules file is `../AGENTS.md` at the repo root, and the live board is `../CHECKLIST.md`.
+  `../CHECKLIST.md` is a reference board; current requests and PR discussions guide the work.
 
 ## Read these
 
