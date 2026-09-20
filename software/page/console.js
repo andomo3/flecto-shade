@@ -291,7 +291,7 @@
       }
     }
 
-    function cellMarkup(cell) {
+    function cellMarkup(cell, id) {
       if (!cell) { return ""; }
       var bar = "";
       if (cell.bar !== null && cell.bar !== undefined) {
@@ -301,7 +301,7 @@
           (mark === null ? "" : '<span class="bar-mark" style="left:' +
             (mark * 100).toFixed(2) + '%"></span>') + '</span>';
       }
-      return '<div class="cell' + (cell.wide ? " wide" : "") + '">' +
+      return '<div class="cell' + (cell.wide ? " wide" : "") + '" data-metric="' + id + '">' +
         '<span class="cell-label">' + escape(cell.label) + '</span>' +
         '<span class="cell-value">' + escape(cell.value) + '</span>' + bar + '</div>';
     }
@@ -319,7 +319,7 @@
         var status = statusOf(zone);
         var badge = STATUS[status];
         var cells = zone.review_profile.map(function (id) {
-          return cellMarkup(metricCell(zone, id));
+          return cellMarkup(metricCell(zone, id), id);
         }).join("");
         return '<article class="zone-card" role="listitem" data-zone="' + zone.letter +
             '" data-status="' + status + '"' +
@@ -328,7 +328,8 @@
             '<span class="zone-letter">' + zone.letter + '</span>' +
             '<span class="zone-titles">' +
               '<strong>' + escape(zone.name) + '</strong>' +
-              '<span class="zone-crop">' + escape(zone.crop_name) + '</span>' +
+              (zone.crop_name === zone.name ? ""
+                : '<span class="zone-crop">' + escape(zone.crop_name) + '</span>') +
             '</span>' +
             '<span class="status">' + glyph(badge.glyph) + escape(badge.word) + '</span>' +
           '</button>' +
@@ -1146,7 +1147,8 @@
       bind();
       $("play").disabled = false;
       setHour(0);
-      select(day.zones[0] ? day.zones[0].zone : null, false, true);
+      /* No zone is chosen at start-up, so every card opens at the same size. */
+      select(null, false, true);
     }
 
     function adoptStored(payload) {

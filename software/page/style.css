@@ -85,9 +85,11 @@ button { cursor: pointer; }
   grid-template-columns: minmax(0, 1.62fr) minmax(400px, 1fr);
   grid-template-areas:
     "stage overview"
-    "stage inspector"
-    "timeline inspector"
+    "timeline overview"
+    "inspector overview"
     "workspace workspace";
+  grid-template-rows: auto auto 1fr auto;
+  align-items: start;
   gap: var(--s4);
   max-width: 1680px;
   margin: 0 auto;
@@ -115,7 +117,7 @@ button { cursor: pointer; }
 
 .stage-frame {
   position: relative;
-  height: 640px;
+  height: clamp(480px, calc(100vh - 32px), 680px);
   overflow: hidden;
   background: var(--stage);
   border: 1px solid var(--stage-line);
@@ -193,13 +195,13 @@ button { cursor: pointer; }
 .stage-identity {
   top: var(--s4);
   left: var(--s4);
-  max-width: 28ch;
+  max-width: min(34ch, 58%);
   padding: var(--s2) var(--s3);
   border-radius: var(--radius-small);
   background: linear-gradient(90deg, rgba(19, 23, 22, .93), rgba(19, 23, 22, .74));
   color: var(--stage-text);
 }
-.stage-identity h1 { margin: var(--s2) 0 var(--s1); font-size: 30px; line-height: 1.1; }
+.stage-identity h1 { margin: var(--s2) 0 var(--s1); font-size: 28px; line-height: 1.12; text-wrap: balance; }
 .stage-place { margin: 0; color: var(--stage-muted); }
 .sim-flag {
   display: inline-flex;
@@ -232,13 +234,28 @@ button { cursor: pointer; }
   left: 0;
   right: 0;
   bottom: 0;
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: var(--s2);
-  padding: var(--s3) var(--s4);
-  background: linear-gradient(0deg, rgba(19, 23, 22, .96), rgba(19, 23, 22, .82) 70%, transparent);
+  padding: var(--s6) var(--s4) var(--s3);
+  background: linear-gradient(0deg, rgba(19, 23, 22, .96), rgba(19, 23, 22, .82) 62%, transparent);
 }
-.tool-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); }
+/* The run controls take a line of their own, and the view tools flow as one group under
+   them, so the roof keeps as much of the frame as it can. */
+.stage-tools .playback { flex: 1 1 100%; }
+.stage-tools .tool-row { display: contents; }
+.stage-tools .tool-label { display: none; }
+.tool-row, .stage-tools .playback { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); }
 .tool-label { width: 62px; flex: none; color: var(--stage-muted); font-weight: 700; }
+/* The one main action on the page, and the largest control on it. */
+.btn.btn-run {
+  min-height: 56px;
+  padding: var(--s2) var(--s5);
+  border-color: #4e8a5f;
+  font-size: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .38);
+}
 .tool {
   min-height: 48px;
   padding: var(--s2) var(--s3);
@@ -251,7 +268,7 @@ button { cursor: pointer; }
 .tool:hover:not(:disabled) { background: #2b312e; border-color: #6d7873; }
 .tool[aria-pressed="true"] { background: #2f5c3c; border-color: #4e8a5f; color: #eaf6ea; }
 .tool:disabled { color: #7c837d; cursor: not-allowed; }
-.tool-help { max-width: 62ch; margin: 0; color: var(--stage-muted); }
+.tool-help { max-width: 92ch; margin: var(--s2) var(--s2) 0; color: var(--ink-3); }
 
 .module-legend {
   right: var(--s4);
@@ -298,11 +315,13 @@ button { cursor: pointer; }
 }
 .panel-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
-  gap: var(--s3);
+  gap: var(--s2) var(--s3);
   margin-bottom: var(--s3);
 }
+.panel-head > div:first-child { flex: 1 1 16ch; min-width: 0; }
 .panel-head h2 { margin: 0; font-size: 24px; line-height: 1.15; }
 .panel-sub { margin: var(--s1) 0 0; color: var(--ink-3); }
 
@@ -318,7 +337,7 @@ button { cursor: pointer; }
   background: var(--grey-soft);
   color: var(--ink-2);
   font-weight: 700;
-  white-space: nowrap;
+  max-width: 100%;
 }
 .chip[data-state="ok"], .chip[data-state="auto"] { background: var(--leaf-soft); border-color: #86b392; color: var(--leaf-deep); }
 .chip[data-state="running"] { background: var(--water-soft); border-color: #7ba8bd; color: #144055; }
@@ -394,7 +413,26 @@ button { cursor: pointer; }
 [data-status="offline"] .status { background: var(--grey-soft); color: var(--grey); }
 
 .status-note { margin: var(--s2) 0 var(--s3); color: var(--ink-2); }
-.cells { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2) var(--s3); }
+.cells { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2) var(--s3); margin-top: var(--s3); }
+
+/* Every zone reads at a glance: where its roof is, why, its rain, its light, its soil.
+   The zone that is chosen opens up to every metric its review profile asks for. */
+.zone-card[data-status="auto"] .status-note { display: none; }
+.zone-card:not([data-selected="true"]) .origin,
+.zone-card:not([data-selected="true"]) .cell:not([data-metric="roof_position"]):not([data-metric="decision_reason"]):not([data-metric="rain_outcome"]):not([data-metric="daily_light"]):not([data-metric="soil_water"]) {
+  display: none;
+}
+/* The five that answer "what did this bed get, and why" lead every card, in this order:
+   roof beside rain, then the reason across, then light beside soil. */
+.cell[data-metric="roof_position"] { order: 1; }
+.cell[data-metric="rain_outcome"] { order: 2; }
+.cell[data-metric="decision_reason"] { order: 3; }
+.cell[data-metric="daily_light"] { order: 4; }
+.cell[data-metric="soil_water"] { order: 5; }
+.cell { order: 6; }
+.zone-card { transition: box-shadow .15s ease, border-color .15s ease; }
+.zone-card:hover { border-top-color: var(--line-strong); border-right-color: var(--line-strong); border-bottom-color: var(--line-strong); }
+.zone-head:hover .zone-titles strong { text-decoration: underline; text-underline-offset: 3px; }
 .cell.wide { grid-column: 1 / -1; }
 .cell-label { display: block; color: var(--ink-3); }
 .cell-value { display: block; color: var(--ink); font-weight: 600; }
@@ -617,33 +655,39 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
 .foot p { max-width: 96ch; margin: 0 0 var(--s2); }
 .foot-lead { color: var(--ink-2); font-weight: 700; }
 .foot details { margin-top: var(--s3); }
-.foot summary { min-height: 48px; padding: var(--s3) 0; color: var(--ink-2); cursor: pointer; font-weight: 700; }
+.foot summary, .model-notes summary { min-height: 48px; padding: var(--s3) 0; color: var(--ink-2); cursor: pointer; font-weight: 700; }
+.model-notes { margin-top: var(--s2); border-top: 1px solid var(--line); }
+.model-notes .stage-caption { margin: 0 var(--s2); }
 
 /* --------------------------------------------------------------- responsive */
 
 @media (max-width: 1320px) {
   .console { grid-template-columns: minmax(0, 1.4fr) minmax(360px, 1fr); }
   .module-legend { width: 280px; }
-  .cells { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 1040px) {
   .console {
     grid-template-columns: 1fr;
-    grid-template-areas: "stage" "overview" "inspector" "timeline" "workspace";
+    grid-template-areas: "stage" "timeline" "overview" "inspector" "workspace";
+    grid-template-rows: none;
     padding: var(--s3);
   }
-  .stage-frame { height: 560px; }
+  .stage-frame { height: clamp(480px, calc(100vh - 24px), 600px); }
   .stage-identity { max-width: 24ch; }
-  .stage-readout { top: auto; bottom: 180px; }
+  .stage-readout { top: auto; bottom: 200px; }
   .zone-tag i { display: none; }
   .module-legend { position: static; width: auto; max-height: none; margin-top: var(--s3); }
   .facts { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 720px) {
-  .stage-frame { height: 480px; }
-  .tool-help, .stage-readout { display: none; }
+  .stage-frame { height: clamp(520px, calc(100vh - 24px), 600px); }
+  .stage-readout { display: none; }
+  .stage-identity { max-width: none; right: var(--s4); }
+  .stage-identity h1 { font-size: 24px; }
+  .btn.btn-run { flex: 1 1 100%; justify-content: center; }
+  .cells { grid-template-columns: 1fr; }
   .tool-label { display: none; }
   .panel-head { flex-direction: column; }
   .admin-row { grid-template-columns: 40px 1fr; }
