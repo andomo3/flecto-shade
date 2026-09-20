@@ -1012,12 +1012,13 @@
 
     /* ------------------------------------------------------------ selection */
 
-    function select(letter, focusRoof) {
+    function select(letter, focusRoof, quiet) {
       state.selected = letter;
       scene.setSelected(letter);
       if (letter && focusRoof) { scene.focusZone(letter); }
       render();
-      if (letter) {
+      /* Start-up selects a zone too, and that must never scroll the page off its top. */
+      if (letter && !quiet) {
         var card = document.querySelector('.zone-card[data-zone="' + letter + '"]');
         if (card && card.scrollIntoView) { card.scrollIntoView({ block: "nearest" }); }
       }
@@ -1145,7 +1146,7 @@
       bind();
       $("play").disabled = false;
       setHour(0);
-      select(day.zones[0] ? day.zones[0].zone : null, false);
+      select(day.zones[0] ? day.zones[0].zone : null, false, true);
     }
 
     function adoptStored(payload) {
