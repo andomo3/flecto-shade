@@ -57,34 +57,73 @@
     SPLASH: 0.055         /* half length of an impact tick */
   };
 
-  var TONE = {
-    ground:     [0.145, 0.157, 0.150],
-    slab:       [0.207, 0.220, 0.211],
-    bed:        [0.184, 0.148, 0.113],
-    bedRim:     [0.245, 0.223, 0.196],
-    column:     [0.404, 0.427, 0.423],
-    beam:       [0.318, 0.345, 0.341],
-    rail:       [0.470, 0.496, 0.487],
-    rain:       [0.494, 0.686, 0.776],
-    clamp:      [0.612, 0.606, 0.573],
-    divider:    [0.733, 0.722, 0.665],
-    backbone:   [0.545, 0.561, 0.549],
-    root:       [0.396, 0.420, 0.408],
-    stem:       [0.196, 0.286, 0.153],
-    leaf:       [0.176, 0.396, 0.204],
-    leafLight:  [0.255, 0.494, 0.267],
-    shadow:     [0.043, 0.055, 0.051]
+  /* One palette, shared with style.css.
+
+     These are the same hex values the stylesheet declares as custom properties, so the
+     modelled roof and the page around it cannot drift apart. The shader works in linear
+     light and gamma encodes on the way out, so every hex is converted once here rather
+     than eyeballed as a triple. Change a colour in :root, change it here, and the whole
+     console moves together. */
+  var PALETTE = {
+    loam:       "#22221b",   /* the ground under the house */
+    slab:       "#2f2f27",
+    soil:       "#4a3a2a",   /* a raised bed */
+    soilRim:    "#6b5c48",
+    timber:     "#b7ae9f",   /* columns and rails, raw timber */
+    timberDeep: "#8c8374",   /* beams, in shadow */
+    timberPale: "#ded8cf",
+    clamp:      "#a89a86",
+    divider:    "#e6dccd",   /* sand, marking a zone boundary */
+    backbone:   "#9a9384",
+    root:       "#6f6a5d",
+    stem:       "#4a5c41",
+    leaf:       "#5d7052",   /* moss */
+    leafLight:  "#7d9070",
+    rain:       "#8fb6c2",   /* river stone */
+    shadow:     "#161610"
   };
 
-  /* Restrained membrane colours: leaf green is the working state, water blue marks a
-     zone admitting rain, amber marks a manual hold, and red is kept for a conflict. */
-  var MEMBRANE = {
-    normal:   [0.298, 0.494, 0.310],
-    rain:     [0.180, 0.404, 0.522],
-    manual:   [0.588, 0.412, 0.110],
-    conflict: [0.596, 0.204, 0.176],
-    idle:     [0.310, 0.361, 0.333]
+  /* sRGB hex to the linear triple the shader multiplies its lighting into. */
+  function tone(hex) {
+    var value = parseInt(hex.slice(1), 16);
+    return [16, 8, 0].map(function (shift) {
+      var channel = ((value >> shift) & 255) / 255;
+      return channel <= 0.04045
+        ? channel / 12.92
+        : Math.pow((channel + 0.055) / 1.055, 2.4);
+    });
+  }
+
+  var TONE = {
+    ground:     tone(PALETTE.loam),
+    slab:       tone(PALETTE.slab),
+    bed:        tone(PALETTE.soil),
+    bedRim:     tone(PALETTE.soilRim),
+    column:     tone(PALETTE.timber),
+    beam:       tone(PALETTE.timberDeep),
+    rail:       tone(PALETTE.timberPale),
+    rain:       tone(PALETTE.rain),
+    clamp:      tone(PALETTE.clamp),
+    divider:    tone(PALETTE.divider),
+    backbone:   tone(PALETTE.backbone),
+    root:       tone(PALETTE.root),
+    stem:       tone(PALETTE.stem),
+    leaf:       tone(PALETTE.leaf),
+    leafLight:  tone(PALETTE.leafLight),
+    shadow:     tone(PALETTE.shadow)
   };
+
+  /* The membrane carries the zone's state, in the same family the console's chips use:
+     moss is automatic, river stone is admitted rain, clay is a manual hold, burnt
+     sienna is a conflict, and dried grass is unavailable. */
+  var MEMBRANE = {
+    normal:   tone("#5d7052"),
+    rain:     tone("#4f6b75"),
+    manual:   tone("#c18c5d"),
+    conflict: tone("#a85448"),
+    idle:     tone("#78786c")
+  };
+
 
   var VERT = [
     "#version 300 es",
@@ -376,6 +415,10 @@
       azimuth: -Math.PI / 2 - 0.34, polar: 0.62, distance: 9.4,
       target: [0, 0, 0.95], pan: [0, 0]
     };
+
+    /* narrowFit reads the canvas rectangle, which is zero until the first sized draw,
+       so the chosen preset is applied again as soon as the frame has a real shape. */
+    var lastPreset = "overview", framed = false;
 
     var PRESETS = {
       overview: { azimuth: -Math.PI / 2 - 0.34, polar: 0.64, distance: 8.3, target: [0, 0, 1.00] },
@@ -739,7 +782,7 @@
       });
 
       canvas.addEventListener("wheel", function (event) {
-        camera.distance = clamp(camera.distance * Math.exp(event.deltaY * 0.0011), 2.4, 17.0);
+        camera.distance = clamp(camera.distance * Math.exp(event.deltaY * 0.0011), 2.4, 19.0);
         request();
         event.preventDefault();
       }, { passive: false });
@@ -752,8 +795,8 @@
           case "ArrowRight": camera.azimuth -= step; break;
           case "ArrowUp": camera.polar = clamp(camera.polar - step * 0.7, 0.05, 1.34); break;
           case "ArrowDown": camera.polar = clamp(camera.polar + step * 0.7, 0.05, 1.34); break;
-          case "+": case "=": camera.distance = clamp(camera.distance * 0.9, 2.4, 17.0); break;
-          case "-": case "_": camera.distance = clamp(camera.distance * 1.1, 2.4, 17.0); break;
+          case "+": case "=": camera.distance = clamp(camera.distance * 0.9, 2.4, 19.0); break;
+          case "-": case "_": camera.distance = clamp(camera.distance * 1.1, 2.4, 19.0); break;
           case "0": case "Home": resetView(); break;
           case "1": case "2": case "3": case "4":
             var index = Number(event.key) - 1;
@@ -898,6 +941,10 @@
         canvas.width = width; canvas.height = height;
       }
       viewSize = [canvas.clientWidth, canvas.clientHeight];
+      if (!framed && canvas.clientHeight > 1) {
+        framed = true;
+        applyPreset(lastPreset);
+      }
       gl.viewport(0, 0, width, height);
       gl.clearColor(0, 0, 0, 0);
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -1059,6 +1106,7 @@
     function applyPreset(name) {
       var preset = PRESETS[name] || PRESETS.overview;
       var wide = name === "bay" ? 1 : spread();
+      lastPreset = name;
       camera.azimuth = preset.azimuth;
       camera.polar = preset.polar;
       camera.distance = clamp(preset.distance * wide * narrowFit(name), 2.4, 17.0);
@@ -1091,7 +1139,7 @@
         /* The roof just changed width, so pull the camera back in proportion rather
            than leaving half the house outside the frame. */
         if (before && next.length !== before) {
-          camera.distance = clamp(camera.distance * (next.length / before), 2.4, 17.0);
+          camera.distance = clamp(camera.distance * (next.length / before), 2.4, 19.0);
         } else if (!before) {
           applyPreset("overview");
         }
@@ -1166,7 +1214,8 @@
     }
   }
 
-  root.ShadeHouse = { create: create, planStructure: planStructure,
-                      TONE: TONE, MEMBRANE: MEMBRANE, MEMBER_TONE: MEMBER_TONE };
+  root.ShadeHouse = { create: create, planStructure: planStructure, tone: tone,
+                      PALETTE: PALETTE, TONE: TONE, MEMBRANE: MEMBRANE,
+                      MEMBER_TONE: MEMBER_TONE };
   if (typeof module === "object" && module.exports) { module.exports = root.ShadeHouse; }
 }(typeof self !== "undefined" ? self : this));

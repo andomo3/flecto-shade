@@ -85,9 +85,13 @@ BY_ID = {item["id"]: item for item in METRIC_DEFINITIONS}
 
 REQUIRED_METRICS = tuple(item["id"] for item in METRIC_DEFINITIONS if not item["removable"])
 
+# The console renders roof_position and control_state in the row's own header, so they
+# are required but never repeated in the body. The data timestamp is the same hour for
+# every zone and is on screen elsewhere, and the last decision is the first line of the
+# selected zone's history, so neither is on by default. Both stay in the registry.
 DEFAULT_PROFILE = [
     "roof_position", "control_state", "decision_reason", "rain_outcome",
-    "daily_light", "soil_water", "last_decision", "next_action", "data_timestamp",
+    "daily_light", "soil_water", "next_action",
 ]
 
 
