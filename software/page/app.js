@@ -10,6 +10,8 @@
   var hour = 0, cloud = 0, playing = false, timer = null;
   var overrides = {};
   var sim = {};
+  var ROOF_ZONES = ["A", "B", "C", "D"];
+  var MANUAL_RAIN_DEFAULT = true;
 
   var $ = function (id) { return document.getElementById(id); };
 
@@ -102,20 +104,23 @@
   };
 
   function isTouched() {
-    if (cloud !== 0) return true;
+    if (overrides.D !== MANUAL_RAIN_DEFAULT) return true;
     return D.zones.some(function (z) { return overrides[z.zone] !== !!z.rain_ok; });
   }
 
   /* ---------- the roof, the team's CAD, drawn in WebGL with no library ----------
 
      model.json carries three tessellated meshes and 23 instances: one base plate and
-     22 flaps in 11 rows, banded across the three zones. Every flap is hinged at its own
+     22 flaps in 11 rows, banded across four roof regions here. Every flap is hinged at its own
      local origin and runs 50 mm along local -Y, so a flap opens by rotating about its
      local X axis. Shading is flat, taken from screen-space derivatives, so the file
      needs no normals. */
 
   var MODEL = null, gl = null, prog = null, loc = {}, gpu = [], canvas = null;
   var MAX_FLAP_DEG = 72;
+  var camera = { azimuth: Math.PI, polar: 0.18, distance: 4.4 };
+  var rainCanvas = null, rainCtx = null, rainRaf = null, rainIntensity = 0;
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   // Flaps ease toward the hour's open fraction rather than snapping to it. The day
   // plays 24 hours in 38 seconds, so an untweened roof reads as broken rather than fast.
@@ -224,8 +229,9 @@
     canvas = document.createElement("canvas");
     canvas.className = "roof-canvas";
     canvas.setAttribute("role", "img");
+    canvas.setAttribute("tabindex", "0");
     canvas.setAttribute("aria-label",
-      "The shade house roof, three zones of hinged flaps, drawn from the team's CAD");
+      "Interactive bird's-eye view of four independently controlled roof regions, drawn from the team's CAD");
     host.appendChild(canvas);
 
     gl = canvas.getContext("webgl2", { antialias: true, alpha: true });
@@ -276,16 +282,78 @@
       return { vao: vao, count: mesh.indices.length };
     });
 
+    var rows = MODEL.instances
+      .filter(function (inst) { return inst.kind === "flap"; })
+      .map(function (inst) { return inst.origin[1]; })
+      .filter(function (value, index, list) { return list.indexOf(value) === index; })
+      .sort(function (a, b) { return a - b; });
+
     MODEL.instances.forEach(function (inst) {
       inst.offset = [
         (inst.origin[0] - centre[0]) / half,
         (inst.origin[1] - centre[1]) / half,
         (inst.origin[2] - centre[2]) / half
       ];
+      if (inst.kind === "flap") {
+        var row = rows.indexOf(inst.origin[1]);
+        inst.renderZone = row < 3 ? "A" : row < 6 ? "B" : row < 9 ? "C" : "D";
+      }
     });
 
     gl.enable(gl.DEPTH_TEST);
+    bindCamera();
     window.addEventListener("resize", paintRoof);
+  }
+
+  function resetCamera() {
+    camera.azimuth = Math.PI;
+    camera.polar = 0.18;
+    camera.distance = 4.4;
+    drawRoof();
+  }
+
+  function bindCamera() {
+    var dragging = false, lastX = 0, lastY = 0;
+
+    canvas.addEventListener("pointerdown", function (e) {
+      dragging = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      canvas.setPointerCapture(e.pointerId);
+      $("model-frame").classList.add("dragging");
+    });
+    canvas.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      camera.azimuth -= (e.clientX - lastX) * 0.008;
+      camera.polar = Math.max(0.13, Math.min(1.25, camera.polar + (e.clientY - lastY) * 0.006));
+      lastX = e.clientX;
+      lastY = e.clientY;
+      drawRoof();
+    });
+    var endDrag = function (e) {
+      dragging = false;
+      $("model-frame").classList.remove("dragging");
+      if (e && canvas.hasPointerCapture(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
+    };
+    canvas.addEventListener("pointerup", endDrag);
+    canvas.addEventListener("pointercancel", endDrag);
+    canvas.addEventListener("wheel", function (e) {
+      camera.distance = Math.max(2.3, Math.min(6.5, camera.distance * Math.exp(e.deltaY * 0.0012)));
+      drawRoof();
+      e.preventDefault();
+    }, { passive: false });
+    canvas.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft") camera.azimuth += 0.08;
+      else if (e.key === "ArrowRight") camera.azimuth -= 0.08;
+      else if (e.key === "ArrowUp") camera.polar = Math.max(0.13, camera.polar - 0.06);
+      else if (e.key === "ArrowDown") camera.polar = Math.min(1.25, camera.polar + 0.06);
+      else if (e.key === "+" || e.key === "=") camera.distance = Math.max(2.3, camera.distance * 0.9);
+      else if (e.key === "-") camera.distance = Math.min(6.5, camera.distance * 1.1);
+      else if (e.key === "Home") resetCamera();
+      else return;
+      drawRoof();
+      e.preventDefault();
+    });
   }
 
   function paintRoof() {
@@ -297,17 +365,22 @@
   function tickRoof() {
     raf = null;
     var moving = false;
-    D.zones.forEach(function (z) {
-      var target = sim[z.zone] ? sim[z.zone][hour].open : 0;
-      var from = shown[z.zone] === undefined ? target : shown[z.zone];
+    ROOF_ZONES.forEach(function (zone) {
+      var target = roofTarget(zone);
+      var from = shown[zone] === undefined ? target : shown[zone];
       var next = from + (target - from) * 0.18;          // exponential ease-out
       if (Math.abs(target - next) < 0.002) next = target;
       else moving = true;
-      shown[z.zone] = next;
+      shown[zone] = next;
     });
     drawRoof();
     settled = !moving;
     if (moving) raf = requestAnimationFrame(tickRoof);
+  }
+
+  function roofTarget(zone) {
+    if (zone === "D") return sky(hour).rain > 0 && overrides.D ? 1 : 0;
+    return sim[zone] ? sim[zone][hour].open : 0;
   }
 
   function drawRoof() {
@@ -323,10 +396,16 @@
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-    // The roof is long in Y, the frame is wide, so the camera sits off to +X and the
-    // long axis runs across the screen rather than diagonally through it.
-    var proj = perspective(0.52, w / h, 0.1, 40);
-    var view = lookAt([2.18, -0.48, 1.22], [0, 0, -0.04], [0, 0, 1]);
+    // Start almost directly above the roof. Azimuth PI puts its long Y axis across the
+    // wide screen; pointer drag moves away from plan view without losing the model.
+    var proj = perspective(0.46, w / h, 0.1, 40);
+    var sinPolar = Math.sin(camera.polar);
+    var eye = [
+      camera.distance * sinPolar * Math.cos(camera.azimuth),
+      camera.distance * sinPolar * Math.sin(camera.azimuth),
+      camera.distance * Math.cos(camera.polar)
+    ];
+    var view = lookAt(eye, [0, 0, -0.04], [0, 0, 1]);
     gl.useProgram(prog);
     gl.uniformMatrix4fv(loc.uProj, false, proj);
     gl.uniformMatrix4fv(loc.uView, false, view);
@@ -336,18 +415,25 @@
     var elev = Math.sin(Math.max(0, (frac - 0.25) / 0.5) * Math.PI);
     gl.uniform3f(loc.uLight, Math.cos(frac * Math.PI * 2) * 0.8, -0.35, 0.35 + elev * 0.9);
 
-    var BASE = [0.815, 0.827, 0.800];
-    var LEAF = [0.118, 0.420, 0.227];
+    var BASE = [0.47, 0.52, 0.49];
+    var ZONE_COLOURS = {
+      A: [0.045, 0.25, 0.13],
+      B: [0.09, 0.36, 0.19],
+      C: [0.20, 0.47, 0.25],
+      D: [0.39, 0.59, 0.32]
+    };
+    var WATER_OPEN = [0.12, 0.39, 0.55];
 
     MODEL.instances.forEach(function (inst) {
       var model = translation(inst.offset[0], inst.offset[1], inst.offset[2]);
       var colour = BASE;
 
       if (inst.kind === "flap") {
-        var open = shown[inst.zone] === undefined ? 0 : shown[inst.zone];
+        var zone = inst.renderZone;
+        var open = shown[zone] === undefined ? 0 : shown[zone];
         // Negative, so the free end at local -Y lifts away from the bed.
         model = multiply(model, rotationX(-open * MAX_FLAP_DEG * Math.PI / 180));
-        colour = LEAF;
+        colour = sky(hour).rain > 0 && open > 0.5 ? WATER_OPEN : ZONE_COLOURS[zone];
       }
 
       gl.uniformMatrix4fv(loc.uModel, false, model);
@@ -359,17 +445,117 @@
     gl.bindVertexArray(null);
   }
 
+  /* ---------- rain over the roof ---------- */
+
+  function fraction(value) { return value - Math.floor(value); }
+
+  function clearRain() {
+    if (!rainCtx || !rainCanvas) return;
+    rainCtx.clearRect(0, 0, rainCanvas.width, rainCanvas.height);
+  }
+
+  function drawRain(now) {
+    rainRaf = null;
+    if (!rainCtx || rainIntensity <= 0 || document.hidden || reduceMotion.matches) {
+      clearRain();
+      return;
+    }
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var width = Math.max(1, Math.round(rainCanvas.clientWidth * dpr));
+    var height = Math.max(1, Math.round(rainCanvas.clientHeight * dpr));
+    if (rainCanvas.width !== width || rainCanvas.height !== height) {
+      rainCanvas.width = width;
+      rainCanvas.height = height;
+    }
+
+    var w = width / dpr, h = height / dpr;
+    rainCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    rainCtx.clearRect(0, 0, w, h);
+    rainCtx.lineCap = "round";
+    rainCtx.lineWidth = 1.5;
+    rainCtx.strokeStyle = "rgba(174, 224, 244, .72)";
+    rainCtx.beginPath();
+
+    var strength = Math.min(1, rainIntensity / 24);
+    var count = Math.round(28 + strength * 105);
+    for (var i = 0; i < count; i++) {
+      var x = fraction(Math.sin((i + 3) * 12.9898) * 43758.5453) * (w + 80) - 40;
+      var start = fraction(Math.sin((i + 17) * 78.233) * 19341.719) * h;
+      var speed = 190 + fraction(Math.sin((i + 11) * 5.331) * 9901.13) * 250;
+      var y = (start + now / 1000 * speed) % (h + 100) - 50;
+      var length = 16 + strength * 22;
+      rainCtx.moveTo(x, y);
+      rainCtx.lineTo(x - length * 0.22, y + length);
+    }
+    rainCtx.stroke();
+    rainRaf = requestAnimationFrame(drawRain);
+  }
+
+  function updateRain() {
+    rainIntensity = D.hours[hour].rain_mm;
+    $("model-frame").classList.toggle("raining", rainIntensity > 0);
+    $("rain-status").textContent = rainIntensity > 0
+      ? "Rain now · " + rainIntensity.toFixed(1) + " mm"
+      : "No rain this hour";
+
+    if (rainIntensity > 0 && !reduceMotion.matches && !document.hidden) {
+      if (rainRaf === null) rainRaf = requestAnimationFrame(drawRain);
+    } else {
+      if (rainRaf !== null) cancelAnimationFrame(rainRaf);
+      rainRaf = null;
+      clearRain();
+    }
+  }
+
+  function buildRain() {
+    rainCanvas = $("rain-canvas");
+    rainCtx = rainCanvas.getContext("2d");
+    reduceMotion.addEventListener("change", updateRain);
+    document.addEventListener("visibilitychange", updateRain);
+  }
+
   /* ---------- zone rows ---------- */
 
+  function regionName(zone) {
+    if (zone === "D") return "Manual bay";
+    var found = D.zones.find(function (z) { return z.zone === zone; });
+    return found ? found.crop : "Region " + zone;
+  }
+
+  function buildRegionControls() {
+    $("region-controls").innerHTML = ROOF_ZONES.map(function (zone) {
+      return '' +
+        '<label class="region-switch">' +
+          '<span class="region-letter" data-zone="' + zone + '">' + zone + '</span>' +
+          '<input type="checkbox" id="rain-' + zone + '"' + (overrides[zone] ? " checked" : "") + '>' +
+          '<span class="region-copy">' +
+            '<span class="region-name">' + regionName(zone) + '</span>' +
+            '<span class="region-choice" id="choice-' + zone + '"></span>' +
+          '</span>' +
+          '<span class="toggle-ui" aria-hidden="true"></span>' +
+        '</label>';
+    }).join("");
+
+    ROOF_ZONES.forEach(function (zone) {
+      $("rain-" + zone).addEventListener("change", function (e) {
+        overrides[zone] = e.target.checked;
+        if (zone !== "D") runAll();
+        paint();
+      });
+    });
+  }
+
   function buildZones() {
-    $("zones").innerHTML = D.zones.map(function (z) {
+    var cropZones = D.zones.map(function (z) {
       var target = z.light_rule === "dli"
         ? z.light_target + " mol target"
         : Math.round(z.light_target * 100) + "% shade wanted";
       return '' +
       '<div class="zone" id="row-' + z.zone + '">' +
         '<div class="z-id">' +
-          '<span class="z-name">Zone ' + z.zone + ' &middot; ' + z.crop + '</span>' +
+          '<span class="region-letter" data-zone="' + z.zone + '">' + z.zone + '</span>' +
+          '<span class="z-name">' + z.crop + '</span>' +
           '<span class="z-bot">' + z.botanical + '</span>' +
         '</div>' +
         '<div class="meter">' +
@@ -390,19 +576,26 @@
           '<span class="badge" id="bg-' + z.zone + '"><i></i><span id="bt-' + z.zone + '">-</span></span>' +
           '<span class="z-reason" id="br-' + z.zone + '"></span>' +
         '</div>' +
-        '<label class="switch">' +
-          '<input type="checkbox" id="sw-' + z.zone + '"' + (z.rain_ok ? " checked" : "") + '>' +
-          '<span class="switch-ui"></span>' +
-          '<span class="switch-text">Take rain</span>' +
-        '</label>' +
       '</div>';
     }).join("");
 
+    var manualZone = '' +
+      '<div class="zone manual-zone" id="row-D">' +
+        '<div class="z-id">' +
+          '<span class="region-letter" data-zone="D">D</span>' +
+          '<span class="z-name">Manual bay</span>' +
+          '<span class="z-bot">No crop model attached</span>' +
+        '</div>' +
+        '<p class="manual-copy">A fourth physical roof region for a grower-selected bed. It has no invented crop or soil figures.</p>' +
+        '<div class="z-state">' +
+          '<span class="badge" id="bg-D"><i></i><span id="bt-D">-</span></span>' +
+          '<span class="z-reason" id="br-D"></span>' +
+        '</div>' +
+      '</div>';
+
+    $("zones").innerHTML = cropZones + manualZone;
+
     D.zones.forEach(function (z) {
-      $("sw-" + z.zone).addEventListener("change", function (e) {
-        overrides[z.zone] = e.target.checked;
-        runAll(); paint();
-      });
       if (z.light_rule === "dli") {
         var scale = Math.max(z.light_target * 1.7, 20);
         $("lt-" + z.zone).style.left = (z.light_target / scale * 100) + "%";
@@ -429,21 +622,17 @@
     var hh = String(h.local_hour).padStart(2, "0") + ":00";
 
     $("clock").textContent = hh;
-    $("rec-ghi").textContent = h.ghi.toFixed(0) + " W/m²";
-    $("rec-rain").textContent = h.rain_mm.toFixed(1) + " mm";
-    $("rec-t2m").textContent = h.t2m.toFixed(1) + " °C";
-
-    $("sky-fill").style.background = skyColour(s.ghi);
-    $("sky-cloud").style.opacity = cloud / 100;
-    $("sun").style.left = ((hour + 0.5) / 24 * 100) + "%";
-    $("sun").classList.toggle("night", h.ghi <= 0);
-    $("sun").setAttribute("aria-valuenow", String(h.local_hour));
-    $("sun").setAttribute("aria-valuetext", hh);
+    $("time-control").value = String(hour);
+    $("weather-readout").textContent =
+      "Sun " + h.ghi.toFixed(0) + " W/m² · Rain " + h.rain_mm.toFixed(1) +
+      " mm · Air " + h.t2m.toFixed(1) + " °C";
 
     var touched = isTouched();
-    $("mode-pill").hidden = !touched;
     $("reset").hidden = !touched;
-    $("cloud-out").textContent = cloud === 0 ? "as recorded" : cloud + "% added";
+
+    ROOF_ZONES.forEach(function (zone) {
+      $("choice-" + zone).textContent = overrides[zone] ? "Rain enabled" : "Keep dry";
+    });
 
     D.zones.forEach(function (z) {
       var r = sim[z.zone][hour];
@@ -461,6 +650,18 @@
       $("row-" + z.zone).classList.toggle("live", r.state === "RAIN_OPEN");
     });
 
+    var manualOpen = s.rain > 0 && overrides.D;
+    var manualBadge = $("bg-D");
+    manualBadge.className = "badge " + (manualOpen ? "rain" : "shut");
+    $("bt-D").textContent = s.rain > 0
+      ? (manualOpen ? "Open for rain" : "Shut against rain")
+      : (overrides.D ? "Ready for rain" : "Set to stay dry");
+    $("br-D").textContent = s.rain > 0
+      ? (manualOpen ? "The grower enabled rain for this region." : "The grower kept this region dry.")
+      : "The fins will respond when the gauge records rain.";
+    $("row-D").classList.toggle("live", manualOpen);
+
+    updateRain();
     paintRoof();
   }
 
@@ -491,52 +692,16 @@
     timer = setTimeout(step, D.hours[hour].play_seconds * 1000);
   }
 
-  /* ---------- scrubbing ---------- */
+  /* ---------- timeline ---------- */
 
-  function scrubTo(clientX) {
-    var box = $("sky").getBoundingClientRect();
-    var frac = (clientX - box.left) / box.width;
-    setHour(Math.round(frac * 24 - 0.5));
-  }
-
-  function bindScrub() {
-    var band = $("sky"), dragging = false;
-    var down = function (e) {
-      dragging = true; stop();
-      scrubTo(e.touches ? e.touches[0].clientX : e.clientX);
-      e.preventDefault();
-    };
-    var move = function (e) {
-      if (!dragging) return;
-      scrubTo(e.touches ? e.touches[0].clientX : e.clientX);
-    };
-    var up = function () { dragging = false; };
-
-    band.addEventListener("mousedown", down);
-    band.addEventListener("touchstart", down, { passive: false });
-    window.addEventListener("mousemove", move);
-    window.addEventListener("touchmove", move, { passive: false });
-    window.addEventListener("mouseup", up);
-    window.addEventListener("touchend", up);
-
-    $("sun").addEventListener("keydown", function (e) {
-      if (e.key === "ArrowRight") { stop(); setHour(hour + 1); e.preventDefault(); }
-      if (e.key === "ArrowLeft")  { stop(); setHour(hour - 1); e.preventDefault(); }
-      if (e.key === "Home")       { stop(); setHour(0); e.preventDefault(); }
-      if (e.key === "End")        { stop(); setHour(23); e.preventDefault(); }
+  function bindTimeline() {
+    $("time-control").addEventListener("input", function (e) {
+      stop();
+      setHour(Number(e.target.value));
     });
   }
 
   /* ---------- static furniture ---------- */
-
-  function buildTicks() {
-    var out = [];
-    for (var i = 0; i <= 24; i += 3) {
-      out.push('<span class="' + (i % 6 === 0 ? "major" : "") + '" style="left:' + (i / 24 * 100) + '%"></span>');
-      if (i < 24) out.push('<b style="left:' + ((i + 0.5) / 24 * 100) + '%">' + String(i).padStart(2, "0") + '</b>');
-    }
-    $("sky-ticks").innerHTML = out.join("");
-  }
 
   function buildRegion() {
     var r = D.region;
@@ -554,27 +719,28 @@
   function boot(data) {
     D = data; C = D.constants;
     D.zones.forEach(function (z) { overrides[z.zone] = !!z.rain_ok; });
+    overrides.D = MANUAL_RAIN_DEFAULT;
 
-    $("place").textContent = D.place + " · " + D.date_local;
+    $("place").textContent = D.place;
     $("date").textContent = new Date(D.date_local + "T12:00:00").toLocaleDateString(undefined,
       { weekday: "long", day: "numeric", month: "long", year: "numeric" });
     $("sources").textContent = "Sun: " + D.sources.sun + ". Rain: " + D.sources.rain + ".";
     $("credit").textContent = D.credit;
 
-    buildTicks(); buildRegion(); buildRoof(); buildZones(); bindScrub();
+    buildRegion(); buildRain(); buildRoof(); buildRegionControls(); buildZones(); bindTimeline();
     runAll(); setHour(0);
 
     $("play").disabled = false;
     $("play").addEventListener("click", play);
-    $("cloud").addEventListener("input", function (e) {
-      cloud = Number(e.target.value); runAll(); paint();
-    });
+    $("reset-view").addEventListener("click", resetCamera);
     $("reset").addEventListener("click", function () {
-      cloud = 0; $("cloud").value = 0;
+      cloud = 0;
       D.zones.forEach(function (z) {
         overrides[z.zone] = !!z.rain_ok;
-        $("sw-" + z.zone).checked = !!z.rain_ok;
+        $("rain-" + z.zone).checked = !!z.rain_ok;
       });
+      overrides.D = MANUAL_RAIN_DEFAULT;
+      $("rain-D").checked = MANUAL_RAIN_DEFAULT;
       runAll(); paint();
     });
   }

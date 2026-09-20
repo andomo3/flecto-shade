@@ -120,6 +120,21 @@ def test_the_page_fetches_nothing(day):
             assert "http://" not in stripped and "https://" not in stripped, f"{name}: {stripped[:90]}"
 
 
+def test_the_roof_is_an_interactive_four_region_rain_surface():
+    html = (PAGE / "index.html").read_text(encoding="utf-8")
+    script = (PAGE / "app.js").read_text(encoding="utf-8")
+
+    assert 'id="rain-canvas"' in html
+    assert 'id="region-controls"' in html
+    assert 'id="reset-view"' in html
+    assert '<header class="bar">' not in html
+    assert 'var ROOF_ZONES = ["A", "B", "C", "D"]' in script
+    assert 'canvas.addEventListener("pointerdown"' in script
+    assert 'canvas.addEventListener("wheel"' in script
+    assert "function updateRain()" in script
+    assert 'inst.renderZone = row < 3 ? "A" : row < 6 ? "B" : row < 9 ? "C" : "D"' in script
+
+
 def test_two_runs_give_identical_bytes(builder, tmp_path):
     first = builder.build(date="2023-06-03", out_path=tmp_path / "a.json")[0].read_bytes()
     second = builder.build(date="2023-06-03", out_path=tmp_path / "b.json")[0].read_bytes()

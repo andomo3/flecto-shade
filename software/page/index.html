@@ -3,77 +3,93 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shade house 1 - Apopka, Florida</title>
+<title>Shade house rain simulator - Apopka, Florida</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="bar">
-  <div class="bar-id">
-    <h1>Shade house 1</h1>
-    <p class="bar-sub" id="place">Loading</p>
-  </div>
-  <div class="bar-actions">
-    <span class="pill pill-sim">Simulated</span>
-    <span class="pill pill-what" id="mode-pill" hidden>What if</span>
-    <button type="button" class="btn-ghost" id="reset" hidden>Reset to the record</button>
-    <button type="button" class="btn" id="play" disabled>
-      <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>
-      <span id="play-label">Play the day</span>
-    </button>
-  </div>
-</header>
+<main class="console">
+  <section class="hero" aria-labelledby="page-title">
+    <figure class="model" id="figure-slot" data-slot="shade-house">
+      <div class="model-frame" id="model-frame">
+        <div class="model-viewport" id="roof" aria-live="off"></div>
+        <canvas class="rain-canvas" id="rain-canvas" aria-hidden="true"></canvas>
+        <div class="cad-region-labels" aria-label="CAD roof regions from left to right">
+          <span data-zone="D">D</span>
+          <span data-zone="C">C</span>
+          <span data-zone="B">B</span>
+          <span data-zone="A">A</span>
+        </div>
 
-<section class="sky-wrap" aria-labelledby="sky-h">
-  <h2 class="sr-only" id="sky-h">Sky and time of day</h2>
+        <div class="model-identity">
+          <div class="identity-line">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Simulated roof</span>
+          </div>
+          <h1 id="page-title">Shade house rain control</h1>
+          <p id="place">Loading the day</p>
+        </div>
 
-  <div class="sky" id="sky" role="group" aria-label="Sky band">
-    <div class="sky-fill" id="sky-fill"></div>
-    <div class="sky-cloud" id="sky-cloud"></div>
-    <div class="sky-ticks" id="sky-ticks"></div>
-    <button type="button" class="sun" id="sun"
-            role="slider" aria-label="Time of day, drag to scrub"
-            aria-valuemin="0" aria-valuemax="23" aria-valuenow="0" aria-valuetext="00:00">
-      <span class="sun-disc"></span>
-    </button>
-  </div>
+        <div class="playback-panel">
+          <div class="weather-now">
+            <span class="clock-time" id="clock">--:--</span>
+            <span class="rain-now" id="rain-status">Loading weather</span>
+          </div>
+          <div class="playback-actions">
+            <button type="button" class="btn-secondary" id="reset" hidden>Reset choices</button>
+            <button type="button" class="btn" id="play" disabled>
+              <svg class="ico" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>
+              <span id="play-label">Play the day</span>
+            </button>
+          </div>
+        </div>
 
-  <div class="sky-bottom">
-    <div class="sky-clock">
-      <span class="clock-time" id="clock">--:--</span>
-      <span class="clock-date" id="date">&nbsp;</span>
+        <aside class="rain-plan" aria-labelledby="rain-plan-title">
+          <div class="rain-plan-head">
+            <h2 id="rain-plan-title">Rain access</h2>
+            <p>Choose which roof regions may open when rain reaches the house.</p>
+          </div>
+          <div class="region-controls" id="region-controls"></div>
+        </aside>
+
+        <button type="button" class="view-reset" id="reset-view" aria-label="Reset the roof to bird's-eye view">
+          <svg class="ico-stroke" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M4 7V3m0 0h4M4 3l3 3M16 13v4m0 0h-4m4 0-3-3M13 4l3 3-3 3M7 16l-3-3 3-3"/>
+          </svg>
+          Bird's-eye
+        </button>
+
+        <p class="camera-help">Drag to orbit · Scroll to zoom</p>
+      </div>
+
+      <div class="timeline">
+        <label for="time-control">Time of day</label>
+        <input type="range" id="time-control" min="0" max="23" step="1" value="0">
+        <div class="timeline-meta">
+          <span id="date">&nbsp;</span>
+          <span id="weather-readout">Sun -- · Rain -- · Air --</span>
+        </div>
+      </div>
+
+      <figcaption>
+        <span class="cap-lead">Four independently controlled regions in the team's CAD.</span>
+        Regions A-C use the crop simulation; Region D is a clearly labelled manual bay with no crop figures attached.
+        During rain, only regions allowed by the grower can lift their hingeless fins.
+        <span class="cap-pending">Geometry is modelled and not built. The fin is ITKE's Flectofin, patented as EP2320015.</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="zones-wrap" aria-labelledby="zones-title">
+    <div class="section-heading">
+      <div>
+        <h2 id="zones-title">What each crop receives</h2>
+        <p>Three data-backed crop zones and one manual roof region respond independently.</p>
+      </div>
+      <span class="sim-label">Simulated</span>
     </div>
-
-    <dl class="record" id="record">
-      <div><dt>Recorded sun</dt><dd id="rec-ghi">-</dd></div>
-      <div><dt>Recorded rain</dt><dd id="rec-rain">-</dd></div>
-      <div><dt>Recorded air</dt><dd id="rec-t2m">-</dd></div>
-    </dl>
-
-    <label class="ctl" for="cloud">
-      <span class="ctl-label">Cloud</span>
-      <input type="range" id="cloud" min="0" max="90" step="5" value="0">
-      <output class="ctl-out" id="cloud-out">as recorded</output>
-    </label>
-  </div>
-
-  <p class="ctl-help">Drag the sun to scrub the day. Add cloud to see what the roof would have done under a different sky. The recorded figures never move.</p>
-</section>
-
-<main class="stage">
-
-  <figure class="model" id="figure-slot" data-slot="shade-house">
-    <div class="model-frame" id="roof" aria-live="off"></div>
-    <figcaption>
-      <span class="cap-lead">The roof, from the team's CAD.</span>
-      One base plate and twenty two flaps in eleven rows, banded across the three zones.
-      Each flap's angle is the simulated open fraction for its zone, and the light follows the hour.
-      <span class="cap-pending">Geometry is the team's CAD, modelled and not built. No part of this roof exists.</span>
-    </figcaption>
-  </figure>
-
-  <section class="zones" id="zones" aria-label="Zones"></section>
-
+    <div class="zones" id="zones" aria-label="Roof regions"></div>
+  </section>
 </main>
 
 <footer class="foot">
