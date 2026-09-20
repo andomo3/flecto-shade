@@ -23,7 +23,7 @@ Use current issue assignments for each concrete task.
 Distinguish gauge observations, modeled weather, simulated outputs and assumptions.
 Do not present the simulation as proof of crop yield, soil restoration, water savings or physical roof performance.
 Preserve dataset provenance, third-party mechanism credits and license notices.
-The current app is static HTML/CSS/JavaScript; do not add a backend, Docker or a frontend framework just to follow a generic workflow example.
+The demos run as static HTML/CSS/JavaScript. The team's optional Python API provides local console persistence; it is not needed for the demos. Do not add Docker or a frontend framework just to follow a generic workflow example.
 
 Historical specifications remain under `planning/`.
 The release checklist is [CHECKLIST.md](CHECKLIST.md); live work belongs in [GitHub Issues](https://github.com/andomo3/flecto-shade/issues).
