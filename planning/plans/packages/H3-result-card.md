@@ -72,7 +72,8 @@ After this package, nobody types a number into a script, a card, or the README b
 ## Acceptance
 
 - `python software/h3/build_headline.py` exits 0 with the network off.
-- `pytest software/tests/test_headline.py` exits 0.
+- `pytest software/tests/test_headline.py` exits 0. It holds the demo day's checks and the checks on the file's shape, and it is what must pass before H3 merges.
+- `pytest software/tests/test_headline_year.py` is always run and always reported, and it blocks nothing. It holds the year's checks: the rain's shares, the days the target was met, and the months. The demo day comes first, and if H1 reported a mismatch in the year, the card still ships with the day, and the year view carries the words "simulated, under review" until the mismatch is settled.
 - A person passes the demo gate's beats 6 and 7, and the pitch gate, in `planning/plans/gates.md`.
 
 Test cases, from H1's asserted values, with H1's tolerances:
@@ -88,7 +89,7 @@ Test cases, from H1's asserted values, with H1's tolerances:
 
 ## Files
 
-May create: `software/h3/build_headline.py`, `data/processed/headline.json`, its copy `software/page/headline.json`, `software/tests/test_headline.py`, `pitch/figures.md`, and the gate test `software/tests/test_gate_f8_headline.py`.
+May create: `software/h3/build_headline.py`, `data/processed/headline.json`, its copy `software/page/headline.json`, `software/tests/test_headline.py`, `software/tests/test_headline_year.py`, `pitch/figures.md`, and the gate test `software/tests/test_gate_f8_headline.py`.
 May change: `software/page/index.html`, `style.css`, and `app.js` for the card and the year view only, and `software/tests/test_gate_f5_labels.py`, only to add the labels of the card and the year view.
 Must not touch: `planning/`, `software/h1/`, the rest of `data/`, and anything in `hack-mit`.
 

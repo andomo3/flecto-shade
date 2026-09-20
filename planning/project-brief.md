@@ -80,7 +80,7 @@ Each checkpoint has an hour and a cut, agreed now so nobody argues it at the ven
 | When | What must be true | If it is not |
 |---|---|---|
 | 21:00 Saturday | G1 and S1 are merged | S1 finishes on its own checks, and runs the gates when G1 lands |
-| 23:00 Saturday, the hard checkpoint | H1 is merged and the year's summary exists | The page is cut to the demo day only |
+| 23:00 Saturday, the hard checkpoint | H1 is merged with the demo day's checks passing, and the year is a bonus that blocks nothing | The page is drawn from the demo day's expected values in the specification, labelled "illustrative" |
 | 01:00 Sunday, the freeze, the venue closes | H2 plays the demo day end to end | The fallback is a recorded run of H1's output, drawn as simply as possible |
 | 07:00 to 09:00 Sunday | H3, the pitch figures read from `headline.json`, the screen recording | The card is cut to the demo day's two figures |
 | 09:00 to 10:30 | Rehearsal, the README, the submission | |

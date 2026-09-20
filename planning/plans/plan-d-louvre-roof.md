@@ -17,6 +17,16 @@ A Central Florida grower with three crops under one shade house roof gives each 
 - Ours: the resolution. Today one motor moves up to 50,000 square feet of roof, and a roof of fins can treat one bed differently from the next.
   We found no prior proposal to put a Flectofin over crops, and those are the words, never "first".
 
+## What comes first
+
+Decided on Saturday night: the project is judged on the model it demonstrates and the story told over it, so those come first, and an exact simulated year does not.
+
+1. **Must: the demo day and the story.** The rules running on 3 June 2023, the page that plays that day, and the pitch. Every value the demo day asserts still has to match, because that is what the judge watches.
+2. **Bonus: the year.** The year's summary, the year by month, and the two spoken year figures, about 54 percent and six months of seven. The year still runs, because it is the same loop over the same hours, but its checks sit in their own test files, are always reported, and block nothing.
+3. **What this does not loosen.** The weather stays the real gauge and the real satellite year that S1 already built, because made up weather would not be faster and would be weaker. Every label stays true: if any shown figure is ever illustrative and not from the run, the page and the speaker say "illustrative". No expected value is edited to make a test pass.
+
+If the year is not ready or is under review, the pitch drops its two year sentences and closes on the day: see "Cuts that change the words" in `../pitch/CLAUDE.md`.
+
 ## The MVP
 
 Simulated, all of it.

@@ -137,6 +137,30 @@ Closing line, memorised: [abba's own line], and until then "Elena still has thre
 Now the roof can tell them apart."
 The ask, said before the close and never after it: "one grower near Apopka to tell us where it is wrong."
 
+## If the year is not ready
+
+The demo day and the story come first, and the year is a bonus, see "What comes first" in `../plans/plan-d-louvre-roof.md`.
+If the year's checks have not passed, or the year view is not built, these lines are swapped and nothing else changes.
+Both swaps were counted, and both scripts stay inside their word targets.
+
+In the 3 minute script, 39 words out and 40 in, for 480 words:
+
+- Out: "Here is the whole year, and all of it is simulated."
+  In: "All of this is simulated."
+- Out: "From April to October, the rain alone carried Elena's hydrangeas in six months of seven."
+  In: "On this one day, the hydrangea's soil stored thirty five millimetres of that storm, and the other two stored none."
+- Out: "Over the year it supplied about fifty four percent of that zone's water."
+  In: "The year is the same rules, run every day, and we are still checking it."
+
+In the 60 second script, 15 words out and 17 in, for 180 words:
+
+- Out: "In our simulated year, the rain alone carried the hydrangeas through six months of seven."
+  In: "On this day, the hydrangea's soil stored thirty five millimetres of that storm, and the others none."
+
+The 30 second script says no figure from the year, so it does not change.
+In the storyboard, beat 7 closes on the result card, and its first sentence becomes the 3 minute script's second swap.
+The thirty five millimetres is H3's expected value for the demo day, 34.9, and it is provisional in the same way as every other figure.
+
 ## Recovery lines
 
 - Play does nothing, or the page freezes: "Let me reset the day."

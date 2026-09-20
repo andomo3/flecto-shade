@@ -36,7 +36,7 @@ G1 is handed over first, before any feature.
 
 1. The skeleton: the table printer, the three results, the exit code. Check: on the empty repo it prints 14 rows and exits 0.
 2. The always on gates, F9, F10, F11, F13. Check: the four tests below.
-3. F1, by running `pytest` and reading its exit code, with "no tests collected" reported as NOT YET. Check: the test below.
+3. F1, by running `pytest` with `--ignore` for the two year files, `software/tests/test_h1_year.py` and `software/tests/test_headline_year.py`, and reading its exit code, with "no tests collected" reported as NOT YET. Then the two year files are run on their own, and the report carries one more line, "The year: PASS, FAIL, or NOT YET", which never changes the command's exit code. Check: the tests below.
 4. F2, F3, and F12, each NOT YET until its directory or file exists. Check: creating a stub file flips the gate from NOT YET to a real result.
 5. `--append`. Check: two runs with `--package G1` add two dated sections to `gates-log/G1.md`, change nothing else in it, and create no other file.
 
@@ -54,6 +54,7 @@ Test cases, each in a temporary git repo made by the test:
 - A `requirements.txt` line without `==` makes F12 FAIL.
 - A page under `software/` with `src="https://..."` makes F3 FAIL, and the same address inside an HTML comment does not.
 - A failing test makes F1 FAIL, and a repo with no tests makes F1 NOT YET.
+- A failing test inside `software/tests/test_h1_year.py` leaves F1 at PASS and the exit code at 0, and makes the year's line read FAIL.
 - `--append` twice with `--package X1` gives two sections in `gates-log/X1.md`, and `--append` without `--package` is refused with a plain message.
 
 ## Files the agent may create

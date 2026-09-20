@@ -84,7 +84,8 @@ The sources are in `../docs/research/flectofin-greenhouse-roof/market-and-differ
 
 ## Cuts that change the words
 
-- H3 not merged: the fifty four percent is not said, the day ends on H2's plain table, and card 1 is left off the table.
+- The year not ready, which is allowed, because the demo day and the story come first: the two year sentences are swapped for the ones under "If the year is not ready" in `script.md`, and nothing else changes.
+- H3 not merged: the same swap, the day ends on H2's plain table, and card 1 is left off the table.
 - The year view cut: beat 7 of the storyboard closes on the result card.
 - The roof layout file absent: the page says "default layout", and nothing spoken changes.
 - The page fails: the recorded run, then the screen recording, with the same words.

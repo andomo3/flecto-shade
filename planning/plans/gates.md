@@ -22,7 +22,7 @@ It is never reported as PASS, and it is never left out.
 
 | ID | Gate | How it is checked | Applies from |
 |---|---|---|---|
-| F1 | Every test passes | `pytest` exits 0 | the first package with a test |
+| F1 | Every test that blocks passes | `pytest` exits 0 with the two year files left out, `software/tests/test_h1_year.py` and `software/tests/test_headline_year.py`. Those two are run on their own and reported on a line of their own, "The year: PASS, FAIL, or NOT YET", which never fails the run, because the demo day comes first and the year blocks nothing | the first package with a test |
 | F2 | It runs with no network | With `socket.socket` patched to raise, every build command in the packages exits 0, and once the page exists, it is served locally and answers | S1, then H2 |
 | F3 | The page fetches nothing from the internet | No `http://`, `https://`, or `//` address in any `src`, `href`, `url(`, or `import` in any `.html`, `.css`, or `.js` file under `software/` | H2 |
 | F4 | Every output file has the schema its package gives | A test reads each processed CSV and asserts its columns, their order, and its row count: 8,760 for the year and the weather, 26,280 for the simulation | H1 |

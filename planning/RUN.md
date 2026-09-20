@@ -45,6 +45,8 @@ Logged during the event with the clock time, one line each, what was decided and
 
 - Saturday night: Voloridge's challenge accepts any dataset, confirmed by abba, so the project's two public datasets qualify and no rule here limits the choice of dataset for it.
 
+- Saturday night: the demo day and the story come first, and an exact simulated year does not. The year's checks move to their own test files, are always reported, and block nothing, because the project is judged on the model it demonstrates and the story told over it. The weather stays real, and every label stays true.
+
 Open, for the team to settle out loud:
 
 - Which track the project enters, and whether it enters Voloridge's challenge, which is open to it.

@@ -131,7 +131,13 @@ The UTC file starts at local 19:00 on 2022-12-31, five night hours, so 2023-12-3
 ## Acceptance
 
 `python software/h1/build.py --city apopka` and `pytest software/tests/test_h1.py` exit 0 with `socket.socket` patched to raise.
-If an expected value does not match, the agent stops and reports it, and does not edit the value.
+
+The demo day comes first, and the year blocks nothing.
+`test_h1.py` holds the checks that must pass before H1 merges: the inputs, the join, the rules' invariants, and every value under "The demo day, 2023-06-03" below.
+`test_h1_year.py` holds the checks under "The year, asserted with tolerances".
+It is always run and its result is always reported, and a failure in it does not block the merge, H2, or the demo, because the project is judged on the day the page plays and the story told over it.
+The year still runs, because it is the same loop over the same hours, and its summary file is still written.
+If an expected value does not match, the agent reports it, and does not edit the value. A mismatch in the demo day stops the package. A mismatch in the year is reported in the reply and in the gate report, and the package carries on.
 
 ### The year, asserted with tolerances
 
@@ -204,7 +210,7 @@ How far to trust it, tested by scaling the evaporation by 0.95, 0.97, 0.99, 1.01
 
 ## Files
 
-May create: `data/crops.csv`, `data/processed/weather-apopka.csv`, `data/processed/sim-apopka.csv`, `data/processed/sim-summary-apopka.csv`, `software/h1/*.py`, `software/tests/test_h1.py`, and the four gate tests `software/tests/test_gate_f4_schema.py`, `test_gate_f6_assumptions.py`, `test_gate_f7_rules.py`, and `test_gate_f14_sources.py`.
+May create: `data/crops.csv`, `data/processed/weather-apopka.csv`, `data/processed/sim-apopka.csv`, `data/processed/sim-summary-apopka.csv`, `software/h1/*.py`, `software/tests/test_h1.py`, `software/tests/test_h1_year.py`, and the four gate tests `software/tests/test_gate_f4_schema.py`, `test_gate_f6_assumptions.py`, `test_gate_f7_rules.py`, and `test_gate_f14_sources.py`.
 May change: `data/README.md`, only to add the section "Assumptions", a table of every constant S1 and H1 mark ASSUMED or RECALLED, with its value and its label, which is what gate F6 checks.
 The four gate tests assert what `../gates.md` says for F4, F6, F7, and F14 and nothing more, and the expected values above stay in `test_h1.py`.
 Must not touch: `planning/`, anything in `hack-mit`, and S1's files, except that one section of `data/README.md`.
