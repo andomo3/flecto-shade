@@ -1,0 +1,103 @@
+# The persistent zone backend
+
+A grower's zone configuration, the runs it produced, and the log of what was commanded.
+Everything it stores is simulated, and every figure it returns is labelled simulated or modelled.
+
+## What it is not
+
+It holds no rules of its own.
+The nine deterministic rules, the light model, and the reference evaporation are imported from package H1, `software/h1/build.py`, so the API cannot drift from the simulation the data packages wrote.
+`software/tests/test_api.py` runs the engine against package H1's committed hours for 3 June 2023 and asserts they come back unchanged.
+
+No language model and no learned model sits in the control loop.
+
+## Dependencies
+
+None beyond the standard library.
+
+The repository pins `pandas`, `numpy`, and `pytest` and adds nothing without a work package naming it, so the validation layer, the HTTP layer, and the store are written against the standard library.
+`flecto/validation.py` gives the shape a Pydantic model gives: a declarative field list, coercion, bounds, and one structured error carrying every problem at once.
+Swapping it for Pydantic later means rewriting the `Model` subclasses and nothing else.
+FastAPI is deliberately absent until its dependency is approved for the backend work package, as the specification requires.
+
+## Layout
+
+| File | Holds |
+|---|---|
+| `index.py` | The Vercel Python entry point, and the only HTTP surface |
+| `local_server.py` | The console and the API on one local port, with no network |
+| `migrate.py` | The explicit migration step, run from a deployment pipeline |
+| `flecto/app.py` | Routing, serialisation, and the error boundary |
+| `flecto/engine.py` | The day loop, over package H1's rules |
+| `flecto/store.py` | SQLite, migrations, revisions, runs, and the control log |
+| `flecto/validation.py` | Request validation and structured problems |
+| `flecto/metrics.py` | The controlled registry of reviewable metrics |
+| `flecto/units.py` | Canonical units, converted only at the boundary |
+| `flecto/weather.py` | The historical inputs, read from `software/page/day.json` |
+| `flecto/seed.py` | The three committed zones, written once |
+| `var/` | The local SQLite database, never committed |
+
+## Running it
+
+```bash
+python software/api/migrate.py
+python software/api/local_server.py --port 8000
+```
+
+The CAD watering demo is at `http://127.0.0.1:8000/`, the secondary console at `http://127.0.0.1:8000/console.html`, and the API at `http://127.0.0.1:8000/api/health`.
+The page works without any of this: `software/page/` is a static directory and the historical demonstration runs from `day.json` alone.
+
+## Endpoints
+
+| Method | Path | Does |
+|---|---|---|
+| GET | `/api/health` | Service availability, with nothing about credentials or internals |
+| GET | `/api/metric-definitions` | The registry the overview may review |
+| GET | `/api/sites/{site_id}/zones` | Every zone, active and archived, with the four-zone state |
+| POST | `/api/sites/{site_id}/zones` | Add a zone, refused past four active ones |
+| PATCH | `/api/zones/{zone_id}` | Write a new configuration revision |
+| POST | `/api/zones/{zone_id}/archive` | Archive a zone, keeping every run that used it |
+| POST | `/api/zones/{zone_id}/restore` | Restore an archived zone, if a slot is free |
+| PUT | `/api/zones/{zone_id}/review-profile` | Choose and order the reviewed metrics |
+| POST | `/api/zones/{zone_id}/overrides` | Apply a reviewed manual override with an expiry |
+| POST | `/api/zones/{zone_id}/return-to-automatic` | Release every held override |
+| GET | `/api/zones/{zone_id}/control-events` | The append-only control log |
+| POST | `/api/simulation-runs` | Run the day against the current revisions |
+| GET | `/api/simulation-runs` | Recent runs for a site |
+| GET | `/api/simulation-runs/{run_id}` | One run, with the inputs that made it |
+| GET | `/api/simulation-runs/{run_id}/timeline` | The run's 24 hours, per zone |
+
+Add `?units=us` to any response carrying a depth or a temperature to convert at the boundary.
+The canonical values stay in the payload beside the converted ones.
+
+## The rules the API enforces
+
+- Four active zones per site, at most, checked in the store and not only in the interface.
+- A configuration change writes a new revision and never rewrites an earlier one.
+- A change carries `expected_revision`, and a stale one is refused with `revision_conflict`.
+- A run records the configuration revisions and the sha256 of the weather snapshot it used, so an earlier run stays reproducible after any later change.
+- An override carries an expiry hour and returns the zone to automatic control by itself.
+- An override is idempotent under an `Idempotency-Key` header, so a retried submission does not apply twice.
+- A safety rule outranks a manual command, and the refusal is reported rather than silently applied.
+- A reviewed metric comes from the registry in `flecto/metrics.py`, never from text a grower types.
+- Every timestamp is generated by the server.
+- Responses carrying zone configuration, overrides, or results are `Cache-Control: no-store`.
+
+## Errors
+
+Every failure returns `{"error": {"code": ..., "message": ..., "details": ...}}` with a stable code.
+The console maps the code to a state and a sentence and never parses the message.
+
+`validation_failed`, `zone_limit_reached`, `zone_not_found`, `zone_archived`, `revision_conflict`, `metric_not_supported`, `simulation_run_not_found`, `review_required`, `expected_revision_required`, `safety_rule_blocked`, `method_not_allowed`, `not_found`, `storage_unavailable`, `weather_snapshot_missing`, `body_too_large`, `invalid_json`, `internal_error`.
+
+## Storage
+
+SQLite is for local development and for the offline demonstration.
+It is the wrong store for a deployed function: a serverless filesystem is writable only under `/tmp`, and `/tmp` does not outlive the instance.
+
+PostgreSQL is the deployed store, reached through the `Database` seam in `flecto/store.py`.
+Every statement is plain SQL with positional parameters, and the connection is the only SQLite-specific piece.
+Setting `DATABASE_URL` to a PostgreSQL address without a driver installed returns `storage_unavailable` with a clear message rather than failing obscurely, because adding a driver is a named dependency decision for the backend work package.
+
+Migrations are applied by `migrate.py` as an explicit deployment step.
+Set `FLECTO_AUTO_MIGRATE=0` in a deployed environment so a function never migrates on its own.

@@ -10,7 +10,8 @@ import re
 from pathlib import Path
 
 PAGE = Path(__file__).resolve().parents[2] / "software" / "page"
-SERVED = ["index.html", "style.css", "app.js", "day.json"]
+SERVED = ["index.html", "style.css", "day.json", "flectofin.js", "rules.js",
+          "scene.js", "api.js", "console.js", "app.js"]
 
 
 def served_text():

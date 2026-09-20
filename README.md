@@ -11,7 +11,7 @@ Built at HackMIT 2026 · Plain HTML/CSS/JavaScript + WebGL · Python 3.13 · [MI
 
 ![Two selected soil areas receive simulated rain through individual circular flaps](assets/watering-preview.png)
 
-*Recorded watering demo at revision `15ebcfd`. Integration preserves that browser implementation; the linked recording identifies the behavior tested.*
+*Recorded watering demo at revision `15ebcfd`. Its controller and renderer are preserved; that earlier recording does not cover the secondary console or navigation between the pages. Current integration evidence is tracked in PR #5.*
 
 ## Problem
 
@@ -28,8 +28,8 @@ Our [problem research](planning/docs/research/flectofin-greenhouse-roof/problem-
 - **A rain-event controller:** set rain depth, starting soil water, target and capacity, then watch deterministic combinations of individual circular flaps open and close.
 - **Visible limits and accounting:** inspect covered/uncovered cells, target shortfalls, selected/outside delivery, stored water and overflow; allow spill explicitly and export the inputs/results as JSON.
 - **An interactive CAD roof:** the team's 22 circular flaps, rain animation and orbit/zoom camera controls.
-- **A separate weather replay:** explore 3 June 2023 in the Apopka area at `replay.html`, using crop-specific light/rain rules and explanations.
-- **An offline static page:** local assets and precomputed weather data, without runtime API calls.
+- **A secondary weather and zone console:** explore 3 June 2023 at `console.html`, with the team's procedural Flectofin renderer, crop rules, configuration controls and optional API persistence.
+- **Offline static demos:** local assets and precomputed weather data; CAD watering makes no API calls, and the console supports an explicit offline mode when its optional API is unavailable.
 
 ## Tech stack
 
@@ -38,12 +38,14 @@ Our [problem research](planning/docs/research/flectofin-greenhouse-roof/problem-
 | Browser app | Plain HTML, CSS, vanilla JavaScript and WebGL |
 | Rain-event controller | Deterministic browser JavaScript, also reused by Node tests and the figure generator |
 | Weather simulation | Python 3.13, pandas 2.2.3, numpy 2.2.3 |
+| Optional console persistence | Python standard-library API and local SQLite; no new dependencies |
 | Checks | pytest 9.0.2, Node tests, Ruff correctness checks, JavaScript syntax checks, GitHub Actions |
 | Weather | NASA POWER modeled radiation/temperature and NOAA ISD gauge rainfall |
 | Serving | Python's standard-library HTTP server, or a static host |
 
-No backend, database, Docker or frontend build is required.
+No backend, database, Docker or frontend build is required to run the static demos.
 Node is used only for development checks and figure generation.
+The secondary console's optional [API](software/api/README.md) stores configuration and simulation runs locally; deployed durable storage is not implemented.
 
 ## Architecture
 
@@ -65,7 +67,7 @@ flowchart TD
     tables --> day["software/page/build_day.py"]
     day --> json["day.json"]
     json --> replay["Separate weather replay"]
-    model --> replay
+    mechanism["Procedural Flectofin geometry"] --> replay
 ```
 
 Rain-event results are computed in the browser.
@@ -84,7 +86,9 @@ python -m http.server --directory software/page 8000
 Open `http://localhost:8000`.
 No accounts, API keys or raw-data download are needed to view the checked-in demo.
 Select growing areas, set the rain and soil inputs, then start the rain event.
-Use the weather replay link for the secondary demonstration.
+Use the weather and zone console link for the secondary demonstration; the old `replay.html` URL redirects there.
+The secondary console's procedural roof and weather rules are distinct from the primary demo's CAD geometry and manually configured rain event.
+To enable local console persistence, run `python software/api/local_server.py --port 8000` instead of the static server.
 
 For Python 3.13 development dependencies, raw inputs and test commands, see [CONTRIBUTING.md](CONTRIBUTING.md#development-checks) and [data provenance](data/README.md).
 CI verifies both documented weather snapshots and runs Python/JavaScript checks, including offline build tests.
@@ -100,6 +104,7 @@ See [results](pitch/results.md) and [full-precision examples](pitch/examples.jso
 node --test software/tests/watering.test.cjs
 node software/tools/build_watering_examples.cjs --check
 node --check software/page/app.js
+node --check software/page/watering-renderer.js
 node --check software/page/watering-app.js
 ```
 
