@@ -91,6 +91,35 @@ Abba and Ameya both check and reword their own line before it is pasted, because
 - **A thumbnail.** Use `assets/hero-storm-three-answers.jpg` from the repository: the live page at 15:00 on the simulated day, with the hydrangea's roof open in the rain and the other two shut. It shows the claim rather than describing it.
 - **The demo link**, in the Links section: <https://page-five-kappa.vercel.app>
 
+## "How we built it", rewritten to carry the architecture
+
+The version on Plume covers the CAD and stops there.
+This keeps Shannon's paragraph and adds the systems design, because "how we built it" is where a technical judge looks for the decisions rather than the tools.
+
+### The copy
+
+**The fin.** The Flectofin was modelled in Onshape and rendered in Solidworks. We kept the geometry simple on purpose: two rectangular laminae on a central backbone that buckles, which is the movement the bird of paradise flower makes. That CAD is tessellated once and committed, so the roof you watch move in the browser is the geometry we drew rather than an artist's impression.
+
+**The architecture, in one line: decide in Python, draw in JavaScript.** Anything that can be decided ahead of time is decided in Python, and the browser only interpolates between hours and renders. Which words a zone shows, the hour a fin moves, the value on every gauge: all of it is computed by the simulation and written into one 22 KB file, `day.json`. The page reads that file and nothing else.
+
+That seam is the most important decision we made, and we made it for three reasons.
+
+1. **The demo cannot fail on someone else's network.** The page makes no request to anything. A test walks every served file and fails the build if it finds an `http://` outside a comment, so the whole thing runs from a folder with the wifi off.
+2. **Every figure has exactly one source.** Because the page cannot compute a headline number, it cannot disagree with the simulation. There is no second implementation to drift.
+3. **It is testable in Python**, where we already had a test suite, rather than in a browser, where we did not.
+
+**Where we broke our own rule, and how we made it safe.** A grower adding a new zone in the browser has no precomputed baseline, so the nine rules had to exist in JavaScript too. That is a duplicated implementation, which is exactly the kind of thing that drifts. So a test runs the browser's `rules.js` under Node against every committed zone in `day.json` and asserts the two agree on the roof position, the decision word, and the reason, with soil and light within the rounding. The constants arrive from the simulation in `day.json`, so a number edited in the browser file cannot take effect.
+
+**Determinism as a property we test, not a hope.** The simulation is a pure function of its inputs and its constants. Two runs of the same day produce byte for byte identical output, and a test asserts it. That is what lets us tell a judge that the roof follows nine written rules with no learned model in the loop, and have it mean something.
+
+**Honesty enforced by the build, not by discipline.** Five gate tests police the claims: one asserts the word "measured" appears nowhere except the single line where it is true of the rain gauge; one asserts every constant we assumed is declared with its value in the data documentation; one fails the build if the page ever claims a saving in water, cost, energy or yield. One of our own commits exists because a code comment tripped that last gate. Writing the rule down was not enough; the rule had to be executable.
+
+**Graceful degradation, by design.** There is a Python API for stored configuration, but the console is built to work without it. When it is absent the page loads the static day, plays it, shows every decision, and displays an explicit offline state instead of an error. A test asserts that path. It is why the live deployment is a static page and the demo is unaffected.
+
+**One palette, two consumers.** The colours are declared once as custom properties in CSS, and the 3D renderer reads the same values through its own table, so the modelled roof cannot drift from the page around it.
+
+**The stack, and why it is boring.** Plain HTML, CSS and vanilla JavaScript, no framework and no build step. Python 3.13 with pandas and numpy for the simulation. The reasoning is the same as the seam: the fewer moving parts between a judge and the demo, the fewer ways it fails at a table at three in the morning.
+
 ## One correction to make in the existing copy
 
 "How we built it" says the fin has "two rectangular laminae connected to a central backbone that can bend to create that buckling behavior seen in the Bird of Paradise of flower."
