@@ -1,8 +1,8 @@
-# Flecto Shade
+# Shade House
 
 **An adaptive shade-house simulation for giving growing areas different amounts of light and rain.**
 
-**[Open the live demo](https://page-five-kappa.vercel.app)** · [Run locally](#setup) · [Team workflow](CONTRIBUTING.md) · [Issues](https://github.com/andomo3/flecto-shade/issues)
+**[Open the live demo](https://page-five-kappa.vercel.app)** · [Run locally](#setup) · [Team workflow](CONTRIBUTING.md) · [Issues](https://github.com/andomo3/shade-house/issues)
 
 Built at HackMIT 2026 · Plain HTML/CSS/JavaScript · Python 3.13 · [MIT](LICENSE)
 
@@ -32,7 +32,7 @@ Our [problem research](planning/docs/research/flectofin-greenhouse-roof/problem-
 - **A reproducible simulation:** deterministic light/rain rules and soil-water buckets driven by public 2023 weather inputs.
 - **An offline static page:** local assets and precomputed data, without runtime API calls.
 
-A farmer-driven watering flow was prototyped in [PR #5](https://github.com/andomo3/flecto-shade/pull/5) and is **not merged**.
+A farmer-driven watering flow was prototyped in [PR #5](https://github.com/andomo3/shade-house/pull/5) and is **not merged**.
 It replaced the console and the roof viewer rather than adding to them, and it introduced a second rain model beside the shared rules, so it was not taken.
 The farmer-driven work is being rebuilt as a component that adds to the current page instead.
 
@@ -75,8 +75,8 @@ The farmer-area controller in PR #5 computes rain-event results in the browser.
 With Python installed, the existing demo takes three commands:
 
 ```bash
-git clone https://github.com/andomo3/flecto-shade.git
-cd flecto-shade
+git clone https://github.com/andomo3/shade-house.git
+cd shade-house
 python -m http.server --directory software/page 8000
 ```
 
@@ -92,7 +92,7 @@ It does not publish a deployment.
 The live demo is at <https://page-five-kappa.vercel.app>, deployed from `main` on 2026-09-20.
 The hero image above is a screenshot of that page, taken at 15:00 on the simulated day.
 
-The [recorded watering preview](https://github.com/andomo3/flecto-shade/pull/5#issuecomment-5747121392) belongs to the unmerged PR #5 and does not show what the live page does.
+The [recorded watering preview](https://github.com/andomo3/shade-house/pull/5#issuecomment-5747121392) belongs to the unmerged PR #5 and does not show what the live page does.
 The submission recording must match the deployed page, and its handoff is tracked in the [release checklist](CHECKLIST.md).
 
 ## Evidence and limits
