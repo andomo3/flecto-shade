@@ -1,218 +1,115 @@
-# Smart louvre roof
+# Shade house — water the areas you choose
 
-**One shade house roof, three crops, three different answers to the same sky, simulated on a real year of Florida weather.**
+**A farmer selects growing areas; a simulated roof combines circular flap openings to water them and explains any shortfall.**
 
-[![Built at HackMIT 2026](https://img.shields.io/badge/Built%20at-HackMIT%202026-blueviolet)](https://hackmit.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![Python 3.13](https://img.shields.io/badge/Python-3.13-blue?logo=python&logoColor=white)](https://www.python.org/)
-[![No build step](https://img.shields.io/badge/Page-plain%20HTML%2C%20CSS%2C%20JS-orange)](#tech-stack)
-[![Simulated](https://img.shields.io/badge/Everything%20here-simulated-lightgrey)](#what-is-ours-and-what-is-not)
+HackMIT 2026 · Static HTML/CSS/JavaScript + WebGL · All water results simulated
 
----
+**Demo status:** Working farmer-selected watering MVP on [PR #5](https://github.com/andomo3/flecto-stop/pull/5). Use that branch until it is merged. Browser evidence and review live on the PR. A permanent public demo has not been deployed as part of this change.
 
-> **Status, Saturday evening, 2026-09-19.**
-> The plan and every specification are written, and the code is being written now, during the hacking period.
-> The live link and the screenshots go here as soon as the page plays its first day.
-> See [the board](CHECKLIST.md) for what is merged.
+[Presentation](pitch/presentation.html) · [45-second demo script](pitch/demo.md) · [Reproducible figures](pitch/results.md) · [Model boundary](#what-the-model-does-and-does-not-prove)
+
+[Watch the passing demo and view screenshots](https://github.com/andomo3/flecto-stop/pull/5#issuecomment-5747121392).
 
 ## Problem
 
-**A grower with three crops under one shade house roof gives all three the same sky.**
+Imagine a shade-house grower near Apopka, Florida, wanting rain on two areas while their neighbours stay dry. The useful question is spatial: which roof openings reach the requested soil, and which also wet protected areas? This is an illustrative scenario; no customer adoption or crop improvement is claimed.
 
-The way such a roof works today is a fine brain and a blunt hand.
-The climate computer is already fine grained: it holds a daily light target, and it starts irrigation valve by valve.
-The roof is not: "One gear motor will handle up to 50,000 sq ft of roof", in the words of a UMass fact sheet.
-So every plant under that motor gets one decision.
+## What we built
 
-But the plants do not agree.
-Purdue's light table puts a Boston fern at its best from 8 mol of light a day, and a hydrangea from 12.
-Whatever the roof does is wrong for one of them.
-And when an afternoon storm comes, the rain falls on every bed or on none, the dry one and the wet one alike.
+- Select soil cells by click, drag or keyboard; choose a two-footprint preset, region footprints or the full rectangle.
+- Apply a rain event with an initial soil-water depth and a target.
+- Watch the team's CAD flaps open individually, orbit/zoom the roof and inspect the projected footprints.
+- See met targets, protection conflicts, uncovered cells and rain-exhausted shortfalls.
+- Inspect selected/outside delivery, storage, overflow, admitted/excluded rain and the opening sequence; download the full result as JSON.
+- Keep the earlier Florida weather replay on a separate page. Time of day is not part of the primary interaction.
 
-The sources for every figure are in [the market research](planning/docs/research/flectofin-greenhouse-roof/market-and-differentiation.md) and in [the simulation's specification](planning/plans/packages/H1-zones-light-rain-soil.md).
+## Run locally
 
-## Solution
+No dependency installation, Docker, account, API key or frontend build is needed to open the committed demo. Use Python 3 to serve the static directory:
 
-**A roof made of many small hingeless fins, grouped into zones, that decides bed by bed.**
+```bash
+git clone --branch devin/1789868897-area-watering https://github.com/andomo3/flecto-stop.git
+cd flecto-stop
+python -m http.server --bind 127.0.0.1 --directory software/page 8000
+```
 
-Each zone gets its own light, and lets the rain through only when its soil is dry.
-We simulate that roof over three crop zones near Apopka, Florida, hour by hour through 2023, and one page plays one real day of it in about forty seconds.
+Open `http://localhost:8000`, click **Select two footprints**, then **Simulate rain**. Use HTTP rather than opening the page as a file, because it loads local JSON. The complete folder runs without external network access after the local server starts. WebGL2 is needed for the CAD view; the soil controller remains available if CAD rendering fails.
 
-Why fins, and why this fin: deciding bed by bed takes a roof of many small parts, and with hinges every one of them is a bearing to grease, which the growers' own guides already list as a chore.
-The Flectofin is a thin blade that bends open with no hinge, and the same part shades, opens for air, and lets the rain through.
-That is our argument and not a finding: no saving is quantified, by our sources or by us.
+Defaults: rain 10 mm, soil 20 mm, target 25 mm, outside watering off. **Reset** restores those inputs and clears selection. Each run starts from the input soil value. Reduced-motion preferences skip animation intentionally.
 
-### How it works
+The separate weather replay is `replay.html`; its crop/weather rules and outputs are distinct from the manually configured rain event.
 
-1. **The sun and the rain.** A year of hourly sun from NASA POWER and hourly rain from the Orlando Executive Airport gauge, the same place and the same year, so that rainy hours are darker hours.
-2. **Three zones, three crops.** Boston fern and hydrangea each have a daily light target, blueberry has a shade share, and each crop opts in or out of rain.
-3. **Nine written rules.** Every hour, every zone's fins open or shut by nine deterministic rules, in the priority night, then rain, then light, with a soil water bucket per zone.
-4. **One day, played back.** The page shows the roof from above and plays 3 June 2023: the fern's zone shuts by eleven, the hydrangea's by noon, the blueberries stay open, and then an afternoon storm gets three different answers, each with its reason in words.
-5. **The result card.** Each crop's light against its target, the rain's share of each zone's water, and the year by month.
-
-## Live demo
-
-Not up yet.
-A static copy of the page goes on Vercel once it plays the demo day, and the address goes here.
-The demo at the table runs from the laptop with the network off.
-
-## What is ours, and what is not
-
-Said up front, because a judge who knows horticulture will know most of this exists.
-
-| Whose | What |
-| --- | --- |
-| **Not ours** | The fin. It is the Flectofin, by ITKE at the University of Stuttgart, patented as EP2320015. See [whose fin it is](planning/docs/research/flectofin-greenhouse-roof/fin-patent-and-credit.md) |
-| **Not ours** | Watering by the sun's energy and holding a daily light target, which greenhouse computers from Ridder, Hoogendoorn, Argus, and Priva already do |
-| **Not ours** | A moving roof over crops, which Cravo and Sun'Agri already sell |
-| **Ours** | The size of the decision: a bed, not a building. We found no prior proposal to put a Flectofin over crops, which is an absence in our searches and not proof |
-| **Simulated** | Everything. Nothing physical was built, no fin was printed, and every figure on every screen says simulated or modelled. The one real record is the rain gauge |
-| **Not claimed** | Yield, cost, water or energy saved, safety from disease, wind, hail, or a built roof |
-
-Growers keep rain off glasshouse crops on purpose, because wet leaves bring disease.
-That is why this is a shade house, why each crop opts in to rain, only in daylight and only with time to dry, and why the fern opts out.
-Shading blueberries is not Florida practice, and that figure comes from Washington State.
-
-## Features
-
-- Three crop zones under one roof, each with its own light rule taken from a published source
-- A roof of fins per zone that opens and shuts by nine written rules, with each zone's reason shown in words
-- Real hourly rain from one gauge and the sun for the same place and year
-- A soil water bucket per zone, with the grower's own irrigation as the backstop
-- One page that plays one day, from a single Play button, and ends on a result card
-- The year's summary, by zone and by month
-- No AI and no learned model anywhere in the roof's control loop, and fins that never track the sun's position
-- Runs with no network: no CDN, no web fonts, no framework, no build step
-
-## Tech stack
-
-| Layer | Technology | Why |
-| --- | --- | --- |
-| Simulation | Python 3.13, `pandas==2.2.3`, `numpy==2.2.3` | A year of hourly data is a table, and the rules are a loop over it |
-| Tests and gates | `pytest==9.0.2`, and a gate runner in `tools/` | Every expected value was computed from the real data before any code existed, so a test cannot pass by agreeing with its own mistake |
-| Page | Plain HTML, CSS, and vanilla JavaScript, with inline SVG | Nothing to build, nothing to fetch, and it cannot break on venue Wi-Fi |
-| Serving | `python -m http.server` at the table, a static copy on Vercel for the link | The folder is served as it is |
-| Data | NASA POWER hourly, NOAA ISD global hourly | Public, citable, and for the same place and year |
-
-Next.js and Supabase were considered and set aside, because nothing here is stored and nobody logs in.
-
-## Architecture
+## Architecture and tech stack
 
 ```mermaid
-flowchart TD
-    raw["data/raw/ : NASA POWER sun, NOAA ISD rain<br/>(downloaded, never committed)"]
-    s1["S1 : data/build_solar_2023.py"]
-    year["data/processed/year-apopka-2023.csv"]
-    h1["H1 : software/h1/build.py<br/>crops, light, soil bucket, nine rules"]
-    sim["data/processed/sim-apopka.csv<br/>sim-summary-apopka.csv, weather-apopka.csv<br/>data/crops.csv"]
-    h2["H2 : software/page/build_day.py"]
-    day["software/page/day.json"]
-    h3["H3 : software/h3/build_headline.py"]
-    head["headline.json<br/>the one source of every spoken figure"]
-    page["software/page/ : index.html, style.css, app.js"]
-    g1["G1 : tools/gates.py<br/>checks every package"]
-
-    raw --> s1 --> year --> h1 --> sim
-    raw --> h1
-    sim --> h2 --> day --> page
-    sim --> h3 --> head --> page
-    g1 -.-> s1
-    g1 -.-> h1
-    g1 -.-> h2
-    g1 -.-> h3
+flowchart LR
+    cad["Team STEP → H2 model.json + controller-map.json"]
+    layout["CAD adapter → metres + circular masks"]
+    choice["Selected cells + rain + soil + target"]
+    ctl["Watering.simulate → deterministic phases + accounting"]
+    ui["Static page → CAD motion + soil map + results"]
+    evidence["JSON download / generated pitch figures"]
+    cad --> layout --> ctl
+    choice --> ctl --> ui
+    ctl --> evidence
 ```
 
-Packages meet only through files with a schema, and the page adds no physics: every number it shows was computed by the simulation.
+| Part | Implementation |
+|---|---|
+| Primary runtime | Plain browser JavaScript, HTML/CSS, WebGL2; no backend |
+| Controller | `software/page/watering-model.js`: `fromCAD`, `footprints`, `simulate` |
+| Page integration | `watering-app.js`, shared CAD renderer `app.js`, `index.html` |
+| Figure generation | Node script reuses the same controller; no new dependencies |
+| Earlier replay | Committed `day.json` generated by the Python weather/crop pipeline |
+| Local hosting | Python standard-library HTTP server; any static host can serve the folder |
 
-## Setup
+## Reproducible results and checks
 
-Needs Python 3.13.
-These are the commands the specifications fix, and each one works once its package is merged, which [the board](CHECKLIST.md) shows.
+The default two-footprint example reaches **42/42** selected targets with **21.1 mL** selected delivery and **0.0 mL** outside delivery/overflow. These are simulated at the approximately **129 × 304 mm** CAD scale. See [results](pitch/results.md) and [full-precision examples](pitch/examples.json) for inputs and other cases; rounded figures are not a savings benchmark.
+
+The controller and generator were checked with Node 20.19:
 
 ```bash
-git clone https://github.com/andomo3/flecto-stop.git
-cd flecto-stop
-python -m venv .venv
-.venv\Scripts\activate            # on macOS or Linux: source .venv/bin/activate
-pip install -r software/requirements.txt
+node --test software/tests/watering.test.cjs
+node software/tools/build_watering_examples.cjs --check
+node --check software/page/app.js
+node --check software/page/watering-app.js
 ```
 
-Build the year, the simulation, the demo day, and the result card, then serve the page:
+To regenerate figures and the self-contained slide deck, omit `--check`. Do not manually edit the generated examples, results or presentation.
 
-```bash
-python data/build_solar_2023.py
-python software/h1/build.py --city apopka
-python software/page/build_day.py --date 2023-06-03
-python software/h3/build_headline.py
-python -m http.server --directory software/page 8000
-```
+For the separate Python simulation/tests, use the repository's Python 3.13 environment, install `software/requirements.txt`, and run `python -B -m pytest software/tests -q -p no:cacheprovider`. Some data tests require the ignored raw weather inputs documented in [data/README.md](data/README.md). They are not required to run the committed primary demo.
 
-Then open `http://localhost:8000` and press Play.
+## Screenshots and recording
 
-The two raw data files are public and are not committed.
-Where to download them, and the sha256 of each, is in [the board](CHECKLIST.md) under "Before any package".
-There are no environment variables, no keys, and no accounts.
+The latest browser recording and screenshots are linked with the validation evidence on [PR #5](https://github.com/andomo3/flecto-stop/pull/5). Download them before judging. The [presentation](pitch/presentation.html) opens directly as a self-contained local HTML file and supports browser Print → Save as PDF.
 
-Run the tests and the gates:
+## What the model does and does not prove
 
-```bash
-pytest
-python tools/gates.py
-```
+The supplied STEP establishes **22 flap instances in two overlapping layers plus a base**. Its geometry agrees with the existing H2 mesh within approximately 0.08 mm. The controller uses assumed independent circles of **25 mm radius**, offset from each component origin; choosing the assembly's XY bounding rectangle as soil is also an assumption.
 
-## Project structure
+Cells whose centres lie inside a circle receive rain when that flap is open. Open footprints form a union: overlapping flaps never double the rain. Strict mode excludes apertures that would wet an unselected or already-satisfied cell. A deterministic greedy combination advances to the next receiving-cell target, then replans. Spill mode is an explicit opt-in; capacity overflow is tracked separately.
 
-```text
-flecto-stop/
-├── AGENTS.md          the rules for everyone, human or agent, who works here
-├── CHECKLIST.md       the live board: owners, order, interfaces, the clock
-├── planning/          the plan, the specifications, the pitch, the research (Markdown only)
-├── tools/             the gate runner and its tests
-├── data/              the build scripts, crops.csv, and processed/ (raw/ is never committed)
-├── software/          the simulation (h1/), the page (page/), the result card (h3/), tests/
-├── gates-log/         one gate report per package
-└── pitch/             the final scripts and figures, generated from headline.json
-```
+The simulation checks `event = admitted + excluded`, `admitted = selected + outside`, and `initial soil + admitted = final soil + overflow`. It does not calculate cross-layer/base obstruction, wind, runoff redistribution, evaporation, crop response, physical folding or actuator performance. Greedy selection is not proven globally optimal.
 
-## What's next
+No working roof, crop-yield improvement, physical water savings, actuator speed or new mechanism patent is claimed. Inspiration: **ITKE Flectofin, EP2320015**; the license on our code conveys no rights to that mechanism.
 
-If we had more time, we would:
+## Next steps
 
-1. Put this in front of one grower near Apopka and ask where it is wrong, because no grower has seen it yet.
-2. Model what we left out on purpose: wind and hail on thin fins, and the cost of many actuators.
-3. Build one zone of real fins over one real bed, and replace the modelled sun with a light sensor.
+- [ ] Measure actual rain footprints and blockage through the layered CAD geometry.
+- [ ] Ask one grower to test the area-selection workflow.
+- [ ] Compare the controller with a small actuated, instrumented physical section.
 
 ## Team
 
-| Name | Role |
-| --- | --- |
-| Abba Otieno Ndomo ([andomo3](https://github.com/andomo3)) | Software engineering, integration, and the plan |
-| Ameya Tanikella | Data engineering: the sun, the rain, and the simulation |
-| Shannon | The roof layout |
+| Contributor | Project role |
+|---|---|
+| [Abba Otieno Ndomo](https://github.com/andomo3) | Software direction and integration |
+| Ameya Tanikella | Weather/crop simulation and CAD handoff |
+| Shannon | Roof layout, per the project team record |
 
-## How we used AI tools
-
-The HackMIT rules ask for every AI tool to be cited.
-
-- **Devin**, from Cognition, wrote the code, one work package at a time, from specifications a person planned.
-- **Claude**, from Anthropic, was used for planning, research, and these documents.
-- No AI and no learned model runs inside the project: the roof follows nine written, deterministic rules.
-
-The open source libraries, the datasets, and the source of every crop figure are cited in [the submission text](planning/pitch/submission.md).
-
-## Prior work, stated plainly
-
-Before the event the team did research and planning in public, at <https://github.com/andomo3/hack-mit>, for a different idea, which was set aside on Saturday.
-This project was chosen, planned, and built during the hacking period.
-That repo holds research, specifications, a pitch, and one labelled throwaway prototype.
-No code was copied from it, and every line of code in this repo is written during the hacking period.
+Devin (Cognition) assisted implementation, testing and documentation; Claude (Anthropic) assisted earlier planning and research. No AI model runs in the roof controller. Earlier research/planning is at [andomo3/hack-mit](https://github.com/andomo3/hack-mit); source attribution and submission text are in [pitch/submission.md](pitch/submission.md).
 
 ## License
 
-The code in this repo is licensed under the MIT License, see [LICENSE](LICENSE).
-The license covers our code only.
-The Flectofin is ITKE's, and nothing here grants any right to it.
-
----
-
-Built at HackMIT 2026.
+[MIT](LICENSE) covers the repository's code. Mechanism and dataset rights remain with their respective owners.
