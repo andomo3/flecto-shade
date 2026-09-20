@@ -1,4 +1,4 @@
-# flecto-stop: rules for anyone, human or agent, working in this repo
+# flecto-shade: rules for anyone, human or agent, working in this repo
 
 This is the repo the team submits to HackMIT 2026.
 

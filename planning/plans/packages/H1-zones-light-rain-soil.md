@@ -26,7 +26,7 @@ Why Apopka, VERIFIED from the University of Florida:
 
 ### The solar year
 
-`flecto-stop/data/processed/year-apopka-2023.csv`, written by package S1 from NASA POWER, for the same gauge and year as the rain.
+`flecto-shade/data/processed/year-apopka-2023.csv`, written by package S1 from NASA POWER, for the same gauge and year as the rain.
 If it is absent, stop and report, and do not rebuild it here.
 H1 uses its `time_utc`, `month`, `local_hour`, `ghi`, and `t2m` columns, and joins the rain on `time_utc`, because both files stamp the start of the hour.
 
@@ -34,7 +34,7 @@ H1 uses its `time_utc`, `month`, `local_hour`, `ghi`, and `t2m` columns, and joi
 
 - `hack-mit/data/raw/isd-rain/72205312841-2023.csv`, NOAA ISD global hourly, "ORLANDO EXECUTIVE AIRPORT, FL US", 2023: 6,393,887 bytes, sha256 `d26366ed5b470b8a79d0c447b08b693b7b77f810bc8ee7a138c1a75682c64f08`.
   Latitude 28.54653, longitude -81.33544, elevation 31.7 m.
-  A person copies it into `flecto-stop/data/raw/isd-rain/` and checks the sha256.
+  A person copies it into `flecto-shade/data/raw/isd-rain/` and checks the sha256.
 - It was chosen from four gauges near Apopka as the most complete: 8,760 hourly reports, 2 lacking the rain field, against 13 missing hours at Orlando International, 35 at Sanford, and 25 at Leesburg.
 - 11,349 rows. `REPORT_TYPE` is FM-15 in 8,760, FM-16 in 2,212, `SOD  ` in 365, and `SOM  ` in 12, with trailing spaces.
 - The rain is in `AA1`, as "period hours, depth in tenths of a mm, condition, quality": `01,0000,9,5`, a wet hour such as `01,0239,9,5`, a trace as `01,0000,2,5`, and missing as depth 9999.

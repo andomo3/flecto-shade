@@ -130,8 +130,8 @@ Needs Python 3.13.
 These are the commands the specifications fix, and each one works once its package is merged, which [the board](CHECKLIST.md) shows.
 
 ```bash
-git clone https://github.com/andomo3/flecto-stop.git
-cd flecto-stop
+git clone https://github.com/andomo3/flecto-shade.git
+cd flecto-shade
 python -m venv .venv
 .venv\Scripts\activate            # on macOS or Linux: source .venv/bin/activate
 pip install -r software/requirements.txt
@@ -163,7 +163,7 @@ python tools/gates.py
 ## Project structure
 
 ```text
-flecto-stop/
+flecto-shade/
 ├── AGENTS.md          the rules for everyone, human or agent, who works here
 ├── CHECKLIST.md       the live board: owners, order, interfaces, the clock
 ├── planning/          the plan, the specifications, the pitch, the research (Markdown only)
