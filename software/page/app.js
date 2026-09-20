@@ -12,7 +12,6 @@
   var sim = {};
 
   var $ = function (id) { return document.getElementById(id); };
-  var MONTHS = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
 
   /* ---------- the rules, the same nine, run client side ---------- */
 
@@ -110,29 +109,31 @@
   /* ---------- the roof figure ---------- */
 
   function buildRoof() {
-    var W = 760, padX = 20, bedH = 96, gap = 18, topPad = 14;
-    var H = topPad + D.zones.length * (bedH + gap);
-    var svg = ['<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Plan view of three shade house zones and their fins">'];
+    var W = 1000, H = 420, padX = 30, gap = 40, topPad = 56;
+    var n = D.zones.length;
+    var bedW = (W - padX * 2 - gap * (n - 1)) / n;
+    var bedH = H - topPad - 24;
+    var svg = ['<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet"' +
+               ' role="img" aria-label="Three shade house zones seen from above, each under its own roof of fins">'];
 
     D.zones.forEach(function (z, zi) {
-      var y = topPad + zi * (bedH + gap);
-      var bedW = W - padX * 2;
-      svg.push('<rect x="' + padX + '" y="' + y + '" width="' + bedW + '" height="' + bedH +
-               '" rx="6" fill="#ffffff" stroke="#dfe3e9"/>');
-      svg.push('<rect x="' + padX + '" y="' + y + '" width="5" height="' + bedH +
-               '" rx="2.5" fill="#2f6b4f" id="edge-' + z.zone + '"/>');
-      svg.push('<text class="bed-label" x="' + (padX + 16) + '" y="' + (y + 24) + '">Zone ' + z.zone + '</text>');
-      svg.push('<text class="bed-crop" x="' + (padX + 16) + '" y="' + (y + 42) + '">' + z.crop + '</text>');
+      var x = padX + zi * (bedW + gap);
+      svg.push('<text class="bed-label" x="' + x + '" y="24">Zone ' + z.zone + '</text>');
+      svg.push('<text class="bed-crop" x="' + x + '" y="44">' + z.crop + '</text>');
+      svg.push('<rect x="' + x + '" y="' + topPad + '" width="' + bedW + '" height="' + bedH +
+               '" rx="8" fill="#ffffff" stroke="#ded7c9"/>');
 
-      // Plan view from above: a louvre turning edge-on narrows to a line, so the
-      // fin's drawn width is its open fraction. Shut, they touch and roof the bed.
-      var n = 16, startX = padX + 150, span = bedW - 172;
-      var pitch = span / (n - 1);
-      for (var i = 0; i < n; i++) {
-        var fx = startX + pitch * i;
-        var w = pitch - 2;
-        svg.push('<rect class="fin" id="fin-' + z.zone + '-' + i + '" x="' + (fx - w / 2) + '" y="' + (y + 16) +
-                 '" width="' + w.toFixed(1) + '" height="' + (bedH - 32) + '" rx="2" fill="#2f6b4f"/>');
+      // A louvre turning edge-on narrows to a line, so a fin's drawn depth is its open
+      // fraction. Shut, the slats touch and roof the bed.
+      var slats = 12, inset = 14;
+      var span = bedH - inset * 2;
+      var pitch = span / (slats - 1);
+      for (var i = 0; i < slats; i++) {
+        var fy = topPad + inset + pitch * i;
+        var h = pitch - 2;
+        svg.push('<rect class="fin" id="fin-' + z.zone + '-' + i + '" x="' + (x + 10) +
+                 '" y="' + (fy - h / 2) + '" width="' + (bedW - 20) + '" height="' + h.toFixed(1) +
+                 '" rx="2" fill="#1e6b3a"/>');
       }
     });
 
@@ -143,12 +144,12 @@
   function paintRoof() {
     D.zones.forEach(function (z) {
       var open = sim[z.zone][hour].open;
-      var scale = (1 - open * 0.88).toFixed(3);      // 1 shut, 0.12 fully open
-      var op = (0.62 + (1 - open) * 0.38).toFixed(2); // solid when it roofs the bed
-      for (var i = 0; i < 16; i++) {
+      var scale = (1 - open * 0.88).toFixed(3);       // 1 shut, 0.12 fully open
+      var op = (0.6 + (1 - open) * 0.4).toFixed(2);   // solid when it roofs the bed
+      for (var i = 0; i < 12; i++) {
         var el = document.getElementById("fin-" + z.zone + "-" + i);
         if (el) {
-          el.style.transform = "scaleX(" + scale + ")";
+          el.style.transform = "scaleY(" + scale + ")";
           el.setAttribute("fill-opacity", op);
         }
       }
@@ -179,7 +180,7 @@
         '<div class="meter">' +
           '<div class="meter-top"><span class="meter-label">Soil water</span>' +
             '<span class="meter-val" id="sv-' + z.zone + '">-</span></div>' +
-          '<div class="track"><div class="fill soil" id="sf-' + z.zone + '"></div></div>' +
+          '<div class="track soil-track"><div class="fill soil" id="sf-' + z.zone + '"></div></div>' +
           '<span class="meter-label">dry below ' + C.SOIL_DRY_BELOW + ' mm</span>' +
         '</div>' +
         '<div class="z-state">' +
@@ -336,23 +337,13 @@
 
   function buildRegion() {
     var r = D.region;
-    $("reg-sub").textContent = "Gauge record for " + r.year + ", the year this day is taken from.";
-    $("stats").innerHTML = [
-      ["Rain in the year", r.rain_mm.toLocaleString() + " mm"],
-      ["Against the 1991-2020 normal", "+" + r.vs_normal_pct + "%"],
-      ["Hours with rain", r.rain_hours.toLocaleString()],
-      ["Of those, in daylight", r.daylight_rain_hours + " (" + r.daylight_rain_mm.toLocaleString() + " mm)"],
-      ["Hours with sun", r.lit_hours.toLocaleString()]
-    ].map(function (row) {
-      return "<div><dt>" + row[0] + "</dt><dd>" + row[1] + "</dd></div>";
-    }).join("");
-
-    var max = Math.max.apply(null, r.monthly_rain_mm);
-    $("months").innerHTML = r.monthly_rain_mm.map(function (v, i) {
-      return '<i class="' + (v === max ? "peak" : "") + '" style="height:' +
-             Math.max(3, v / max * 100) + '%" title="' + MONTHS[i] + ": " + v + ' mm"></i>';
-    }).join("");
-    $("reg-source").textContent = r.source;
+    $("foot-region").textContent =
+      "That year the gauge caught " + r.rain_mm.toLocaleString() + " mm of rain over " +
+      r.rain_hours.toLocaleString() + " hours, " + r.vs_normal_pct +
+      " percent above the 1991 to 2020 normal of " + r.normal_mm.toLocaleString() +
+      " mm, so 2023 was an ordinary year here. " + r.daylight_rain_hours +
+      " of those hours fell in daylight, carrying " + r.daylight_rain_mm.toLocaleString() +
+      " mm, and that is the rain this roof can do anything about. " + r.source;
   }
 
   /* ---------- boot ---------- */
