@@ -17,6 +17,7 @@ The current plan is `../plan-d-louvre-roof.md`, the simulated smart louvre roof,
 | H2 | `H2-page.md` | The page that plays 3 June 2023 in about forty seconds from H1's output, with each zone's reason in words | ready, and it needs H1. K2 is optional, and without it the page draws a default grid |
 | H3 | `H3-result-card.md` | The result card, the year by month, and `headline.json`, the one file every spoken figure comes from | ready, and it needs H2 |
 | K2 | specified in `CHECKLIST.md` at the event repo's root | The roof layout the page draws, as modelled data, and optional | ready |
+| D1 | `D1-evidence-chart.md` | One chart on a page of its own, a re-plot of a published soil moisture and disease result, to back the pitch's "what comes next" beat | drafted and optional, handed over only after H3 and G1 are on `main`, and only once abba adds D1 to the package list in `AGENTS.md` |
 
 K1, the printed display fin, was cut on Saturday evening, because the project is the simulation alone and nothing physical is built.
 
