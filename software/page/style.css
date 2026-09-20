@@ -84,6 +84,7 @@ button { cursor: pointer; }
   display: grid;
   grid-template-columns: minmax(0, 1.62fr) minmax(400px, 1fr);
   grid-template-areas:
+    "navigation navigation"
     "stage overview"
     "stage inspector"
     "timeline inspector"
@@ -93,6 +94,7 @@ button { cursor: pointer; }
   margin: 0 auto;
   padding: var(--s4) var(--s5) var(--s6);
 }
+.console-nav { grid-area: navigation; margin: 0; }
 .stage { grid-area: stage; }
 .overview { grid-area: overview; }
 .inspector { grid-area: inspector; }
@@ -298,11 +300,13 @@ button { cursor: pointer; }
 }
 .panel-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--s3);
   margin-bottom: var(--s3);
 }
+.panel-head > div { flex: 1 1 18rem; min-width: 0; }
 .panel-head h2 { margin: 0; font-size: 24px; line-height: 1.15; }
 .panel-sub { margin: var(--s1) 0 0; color: var(--ink-3); }
 
@@ -318,7 +322,9 @@ button { cursor: pointer; }
   background: var(--grey-soft);
   color: var(--ink-2);
   font-weight: 700;
-  white-space: nowrap;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .chip[data-state="ok"], .chip[data-state="auto"] { background: var(--leaf-soft); border-color: #86b392; color: var(--leaf-deep); }
 .chip[data-state="running"] { background: var(--water-soft); border-color: #7ba8bd; color: #144055; }
@@ -630,7 +636,7 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
 @media (max-width: 1040px) {
   .console {
     grid-template-columns: 1fr;
-    grid-template-areas: "stage" "overview" "inspector" "timeline" "workspace";
+    grid-template-areas: "navigation" "stage" "overview" "inspector" "timeline" "workspace";
     padding: var(--s3);
   }
   .stage-frame { height: 560px; }
@@ -646,6 +652,7 @@ input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border: 3px s
   .tool-help, .stage-readout { display: none; }
   .tool-label { display: none; }
   .panel-head { flex-direction: column; }
+  .panel-head > div { flex-basis: auto; }
   .admin-row { grid-template-columns: 40px 1fr; }
   .admin-actions { grid-column: 1 / -1; }
   .foot { padding-inline: var(--s3); }
