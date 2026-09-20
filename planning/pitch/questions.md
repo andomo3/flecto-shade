@@ -4,7 +4,11 @@ The playbook's fifteen questions, turned toward this project, then the ones only
 Every answer follows the playbook's formula: the direct answer in ten seconds, the evidence in twenty, the honest scope in ten.
 Never bluff a capability: nothing here is physical, nothing here is measured, and the answer to an expert's objection opens by conceding it.
 
-Who answers: Ameya takes the data and the simulation, Shannon takes the roof layout and what the fin's publications say, and abba takes the page, the rules, and the figures.
+Who answers, as abba set it on Sunday morning, replacing the earlier split, which had the areas the other way round.
+abba takes the data, the simulation and its assumptions, the research, the figures and the roadmap.
+Shannon takes the fin, its mechanism, what its publications say, the geometry and the roof layout.
+Ameya takes anything on the screen, the rules as the browser runs them, the stack, and why there is no backend.
+On stage there are only two minutes of questions, so that is four answers at most, and nobody adds to a teammate's answer unless asked.
 Anything in square brackets is filled in at the event, from what was actually built.
 Every simulation figure is provisional, from the planner's run in `../plans/packages/H1-zones-light-rain-soil.md`, and is confirmed against `data/processed/headline.json` before it is said.
 
@@ -231,6 +235,62 @@ That is true, and the commit history shows it."
 "One package, one branch, one owner.
 Every expected value was computed from the real data before any code existed, so an agent could not pass by agreeing with its own mistake, and gates ran after every package.
 It is all in `CHECKLIST.md`."
+
+## The ones a judge asks about the simulation itself
+
+Added on Sunday morning with the "what is next" beat.
+abba owns all ten, because they are all about the model, its assumptions, or the roadmap.
+The protocol they refer to is `../docs/research/flectofin-greenhouse-roof/simulation-study-protocol.md`, and the weaknesses are section 2 of `../docs/research/flectofin-greenhouse-roof/simulation-and-field-test-plan.md`.
+
+**It is a simulation. Why should I believe any of it?**
+"You should not believe the numbers. You should check them, and the page is built so that you can.
+Every rule is written down, every figure on the screen is labelled gauge, modelled, simulated or assumed, and two runs of the same day give identical bytes, which a test asserts.
+What it is not is validated: nothing physical was built, and the next thing we do is the study that attacks our own assumptions."
+
+**Which of your assumptions matters most?**
+"We do not know yet, and that is exactly why the study exists.
+Twelve constants in the code are marked ASSUMED, from the soil bucket's size to the hard rain threshold, and the study varies all twelve together and reports the rank correlation of each one with each output.
+That ordering is what tells us which guess to go and source properly first."
+
+**Why Monte Carlo, and not a discrete event tool like Simio or Arena?**
+"Because our roof has no queue.
+Discrete event tools model entities waiting for resources, patients for a bed, parts for a machine. What we have is a system that steps forward in fixed hours under written rules, with uncertain constants and uncertain weather.
+The standard method for that is a time stepped model wrapped in Monte Carlo sampling with a sensitivity analysis on top, and it needs nothing beyond numpy, which we already have."
+
+**Why uniform distributions?**
+"Because we have no evidence for a shape, and a bell curve we invented would claim knowledge we do not have.
+Uniform over plus or minus twenty percent says only that we are unsure within a band, which is true.
+As each constant gets a real source, its range tightens, and the study is rerun."
+
+**How many runs, and how do you know that is enough?**
+"A pilot of a hundred, then the number is derived, not guessed.
+The headline output is a yes or no, whether the three zones still give three different answers to the storm, so the binomial sample size at a five percent half width and the worst case proportion is three hundred and eighty five, and we plan four hundred.
+For the percentiles we bootstrap over the draws, and we report the half widths rather than claiming they are small."
+
+**Is one run per design point enough? Should you not replicate?**
+"The model is deterministic once the constants and the weather are fixed, so a replication would return the identical answer and add nothing.
+Where randomness enters is the sampling of constants, and that is what the four hundred points cover.
+We also hold the weather identical across every draw, which is common random numbers, so a difference between two draws comes from the constants and not from the sky."
+
+**What is your model's worst flaw?**
+"The crop's water use is multiplied by how far the roof is open, so under a shut roof it is zero.
+A shaded plant transpires less and never nothing, so a shut zone's soil never dries, which flatters the wet enough rule and distorts the rain's share.
+It is written down as the first item in our own list of weaknesses, and fixing it is step zero of the study, before any sampling, because a study over a wrong model measures the wrong thing."
+
+**Do your results survive a different year, or a different weather record?**
+"That is the second layer, and we have one result already that says be careful.
+Our own research found that swapping the modelled sky for the weather station on that site changes what the roof does in about a fifth of daylight hours.
+That is a finding about our fragility, not about the roof, and it says the real thing needs a sensor on site and not a satellite."
+
+**What would make you stop?**
+"It is written down before the study runs, which is the point of writing it before.
+If the three zones stop giving three different answers in a meaningful share of draws, the demo's claim depends on our guesses and we say so instead of saying the claim.
+And the field ladder has its own stopping rules: if one fin on a bench does not behave as the publications say, nothing above that rung is worth building."
+
+**What would a grower pay for this?**
+"We do not know, and we make no claim about cost.
+Nothing here is costed, nothing is built, and no figure for yield, energy or water saved comes out of this model by design.
+Before anyone should ask that question, a fin has to survive a bench, then a bed, then a plot trial, and that ladder is written down."
 
 ## Rules for the table
 

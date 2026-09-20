@@ -2,10 +2,20 @@
 
 One sentence: the right light and the right rain depend on the state of one bed, its crop, its stage, the season, and how wet its soil is, and a shade house gives every bed one number, so we simulated a roof of many small hingeless fins that decides bed by bed.
 
-Booth or stage: booth, expo style, judges come to the table for a few minutes.
-Speaker: abba drives.
-Clicks: the judge presses Play, abba only if they decline.
-Q&A by area: Ameya takes the data and the simulation, Shannon takes the roof layout and what is known of the fin from its publications, abba takes the page, the rules, and the figures.
+Two formats, and both are kept.
+The presentation is six minutes of talk and two minutes of questions, decided by abba on Sunday morning, and its script is "6 minutes on stage, three speakers" below.
+The booth cut is the 30, 60 and 3 minute scripts, for a judge who comes to the table.
+
+Speakers, on stage, and the areas they own in questions.
+This is abba's split, and it replaces the earlier one, which had the areas the other way round.
+
+| Speaker | The two minutes they talk | The questions they take |
+|---|---|---|
+| abba | The problem, the market research, the simulation, the limits, what is next | Data, the simulation and its assumptions, the research, the figures, the roadmap |
+| Shannon | Biomimicry, the Flectofin, and the CAD model | The fin, its mechanism, what is known of it from its publications, the geometry, the roof layout |
+| Ameya | The page the grower uses, and the live demo | Anything on the screen, the rules as the browser runs them, the stack, why there is no backend |
+
+At the booth abba drives, the judge presses Play, and abba only presses it if they decline.
 There is no hardware: nothing is on the table to hold, and the judge touches one thing, the Play button.
 
 Placeholders to fill or confirm before this is said out loud.
@@ -135,6 +145,160 @@ Opening line, memorised: "Picture Elena, a foliage grower near Apopka, Florida."
 Closing line, memorised: [abba's own line], and until then "Elena still has one roof and one sky.
 Now every bed gets its own answer."
 The ask, said before the close and never after it: "one grower near Apopka to tell us where it is wrong."
+
+## 6 minutes on stage, three speakers, then 2 minutes of questions
+
+This is the format abba confirmed on Sunday morning: six minutes of talk, about two minutes each, then two minutes of questions.
+The running order is the story's order, and it is not the order of the team list: the problem, then the part, then the proof, then what it means.
+abba speaks twice, first and last, because the same voice opening and closing is what a listener remembers, and the two together are abba's two minutes.
+
+| From | To | Speaker | The beat |
+|---|---|---|---|
+| 0:00 | 1:00 | abba | The lens, Elena, the general problem, the market: a fine brain and a blunt hand |
+| 1:00 | 2:35 | Shannon | Why a plant does this without a hinge, the Flectofin and its credit, our CAD of the roof |
+| 2:35 | 4:45 | Ameya | Why Ameya built it, then the page and the live run |
+| 4:45 | 5:50 | abba | What is simulated and what is not, the three next steps, the ask, the close |
+
+It ends at 5:50, ten seconds early, which the playbook asks for.
+
+The counts, taken on 2026-09-20 by counting whitespace separated words in the spoken text only, and taken again after any edit.
+The whole talk is 948 spoken words over 350 seconds, which is 163 words a minute, inside the playbook's 150 to 180.
+
+| Speaker | Spoken words | Seconds | Words a minute |
+|---|---|---|---|
+| abba, opening | 177 | 60 | 177 |
+| Shannon | 277 | 95 | 175 |
+| Ameya | 310 | 130 | 143 |
+| abba, closing | 184 | 65 | 170 |
+
+Ameya's rate is the only one below the range, and that is deliberate: the page holds the screen for 43.8 seconds after Play, and the gaps are the judge watching the roof rather than the speaker filling air.
+The three windows the words must fit inside are the table in the 3 minute script above, and they were not changed.
+Every handoff is one sentence naming the next speaker, said by the speaker who is finishing, so nobody walks on without a cue.
+
+Before this is said out loud, three things are confirmed.
+Ameya confirms the wording of the family story below, because it is Ameya's family and nobody else writes it.
+Shannon confirms the one bracketed sentence about which plant movement the fin was drawn from, from the Lienhard paper the team already has.
+Every figure spoken is one the page itself shows from `day.json`, so it can be checked on the screen in the room, and no figure for the year is spoken, because `headline.json` does not exist.
+
+### abba, 0:00 to 1:00
+
+"Everything you are about to see is a simulation, run over one real day of Central Florida weather, and every number on the screen says where it came from.
+
+Picture Elena, a foliage grower near Apopka, Florida.
+The University of Florida's table for growers like her lists fifty crops, with shade from thirty percent to ninety.
+Even one crop will not sit still: for croton, thirty percent is not enough in summer, and forty seven is too much in winter.
+
+We looked at what a grower can already buy, and the brain is good.
+A climate computer holds a daily light target, and it waters one valve at a time.
+The hand is blunt: one motor pulls up to fifty thousand square feet of roof, all of it at once.
+A fine brain, and a blunt hand.
+So to change a plant's light, Elena moves the plant.
+
+What if the roof moved instead, bed by bed?
+That takes many small parts, and every hinge is a bearing to grease.
+Shannon will tell you what we borrowed instead."
+
+### Shannon, 1:00 to 2:35
+
+"Plants open and close things all day, and they do it without a single hinge.
+A hinge is a wear point. It needs a bearing, and a bearing needs grease.
+A plant bends instead.
+
+The part we used is called the Flectofin, and it is not ours.
+It was developed by ITKE at the University of Stuttgart with Freiburg, published in Bioinspiration and Biomimetics in twenty eleven, and patented as a hingeless, infinitely deformable folding mechanism.
+[Shannon says here, in one sentence, which plant movement it was drawn from, from the Lienhard paper.]
+
+Here is how it works.
+You take a slender backbone and you bend it.
+A blade attached along that backbone is not on a pin: bending the backbone twists the blade sideways, and it opens.
+One elastic part. No hinge, no bearing, nothing to grease.
+
+It has been built at that scale once, as a building facade: the One Ocean pavilion at Yeosu, a hundred and eight moving lamellas in glass fibre reinforced polymer.
+That is a wall. We found no prior proposal to put a Flectofin over crops.
+
+So we drew it. This is our CAD of a shade house roof: columns, primary beams, secondary rails, and a module clamped into every square bay.
+We tessellated that drawing once and committed it, so the roof you are about to see move in a browser is the geometry we drew, and not an artist's impression.
+
+Two limits, before Ameya shows you.
+Nothing physical was built, so we claim nothing about the fin's strength, its life in weather, or its mechanics.
+And in our simulation a zone's roof is one number between shut and open.
+The fin is theirs. Ours is the size of the decision: a bed, and not a building."
+
+### Ameya, 2:35 to 4:50
+
+The first thirty seconds are Ameya's own, and they are said before the laptop is touched.
+It is motivation and never a claim, and the third sentence is the one that keeps it honest.
+
+"Before I show you this, thirty seconds on why I built it.
+My grandmother farmed [where, and Ameya says what they grew].
+She lost a hundred acres, because she could not get water to it.
+I want to be straight with you: this roof would not have saved that land.
+Nothing we built delivers water to a farm that has none.
+But it is why I care where water ends up, and whether it lands on the bed that needs it.
+
+So, this is what a grower would use.
+It runs in a browser, with no network and no backend.
+Three beds, three light classes: a fern, a hydrangea, a blueberry.
+This is the third of June, twenty twenty three: a real rain gauge, and a satellite's sun for the same place.
+
+I will press play. Watch the fern.
+
+It has had its light by eleven, and it shuts.
+The hydrangea by noon.
+The blueberries stay open.
+That is the moment it stops being one roof.
+
+Then the afternoon storm, forty two millimetres, from the real gauge.
+Under cloth, every bed would get all of it.
+Here the hydrangea opens, because its soil is dry.
+The blueberry stays shut, because its soil is wet enough.
+The fern stays shut, because it opted out.
+
+Same rain, three answers, and every bed gives its reason in words, right there.
+That is the whole interface: you never read a gauge, you read a sentence.
+
+Opening cost the hydrangea six mol of light it did not want, and that is the trade.
+One part did both jobs: it shaded at noon, and it let the rain in at three.
+Nine written rules, in plain Python and plain JavaScript.
+No AI is in the loop, the fins never follow the sun, and two runs of the same day give identical output, byte for byte.
+
+Abba will tell you where this goes."
+
+### abba, 4:50 to 5:50
+
+"All of it is simulated.
+Apart from one rain gauge, nothing here is measured.
+The irrigation system stays, because eight months of the year are dry, and this is a shade house and not a glasshouse, because growers keep rain off glass crops on purpose.
+We make no claim about yield, cost, energy, or wind.
+
+Three things next, the most sceptical first.
+We try to break our own model: vary the twelve constants we marked as assumed, and find out which guess the answer depends on.
+Then check our inputs against the weather station on site, which needs no hardware.
+Then the roof keeps a record of what every bed was given, which, paired with soil sensors, is the part that outlives the roof.
+
+I study industrial and operations research, so the simulation is the product today, and that study is the next thing I build.
+No grower has seen this yet, and that is what we want: one grower near Apopka to tell us where it is wrong.
+
+Elena still has one roof and one sky.
+Now every bed gets its own answer."
+
+### The two minutes of questions
+
+Two minutes is four questions at most, so the rule is thirty seconds each and no speech.
+The speaker whose area it is answers, and nobody adds to a teammate's answer unless asked.
+The areas are the table at the top of this file.
+Every answer is the same three moves: the direct answer, the evidence, then the limit.
+
+The four most likely, with the owner:
+
+| Question | Owner | The first sentence of the answer |
+|---|---|---|
+| "It is all simulated. Why should I believe it?" | abba | "You should not believe the numbers, you should check them, and the page is built so you can." |
+| "Why not just use a shade screen that already moves?" | abba | "Because a screen still gives every bed one number, and the size of the decision is the whole point." |
+| "Did you build the fin? Does it actually work?" | Shannon | "No. It is ITKE's, it is patented, and we built nothing physical, so we claim nothing about how it behaves." |
+| "Where does the browser get the decisions from?" | Ameya | "The same nine rules, run in the browser, and they reproduce the Python for every committed zone." |
+
+The full bank is `questions.md`, and the recovery lines below are the same on stage as at the table.
 
 ## If the year is not ready
 
