@@ -43,7 +43,7 @@ For most teams the one owner per area rule is enough.
 - **Blocker escalation.** Fifteen minutes alone, then the Integrator, then the Builder if it is architecture, then a five minute huddle where someone owns the fix.
 - **Decisions.** Technical to the Builder, design to the Designer, presentation and anything touching the timeline to the Pitch Lead, ties settled fast.
   Write every decision down; if it is not in writing, it did not happen.
-- **Code review.** Nothing to main without a look, the reviewer finds bugs rather than rewriting, a review over five minutes is too big, hotfixes go straight to main with a comment.
+- **Code review.** Use small, tested PRs and a teammate review, including emergency fixes. Follow the repository's `CONTRIBUTING.md`; never push directly to `main`.
 - **Away rule.** Away from the keyboard for more than thirty minutes, post a line in the channel. Assume technical difficulty before malice when someone goes quiet.
 - **Tools.** Discord if remote, WhatsApp if in person, whatever the team already uses either way. Do not spend the first hour on tooling.
 
