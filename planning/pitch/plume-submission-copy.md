@@ -98,27 +98,33 @@ This keeps Shannon's paragraph and adds the systems design, because "how we buil
 
 ### The copy
 
-**The fin.** The Flectofin was modelled in Onshape and rendered in Solidworks. We kept the geometry simple on purpose: two rectangular laminae on a central backbone that buckles, which is the movement the bird of paradise flower makes. That CAD is tessellated once and committed, so the roof you watch move in the browser is the geometry we drew rather than an artist's impression.
+**The fin, by Shannon.** The Flectofin was modelled in Onshape and rendered in Solidworks. The geometry is deliberately simple: two rectangular laminae on a central backbone that buckles, which is the movement the bird of paradise flower makes. That CAD is tessellated once and committed, so the roof you watch move in the browser is the geometry we drew and not an artist's impression.
 
-**The architecture, in one line: decide in Python, draw in JavaScript.** Anything that can be decided ahead of time is decided in Python, and the browser only interpolates between hours and renders. Which words a zone shows, the hour a fin moves, the value on every gauge: all of it is computed by the simulation and written into one 22 KB file, `day.json`. The page reads that file and nothing else.
+**The architecture, by Abba: decide in Python, draw in JavaScript.** This was the first decision and it shaped everything after it. Anything that can be decided ahead of time is decided in the Python simulation, and the browser only interpolates between hours and renders. Which words a zone shows, the hour a fin moves, the value on every gauge: all of it is computed once and written into a single 22 KB file, `day.json`. The page reads that file and nothing else.
 
-That seam is the most important decision we made, and we made it for three reasons.
+We chose that seam for three reasons.
 
-1. **The demo cannot fail on someone else's network.** The page makes no request to anything. A test walks every served file and fails the build if it finds an `http://` outside a comment, so the whole thing runs from a folder with the wifi off.
+1. **The demo cannot fail on a venue's network.** The page makes no request to anything. A test walks every served file and fails the build if it finds an `http://` outside a comment, so the whole thing runs from a folder with the wifi off.
 2. **Every figure has exactly one source.** Because the page cannot compute a headline number, it cannot disagree with the simulation. There is no second implementation to drift.
-3. **It is testable in Python**, where we already had a test suite, rather than in a browser, where we did not.
+3. **It is testable in Python**, where we had a test suite, rather than in a browser, where we did not.
 
-**Where we broke our own rule, and how we made it safe.** A grower adding a new zone in the browser has no precomputed baseline, so the nine rules had to exist in JavaScript too. That is a duplicated implementation, which is exactly the kind of thing that drifts. So a test runs the browser's `rules.js` under Node against every committed zone in `day.json` and asserts the two agree on the roof position, the decision word, and the reason, with soil and light within the rounding. The constants arrive from the simulation in `day.json`, so a number edited in the browser file cannot take effect.
+**The simulation and its contract, by Abba.** The nine rules, their priority of night, then rain, then light, and the soil model live in one Python module. Its expected values were computed from the real weather files and written into the work package *before* any code existed, so an implementation could not pass by agreeing with its own mistake. Every constant we guessed is labelled ASSUMED in the source and declared with its value in the data documentation, and a test fails the build if the two ever disagree.
 
-**Determinism as a property we test, not a hope.** The simulation is a pure function of its inputs and its constants. Two runs of the same day produce byte for byte identical output, and a test asserts it. That is what lets us tell a judge that the roof follows nine written rules with no learned model in the loop, and have it mean something.
+**The renderer and the console, by Ameya.** The roof is drawn from the committed CAD mesh, with the fin deformation computed per frame from a single actuation value, so the shape has one description and the opening fraction the overlay reports falls out of it. The console around it is a state machine over one day: it owns the selected zone, the hour, and the playback, and it renders the same way whether the hour came from a run, a keypress, or a click on the roof. Ameya also built the weather pipeline that turns the raw NASA POWER and NOAA gauge files into the processed year the simulation reads.
 
-**Honesty enforced by the build, not by discipline.** Five gate tests police the claims: one asserts the word "measured" appears nowhere except the single line where it is true of the rain gauge; one asserts every constant we assumed is declared with its value in the data documentation; one fails the build if the page ever claims a saving in water, cost, energy or yield. One of our own commits exists because a code comment tripped that last gate. Writing the rule down was not enough; the rule had to be executable.
+**Where we broke our own rule, and how we made it safe.** A grower adding a zone in the browser has no precomputed baseline, so the nine rules had to exist in JavaScript too. That is a duplicated implementation, which is exactly the thing that drifts. So a test runs the browser's `rules.js` under Node against every committed zone and asserts the two agree on the roof position, the decision word and the reason, with soil and light inside the rounding. The constants arrive from the simulation in `day.json`, so a number edited in the browser file cannot take effect.
 
-**Graceful degradation, by design.** There is a Python API for stored configuration, but the console is built to work without it. When it is absent the page loads the static day, plays it, shows every decision, and displays an explicit offline state instead of an error. A test asserts that path. It is why the live deployment is a static page and the demo is unaffected.
+**Determinism as a tested property, not a hope.** The simulation is a pure function of its inputs and its constants. Two runs of the same day produce byte for byte identical output, and a test asserts it. That is what lets us say the roof follows nine written rules with no learned model in the loop and have it mean something.
+
+**Honesty enforced by the build.** Five gate tests police the claims: one asserts the word "measured" appears nowhere except the single line where it is true of the rain gauge; one asserts every assumed constant is declared with its value; one fails the build if the page ever claims a saving in water, cost, energy or yield. One of our own commits exists because a code comment tripped that last gate. Writing the rule down was not enough. The rule had to be executable.
+
+**Graceful degradation, by design.** There is a Python API for stored configuration, but the console works without it. When it is absent the page loads the static day, plays it, shows every decision, and displays an explicit offline state rather than an error. A test asserts that path, and it is why the live deployment is a static page and the demo is unaffected.
 
 **One palette, two consumers.** The colours are declared once as custom properties in CSS, and the 3D renderer reads the same values through its own table, so the modelled roof cannot drift from the page around it.
 
-**The stack, and why it is boring.** Plain HTML, CSS and vanilla JavaScript, no framework and no build step. Python 3.13 with pandas and numpy for the simulation. The reasoning is the same as the seam: the fewer moving parts between a judge and the demo, the fewer ways it fails at a table at three in the morning.
+**The stack, and why it is boring.** Plain HTML, CSS and vanilla JavaScript, no framework and no build step. Python 3.13 with pandas and numpy for the simulation. Same reasoning as the seam: the fewer moving parts between a judge and the demo, the fewer ways it fails at a table.
+
+> Abba and Ameya each check their own paragraph before this is pasted. The attribution above is drawn from the repository and from who owned which work package, and nobody should have their contribution described by someone else.
 
 ## One correction to make in the existing copy
 
