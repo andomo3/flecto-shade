@@ -422,6 +422,20 @@ def test_health_reports_availability_without_internals(call):
         assert secret not in text
 
 
+def test_health_reports_storage_ready_when_the_database_opens(call):
+    assert call("GET", "/api/health").body["storage"] == "ready"
+
+
+def test_health_stays_up_and_says_so_when_the_database_cannot_open():
+    def broken():
+        raise OSError("no database here")
+
+    response = dispatch(Request("GET", "/api/health", {}, None, {}), db_factory=broken)
+    assert response.status == 200
+    assert response.body["status"] == "ok"
+    assert response.body["storage"] == "unavailable"
+
+
 def test_operating_state_is_never_cached(call, site_zones):
     for path in ("/api/sites/apopka-demo/zones",
                  f"/api/zones/{site_zones[0]['id']}/control-events"):
