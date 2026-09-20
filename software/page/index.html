@@ -22,29 +22,23 @@
   <!-- The correction is the point: this is not a glasshouse that traps heat, it is a
        shade house that lets it go. The struck and the written word are both decorative,
        so the sentence a screen reader gets is spelled out beside them. -->
-  <p class="swap">
-    <span class="swap-stack" aria-hidden="true">
-      <span class="swap-out">Green</span>
-      <span class="swap-in">Shade</span>
-    </span>
-    <span aria-hidden="true">house</span>
-    <span class="reader-only">Not a green house. A shade house.</span>
-  </p>
+  <div class="lede-mark">
+    <h1 class="swap" id="lede-title">
+      <span class="swap-stack" aria-hidden="true">
+        <span class="swap-out">Green</span>
+        <span class="swap-in">Shade</span>
+      </span>
+      <span aria-hidden="true">house</span>
+      <span class="reader-only">Shade house, not a green house.</span>
+    </h1>
 
-  <h1 id="lede-title">Farmers can lose hundreds of acres when irrigation cannot reach their crops</h1>
+    <p class="lede-caption">
+      A simulated roof that decides, bed by bed, where the light and the rain go.
+    </p>
+  </div>
 
-  <!-- What this is, before what it is not. A stranger has about three seconds, and the
-       headline above gives them the problem, so this line has to give them the product. -->
-  <p class="lede-what">
-    So we simulated a shade house roof that decides bed by bed: which bed gets the
-    light, and which bed gets the rain.
-  </p>
-
-  <!-- The bridge. This roof does not solve the loss in the headline, and saying so here
-       is what earns the headline. It is not fine print and it is not moved below. -->
-  <p class="lede-bridge">
-    It does not fix the problem above. It carries no water to land that has none.
-    This is the part we could build, and every figure in it is simulated.
+  <p class="lede-problem">
+    Farmers can lose hundreds of acres when irrigation cannot reach their crops.
   </p>
 
   <p class="lede-act">
@@ -109,7 +103,7 @@
         <h2>Flectofin module, modelled</h2>
         <dl id="module-parts"></dl>
         <p class="module-open">Modelled roof opening <strong id="module-open-value">0%</strong> at actuation <strong id="module-actuation">0.00</strong></p>
-        <p class="module-caveat">A physically informed browser approximation of the mechanism, not a validated mechanical or structural result. Mounting is drawn as a conceptual clamp.</p>
+        <p class="module-caveat">The fin is the Flectofin, by ITKE, University of Stuttgart, patented as EP2320015. This is a physically informed browser approximation of that mechanism, not a validated mechanical or structural result. Mounting is drawn as a conceptual clamp.</p>
       </div>
 
       <div class="stage-fallback" id="stage-fallback" hidden></div>
@@ -237,17 +231,6 @@
   </section>
 </div>
 </main>
-
-<footer class="foot">
-  <p class="foot-lead">This console is a simulation driven by historical weather inputs. It is not connected to a physical shade house, and no value on it is a validated engineering result.</p>
-  <p id="foot-sources"></p>
-  <p id="foot-credit"></p>
-  <details>
-    <summary>Regional rain context and the limits of this model</summary>
-    <p id="foot-region"></p>
-    <p>Every crop, soil, roof, and zone value is modelled or simulated. The roof geometry is a physically informed browser approximation of the Flectofin mechanism, suitable for explaining an operating decision and not for structural or mechanical conclusions. Where a mounting detail is not established by a source it is drawn as a conceptual clamp and labelled as one.</p>
-  </details>
-</footer>
 
 <script src="flectofin.js"></script>
 <script src="rules.js"></script>

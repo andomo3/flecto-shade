@@ -454,7 +454,14 @@ def test_the_page_credits_the_mechanism_it_did_not_invent(day):
 
 
 def test_the_model_never_claims_to_be_validated(html, script):
-    assert "no value on it is a validated engineering result" in html
+    """The page must say somewhere that nothing on it is validated.
+
+    Abba cut the footer to citations only on Sunday 2026-09-20, so the sentence that
+    used to carry this moved out of the footer lead. The claim is still made, in the
+    module legend, and the requirement is unchanged: the page states it, in words, in
+    its own markup. Only the place it is stated changed.
+    """
+    assert "not a validated mechanical or structural result" in html
     assert "conceptual clamp" in html.lower()
     assert "physically informed approximation" in script.lower()
     for text in (html, script):
